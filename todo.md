@@ -24,3 +24,5 @@
 - [x] Replace any mandatory paid provider dependency with a zero-cost browser, free-tier, or self-hosted-compatible fallback while preserving the evaluator-facing voice-to-grounded-answer flow.
 - [x] Add a visible cost-mode declaration and runtime capability status so evaluators can distinguish the zero-cost default from optional external-provider integrations.
 - [x] Make every rubric requirement directly inspectable in the evaluator console through evidence, method metadata, harness traces, benchmark provenance, and explicit failure states rather than relying on undocumented backend behavior.
+- [ ] Measure and report P50, P70, and P100 for at least 100 real-audio Sarvam voice-to-final-answer requests, including browser-to-server transport and transcription, before claiming the literal full-pipeline 200 ms target.
+- [x] Produce a traceable ten-loop evaluator-style report that keeps Sarvam full-path latency, post-transcription RAG latency, pass/fail status, and safety outcomes separate.
