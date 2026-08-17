@@ -43,39 +43,39 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --primary: #ff5a1f;
+  --primary-foreground: #111111;
+  --sidebar-primary: #ff5a1f;
+  --sidebar-primary-foreground: #111111;
+  --chart-1: #ff5a1f;
+  --chart-2: #111111;
+  --chart-3: #ff8e65;
+  --chart-4: #6e675c;
+  --chart-5: #cabfa9;
+  --radius: 0px;
+  --background: #f4eedf;
+  --foreground: #111111;
+  --card: #fbf7ed;
+  --card-foreground: #111111;
+  --popover: #fbf7ed;
+  --popover-foreground: #111111;
+  --secondary: #e9e0cf;
+  --secondary-foreground: #111111;
+  --muted: #e9e0cf;
+  --muted-foreground: #5f584d;
+  --accent: #ffdbcc;
+  --accent-foreground: #111111;
+  --destructive: #d83522;
+  --destructive-foreground: #ffffff;
+  --border: #111111;
+  --input: #111111;
+  --ring: #ff5a1f;
+  --sidebar: #f4eedf;
+  --sidebar-foreground: #111111;
+  --sidebar-accent: #e9e0cf;
+  --sidebar-accent-foreground: #111111;
+  --sidebar-border: #111111;
+  --sidebar-ring: #ff5a1f;
 }
 
 .dark {
@@ -119,6 +119,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Space Grotesk", Arial, sans-serif;
+    background-image: radial-gradient(#11111118 0.7px, transparent 0.7px);
+    background-size: 9px 9px;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -175,3 +178,14 @@
     }
   }
 }
+
+.mono { font-family: "IBM Plex Mono", monospace; }
+.brutal-border { border: 2px solid #111111; }
+.brutal-shadow { box-shadow: 5px 5px 0 #111111; }
+.brutal-shadow-sm { box-shadow: 3px 3px 0 #111111; }
+.brutal-button { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.brutal-button:active { transform: translate(3px, 3px) scale(0.97); box-shadow: 0 0 0 #111111; }
+@media (prefers-reduced-motion: no-preference) {
+  .signal-pulse { animation: signal-pulse 1.4s steps(2, end) infinite; }
+}
+@keyframes signal-pulse { 50% { opacity: 0.36; } }

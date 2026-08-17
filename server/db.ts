@@ -1,7 +1,8 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, ragRuns, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import type { RAGRun } from "@shared/rag";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -89,4 +90,22 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export async function recordRagRun(run: RAGRun): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.insert(ragRuns).values({
+    id: run.requestId,
+    status: run.answer.status,
+    transcript: run.transcript,
+    language: run.detectedLanguage,
+    script: run.detectedScript,
+    answer: run.answer.answer,
+    evidenceIds: JSON.stringify(run.answer.evidenceIds),
+    confidenceBand: run.answer.confidenceBand,
+    refusalReason: run.answer.refusalReason,
+    sttMs: run.latency.sttMs,
+    ragMs: run.latency.ragMs,
+    endToEndMs: run.latency.endToEndMs,
+    trace: JSON.stringify(run.trace),
+  });
+}

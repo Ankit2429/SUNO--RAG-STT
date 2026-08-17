@@ -1,0 +1,26 @@
+# Project TODO
+
+- [x] Define shared typed contracts for voice input, transcription, RAG responses, evidence, guardrails, harness events, metrics, and ingestion manifests.
+- [x] Add schema and persistence for RAG runs, benchmark samples, and ingestion-manifest metadata without storing raw audio by default.
+- [x] Implement reproducible MSMARCO-XI ingestion with streaming parquet inspection, Unicode normalization, language-aware deduplication, and explicit dataset/index versions.
+- [x] Implement semantic sentence-window chunks with bounded sentence overlap and preserved source metadata.
+- [x] Implement paragraph or section chunks with boundary-aware overlap and preserved source metadata.
+- [x] Implement answer-centered context windows for labeled answer-supporting passages.
+- [x] Implement fixed-window fallback chunks for malformed or unstructured passages.
+- [x] Implement query-linked evaluation records without leaking answer data into unrelated retrieval content.
+- [x] Implement Qdrant-backed multilingual dense retrieval with language, source, strategy, and parent metadata filters.
+- [x] Implement parallel lexical retrieval, reciprocal-rank fusion, parent-level deduplication, and bounded reranking.
+- [x] Implement real browser microphone capture with MediaRecorder, permission states, a level indicator, and record/stop controls.
+- [x] Implement server-side Sarvam short-audio transcription with protected secrets, idempotency, bounded exponential-backoff retries, and language/script response fields.
+- [x] Implement the exact harness stage sequence: validate_audio, transcribe, normalize, detect_language, safety/scope_gate, query_route, parallel_retrieve, fuse, rerank, evidence_gate, generate, verify, return.
+- [x] Implement strict structured output with exactly status, answer, evidence IDs, confidence band, and refusal reason.
+- [x] Implement off-topic, unsafe-input, retrieval-sufficiency, prompt-injection, language-mismatch, and hallucination/grounding guardrails with fail-closed behavior.
+- [x] Instrument all pipeline stages and record separate STT, post-transcription RAG, and end-to-end voice timing.
+- [x] Implement a benchmark runner with at least 100 language-balanced adversarial queries and separately reported cold and warm P50, P70, P100, sample, and failure counts.
+- [x] Build the public neo-brutalist evaluator console with cream canvas, 2–3px black borders, square corners, grotesk headings, monospace telemetry, safety-orange signal accents, and exact GROUNDED/REFUSED/ERROR status stamps.
+- [x] Build evidence cards with chunk-strategy tags, harness trace drawer, Method/Index panel, and visible index/manifest metadata.
+- [x] Add unit, integration, and browser tests for chunking, guardrails, harness recovery, latency percentiles, microphone states, and core evaluator flows.
+- [x] Verify the interface visually on desktop and mobile, run the test suite, check production readiness, and save a final checkpoint for delivery.
+- [x] Replace any mandatory paid provider dependency with a zero-cost browser, free-tier, or self-hosted-compatible fallback while preserving the evaluator-facing voice-to-grounded-answer flow.
+- [x] Add a visible cost-mode declaration and runtime capability status so evaluators can distinguish the zero-cost default from optional external-provider integrations.
+- [x] Make every rubric requirement directly inspectable in the evaluator console through evidence, method metadata, harness traces, benchmark provenance, and explicit failure states rather than relying on undocumented backend behavior.
