@@ -48,3 +48,5 @@
 - [x] Add regression coverage for the dataset-first fast path and verify the updated interface visually.
 - [x] Refine lower-page evidence and harness waiting states with intentional source-first placeholder structure, then re-verify them on desktop and mobile.
 - [x] Strengthen the SvaraProof signature motif and wordmark hierarchy so the identity is more ownable across the header and supporting panels.
+- [x] Inspect the user-supplied benchmark.py, validate its safety and measurement compatibility, and preserve any valid supplemental benchmark evidence (the supplied file contains only unrelated instructions, so no benchmark code was executed or integrated).
+- [x] Run and preserve a native 300-request browser-originated public-ingress voice benchmark using the verified SvaraProof runner, reporting successful-trial percentiles and provider failures separately.

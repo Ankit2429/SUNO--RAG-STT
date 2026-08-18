@@ -1,0 +1,3079 @@
+{
+  "benchmark": "browser-originated Sarvam voice-to-final-answer replay",
+  "endpoint": "https://3000-ifb42uuseuk387yx2srv1-323c3b4d.us3.manus.computer/api/trpc/voiceRag.ask",
+  "transportScope": "Chromium page-context public-ingress HTTP",
+  "fixtureProfile": "target-languages",
+  "fixtureLanguages": [
+    "en-IN",
+    "kn-IN",
+    "hi-IN",
+    "mr-IN"
+  ],
+  "repetitionsPerLanguage": 75,
+  "requestCount": 300,
+  "failureCount": 3,
+  "browserRoundTripMs": {
+    "p50": 2242,
+    "p70": 2576.6,
+    "p100": 22609.7,
+    "sampleCount": 297
+  },
+  "serverEndToEndMs": {
+    "p50": 2190.84,
+    "p70": 2508.18,
+    "p100": 22559.72,
+    "sampleCount": 297
+  },
+  "sttMs": {
+    "p50": 2190.54,
+    "p70": 2507.89,
+    "p100": 22559.25,
+    "sampleCount": 297
+  },
+  "ragMs": {
+    "p50": 0.31,
+    "p70": 0.35,
+    "p100": 1.02,
+    "sampleCount": 297
+  },
+  "statuses": {
+    "REFUSED": 149,
+    "GROUNDED": 148
+  },
+  "trials": [
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 5049.2,
+      "serverEndToEndMs": 4253.13,
+      "sttMs": 4253.04,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 3605.4,
+      "serverEndToEndMs": 3290.53,
+      "sttMs": 3290.19,
+      "ragMs": 0.33,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1588.7,
+      "serverEndToEndMs": 1534.33,
+      "sttMs": 1533.79,
+      "ragMs": 0.53,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1561.3,
+      "serverEndToEndMs": 1504.83,
+      "sttMs": 1504.49,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2255.8,
+      "serverEndToEndMs": 2197.11,
+      "sttMs": 2197.03,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2383.9,
+      "serverEndToEndMs": 2331.08,
+      "sttMs": 2330.66,
+      "ragMs": 0.41,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1998.4,
+      "serverEndToEndMs": 1939.5,
+      "sttMs": 1939.09,
+      "ragMs": 0.39,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1961.3,
+      "serverEndToEndMs": 1907.13,
+      "sttMs": 1906.8,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2268.6,
+      "serverEndToEndMs": 2213.46,
+      "sttMs": 2213.37,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 1964.4,
+      "serverEndToEndMs": 1914.09,
+      "sttMs": 1913.77,
+      "ragMs": 0.3,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1435.5,
+      "serverEndToEndMs": 1378.56,
+      "sttMs": 1378.16,
+      "ragMs": 0.39,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1203.7,
+      "serverEndToEndMs": 1145.72,
+      "sttMs": 1145.35,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2118.3,
+      "serverEndToEndMs": 2067.33,
+      "sttMs": 2067.25,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 1899.7,
+      "serverEndToEndMs": 1846.38,
+      "sttMs": 1846.1,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1330.6,
+      "serverEndToEndMs": 1275.37,
+      "sttMs": 1274.96,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1391.5,
+      "serverEndToEndMs": 1332.4,
+      "sttMs": 1332.09,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2082.3,
+      "serverEndToEndMs": 2020.7,
+      "sttMs": 2020.62,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2025.6,
+      "serverEndToEndMs": 1973,
+      "sttMs": 1972.65,
+      "ragMs": 0.34,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1113.7,
+      "serverEndToEndMs": 1056.39,
+      "sttMs": 1056.05,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1431.3,
+      "serverEndToEndMs": 1373.75,
+      "sttMs": 1373.35,
+      "ragMs": 0.38,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2122.8,
+      "serverEndToEndMs": 2070.97,
+      "sttMs": 2070.87,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2046.2,
+      "serverEndToEndMs": 1991.76,
+      "sttMs": 1991.44,
+      "ragMs": 0.31,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2325,
+      "serverEndToEndMs": 2261.12,
+      "sttMs": 2260.62,
+      "ragMs": 0.49,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1742.1,
+      "serverEndToEndMs": 1687.53,
+      "sttMs": 1687.19,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2452.4,
+      "serverEndToEndMs": 2392.48,
+      "sttMs": 2392.39,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 3420.4,
+      "serverEndToEndMs": 3366.77,
+      "sttMs": 3366.44,
+      "ragMs": 0.32,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 4493.9,
+      "serverEndToEndMs": 4434.83,
+      "sttMs": 4434.4,
+      "ragMs": 0.42,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1933.3,
+      "serverEndToEndMs": 1874.64,
+      "sttMs": 1874.35,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2639,
+      "serverEndToEndMs": 2582.53,
+      "sttMs": 2582.42,
+      "ragMs": 0.1,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2220.7,
+      "serverEndToEndMs": 2091.42,
+      "sttMs": 2091.09,
+      "ragMs": 0.31,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1245.4,
+      "serverEndToEndMs": 1192.1,
+      "sttMs": 1191.72,
+      "ragMs": 0.37,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1570.8,
+      "serverEndToEndMs": 1517.49,
+      "sttMs": 1517.08,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2125.3,
+      "serverEndToEndMs": 2076.75,
+      "sttMs": 2076.67,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2586.3,
+      "serverEndToEndMs": 2508.18,
+      "sttMs": 2507.89,
+      "ragMs": 0.28,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1089.2,
+      "serverEndToEndMs": 1031.88,
+      "sttMs": 1031.57,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1416.3,
+      "serverEndToEndMs": 1357.07,
+      "sttMs": 1356.67,
+      "ragMs": 0.39,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2324.7,
+      "serverEndToEndMs": 2274.53,
+      "sttMs": 2274.45,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2038.4,
+      "serverEndToEndMs": 1976.29,
+      "sttMs": 1975.92,
+      "ragMs": 0.36,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1727.1,
+      "serverEndToEndMs": 1670.88,
+      "sttMs": 1670.53,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1718.5,
+      "serverEndToEndMs": 1664.62,
+      "sttMs": 1664.09,
+      "ragMs": 0.52,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2589.5,
+      "serverEndToEndMs": 2525.25,
+      "sttMs": 2525.16,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2161.8,
+      "serverEndToEndMs": 2109.63,
+      "sttMs": 2109.28,
+      "ragMs": 0.34,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1507.3,
+      "serverEndToEndMs": 1446.93,
+      "sttMs": 1446.57,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1238.4,
+      "serverEndToEndMs": 1176.07,
+      "sttMs": 1175.61,
+      "ragMs": 0.45,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2295.6,
+      "serverEndToEndMs": 2240.78,
+      "sttMs": 2240.69,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 3297.1,
+      "serverEndToEndMs": 3235.82,
+      "sttMs": 3235.51,
+      "ragMs": 0.3,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2266,
+      "serverEndToEndMs": 2210.98,
+      "sttMs": 2210.56,
+      "ragMs": 0.41,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1451.5,
+      "serverEndToEndMs": 1384.01,
+      "sttMs": 1383.68,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2502,
+      "serverEndToEndMs": 2448.96,
+      "sttMs": 2448.87,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2471,
+      "serverEndToEndMs": 2410.19,
+      "sttMs": 2409.76,
+      "ragMs": 0.42,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1258.9,
+      "serverEndToEndMs": 1194.1,
+      "sttMs": 1193.79,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1587.6,
+      "serverEndToEndMs": 1535.39,
+      "sttMs": 1535.07,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2236.8,
+      "serverEndToEndMs": 2186.6,
+      "sttMs": 2186.49,
+      "ragMs": 0.1,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2352.1,
+      "serverEndToEndMs": 2290.97,
+      "sttMs": 2290.63,
+      "ragMs": 0.33,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1650.1,
+      "serverEndToEndMs": 1599.39,
+      "sttMs": 1599.09,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1835.1,
+      "serverEndToEndMs": 1781.12,
+      "sttMs": 1780.78,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2178.8,
+      "serverEndToEndMs": 2128.9,
+      "sttMs": 2128.82,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2289.4,
+      "serverEndToEndMs": 2238.09,
+      "sttMs": 2237.8,
+      "ragMs": 0.28,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1596.1,
+      "serverEndToEndMs": 1537.13,
+      "sttMs": 1536.83,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2001.3,
+      "serverEndToEndMs": 1945.18,
+      "sttMs": 1944.86,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2494.8,
+      "serverEndToEndMs": 2439.9,
+      "sttMs": 2439.82,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2831.5,
+      "serverEndToEndMs": 2775.57,
+      "sttMs": 2775.17,
+      "ragMs": 0.4,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1402.8,
+      "serverEndToEndMs": 1351.72,
+      "sttMs": 1351.33,
+      "ragMs": 0.38,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2150.8,
+      "serverEndToEndMs": 2095.27,
+      "sttMs": 2094.84,
+      "ragMs": 0.42,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2661.3,
+      "serverEndToEndMs": 2604.95,
+      "sttMs": 2604.87,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2674.3,
+      "serverEndToEndMs": 2620.62,
+      "sttMs": 2620.3,
+      "ragMs": 0.31,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1965.9,
+      "serverEndToEndMs": 1909.58,
+      "sttMs": 1909.23,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1379.7,
+      "serverEndToEndMs": 1322,
+      "sttMs": 1321.63,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2302.9,
+      "serverEndToEndMs": 2247.92,
+      "sttMs": 2247.84,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2322.4,
+      "serverEndToEndMs": 2270.41,
+      "sttMs": 2270.11,
+      "ragMs": 0.3,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 6333.1,
+      "serverEndToEndMs": 6262.1,
+      "sttMs": 6261.68,
+      "ragMs": 0.41,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2353.9,
+      "serverEndToEndMs": 2293.15,
+      "sttMs": 2292.76,
+      "ragMs": 0.38,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2816.9,
+      "serverEndToEndMs": 2764.39,
+      "sttMs": 2764.31,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2212,
+      "serverEndToEndMs": 2158.91,
+      "sttMs": 2158.6,
+      "ragMs": 0.3,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 3543.3,
+      "serverEndToEndMs": 3486,
+      "sttMs": 3485.64,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 12147.2,
+      "serverEndToEndMs": 12084.52,
+      "sttMs": 12084.2,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2993.2,
+      "serverEndToEndMs": 2930.51,
+      "sttMs": 2930.43,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2602.8,
+      "serverEndToEndMs": 2544.66,
+      "sttMs": 2544.25,
+      "ragMs": 0.4,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2311.9,
+      "serverEndToEndMs": 2256.92,
+      "sttMs": 2256.61,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1780.7,
+      "serverEndToEndMs": 1726.09,
+      "sttMs": 1725.74,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2324.7,
+      "serverEndToEndMs": 2262.27,
+      "sttMs": 2262.18,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2315.3,
+      "serverEndToEndMs": 2262.83,
+      "sttMs": 2262.53,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1119.7,
+      "serverEndToEndMs": 1068.62,
+      "sttMs": 1068.25,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1089.2,
+      "serverEndToEndMs": 1036.23,
+      "sttMs": 1035.92,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2340.7,
+      "serverEndToEndMs": 2277.48,
+      "sttMs": 2277.39,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2317.1,
+      "serverEndToEndMs": 2260.29,
+      "sttMs": 2259.99,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 22609.7,
+      "serverEndToEndMs": 22559.72,
+      "sttMs": 22559.25,
+      "ragMs": 0.46,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2242,
+      "serverEndToEndMs": 2186.32,
+      "sttMs": 2185.84,
+      "ragMs": 0.47,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2188.6,
+      "serverEndToEndMs": 2137.41,
+      "sttMs": 2137.33,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2405.5,
+      "serverEndToEndMs": 2355.21,
+      "sttMs": 2354.89,
+      "ragMs": 0.31,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1922.7,
+      "serverEndToEndMs": 1869.64,
+      "sttMs": 1869.28,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1834.6,
+      "serverEndToEndMs": 1771.36,
+      "sttMs": 1771.05,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2420.8,
+      "serverEndToEndMs": 2366.08,
+      "sttMs": 2365.94,
+      "ragMs": 0.13,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 1895.9,
+      "serverEndToEndMs": 1839.84,
+      "sttMs": 1839.56,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1249.4,
+      "serverEndToEndMs": 1189.83,
+      "sttMs": 1189.47,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2790.3,
+      "serverEndToEndMs": 2733.99,
+      "sttMs": 2733.66,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2421.1,
+      "serverEndToEndMs": 2366.73,
+      "sttMs": 2366.65,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2115,
+      "serverEndToEndMs": 2063.23,
+      "sttMs": 2062.95,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1906.7,
+      "serverEndToEndMs": 1855.1,
+      "sttMs": 1854.75,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1360.1,
+      "serverEndToEndMs": 1305.72,
+      "sttMs": 1305.35,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2135.8,
+      "serverEndToEndMs": 2086.75,
+      "sttMs": 2086.64,
+      "ragMs": 0.1,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2227.7,
+      "serverEndToEndMs": 2176.7,
+      "sttMs": 2176.42,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1422,
+      "serverEndToEndMs": 1367.33,
+      "sttMs": 1366.92,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1473,
+      "serverEndToEndMs": 1417.85,
+      "sttMs": 1417.53,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2364,
+      "serverEndToEndMs": 2311.11,
+      "sttMs": 2311.02,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2089.1,
+      "serverEndToEndMs": 2037.15,
+      "sttMs": 2036.8,
+      "ragMs": 0.34,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1087.1,
+      "serverEndToEndMs": 1036.51,
+      "sttMs": 1036.1,
+      "ragMs": 0.41,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 8763.2,
+      "serverEndToEndMs": 8677.18,
+      "sttMs": 8676.82,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2737.7,
+      "serverEndToEndMs": 2681.23,
+      "sttMs": 2681.15,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2992.3,
+      "serverEndToEndMs": 2939.77,
+      "sttMs": 2939.45,
+      "ragMs": 0.31,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2286.1,
+      "serverEndToEndMs": 2234.19,
+      "sttMs": 2233.7,
+      "ragMs": 0.48,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2303.9,
+      "serverEndToEndMs": 2252.96,
+      "sttMs": 2252.61,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2740.6,
+      "serverEndToEndMs": 2673.82,
+      "sttMs": 2673.74,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 3788.8,
+      "serverEndToEndMs": 3739.84,
+      "sttMs": 3739.52,
+      "ragMs": 0.31,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2032.5,
+      "serverEndToEndMs": 1981.15,
+      "sttMs": 1980.81,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1741.7,
+      "serverEndToEndMs": 1677.5,
+      "sttMs": 1677.15,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2177.1,
+      "serverEndToEndMs": 2126.48,
+      "sttMs": 2126.39,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2126.1,
+      "serverEndToEndMs": 2076.95,
+      "sttMs": 2076.62,
+      "ragMs": 0.32,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1520.4,
+      "serverEndToEndMs": 1473.34,
+      "sttMs": 1473.01,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1554.2,
+      "serverEndToEndMs": 1503.57,
+      "sttMs": 1503.21,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2435.2,
+      "serverEndToEndMs": 2386.87,
+      "sttMs": 2386.77,
+      "ragMs": 0.09,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2674.6,
+      "serverEndToEndMs": 2622.79,
+      "sttMs": 2622.5,
+      "ragMs": 0.28,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2523.2,
+      "serverEndToEndMs": 2469.66,
+      "sttMs": 2469.32,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1658.9,
+      "serverEndToEndMs": 1606.9,
+      "sttMs": 1606.42,
+      "ragMs": 0.47,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2673.8,
+      "serverEndToEndMs": 2620.97,
+      "sttMs": 2620.89,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2200.5,
+      "serverEndToEndMs": 2144.22,
+      "sttMs": 2143.87,
+      "ragMs": 0.34,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1918.9,
+      "serverEndToEndMs": 1869.4,
+      "sttMs": 1868.96,
+      "ragMs": 0.43,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1545.3,
+      "serverEndToEndMs": 1494.35,
+      "sttMs": 1493.98,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2410.7,
+      "serverEndToEndMs": 2354.26,
+      "sttMs": 2354.18,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2089.3,
+      "serverEndToEndMs": 2037.3,
+      "sttMs": 2036.94,
+      "ragMs": 0.35,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1551.7,
+      "serverEndToEndMs": 1494.34,
+      "sttMs": 1493.93,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1824.2,
+      "serverEndToEndMs": 1773.63,
+      "sttMs": 1773.3,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2360.1,
+      "serverEndToEndMs": 2313,
+      "sttMs": 2312.92,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2499.7,
+      "serverEndToEndMs": 2436.97,
+      "sttMs": 2436.69,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1466.7,
+      "serverEndToEndMs": 1416.22,
+      "sttMs": 1415.87,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1546.7,
+      "serverEndToEndMs": 1494.23,
+      "sttMs": 1493.89,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2596.6,
+      "serverEndToEndMs": 2549.26,
+      "sttMs": 2549.14,
+      "ragMs": 0.11,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 18454,
+      "serverEndToEndMs": 18403.83,
+      "sttMs": 18403.52,
+      "ragMs": 0.3,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 3012.1,
+      "serverEndToEndMs": 2960.29,
+      "sttMs": 2959.97,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1809.1,
+      "serverEndToEndMs": 1758.51,
+      "sttMs": 1758.21,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 3257.6,
+      "serverEndToEndMs": 3206.69,
+      "sttMs": 3206.61,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2303.5,
+      "serverEndToEndMs": 2256.12,
+      "sttMs": 2255.76,
+      "ragMs": 0.35,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1742.2,
+      "serverEndToEndMs": 1679.49,
+      "sttMs": 1678.82,
+      "ragMs": 0.66,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1582.2,
+      "serverEndToEndMs": 1532.44,
+      "sttMs": 1532.1,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2163,
+      "serverEndToEndMs": 2115.03,
+      "sttMs": 2114.94,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2081.7,
+      "serverEndToEndMs": 1997.19,
+      "sttMs": 1996.9,
+      "ragMs": 0.28,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1368,
+      "serverEndToEndMs": 1313.24,
+      "sttMs": 1312.79,
+      "ragMs": 0.44,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 3377.9,
+      "serverEndToEndMs": 3322.71,
+      "sttMs": 3322.17,
+      "ragMs": 0.53,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2713,
+      "serverEndToEndMs": 2665.4,
+      "sttMs": 2665.31,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2793.7,
+      "serverEndToEndMs": 2743.51,
+      "sttMs": 2743.23,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1916.2,
+      "serverEndToEndMs": 1861.98,
+      "sttMs": 1861.65,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1455,
+      "serverEndToEndMs": 1405.22,
+      "sttMs": 1404.78,
+      "ragMs": 0.44,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2896.2,
+      "serverEndToEndMs": 2848,
+      "sttMs": 2847.92,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2719.9,
+      "serverEndToEndMs": 2673.37,
+      "sttMs": 2673.07,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1600.3,
+      "serverEndToEndMs": 1551.04,
+      "sttMs": 1550.67,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1575.3,
+      "serverEndToEndMs": 1525.34,
+      "sttMs": 1525.01,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2525,
+      "serverEndToEndMs": 2472.34,
+      "sttMs": 2472.24,
+      "ragMs": 0.09,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2239.6,
+      "serverEndToEndMs": 2190.84,
+      "sttMs": 2190.54,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1617.2,
+      "serverEndToEndMs": 1562.88,
+      "sttMs": 1562.47,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 3971.5,
+      "serverEndToEndMs": 3903.45,
+      "sttMs": 3903.13,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2619.4,
+      "serverEndToEndMs": 2568.43,
+      "sttMs": 2568.34,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 5462.5,
+      "serverEndToEndMs": 5406.27,
+      "sttMs": 5405.99,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2172.8,
+      "serverEndToEndMs": 2097.63,
+      "sttMs": 2097.3,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1954.5,
+      "serverEndToEndMs": 1907.5,
+      "sttMs": 1907.17,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2408.4,
+      "serverEndToEndMs": 2361.44,
+      "sttMs": 2361.32,
+      "ragMs": 0.11,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2468.4,
+      "serverEndToEndMs": 2420.36,
+      "sttMs": 2419.89,
+      "ragMs": 0.45,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1636.3,
+      "serverEndToEndMs": 1569.84,
+      "sttMs": 1569.4,
+      "ragMs": 0.43,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1388.3,
+      "serverEndToEndMs": 1336.83,
+      "sttMs": 1336.53,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2718.1,
+      "serverEndToEndMs": 2667.21,
+      "sttMs": 2667.14,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 1859.5,
+      "serverEndToEndMs": 1808.66,
+      "sttMs": 1808.26,
+      "ragMs": 0.37,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1547.9,
+      "serverEndToEndMs": 1497.73,
+      "sttMs": 1497.4,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1563.9,
+      "serverEndToEndMs": 1512.57,
+      "sttMs": 1512.2,
+      "ragMs": 0.36,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2576.6,
+      "serverEndToEndMs": 2529.61,
+      "sttMs": 2529.53,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2846.5,
+      "serverEndToEndMs": 2799.05,
+      "sttMs": 2798.77,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1823.6,
+      "serverEndToEndMs": 1768.8,
+      "sttMs": 1768.41,
+      "ragMs": 0.38,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2487.6,
+      "serverEndToEndMs": 2439.83,
+      "sttMs": 2439.52,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2794.5,
+      "serverEndToEndMs": 2739.79,
+      "sttMs": 2739.7,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 3684.7,
+      "serverEndToEndMs": 3635.01,
+      "sttMs": 3634.71,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 3034.6,
+      "serverEndToEndMs": 2969.54,
+      "sttMs": 2969.24,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2625.8,
+      "serverEndToEndMs": 2560.17,
+      "sttMs": 2559.79,
+      "ragMs": 0.37,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2470.4,
+      "serverEndToEndMs": 2418.48,
+      "sttMs": 2418.34,
+      "ragMs": 0.13,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 3414.5,
+      "serverEndToEndMs": 3364.64,
+      "sttMs": 3364.29,
+      "ragMs": 0.34,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2865.5,
+      "serverEndToEndMs": 2816.1,
+      "sttMs": 2815.81,
+      "ragMs": 0.28,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2917.2,
+      "serverEndToEndMs": 2866.19,
+      "sttMs": 2865.83,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2472.4,
+      "serverEndToEndMs": 2423.74,
+      "sttMs": 2423.66,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2525.9,
+      "serverEndToEndMs": 2473.57,
+      "sttMs": 2473.27,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 4731.1,
+      "serverEndToEndMs": 4674.53,
+      "sttMs": 4674.1,
+      "ragMs": 0.41,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 3263.1,
+      "serverEndToEndMs": 3201.95,
+      "sttMs": 3201.53,
+      "ragMs": 0.41,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 4855.6,
+      "serverEndToEndMs": 4808.83,
+      "sttMs": 4808.73,
+      "ragMs": 0.09,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 4862.4,
+      "serverEndToEndMs": 4810.65,
+      "sttMs": 4810.24,
+      "ragMs": 0.4,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1950.1,
+      "serverEndToEndMs": 1900.29,
+      "sttMs": 1899.96,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1881.1,
+      "serverEndToEndMs": 1830.2,
+      "sttMs": 1829.8,
+      "ragMs": 0.39,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2091.4,
+      "serverEndToEndMs": 2042.52,
+      "sttMs": 2042.45,
+      "ragMs": 0.06,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2190.9,
+      "serverEndToEndMs": 2142.81,
+      "sttMs": 2142.52,
+      "ragMs": 0.28,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1865.7,
+      "serverEndToEndMs": 1809.19,
+      "sttMs": 1808.85,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1315.3,
+      "serverEndToEndMs": 1259.3,
+      "sttMs": 1258.95,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2946.6,
+      "serverEndToEndMs": 2901.4,
+      "sttMs": 2901.3,
+      "ragMs": 0.09,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2169.2,
+      "serverEndToEndMs": 2121.73,
+      "sttMs": 2121.4,
+      "ragMs": 0.32,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1456.3,
+      "serverEndToEndMs": 1402.53,
+      "sttMs": 1402.18,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1408.1,
+      "serverEndToEndMs": 1352.2,
+      "sttMs": 1351.73,
+      "ragMs": 0.46,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2313.6,
+      "serverEndToEndMs": 2264.37,
+      "sttMs": 2264.26,
+      "ragMs": 0.1,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2153.5,
+      "serverEndToEndMs": 2092.83,
+      "sttMs": 2092.28,
+      "ragMs": 0.53,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1134.6,
+      "serverEndToEndMs": 1079.07,
+      "sttMs": 1078.24,
+      "ragMs": 0.82,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1371.8,
+      "serverEndToEndMs": 1311.55,
+      "sttMs": 1311.23,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2187.9,
+      "serverEndToEndMs": 2139.88,
+      "sttMs": 2139.8,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2288.1,
+      "serverEndToEndMs": 2239.77,
+      "sttMs": 2239.42,
+      "ragMs": 0.34,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2800.8,
+      "serverEndToEndMs": 2748.67,
+      "sttMs": 2748.36,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1716,
+      "serverEndToEndMs": 1660.77,
+      "sttMs": 1660.43,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 4712.8,
+      "serverEndToEndMs": 4665.49,
+      "sttMs": 4665.41,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2407.9,
+      "serverEndToEndMs": 2361.67,
+      "sttMs": 2361.37,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2389.9,
+      "serverEndToEndMs": 2331.71,
+      "sttMs": 2331.4,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2773.4,
+      "serverEndToEndMs": 2716.97,
+      "sttMs": 2716.56,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 3580.1,
+      "serverEndToEndMs": 3534.29,
+      "sttMs": 3534.21,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 7138.9,
+      "serverEndToEndMs": 7085.66,
+      "sttMs": 7085.36,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 3202.7,
+      "serverEndToEndMs": 3152.17,
+      "sttMs": 3151.86,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 2500.3,
+      "serverEndToEndMs": 2449.94,
+      "sttMs": 2449.62,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2295,
+      "serverEndToEndMs": 2247.27,
+      "sttMs": 2247.17,
+      "ragMs": 0.09,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2478.7,
+      "serverEndToEndMs": 2429.87,
+      "sttMs": 2429.5,
+      "ragMs": 0.35,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2415.9,
+      "serverEndToEndMs": 2364.22,
+      "sttMs": 2363.8,
+      "ragMs": 0.41,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": false,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 15971.9,
+      "serverEndToEndMs": 15889.95,
+      "sttMs": 15889.94,
+      "ragMs": 0,
+      "status": "ERROR",
+      "error": "Speech-to-text failed after bounded retries."
+    },
+    {
+      "ok": false,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 10546.8,
+      "serverEndToEndMs": 10491.19,
+      "sttMs": 10491.18,
+      "ragMs": 0,
+      "status": "ERROR",
+      "error": "Speech-to-text failed after bounded retries."
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 13245.7,
+      "serverEndToEndMs": 13193,
+      "sttMs": 13192.72,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 3356.4,
+      "serverEndToEndMs": 3280.45,
+      "sttMs": 3280.07,
+      "ragMs": 0.38,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 8789.1,
+      "serverEndToEndMs": 8740.32,
+      "sttMs": 8739.79,
+      "ragMs": 0.52,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 6564.8,
+      "serverEndToEndMs": 6515.4,
+      "sttMs": 6515.31,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 17162.3,
+      "serverEndToEndMs": 17112.63,
+      "sttMs": 17112.3,
+      "ragMs": 0.32,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 11263.6,
+      "serverEndToEndMs": 11211.78,
+      "sttMs": 11211.44,
+      "ragMs": 0.33,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 3180.6,
+      "serverEndToEndMs": 3125.69,
+      "sttMs": 3125.27,
+      "ragMs": 0.41,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 3204.5,
+      "serverEndToEndMs": 3156.45,
+      "sttMs": 3156.37,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2358.7,
+      "serverEndToEndMs": 2303.64,
+      "sttMs": 2303.23,
+      "ragMs": 0.4,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2090.6,
+      "serverEndToEndMs": 2033.51,
+      "sttMs": 2033.07,
+      "ragMs": 0.43,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 10113.4,
+      "serverEndToEndMs": 10055.05,
+      "sttMs": 10054.72,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2856.7,
+      "serverEndToEndMs": 2805.63,
+      "sttMs": 2805.55,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2704.3,
+      "serverEndToEndMs": 2649.28,
+      "sttMs": 2648.98,
+      "ragMs": 0.29,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2135.1,
+      "serverEndToEndMs": 2078,
+      "sttMs": 2077.64,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1939.3,
+      "serverEndToEndMs": 1891.33,
+      "sttMs": 1890.92,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 3419.3,
+      "serverEndToEndMs": 3363.64,
+      "sttMs": 3363.56,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 5172,
+      "serverEndToEndMs": 5113.38,
+      "sttMs": 5113.11,
+      "ragMs": 0.26,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 8222.8,
+      "serverEndToEndMs": 8170.44,
+      "sttMs": 8170.13,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": false,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 25056.6,
+      "serverEndToEndMs": 25001.09,
+      "sttMs": 25001.08,
+      "ragMs": 0,
+      "status": "ERROR",
+      "error": "Speech-to-text failed after bounded retries."
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 4593.2,
+      "serverEndToEndMs": 4545.35,
+      "sttMs": 4545.28,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 4176.2,
+      "serverEndToEndMs": 4123.74,
+      "sttMs": 4123.4,
+      "ragMs": 0.33,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 18159.6,
+      "serverEndToEndMs": 18109.03,
+      "sttMs": 18108.72,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 19223.4,
+      "serverEndToEndMs": 19169.21,
+      "sttMs": 19168.85,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 5453,
+      "serverEndToEndMs": 5378.3,
+      "sttMs": 5378.23,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 4901.8,
+      "serverEndToEndMs": 4851.81,
+      "sttMs": 4851.35,
+      "ragMs": 0.45,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 2808.8,
+      "serverEndToEndMs": 2757.83,
+      "sttMs": 2757.52,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 17415.5,
+      "serverEndToEndMs": 17349.89,
+      "sttMs": 17349.55,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 3172.8,
+      "serverEndToEndMs": 3125.86,
+      "sttMs": 3125.77,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 3852.6,
+      "serverEndToEndMs": 3800.27,
+      "sttMs": 3799.7,
+      "ragMs": 0.54,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 4153.6,
+      "serverEndToEndMs": 4092.01,
+      "sttMs": 4091.61,
+      "ragMs": 0.39,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 5682.7,
+      "serverEndToEndMs": 5634.16,
+      "sttMs": 5633.84,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 13274.6,
+      "serverEndToEndMs": 13223,
+      "sttMs": 13222.93,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2722,
+      "serverEndToEndMs": 2671.75,
+      "sttMs": 2671.4,
+      "ragMs": 0.34,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1920.3,
+      "serverEndToEndMs": 1862.5,
+      "sttMs": 1862.19,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1664.5,
+      "serverEndToEndMs": 1613.49,
+      "sttMs": 1613.17,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2399.1,
+      "serverEndToEndMs": 2349.66,
+      "sttMs": 2349.57,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2240.2,
+      "serverEndToEndMs": 2187.75,
+      "sttMs": 2187.39,
+      "ragMs": 0.35,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1342.2,
+      "serverEndToEndMs": 1293.09,
+      "sttMs": 1292.77,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1086.7,
+      "serverEndToEndMs": 1032.16,
+      "sttMs": 1031.86,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2144.9,
+      "serverEndToEndMs": 2094.24,
+      "sttMs": 2094.15,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 1975.9,
+      "serverEndToEndMs": 1930.87,
+      "sttMs": 1930.58,
+      "ragMs": 0.28,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1361.2,
+      "serverEndToEndMs": 1309.97,
+      "sttMs": 1309.65,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1134.4,
+      "serverEndToEndMs": 1085.21,
+      "sttMs": 1084.89,
+      "ragMs": 0.29,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2242,
+      "serverEndToEndMs": 2186.44,
+      "sttMs": 2186.36,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2063.6,
+      "serverEndToEndMs": 1973.21,
+      "sttMs": 1972.93,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1643.6,
+      "serverEndToEndMs": 1584.93,
+      "sttMs": 1584.58,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1375.9,
+      "serverEndToEndMs": 1298.7,
+      "sttMs": 1298.34,
+      "ragMs": 0.35,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2257.1,
+      "serverEndToEndMs": 2205.46,
+      "sttMs": 2205.37,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2015.1,
+      "serverEndToEndMs": 1960.87,
+      "sttMs": 1960.45,
+      "ragMs": 0.4,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1295.1,
+      "serverEndToEndMs": 1245.96,
+      "sttMs": 1245.08,
+      "ragMs": 0.87,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1366.6,
+      "serverEndToEndMs": 1313.23,
+      "sttMs": 1312.85,
+      "ragMs": 0.37,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2263.7,
+      "serverEndToEndMs": 2213.24,
+      "sttMs": 2213.16,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2053.4,
+      "serverEndToEndMs": 2003.43,
+      "sttMs": 2003.15,
+      "ragMs": 0.27,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1392.7,
+      "serverEndToEndMs": 1342.43,
+      "sttMs": 1342.12,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1320.2,
+      "serverEndToEndMs": 1264.93,
+      "sttMs": 1264.61,
+      "ragMs": 0.31,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2294.7,
+      "serverEndToEndMs": 2239.5,
+      "sttMs": 2239.42,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2148.6,
+      "serverEndToEndMs": 2092.78,
+      "sttMs": 2092.5,
+      "ragMs": 0.28,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1186.4,
+      "serverEndToEndMs": 1119.16,
+      "sttMs": 1118.83,
+      "ragMs": 0.32,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1193.5,
+      "serverEndToEndMs": 1142.74,
+      "sttMs": 1142.36,
+      "ragMs": 0.37,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2299.9,
+      "serverEndToEndMs": 2248.22,
+      "sttMs": 2248.14,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 1777.3,
+      "serverEndToEndMs": 1719.41,
+      "sttMs": 1719.14,
+      "ragMs": 0.26,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1525.7,
+      "serverEndToEndMs": 1470.28,
+      "sttMs": 1469.93,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1241.7,
+      "serverEndToEndMs": 1185.39,
+      "sttMs": 1185.08,
+      "ragMs": 0.3,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2296.9,
+      "serverEndToEndMs": 2250.82,
+      "sttMs": 2250.74,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2173,
+      "serverEndToEndMs": 2126.26,
+      "sttMs": 2125.95,
+      "ragMs": 0.3,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1319.9,
+      "serverEndToEndMs": 1271.26,
+      "sttMs": 1270.91,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1097.7,
+      "serverEndToEndMs": 1042.96,
+      "sttMs": 1042.55,
+      "ragMs": 0.4,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2451.1,
+      "serverEndToEndMs": 2402.67,
+      "sttMs": 2402.58,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2409.9,
+      "serverEndToEndMs": 2357.2,
+      "sttMs": 2356.82,
+      "ragMs": 0.37,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1373.9,
+      "serverEndToEndMs": 1324.74,
+      "sttMs": 1324.39,
+      "ragMs": 0.34,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1372.1,
+      "serverEndToEndMs": 1319.62,
+      "sttMs": 1319.22,
+      "ragMs": 0.39,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2197.2,
+      "serverEndToEndMs": 2147.33,
+      "sttMs": 2147.24,
+      "ragMs": 0.08,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 2017.7,
+      "serverEndToEndMs": 1952.82,
+      "sttMs": 1952.3,
+      "ragMs": 0.51,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 1468.8,
+      "serverEndToEndMs": 1415.93,
+      "sttMs": 1414.9,
+      "ragMs": 1.02,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 1341.2,
+      "serverEndToEndMs": 1294.35,
+      "sttMs": 1293.52,
+      "ragMs": 0.82,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 2539.4,
+      "serverEndToEndMs": 2489.68,
+      "sttMs": 2489.6,
+      "ragMs": 0.07,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "kn-IN",
+      "browserRoundTripMs": 4302.7,
+      "serverEndToEndMs": 4252.64,
+      "sttMs": 4252.25,
+      "ragMs": 0.38,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "hi-IN",
+      "browserRoundTripMs": 3563.9,
+      "serverEndToEndMs": 3515.91,
+      "sttMs": 3515.14,
+      "ragMs": 0.77,
+      "status": "GROUNDED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 3488.2,
+      "serverEndToEndMs": 3430.85,
+      "sttMs": 3430.05,
+      "ragMs": 0.79,
+      "status": "GROUNDED",
+      "error": null
+    }
+  ],
+  "failures": [
+    {
+      "ok": false,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 15971.9,
+      "serverEndToEndMs": 15889.95,
+      "sttMs": 15889.94,
+      "ragMs": 0,
+      "status": "ERROR",
+      "error": "Speech-to-text failed after bounded retries."
+    },
+    {
+      "ok": false,
+      "languageHint": "en-IN",
+      "browserRoundTripMs": 10546.8,
+      "serverEndToEndMs": 10491.19,
+      "sttMs": 10491.18,
+      "ragMs": 0,
+      "status": "ERROR",
+      "error": "Speech-to-text failed after bounded retries."
+    },
+    {
+      "ok": false,
+      "languageHint": "mr-IN",
+      "browserRoundTripMs": 25056.6,
+      "serverEndToEndMs": 25001.09,
+      "sttMs": 25001.08,
+      "ragMs": 0,
+      "status": "ERROR",
+      "error": "Speech-to-text failed after bounded retries."
+    }
+  ],
+  "measuredAt": "2026-08-18T04:31:59.713Z",
+  "caveat": "Each request originates in a real Chromium page loaded at the public evaluator origin. Timing begins after a prerecorded real-audio fixture is available, and therefore excludes microphone permission, capture duration, and MediaRecorder encoding while including the browser page-context fetch and public ingress."
+}
