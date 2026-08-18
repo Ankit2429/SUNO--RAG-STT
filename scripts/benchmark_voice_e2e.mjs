@@ -3,14 +3,26 @@ import { performance } from "node:perf_hooks";
 
 const endpoint = process.env.VOICE_RAG_URL || "http://localhost:3000/api/trpc/voiceRag.ask";
 const repetitions = Number(process.env.REPETITIONS || 20);
+const fixtureProfile = process.env.FIXTURE_PROFILE || "dataset";
+const transportScope = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/)/i.test(endpoint) ? "local-server HTTP" : "public-ingress HTTP";
 
-const fixtures = [
+const datasetFixtures = [
   { languageHint: "hi-IN", script: "Devanagari", path: "/home/ubuntu/voice-benchmark/hindi.wav" },
   { languageHint: "ta-IN", script: "Tamil", path: "/home/ubuntu/voice-benchmark/tamil.wav" },
   { languageHint: "te-IN", script: "Telugu", path: "/home/ubuntu/voice-benchmark/telugu.wav" },
   { languageHint: "bn-IN", script: "Bengali", path: "/home/ubuntu/voice-benchmark/bengali.wav" },
   { languageHint: "mr-IN", script: "Devanagari", path: "/home/ubuntu/voice-benchmark/marathi.wav" },
 ];
+
+const targetLanguageFixtures = [
+  { languageHint: "en-IN", script: "Latin", mimeType: "audio/webm", path: "/home/ubuntu/voice-benchmark/external/english-osr-10s.webm" },
+  { languageHint: "kn-IN", script: "Kannada", mimeType: "audio/webm", path: "/home/ubuntu/voice-benchmark/external/kannada-bengaluru-10s.webm" },
+  { languageHint: "hi-IN", script: "Devanagari", mimeType: "audio/wav", path: "/home/ubuntu/voice-benchmark/hindi.wav" },
+  { languageHint: "mr-IN", script: "Devanagari", mimeType: "audio/wav", path: "/home/ubuntu/voice-benchmark/marathi.wav" },
+];
+
+if (fixtureProfile !== "dataset" && fixtureProfile !== "target-languages") throw new Error(`Unsupported FIXTURE_PROFILE: ${fixtureProfile}`);
+const fixtures = fixtureProfile === "target-languages" ? targetLanguageFixtures : datasetFixtures;
 
 function percentile(values, p) {
   const sorted = [...values].sort((a, b) => a - b);
@@ -30,7 +42,7 @@ function summarize(values) {
 async function callVoiceRoute(fixture) {
   const audioBase64 = (await readFile(fixture.path)).toString("base64");
   const input = {
-    json: { audioBase64, mimeType: "audio/wav", languageHint: fixture.languageHint },
+    json: { audioBase64, mimeType: fixture.mimeType || "audio/wav", languageHint: fixture.languageHint },
   };
   const startedAt = performance.now();
   const response = await fetch(endpoint, {
@@ -58,21 +70,21 @@ async function callVoiceRoute(fixture) {
   };
 }
 
-const calls = [];
-for (let round = 0; round < repetitions; round += 1) {
-  for (const fixture of fixtures) calls.push(callVoiceRoute(fixture));
-}
-
 const results = [];
-for (const call of calls) {
-  // Sequential replay prevents synthetic parallel pressure from invalidating a latency percentile.
-  results.push(await call);
+for (let round = 0; round < repetitions; round += 1) {
+  for (const fixture of fixtures) {
+    // Sequential replay prevents synthetic parallel pressure from invalidating a latency percentile.
+    results.push(await callVoiceRoute(fixture));
+  }
 }
 
 const successful = results.filter(result => result.ok);
 const failed = results.filter(result => !result.ok);
 const report = {
   benchmark: "controlled Sarvam voice-to-final-answer replay",
+  endpoint,
+  transportScope,
+  fixtureProfile,
   fixtureLanguages: fixtures.map(fixture => fixture.languageHint),
   repetitionsPerLanguage: repetitions,
   requestCount: results.length,
@@ -97,7 +109,7 @@ const report = {
   })),
   failures: failed.map(({ fixture, applicationRoundTripMs, error }) => ({ languageHint: fixture.languageHint, applicationRoundTripMs, error })),
   measuredAt: new Date().toISOString(),
-  caveat: "Application round trip starts after the recorded audio fixture exists. It includes HTTP submission, server execution, Sarvam STT, vector retrieval, guardrails, and answer return, but not human recording time or remote user-to-host network distance.",
+  caveat: "Application round trip starts after the recorded audio fixture exists. It includes fixture-client HTTP submission, public ingress when configured, server execution, Sarvam STT, vector retrieval, guardrails, and answer return. It excludes human recording time, browser microphone permission, and MediaRecorder encoding time.",
 };
 
 console.log(JSON.stringify(report, null, 2));

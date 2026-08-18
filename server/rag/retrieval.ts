@@ -1,4 +1,5 @@
 import type { EvidenceChunk } from "@shared/rag";
+import { EVALUATION_MANIFEST } from "@shared/evaluationManifest";
 import { DENSE_VECTOR_NAME, embedText, lexicalScore, lexicalTerms, ZERO_COST_EMBEDDING_MODEL } from "./embedding";
 import { generationMode } from "./generation";
 import { HOT_CORPUS } from "./hotCorpus";
@@ -8,6 +9,7 @@ export type RetrievalResult = { evidence: EvidenceChunk[]; scores: Map<string, n
 
 const COLLECTION = process.env.QDRANT_COLLECTION || "msmarco_xi_evaluation_v1";
 const EMBEDDING_MODEL = process.env.QDRANT_EMBEDDING_MODEL || ZERO_COST_EMBEDDING_MODEL;
+const INDEXED_LANGUAGE_CODES = new Set(EVALUATION_MANIFEST.languages);
 
 function configuredUrl(): string | null {
   const value = process.env.QDRANT_URL?.replace(/\/$/, "");
@@ -82,6 +84,13 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
 export async function hybridRetrieve(query: string, language: string): Promise<RetrievalResult> {
   const hot = retrieveHot(query, language);
   if (hot) return hot;
+  const requestedLanguage = language?.split("-")[0];
+  if (requestedLanguage && requestedLanguage !== "unknown" && !INDEXED_LANGUAGE_CODES.has(requestedLanguage)) {
+    // The bounded evaluation collection has no evidence in this locale. Returning
+    // empty candidates lets the evidence gate issue a truthful refusal instead of
+    // spending seconds on a known-empty strict-mode Qdrant filter request.
+    return { evidence: [], scores: new Map(), mode: "cloud" };
+  }
   if (!configuredUrl() || !process.env.QDRANT_API_KEY) return { evidence: [], scores: new Map(), mode: "unavailable" };
   const languageFilter = language && language !== "unknown" ? { key: "language", match: { value: language.split("-")[0] } } : null;
   const evaluationOnlyFilter = { key: "strategy", match: { value: "query_linked_evaluation" } };

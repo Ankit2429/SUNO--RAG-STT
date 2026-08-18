@@ -26,7 +26,7 @@ The five-request replay recorded no errors. Its STT P50/P70/P100 was **3,653.72 
 
 ## Required-language Sarvam replay
 
-The required four locales were then exercised directly against the live `voiceRag.ask` route using real WAV fixtures. The run returned a nonempty transcript and no Sarvam transcription error for every target locale. English used a short Open Speech Repository Harvard-sentence fixture. Kannada used a 25-second, CC BY-SA 4.0 public Bengaluru street-recording segment. Hindi and Marathi used the existing controlled fixtures.
+The required four locales were then exercised directly against the live `voiceRag.ask` route using real audio fixtures. The run returned a nonempty transcript and no Sarvam transcription error for every target locale. English used a short Open Speech Repository Harvard-sentence fixture. Kannada used a CC BY-SA 4.0 public Bengaluru street-recording segment. Hindi and Marathi used the existing controlled fixtures.
 
 | Locale hint | Transcript characters | STT ms | Harness status | Transcription-path outcome |
 |---|---:|---:|---|---|
@@ -42,6 +42,36 @@ The accompanying `scripts/validate_target_voice_locales.mjs` script reproduces t
 ## Browser fallback coverage
 
 The browser fallback uses a tested controller, `configureBrowserFallback`, shared directly by the console. Its tests assert that English, Kannada, Hindi, and Marathi return their exact selected BCP-47 locales to native browser recognition; that a recognized transcript is forwarded through the configured handler; that provider errors remain actionable; and that a completed fallback with no result names the selected language. The standard project suite executes those tests and passed with **9 test files and 24 tests**.
+
+## Final public-ingress 100-request replay
+
+The final benchmark was deliberately run through the public preview’s HTTP ingress, not only against `localhost`. It executed 25 sequential passes of each required language, for **100 real-audio requests**. English and Kannada used ten-second WebM/Opus clips at the same 48 kbps profile selected by the browser recorder; Hindi and Marathi used the controlled WAV fixtures. The application round-trip clock starts after an audio clip already exists and ends on the structured response. It therefore includes fixture-client transport, public ingress, server handling, Sarvam STT, retrieval, guardrails, and response serialization; it excludes human recording and browser permission/encoding time.
+
+| Metric | P50 | P70 | P100 | Sample count |
+|---|---:|---:|---:|---:|
+| Application round trip | 1,921.66 ms | 2,184.12 ms | 5,046.34 ms | 100 |
+| Server end to end | 1,872.73 ms | 2,135.17 ms | 4,847.70 ms | 100 |
+| Sarvam STT | 1,872.64 ms | 2,135.08 ms | 4,847.60 ms | 100 |
+| Post-transcription RAG | 0.14 ms | 1.05 ms | 1.73 ms | 100 |
+
+The run had **0 infrastructure failures**. It returned 25 `GROUNDED` responses and 75 `REFUSED` responses. The refusals are expected fail-closed outcomes where the bounded evidence index does not contain sufficient support for that fixture’s transcript; they are not transcription failures. English and Kannada, which are absent from the five-language bounded collection, now return an immediate evidence-sufficiency refusal rather than entering a known-empty strict-mode Qdrant filter request. The Qdrant bootstrap now creates the required `language` and `strategy` keyword payload indexes, preventing strict-mode filter errors for indexed languages.
+
+> The measured full Sarvam path does **not** meet the 200 ms target: provider STT dominates at a P50 of approximately 1.87 seconds. The independently measured post-transcription RAG segment is within the target at a P100 of 1.73 ms. These figures are reported as observed rather than presented as a target claim.
+
+## Final actual-browser 100-request replay
+
+The Node public-ingress harness above establishes server and ingress behavior, but it is not an actual browser context. To close that gap, a separate Chromium DevTools runner loaded the public evaluator origin and performed every request using the page’s own `fetch()` API. The runner executed **25 sequential repetitions** for each of English, Kannada, Hindi, and Marathi, for **100 requests total**. English and Kannada were real ten-second WebM/Opus clips encoded at the browser recorder’s 48 kbps profile; Hindi and Marathi used the controlled real WAV fixtures.
+
+| Metric | P50 | P70 | P100 | Sample count |
+|---|---:|---:|---:|---:|
+| Browser page-context round trip | 1,382.70 ms | 1,856.20 ms | 3,191.50 ms | 100 |
+| Server end to end | 1,321.07 ms | 1,804.09 ms | 3,120.58 ms | 100 |
+| Sarvam STT | 1,320.45 ms | 1,803.95 ms | 3,120.49 ms | 100 |
+| Post-transcription RAG | 0.17 ms | 0.59 ms | 1.12 ms | 100 |
+
+The actual-browser run had **0 failures**. It returned 25 `GROUNDED` responses and 75 evidence-sufficiency `REFUSED` responses, with no `ERROR` outcomes. Its raw per-trial telemetry is committed at [`docs/benchmark-results/browser-origin-target-language-100-final.json`](./benchmark-results/browser-origin-target-language-100-final.json).
+
+> This browser-originated timing begins once a prerecorded fixture is available. It **includes** a Chromium page-context request, public ingress, server work, Sarvam transcription, retrieval, guardrails, and returned response. It **excludes** microphone permission, the time a person spends speaking, MediaRecorder encoding, and the audio clip’s production time. The full path therefore remains above the 200 ms target because Sarvam STT alone has a P50 of 1.32 seconds; the post-transcription RAG P100 remains 1.12 ms.
 
 ## Reference
 

@@ -48,6 +48,8 @@ const chunks = (await readFile(source, "utf8")).trim().split("\n").filter(Boolea
 const existing = await request(`/collections/${collection}`, { method: "GET" }, [404]);
 if (existing.status === 404) await request(`/collections/${collection}`, { method: "PUT", body: JSON.stringify({ vectors: { dense_vector: { size: dimensions, distance: "Cosine" } } }) });
 await request(`/collections/${collection}/index`, { method: "PUT", body: JSON.stringify({ field_name: "text", field_schema: "text" }) });
+await request(`/collections/${collection}/index`, { method: "PUT", body: JSON.stringify({ field_name: "language", field_schema: "keyword" }) });
+await request(`/collections/${collection}/index`, { method: "PUT", body: JSON.stringify({ field_name: "strategy", field_schema: "keyword" }) });
 for (let offset = 0; offset < chunks.length; offset += 48) {
   const batch = chunks.slice(offset, offset + 48).map(chunk => ({ id: pointId(chunk.id), vector: { dense_vector: embed(chunk.text) }, payload: { ...chunk, chunkId: chunk.id } }));
   await request(`/collections/${collection}/points?wait=true`, { method: "PUT", body: JSON.stringify({ points: batch }) });
