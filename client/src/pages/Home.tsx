@@ -3,6 +3,7 @@ import { configureBrowserFallback, type BrowserRecognitionEvent, type BrowserRec
 import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
 import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import { resolveEvidencePath } from "../lib/evidencePath";
+import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
 import type { RAGRun } from "@shared/rag";
 import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -67,7 +68,7 @@ function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes
       <option value={AUTO_DETECT_LANGUAGE}>Automatic detection · Sarvam identifies your spoken language</option>
       {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
     </select>
-    <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{automaticDetection ? "Recommended default: Sarvam detects speech language from the clip, then SvaraProof checks whether that detected language has bounded MSMARCO-XI evidence." : selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."}</p>
+    <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{automaticDetection ? "Recommended default: Sarvam detects speech language from the clip, then SvaraProof checks whether that detected language has bounded MSMARCO-XI evidence." : selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."} A short pause after you speak sends the clip automatically; STOP &amp; SEND remains available.</p>
   </div>;
 }
 
@@ -89,6 +90,8 @@ export default function Home() {
   const recognitionRef = useRef<BrowserRecognition | null>(null);
   const recordingStartedAtRef = useRef(0);
   const discardRecordingRef = useRef(false);
+  const speechDetectedRef = useRef(false);
+  const silenceStartedAtRef = useRef<number | null>(null);
   const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, { refetchOnWindowFocus: false });
   const ask = trpc.voiceRag.ask.useMutation({
     onSuccess: response => {
@@ -165,13 +168,36 @@ export default function Home() {
       analyser.fftSize = 128;
       context.createMediaStreamSource(stream).connect(analyser);
       const data = new Uint8Array(analyser.frequencyBinCount);
-      const pulse = () => { analyser.getByteTimeDomainData(data); const mean = data.reduce((sum, value) => sum + Math.abs(value - 128), 0) / data.length; setLevel(Math.min(1, mean / 36)); frameRef.current = requestAnimationFrame(pulse); };
+      const pulse = () => {
+        analyser.getByteTimeDomainData(data);
+        const mean = data.reduce((sum, value) => sum + Math.abs(value - 128), 0) / data.length;
+        const nextLevel = Math.min(1, mean / 36);
+        setLevel(nextLevel);
+        if (recorderRef.current?.state === "recording") {
+          const nextPause = updatePauseToSendState({
+            level: nextLevel,
+            now: performance.now(),
+            recordingStartedAt: recordingStartedAtRef.current,
+            speechDetected: speechDetectedRef.current,
+            silenceStartedAt: silenceStartedAtRef.current,
+          });
+          speechDetectedRef.current = nextPause.speechDetected;
+          silenceStartedAtRef.current = nextPause.silenceStartedAt;
+          if (nextPause.shouldSend) {
+            setCaptureInfo("Short pause detected • sending audio now.");
+            recorderRef.current.stop();
+          }
+        }
+        frameRef.current = requestAnimationFrame(pulse);
+      };
       pulse();
       const preferred = MediaRecorder.isTypeSupported("audio/webm;codecs=opus") ? "audio/webm;codecs=opus" : "audio/webm";
-      const recorder = new MediaRecorder(stream, { mimeType: preferred, audioBitsPerSecond: 48_000 });
+      const recorder = new MediaRecorder(stream, { mimeType: preferred, audioBitsPerSecond: 32_000 });
       recorderRef.current = recorder;
       chunksRef.current = [];
       discardRecordingRef.current = false;
+      speechDetectedRef.current = false;
+      silenceStartedAtRef.current = null;
       recorder.ondataavailable = event => { if (event.data.size) chunksRef.current.push(event.data); };
       recorder.onerror = () => {
         discardRecordingRef.current = true;
@@ -192,7 +218,7 @@ export default function Home() {
         try { ask.mutate({ audioBase64: await toBase64(blob), mimeType, languageHint: languageCode }); }
         catch (error) { setCaptureError(error instanceof Error ? error.message : "Audio encoding failed."); }
       };
-      recorder.start(250);
+      recorder.start();
       recordingStartedAtRef.current = performance.now();
       setRecording(true);
     } catch (error) {

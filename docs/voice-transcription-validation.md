@@ -120,6 +120,27 @@ This is a functional route validation rather than a language-identification accu
 
 The reported post-recording failure was reproduced with Chromium’s synthetic fake microphone device. The recorded `audio/webm;codecs=opus` upload reached Sarvam but was rejected because its multipart MIME allowlist expects `audio/webm` without parameters. SvaraProof now normalizes only the outbound multipart file type to `audio/webm` and retains the original capture format locally. A browser-level regression then completed **two sequential record → stop → send cycles** with no capture error, no transcription error, and a `GROUNDED` structured response for each cycle. The raw report is committed at [`docs/benchmark-results/browser-microphone-cycle-2.json`](./benchmark-results/browser-microphone-cycle-2.json). This validates the browser lifecycle and provider handoff, but it does not claim a physical live-microphone test; that requires a user-accessible input device outside this sandbox.
 
+## Client-side latency reduction
+
+The 200-request browser-originated reference run shows that median server timing is dominated by Sarvam transcription: **1,469.75 ms STT** out of **1,470.25 ms server end to end** (99.96%), while median post-transcription RAG is **0.35 ms**. The latest optimization therefore targets the controllable capture and transfer path rather than claiming an external-provider inference improvement.
+
+SvaraProof now records at 32 kbps Opus rather than 48 kbps, avoids periodic MediaRecorder chunk emission, and sends after detected speech is followed by a 1.3-second quiet pause. **STOP & SEND** remains available. The pause rule never sends silent audio and never sends before one second of capture. A public Chromium fake-device validation completed two sequential capture → send → grounded-response cycles after this change; the returned internal RAG times were **0.85 ms** and **0.65 ms**. These changes reduce user wait and audio-transfer size, but Sarvam STT remains the material voice-to-answer latency constraint.
+
+Desktop and 375-pixel mobile viewport checks confirm that the evidence-first header, automatic-detection default, and live-input entry remain readable after the latency-control update. On mobile, the voice controls follow the compact corpus rail in normal page flow rather than being hidden behind a fixed overlay.
+
+### Post-capture-optimization browser replay
+
+To confirm that the optimization did not degrade the guarded service path, the Chromium page-context runner was repeated with **100 sequential real-audio fixture requests** after the client changes. All **100** completed without an infrastructure failure. The separate percentile measurements were as follows.
+
+| Metric | P50 | P70 | P100 | Sample count |
+|---|---:|---:|---:|---:|
+| Browser page-context round trip | 1,894.80 ms | 2,195.60 ms | 5,599.20 ms | 100 |
+| Server end to end | 1,839.26 ms | 2,144.58 ms | 4,760.77 ms | 100 |
+| Sarvam STT | 1,837.89 ms | 2,144.48 ms | 4,760.39 ms | 100 |
+| Post-transcription RAG | 0.53 ms | 0.83 ms | 1.65 ms | 100 |
+
+The raw report is [`docs/benchmark-results/browser-origin-target-language-100-post-capture-optimization.json`](./benchmark-results/browser-origin-target-language-100-post-capture-optimization.json). This replay starts after prerecorded fixtures are available, so it verifies browser transport, public ingress, Sarvam, and the guarded RAG route; it does **not** measure MediaRecorder capture time or the new pause-to-send behavior. The higher STT percentiles versus the earlier 100-request replay are provider-time variation, not a retrieval regression: the internal post-transcription path remains well under the 200 ms target.
+
 ## Reference
 
 Sarvam documents the selected BCP-47 language codes, WebM support, completed nonempty `MediaRecorder` blobs, and the 30-second REST limit in its [STT reference](https://docs.sarvam.ai/api-reference/speech-to-text/transcribe) and [recording FAQ](https://docs.sarvam.ai/api/speech-to-text/faq).
