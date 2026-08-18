@@ -73,6 +73,21 @@ The actual-browser run had **0 failures**. It returned 25 `GROUNDED` responses a
 
 > This browser-originated timing begins once a prerecorded fixture is available. It **includes** a Chromium page-context request, public ingress, server work, Sarvam transcription, retrieval, guardrails, and returned response. It **excludes** microphone permission, the time a person spends speaking, MediaRecorder encoding, and the audio clip’s production time. The full path therefore remains above the 200 ms target because Sarvam STT alone has a P50 of 1.32 seconds; the post-transcription RAG P100 remains 1.12 ms.
 
+## Expanded actual-browser 200-request replay
+
+To provide a larger, evenly balanced sample, the actual-browser runner was repeated on 2026-08-18 with **50 sequential repetitions per locale**: English, Kannada, Hindi, and Marathi. This yields **200 real-audio requests** through Chromium page-context `fetch()` and public ingress. The same known fixture profile and timing contract were retained, so the result is comparable to the earlier 100-request browser replay and isolates the external transcription provider from the internal RAG latency target.
+
+| Metric | P50 | P70 | P100 | Sample count |
+|---|---:|---:|---:|---:|
+| Browser page-context round trip | 1,520.60 ms | 1,707.00 ms | 4,413.80 ms | 200 |
+| Server end to end | 1,470.25 ms | 1,649.27 ms | 3,456.13 ms | 200 |
+| Sarvam STT | 1,469.75 ms | 1,649.19 ms | 3,455.08 ms | 200 |
+| Post-transcription RAG | 0.35 ms | 0.44 ms | 2.78 ms | 200 |
+
+The run completed with **0 failures** and no `ERROR` outcomes. It returned 100 `GROUNDED` results and 100 `REFUSED` results. The latter are expected evidence-sufficiency refusals for transcripts whose selected language/index route has no bounded supporting passage; they indicate the fail-closed policy worked rather than a transcription or transport failure. Raw, per-trial evidence is committed at [`docs/benchmark-results/browser-origin-target-language-200-final.json`](./benchmark-results/browser-origin-target-language-200-final.json).
+
+> The full browser-to-answer path remains above 200 ms because external Sarvam transcription has a 1,469.75 ms P50 in this run. The separately measured post-transcription RAG pipeline stays comfortably within the stated 200 ms goal at P50/P70/P100 of 0.35/0.44/2.78 ms. The benchmark deliberately reports both dimensions rather than conflating provider speech-to-text time with the retrieval, guardrail, and grounded-answer path.
+
 ## Reference
 
 Sarvam documents the selected BCP-47 language codes, WebM support, completed nonempty `MediaRecorder` blobs, and the 30-second REST limit in its [STT reference](https://docs.sarvam.ai/api-reference/speech-to-text/transcribe) and [recording FAQ](https://docs.sarvam.ai/api/speech-to-text/faq).
