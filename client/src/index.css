@@ -43,39 +43,39 @@
 }
 
 :root {
-  --primary: #ff5a1f;
-  --primary-foreground: #111111;
-  --sidebar-primary: #ff5a1f;
-  --sidebar-primary-foreground: #111111;
-  --chart-1: #ff5a1f;
-  --chart-2: #111111;
-  --chart-3: #ff8e65;
-  --chart-4: #6e675c;
-  --chart-5: #cabfa9;
+  --primary: #ee5b2b;
+  --primary-foreground: #1b1815;
+  --sidebar-primary: #ee5b2b;
+  --sidebar-primary-foreground: #1b1815;
+  --chart-1: #ee5b2b;
+  --chart-2: #1b1815;
+  --chart-3: #f08b68;
+  --chart-4: #70685d;
+  --chart-5: #cfc3ae;
   --radius: 0px;
-  --background: #f4eedf;
-  --foreground: #111111;
-  --card: #fbf7ed;
-  --card-foreground: #111111;
-  --popover: #fbf7ed;
-  --popover-foreground: #111111;
-  --secondary: #e9e0cf;
-  --secondary-foreground: #111111;
-  --muted: #e9e0cf;
-  --muted-foreground: #5f584d;
-  --accent: #ffdbcc;
-  --accent-foreground: #111111;
+  --background: #f7f1e6;
+  --foreground: #1b1815;
+  --card: #fffdf7;
+  --card-foreground: #1b1815;
+  --popover: #fffdf7;
+  --popover-foreground: #1b1815;
+  --secondary: #eee5d6;
+  --secondary-foreground: #1b1815;
+  --muted: #eee5d6;
+  --muted-foreground: #625a4f;
+  --accent: #f9d9cc;
+  --accent-foreground: #1b1815;
   --destructive: #d83522;
   --destructive-foreground: #ffffff;
-  --border: #111111;
-  --input: #111111;
-  --ring: #ff5a1f;
-  --sidebar: #f4eedf;
-  --sidebar-foreground: #111111;
-  --sidebar-accent: #e9e0cf;
-  --sidebar-accent-foreground: #111111;
-  --sidebar-border: #111111;
-  --sidebar-ring: #ff5a1f;
+  --border: #1b1815;
+  --input: #1b1815;
+  --ring: #ee5b2b;
+  --sidebar: #f7f1e6;
+  --sidebar-foreground: #1b1815;
+  --sidebar-accent: #eee5d6;
+  --sidebar-accent-foreground: #1b1815;
+  --sidebar-border: #1b1815;
+  --sidebar-ring: #ee5b2b;
 }
 
 .dark {
@@ -119,9 +119,11 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: "Space Grotesk", Arial, sans-serif;
-    background-image: radial-gradient(#11111118 0.7px, transparent 0.7px);
-    background-size: 9px 9px;
+    font-family: "Manrope", Arial, sans-serif;
+    font-feature-settings: "ss01" 1, "cv01" 1;
+    background-image: radial-gradient(#1b18150e 0.7px, transparent 0.7px);
+    background-size: 11px 11px;
+    text-rendering: optimizeLegibility;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -179,12 +181,20 @@
   }
 }
 
+.display { font-family: "Space Grotesk", "Manrope", Arial, sans-serif; }
 .mono { font-family: "IBM Plex Mono", monospace; }
-.brutal-border { border: 2px solid #111111; }
-.brutal-shadow { box-shadow: 5px 5px 0 #111111; }
-.brutal-shadow-sm { box-shadow: 3px 3px 0 #111111; }
-.brutal-button { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1); }
-.brutal-button:active { transform: translate(3px, 3px) scale(0.97); box-shadow: 0 0 0 #111111; }
+.brutal-border { border: 2px solid #1b1815; }
+.brutal-shadow { box-shadow: 5px 5px 0 #1b1815; }
+.brutal-shadow-sm { box-shadow: 3px 3px 0 #1b1815; }
+.brutal-button { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.brutal-button:hover:not(:disabled) { transform: translate(-1px, -1px); }
+.brutal-button:active { transform: translate(3px, 3px) scale(0.97); box-shadow: 0 0 0 #1b1815; }
+.svara-panel { border: 2px solid #1b1815; background: #fffdf7; box-shadow: 4px 4px 0 #1b1815; }
+.svara-panel-flat { border: 2px solid #1b1815; background: #fffdf7; }
+.svara-kicker { color: #8b391d; font-family: "IBM Plex Mono", monospace; font-size: 0.625rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+@media (max-width: 640px) {
+  .brutal-shadow, .svara-panel { box-shadow: 3px 3px 0 #1b1815; }
+}
 @media (prefers-reduced-motion: no-preference) {
   .signal-pulse { animation: signal-pulse 1.4s steps(2, end) infinite; }
 }
