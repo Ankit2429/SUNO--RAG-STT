@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import { isSarvamLanguageCode, languageForCode, SARVAM_LANGUAGE_CODES } from "@shared/voiceLanguages";
 
 type SarvamResponse = {
   request_id?: string | null;
@@ -16,23 +17,14 @@ export type TranscriptionResult = {
 
 const MAX_AUDIO_BYTES = 4 * 1024 * 1024;
 const RETRYABLE_STATUS = new Set([429, 503]);
-const SUPPORTED_LANGUAGE_HINTS = new Set(["unknown", "en-IN", "kn-IN", "hi-IN", "mr-IN", "ta-IN", "te-IN", "bn-IN"]);
+const SUPPORTED_LANGUAGE_HINTS = new Set<string>(["unknown", ...SARVAM_LANGUAGE_CODES]);
 
 function base64ToBytes(value: string): Uint8Array {
   return Uint8Array.from(Buffer.from(value.replace(/^data:[^;]+;base64,/, ""), "base64"));
 }
 
 function scriptFor(languageCode: string): string {
-  const code = languageCode.toLowerCase();
-  if (code.startsWith("hi") || code.startsWith("mr") || code.startsWith("ne") || code.startsWith("sa")) return "Devanagari";
-  if (code.startsWith("ta")) return "Tamil";
-  if (code.startsWith("te")) return "Telugu";
-  if (code.startsWith("bn")) return "Bengali";
-  if (code.startsWith("gu")) return "Gujarati";
-  if (code.startsWith("kn")) return "Kannada";
-  if (code.startsWith("ml")) return "Malayalam";
-  if (code.startsWith("ur")) return "Arabic";
-  return "Latin";
+  return isSarvamLanguageCode(languageCode) ? languageForCode(languageCode)?.script || "Unknown" : "Unknown";
 }
 
 function pause(ms: number) {

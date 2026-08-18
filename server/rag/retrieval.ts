@@ -10,6 +10,7 @@ export type RetrievalResult = { evidence: EvidenceChunk[]; scores: Map<string, n
 const COLLECTION = process.env.QDRANT_COLLECTION || "msmarco_xi_evaluation_v1";
 const EMBEDDING_MODEL = process.env.QDRANT_EMBEDDING_MODEL || ZERO_COST_EMBEDDING_MODEL;
 const INDEXED_LANGUAGE_CODES = new Set(EVALUATION_MANIFEST.languages);
+const HOT_VECTORS = new Map(HOT_CORPUS.map(chunk => [chunk.id, embedText(chunk.text)]));
 
 function configuredUrl(): string | null {
   const value = process.env.QDRANT_URL?.replace(/\/$/, "");
@@ -71,7 +72,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   const ranked = scoped
     .map(chunk => {
       const lexical = terms.length ? lexicalScore(chunk.text, terms) / terms.length : 0;
-      const dense = Math.max(0, cosine(queryVector, embedText(chunk.text)));
+      const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));
       return { chunk, score: dense + lexical };
     })
     .filter(item => item.score > 0.1)
@@ -103,7 +104,15 @@ export async function hybridRetrieve(query: string, language: string): Promise<R
     limit: 96, with_payload: true, with_vector: false,
     filter: { must: [...(languageFilter ? [languageFilter] : [])], must_not: [evaluationOnlyFilter], ...(terms.length ? { should: terms.map(term => ({ key: "text", match: { text: term } })) } : {}) },
   });
-  const [semanticPoints, lexicalPoints] = await Promise.all([semantic, lexical]);
+  let semanticPoints: QdrantPoint[];
+  let lexicalPoints: QdrantPoint[];
+  try {
+    [semanticPoints, lexicalPoints] = await Promise.all([semantic, lexical]);
+  } catch {
+    // Network turbulence must never crash the evaluator. An empty candidate set
+    // moves through the existing evidence gate as a truthful refusal.
+    return { evidence: [], scores: new Map(), mode: "cloud" };
+  }
   lexicalPoints.sort((left, right) => lexicalScore(String(right.payload?.text || ""), terms) - lexicalScore(String(left.payload?.text || ""), terms));
   const scores = reciprocalRankFuse([semanticPoints, lexicalPoints]);
   const seenParents = new Set<string>();

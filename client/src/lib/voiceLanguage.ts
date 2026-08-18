@@ -1,18 +1,15 @@
-export const VOICE_LANGUAGES = [
-  { code: "en-IN", label: "English", nativeLabel: "English" },
-  { code: "kn-IN", label: "Kannada", nativeLabel: "ಕನ್ನಡ" },
-  { code: "hi-IN", label: "Hindi", nativeLabel: "हिन्दी" },
-  { code: "mr-IN", label: "Marathi", nativeLabel: "मराठी" },
-] as const;
+import { languageForCode, SARVAM_STT_LANGUAGES, type SarvamLanguageCode } from "@shared/voiceLanguages";
 
-export type VoiceLanguageCode = (typeof VOICE_LANGUAGES)[number]["code"];
+export const VOICE_LANGUAGES = SARVAM_STT_LANGUAGES;
+
+export type VoiceLanguageCode = SarvamLanguageCode;
 
 export function browserRecognitionLocale(languageCode: VoiceLanguageCode): string {
   return languageCode;
 }
 
 export function voiceLanguageLabel(languageCode: VoiceLanguageCode): string {
-  return VOICE_LANGUAGES.find(language => language.code === languageCode)?.label ?? "selected";
+  return languageForCode(languageCode)?.label ?? "selected";
 }
 
 export function noBrowserTranscriptMessage(languageCode: VoiceLanguageCode): string {
@@ -24,6 +21,8 @@ export type BrowserRecognitionPort = {
   lang: string;
   interimResults: boolean;
   maxAlternatives: number;
+  abort?: () => void;
+  stop?: () => void;
   onresult: ((event: BrowserRecognitionEvent) => void) | null;
   onerror: ((event: { error: string }) => void) | null;
   onend: (() => void) | null;
@@ -47,6 +46,7 @@ export function configureBrowserFallback(
   };
   recognition.onerror = event => {
     errorReceived = true;
+    handlers.onListeningChange(false);
     handlers.onError(`Browser speech recognition stopped: ${event.error}. Check the selected language and microphone permission, then retry.`);
   };
   recognition.onend = () => {

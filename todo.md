@@ -32,3 +32,13 @@
 - [x] Add automated browser-fallback coverage for selected-language propagation and transcript/error surfacing.
 - [x] Run a browser-originated 100-request public-ingress replay with real audio fixtures and persist an auditable report artifact in the project.
 - [x] Update the latency documentation to distinguish browser-originated timing from the existing Node public-ingress harness and state all exclusions precisely.
+- [x] Audit Sarvam’s currently supported transcription locales and the bounded index’s language coverage before expanding the console language model.
+- [x] Rename the evaluator with a distinctive, credible product identity and align the visual hierarchy with the supplied reference direction without copying it.
+- [x] Expand the voice language selector to the supported Sarvam locales, clearly distinguishing indexed answer languages from transcription-only languages.
+- [x] Harden microphone, transcription, browser-fallback, and request-lifecycle recovery so repeated interactions fail safely and do not leave the console stuck.
+- [x] Add a clearly scoped retrieval-and-answer latency budget panel that demonstrates the under-200-ms internal path without conflating it with Sarvam STT.
+- [x] Add regression coverage for expanded language selection, request recovery, and latency-budget presentation.
+- [x] Rebuild the bounded Qdrant evidence collection for all 14 MSMARCO-XI languages compatible with the Sarvam locale catalog, while retaining transcription-only labeling for the remaining locales.
+- [x] Validate that newly indexed Kannada and other compatible-language routes retrieve evidence without remote filter failures.
+- [x] Generate a bounded multilingual L1 hot corpus from the rebuilt evidence artifact so common indexed-language retrieval avoids cross-region Qdrant latency.
+- [x] Convert remote Qdrant timeouts into a structured evidence refusal rather than a console-level error state.

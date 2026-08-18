@@ -8,8 +8,9 @@ import { recordRagRun } from "./db";
 import { runBenchmark } from "./rag/benchmark";
 import { runPostTranscriptionHarness, runVoiceHarness } from "./rag/harness";
 import { getIndexCapability } from "./rag/retrieval";
+import { SARVAM_LANGUAGE_CODES } from "@shared/voiceLanguages";
 
-const sarvamLanguageHint = z.enum(["unknown", "en-IN", "kn-IN", "hi-IN", "mr-IN", "ta-IN", "te-IN", "bn-IN"] as const);
+const sarvamLanguageHint = z.enum(SARVAM_LANGUAGE_CODES);
 
 const voiceInput = z.object({
   audioBase64: z.string().min(16).max(5_600_000),

@@ -1,5 +1,6 @@
 import { trpc } from "@/lib/trpc";
 import { configureBrowserFallback, type BrowserRecognitionEvent, type BrowserRecognitionPort, VOICE_LANGUAGES, type VoiceLanguageCode, voiceLanguageLabel } from "../lib/voiceLanguage";
+import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import type { RAGRun } from "@shared/rag";
 import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -50,6 +51,22 @@ function Metric({ label, value, note }: { label: string; value: string; note: st
   return <div className="border-b-2 border-black py-3 last:border-b-0"><div className="mono text-[10px] uppercase tracking-[0.14em] text-[#5f584d]">{label}</div><div className="mt-1 text-2xl font-bold leading-none">{value}</div><div className="mono mt-2 text-[10px] text-[#5f584d]">{note}</div></div>;
 }
 
+function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes }: { languageCode: VoiceLanguageCode; onChange: (code: VoiceLanguageCode) => void; disabled: boolean; indexedLanguageCodes: string[] }) {
+  const selectedLanguage = VOICE_LANGUAGES.find(language => language.code === languageCode) || VOICE_LANGUAGES[0];
+  const selectedIsIndexed = indexedLanguageCodes.includes(languageCode.slice(0, 2));
+  return <div className="mb-6 border-2 border-black bg-[#fbf7ed] p-3 text-left">
+    <div className="flex flex-wrap items-start justify-between gap-3">
+      <div><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Speech language / Sarvam Saaras v3</div><div className="mt-1 text-sm font-bold">{selectedLanguage.label} <span className="font-medium text-[#5f584d]">· {selectedLanguage.nativeLabel}</span></div></div>
+      <span className={`mono border border-black px-2 py-1 text-[9px] font-bold ${selectedIsIndexed ? "bg-[#d8ecd7]" : "bg-[#ffdbcc]"}`}>{selectedIsIndexed ? "INDEXED EVIDENCE" : "TRANSCRIPTION ONLY"}</span>
+    </div>
+    <label htmlFor="voice-language" className="mono mt-3 block text-[9px] uppercase tracking-[0.12em] text-[#5f584d]">Select from 23 supported speech locales</label>
+    <select id="voice-language" value={languageCode} disabled={disabled} onChange={event => onChange(event.target.value as VoiceLanguageCode)} className="mt-1.5 h-11 w-full border-2 border-black bg-white px-3 text-sm font-bold outline-none focus:ring-2 focus:ring-[#ff5a1f] disabled:cursor-not-allowed disabled:opacity-50">
+      {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
+    </select>
+    <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."}</p>
+  </div>;
+}
+
 export default function Home() {
   const [recording, setRecording] = useState(false);
   const [browserListening, setBrowserListening] = useState(false);
@@ -67,6 +84,7 @@ export default function Home() {
   const frameRef = useRef<number | null>(null);
   const recognitionRef = useRef<BrowserRecognition | null>(null);
   const recordingStartedAtRef = useRef(0);
+  const discardRecordingRef = useRef(false);
   const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, { refetchOnWindowFocus: false });
   const ask = trpc.voiceRag.ask.useMutation({
     onSuccess: response => { setRun(response); setCaptureError(response.transcriptionError || null); },
@@ -80,16 +98,22 @@ export default function Home() {
     onSuccess: report => setBenchmarkReport(report),
     onError: error => setCaptureError(error.message || "The benchmark harness could not complete."),
   });
+  const awaitingResponse = ask.isPending || askBrowserTranscript.isPending;
+  const isPipelineBusy = recording || browserListening || awaitingResponse;
+  const pipelineState = recording ? "RECORDING" : browserListening ? "LISTENING" : awaitingResponse ? "PROCESSING" : "READY";
 
   const waveform = useMemo(() => Array.from({ length: 31 }, (_, index) => {
     const distance = Math.abs(index - 15) / 16;
     return Math.max(8, (1 - distance) * 46 * (0.34 + level * 0.9));
   }), [level]);
+  const indexedLanguageCodes = indexStatus?.manifest?.languages || [];
+  const activeLatencyBudget = run ? buildInternalLatencyBudget(run, benchmarkReport?.postTranscriptionTargetMs || 200) : null;
 
   useEffect(() => () => {
     if (frameRef.current) cancelAnimationFrame(frameRef.current);
     streamRef.current?.getTracks().forEach(track => track.stop());
     void audioContextRef.current?.close();
+    recognitionRef.current?.abort?.();
     recognitionRef.current = null;
   }, []);
 
@@ -104,6 +128,7 @@ export default function Home() {
   };
 
   const startRecording = async () => {
+    if (isPipelineBusy) return;
     setCaptureError(null);
     setCaptureInfo(null);
     setRun(null);
@@ -114,6 +139,14 @@ export default function Home() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
       streamRef.current = stream;
+      const handleMicrophoneLoss = () => {
+        if (recorderRef.current?.state === "recording") {
+          discardRecordingRef.current = true;
+          setCaptureError("The microphone became unavailable before recording finished. Check the device, then retry.");
+          recorderRef.current.stop();
+        }
+      };
+      stream.getTracks().forEach(track => { track.onended = handleMicrophoneLoss; });
       const context = new AudioContext();
       audioContextRef.current = context;
       const analyser = context.createAnalyser();
@@ -126,10 +159,17 @@ export default function Home() {
       const recorder = new MediaRecorder(stream, { mimeType: preferred, audioBitsPerSecond: 48_000 });
       recorderRef.current = recorder;
       chunksRef.current = [];
+      discardRecordingRef.current = false;
       recorder.ondataavailable = event => { if (event.data.size) chunksRef.current.push(event.data); };
+      recorder.onerror = () => {
+        discardRecordingRef.current = true;
+        setCaptureError("The microphone recorder stopped unexpectedly. No audio was sent; please retry.");
+      };
       recorder.onstop = async () => {
         setRecording(false);
         stopVisualizer();
+        if (recorderRef.current === recorder) recorderRef.current = null;
+        if (discardRecordingRef.current) return;
         const mimeType = recorder.mimeType || "audio/webm";
         const blob = new Blob(chunksRef.current, { type: mimeType });
         const durationMs = Math.max(0, performance.now() - recordingStartedAtRef.current);
@@ -143,12 +183,17 @@ export default function Home() {
       recorder.start(250);
       recordingStartedAtRef.current = performance.now();
       setRecording(true);
-    } catch (error) { stopVisualizer(); setCaptureError(error instanceof DOMException && error.name === "NotAllowedError" ? "Microphone permission was denied. Enable it in your browser settings and retry." : "Microphone capture could not be started."); }
+    } catch (error) {
+      stopVisualizer();
+      setRecording(false);
+      setCaptureError(error instanceof DOMException && error.name === "NotAllowedError" ? "Microphone permission was denied. Enable it in your browser settings and retry." : error instanceof DOMException && error.name === "NotReadableError" ? "Your microphone is busy in another app or browser tab. Release it, then retry." : "Microphone capture could not be started.");
+    }
   };
 
   const stopRecording = () => recorderRef.current?.state === "recording" && recorderRef.current.stop();
 
   const startBrowserFallback = () => {
+    if (isPipelineBusy) return;
     setCaptureError(null);
     setCaptureInfo(null);
     setRun(null);
@@ -159,40 +204,51 @@ export default function Home() {
     }
     const recognition = new Recognition();
     configureBrowserFallback(recognition, languageCode, {
-      onTranscript: transcript => { setCaptureInfo(`Browser-native transcript received • ${languageCode}`); askBrowserTranscript.mutate({ transcript, languageCode, script: "browser-native" }); },
-      onError: message => setCaptureError(message),
-      onListeningChange: setBrowserListening,
+      onTranscript: transcript => { setBrowserListening(false); setCaptureInfo(`Browser-native transcript received • ${languageCode}`); askBrowserTranscript.mutate({ transcript, languageCode, script: "browser-native" }); },
+      onError: message => { setBrowserListening(false); recognitionRef.current = null; setCaptureError(message); },
+      onListeningChange: listening => { setBrowserListening(listening); if (!listening) recognitionRef.current = null; },
     });
     recognitionRef.current = recognition;
-    setBrowserListening(true);
-    recognition.start();
+    try {
+      recognition.start();
+      setBrowserListening(true);
+    } catch (error) {
+      recognitionRef.current = null;
+      setBrowserListening(false);
+      setCaptureError(error instanceof Error ? `Browser speech recognition could not start: ${error.message}` : "Browser speech recognition could not start. Retry or use the Sarvam route.");
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#f4eedf] text-[#111111]">
       <header className="border-b-[3px] border-black bg-[#f4eedf] px-4 py-3 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-[1540px] items-center justify-between gap-4">
-          <div className="flex items-center gap-3"><div className="grid h-10 w-10 place-items-center border-2 border-black bg-[#ff5a1f]"><AudioLines size={22} strokeWidth={2.7} /></div><div><div className="mono text-[10px] font-semibold tracking-[0.14em]">HH GOA 2026 / TASK 112</div><div className="text-sm font-bold tracking-tight">VOICE RAG EVALUATOR</div></div></div>
+          <div className="flex items-center gap-3"><div className="grid h-10 w-10 place-items-center border-2 border-black bg-[#ff5a1f]"><AudioLines size={22} strokeWidth={2.7} /></div><div><div className="mono text-[10px] font-semibold tracking-[0.14em]">HH GOA 2026 / TASK 112</div><div className="text-sm font-bold tracking-tight">SVARAPROOF / VOICE EVIDENCE CONSOLE</div></div></div>
           <div className="hidden items-center gap-3 md:flex"><span className="mono text-[10px] uppercase tracking-[0.12em]">zero-cost evaluation profile</span><span className="h-2.5 w-2.5 bg-[#ff5a1f] signal-pulse" /><span className="mono text-[10px]">SERVER ONLINE</span></div>
         </div>
       </header>
 
       <main className="mx-auto max-w-[1540px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <div className="mb-7 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div><div className="mono mb-2 text-[11px] font-semibold tracking-[0.2em] text-[#ff5a1f]">VOICE → EVIDENCE → ANSWER</div><h1 className="max-w-4xl text-4xl font-bold leading-[0.88] tracking-[-0.065em] sm:text-6xl xl:text-7xl">ASK OUT LOUD.<br />GET ONLY WHAT<br /><span className="bg-[#ff5a1f] px-2">THE INDEX SUPPORTS.</span></h1></div>
+          <div><div className="mono mb-2 text-[11px] font-semibold tracking-[0.2em] text-[#ff5a1f]">SVARAPROOF / 23 SPEECH LOCALES / EVIDENCE FIRST</div><h1 className="max-w-4xl text-4xl font-bold leading-[0.88] tracking-[-0.065em] sm:text-6xl xl:text-7xl">SPEAK FREELY.<br />GET ONLY WHAT<br /><span className="bg-[#ff5a1f] px-2">THE INDEX SUPPORTS.</span></h1></div>
           <div className="brutal-border bg-[#111111] p-3 text-[#f4eedf] lg:w-[300px]"><div className="mono text-[10px] uppercase tracking-[0.14em] text-[#ffb293]">non-negotiable rule</div><div className="mt-1 text-sm font-semibold leading-tight">No evidence, no answer.<br />No exceptions.</div></div>
         </div>
 
         <section className="grid gap-5 xl:grid-cols-[minmax(0,1.45fr)_minmax(340px,.75fr)]">
           <div className="brutal-border brutal-shadow bg-[#fbf7ed]">
-            <div className="flex items-start justify-between gap-4 border-b-2 border-black p-4 sm:p-5"><div><div className="mono text-[10px] font-semibold tracking-[0.15em] text-[#5f584d]">01 / LIVE INPUT</div><h2 className="mt-1 text-2xl font-bold tracking-[-0.04em]">Speak the question</h2></div><div className="flex items-center gap-2 border-2 border-black bg-[#f4eedf] px-2.5 py-1.5"><span className={`h-2.5 w-2.5 ${recording ? "bg-[#ff5a1f] signal-pulse" : "bg-[#111111]"}`} /><span className="mono text-[10px] font-semibold">{recording ? "RECORDING" : ask.isPending ? "PROCESSING" : "READY"}</span></div></div>
+            <div className="flex items-start justify-between gap-4 border-b-2 border-black p-4 sm:p-5"><div><div className="mono text-[10px] font-semibold tracking-[0.15em] text-[#5f584d]">01 / LIVE INPUT</div><h2 className="mt-1 text-2xl font-bold tracking-[-0.04em]">Speak the question</h2></div><div className="flex items-center gap-2 border-2 border-black bg-[#f4eedf] px-2.5 py-1.5"><span className={`h-2.5 w-2.5 ${recording || browserListening ? "bg-[#ff5a1f] signal-pulse" : awaitingResponse ? "bg-[#f2c94c] signal-pulse" : "bg-[#111111]"}`} /><span className="mono text-[10px] font-semibold">{pipelineState}</span></div></div>
             <div className="p-4 sm:p-5">
               <div className="grid min-h-[270px] place-items-center border-2 border-dashed border-black bg-[#f4eedf] p-5 text-center">
-                <div className="w-full max-w-xl"><div className="mb-4"><div className="mono mb-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Language for this recording</div><div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Speech language">{VOICE_LANGUAGES.map(language => <button key={language.code} type="button" disabled={recording || ask.isPending || browserListening} onClick={() => setLanguageCode(language.code)} className={`brutal-button border-2 border-black px-2.5 py-1.5 text-left text-xs font-bold disabled:opacity-50 ${languageCode === language.code ? "bg-[#ff5a1f]" : "bg-[#fbf7ed]"}`}><span>{language.label}</span><span className="mono ml-1 text-[9px]">{language.nativeLabel}</span></button>)}</div></div><div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div><div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} audio — speak for at least 1 second` : "microphone capture • ≤30 seconds • server-side transcription"}</div><div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={ask.isPending} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {ask.isPending ? "RUNNING HARNESS" : "START RECORDING"}</button>}</div></div>
+                <div className="w-full max-w-xl">
+                  <LanguagePicker languageCode={languageCode} onChange={setLanguageCode} disabled={isPipelineBusy} indexedLanguageCodes={indexedLanguageCodes} />
+                  <div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div>
+                  <div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} audio — speak for at least 1 second` : browserListening ? `listening for ${voiceLanguageLabel(languageCode)} speech` : awaitingResponse ? "transcribing and validating your question" : "microphone capture • ≤30 seconds • server-side transcription"}</div>
+                  <div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={isPipelineBusy} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {awaitingResponse ? "RUNNING HARNESS" : browserListening ? "FALLBACK ACTIVE" : "START RECORDING"}</button>}</div>
+                </div>
               </div>
               {captureInfo && <div className="mt-4 border-2 border-black bg-[#d8ecd7] p-3 mono text-[10px] font-bold uppercase tracking-[0.08em]">AUDIO PREFLIGHT / {captureInfo}</div>}
               {captureError && <div className="mt-4 flex gap-2 border-2 border-black bg-[#ffc7bc] p-3"><TriangleAlert className="mt-0.5 shrink-0" size={17} /><div><div className="mono text-[10px] font-bold tracking-[0.12em]">CAPTURE / PIPELINE ERROR</div><p className="mt-1 text-sm leading-snug">{captureError}</p></div></div>}
-              <div className="mt-4 grid gap-2 text-xs sm:grid-cols-3"><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIMARY STT</span><div className="mt-1 font-bold">Sarvam / server-only</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIVACY</span><div className="mt-1 font-bold">Audio not stored</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">RETRY POLICY</span><div className="mt-1 font-bold">3 bounded attempts</div></div></div><div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-2 border-black bg-[#e9e0cf] p-2.5"><span className="mono text-[9px] leading-relaxed">ZERO-COST FALLBACK: BROWSER-NATIVE SPEECH RECOGNITION → SAME FAIL-CLOSED HARNESS</span><button onClick={startBrowserFallback} disabled={recording || ask.isPending || askBrowserTranscript.isPending || browserListening} className="brutal-button border-2 border-black bg-[#f4eedf] px-2.5 py-1.5 mono text-[9px] font-bold disabled:opacity-60">{browserListening ? "LISTENING…" : askBrowserTranscript.isPending ? "CHECKING…" : "USE FREE FALLBACK"}</button></div>
+              <div className="mt-4 grid gap-2 text-xs sm:grid-cols-3"><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIMARY STT</span><div className="mt-1 font-bold">Sarvam / server-only</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIVACY</span><div className="mt-1 font-bold">Audio not stored</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">RETRY POLICY</span><div className="mt-1 font-bold">3 bounded attempts</div></div></div><div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-2 border-black bg-[#e9e0cf] p-2.5"><span className="mono text-[9px] leading-relaxed">ZERO-COST FALLBACK: BROWSER-NATIVE SPEECH RECOGNITION → SAME FAIL-CLOSED HARNESS</span><button onClick={startBrowserFallback} disabled={isPipelineBusy} className="brutal-button border-2 border-black bg-[#f4eedf] px-2.5 py-1.5 mono text-[9px] font-bold disabled:opacity-60">{browserListening ? "LISTENING…" : askBrowserTranscript.isPending ? "CHECKING…" : "USE FREE FALLBACK"}</button></div>
             </div>
           </div>
 
@@ -201,7 +257,24 @@ export default function Home() {
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(360px,.85fr)]">
           <div className="brutal-border bg-[#fbf7ed]"><div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-black p-4 sm:p-5"><div><div className="mono text-[10px] tracking-[0.15em] text-[#5f584d]">03 / RETRIEVED EVIDENCE</div><h2 className="mt-1 text-xl font-bold tracking-[-0.04em]">Citations, not vibes.</h2></div>{run && <span className="mono border-2 border-black px-2 py-1 text-[10px]">{run.evidence.length} CANDIDATES</span>}</div><div className="p-4 sm:p-5">{run?.evidence.length ? <div className="grid gap-3">{run.evidence.map((evidence, index) => <article key={evidence.id} className={`border-2 border-black p-3 ${evidence.selected ? "bg-white" : "bg-[#f4eedf]"}`}><div className="flex flex-wrap items-start justify-between gap-2"><div className="flex flex-wrap gap-1.5"><span className="mono border border-black bg-black px-1.5 py-0.5 text-[9px] text-white">E-{String(index + 1).padStart(2, "0")}</span><span className={`mono border border-black px-1.5 py-0.5 text-[9px] ${chunkStyles[evidence.strategy] || "bg-white"}`}>{evidence.strategy.replaceAll("_", " ")}</span></div>{evidence.selected && <span className="mono bg-[#d8ecd7] px-1.5 py-0.5 text-[9px] font-semibold">CITED</span>}</div><p className="mt-3 text-sm leading-relaxed">{evidence.text}</p><div className="mono mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[9px] text-[#5f584d]"><span>LANG {evidence.language}</span><span>PARENT {evidence.parentId.slice(0, 10)}</span><span>OVERLAP {evidence.overlap}</span></div></article>)}</div> : <div className="border-2 border-dashed border-black p-6 text-center"><Database size={25} className="mx-auto" /><p className="mt-3 font-bold">Evidence is shown only after retrieval.</p><p className="mono mt-1 text-[10px] text-[#5f584d]">QDRANT DENSE + LEXICAL → RRF → DEDUPE → EVIDENCE GATE</p></div>}</div></div>
-          <div className="brutal-border bg-[#ff5a1f]"><div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-black p-4 sm:p-5"><div><div className="mono text-[10px] tracking-[0.15em]">04 / PIPELINE LATENCY</div><h2 className="mt-1 text-xl font-bold tracking-[-0.04em]">Measure, don’t claim.</h2></div><button onClick={() => benchmark.mutate()} disabled={benchmark.isPending} className="brutal-button border-2 border-black bg-[#111111] px-3 py-2 mono text-[10px] font-bold text-[#f4eedf] disabled:opacity-60">{benchmark.isPending ? "AUDITING 115 CASES…" : "RUN 115-CASE AUDIT"}</button></div>{benchmarkReport ? <div className="p-4 sm:p-5"><div className="grid gap-3"><div className="border-2 border-black bg-[#f4eedf] p-3"><div className="mono text-[10px] font-bold">COLD / FIRST PROCESS-LOCAL PASS</div><div className="mt-2 grid grid-cols-3 gap-2"><Metric label="P50" value={`${benchmarkReport.cold.p50} ms`} note={`${benchmarkReport.cold.sampleCount} samples`} /><Metric label="P70" value={`${benchmarkReport.cold.p70} ms`} note="post-transcription" /><Metric label="P100" value={`${benchmarkReport.cold.p100} ms`} note={`${benchmarkReport.cold.failureCount} failures`} /></div></div><div className="border-2 border-black bg-[#f4eedf] p-3"><div className="mono text-[10px] font-bold">WARM / REPEATED PROCESS-LOCAL PASS</div><div className="mt-2 grid grid-cols-3 gap-2"><Metric label="P50" value={`${benchmarkReport.warm.p50} ms`} note={`${benchmarkReport.warm.sampleCount} samples`} /><Metric label="P70" value={`${benchmarkReport.warm.p70} ms`} note="post-transcription" /><Metric label="P100" value={`${benchmarkReport.warm.p100} ms`} note={`${benchmarkReport.warm.failureCount} failures`} /></div></div></div><div className="mono mt-3 text-[9px] leading-relaxed">{benchmarkReport.datasetQueryCount} REAL MSMARCO-XI QUERIES + {benchmarkReport.adversarialQueryCount} ADVERSARIAL CASES • TARGET &lt;{benchmarkReport.postTranscriptionTargetMs}MS • {benchmarkReport.cacheDefinition}</div>{run && <div className="mt-3 border-t-2 border-black pt-3 mono text-[10px]">LAST VOICE RUN: STT {run.latency.sttMs}MS / RAG {run.latency.ragMs}MS / END-TO-END {run.latency.endToEndMs}MS</div>}</div> : <div className="p-4 sm:p-5"><div className="grid sm:grid-cols-3"><Metric label="P50 / cold" value="—" note="run 115-case audit" /><Metric label="P70 / warm" value="—" note="no fabricated stats" /><Metric label="P100 / warm" value="—" note="separate cache pass" /></div><div className="border-t-2 border-black pt-4"><div className="mono text-[10px] font-semibold">BENCHMARK CONTRACT</div><p className="mt-1 text-xs leading-relaxed">100 genuine language-balanced MSMARCO-XI query cases plus 15 adversarial cases. Cold and warm process-local passes are separate; failures remain in the report.</p></div></div>}</div>
+          <div className="brutal-border bg-[#ff5a1f]">
+            <div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-black p-4 sm:p-5"><div><div className="mono text-[10px] tracking-[0.15em]">04 / LATENCY LEDGER</div><h2 className="mt-1 text-xl font-bold tracking-[-0.04em]">Where the milliseconds went.</h2></div><button onClick={() => benchmark.mutate()} disabled={benchmark.isPending} className="brutal-button border-2 border-black bg-[#111111] px-3 py-2 mono text-[10px] font-bold text-[#f4eedf] disabled:opacity-60">{benchmark.isPending ? "AUDITING 115 CASES…" : "RUN 115-CASE AUDIT"}</button></div>
+            <div className="p-4 sm:p-5">
+              <div className="border-2 border-black bg-[#fbf7ed] p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2"><span className="mono text-[10px] font-bold tracking-[0.1em]">INTERNAL RETRIEVAL + ANSWER PATH</span><span className="mono text-[10px]">200 MS BUDGET</span></div>
+                {activeLatencyBudget ? <>
+                  <div className="relative mt-4 h-9 overflow-hidden border-2 border-black bg-[#fff8c9]">
+                    <div className={`h-full ${activeLatencyBudget.underBudget ? "bg-[#0b6b44]" : "bg-[#d83522]"}`} style={{ width: `${Math.min(100, (activeLatencyBudget.internalMs / activeLatencyBudget.budgetMs) * 100)}%` }} />
+                    <div className="absolute bottom-0 left-full top-0 -ml-px border-l-2 border-[#a33c16]" />
+                  </div>
+                  <div className="mt-2 flex justify-between mono text-[9px]"><span>0 MS</span><span>{activeLatencyBudget.budgetMs} MS TARGET</span></div>
+                  <div className="mt-3 grid gap-2 border-t-2 border-black pt-3 text-sm"><div className="flex justify-between gap-4"><span>Query route + retrieval + fusion + rerank</span><strong>{activeLatencyBudget.retrievalMs} ms</strong></div><div className="flex justify-between gap-4"><span>Guardrails + evidence + verify + return</span><strong>{activeLatencyBudget.safetyMs} ms</strong></div><div className="flex justify-between gap-4"><span>Grounded answer assembly</span><strong>{activeLatencyBudget.answerMs} ms</strong></div><div className="flex justify-between gap-4 border-t-2 border-black pt-2 font-bold"><span>Internal RAG path</span><strong className={activeLatencyBudget.underBudget ? "text-[#0b6b44]" : "text-[#d83522]"}>{activeLatencyBudget.internalMs} ms · {activeLatencyBudget.underBudget ? "under 200 ms" : "over budget"}</strong></div></div>
+                  <div className="mt-3 border-2 border-black bg-[#e9e0cf] p-2 mono text-[9px] leading-relaxed">SARVAM STT {activeLatencyBudget.sttMs} MS · REPORTED SEPARATELY · OUTSIDE THE INTERNAL RETRIEVAL BUDGET</div>
+                </> : <div className="py-7 text-center"><Timer className="mx-auto" size={24} /><p className="mt-3 text-sm font-bold">Run a voice question to draw its exact internal latency ledger.</p><p className="mono mt-1 text-[9px] text-[#5f584d]">STT IS ALWAYS SHOWN SEPARATELY; THE 200 MS BUDGET IS NEVER APPLIED TO IT.</p></div>}
+              </div>
+              {benchmarkReport ? <div className="mt-3 border-2 border-black bg-[#f4eedf] p-3"><div className="mono text-[10px] font-bold">115-CASE INTERNAL PATH AUDIT</div><div className="mt-2 grid grid-cols-3 gap-2"><Metric label="P50 / warm" value={`${benchmarkReport.warm.p50} ms`} note={`${benchmarkReport.warm.sampleCount} samples`} /><Metric label="P70 / warm" value={`${benchmarkReport.warm.p70} ms`} note="post-transcription" /><Metric label="P100 / warm" value={`${benchmarkReport.warm.p100} ms`} note={`${benchmarkReport.warm.failureCount} failures`} /></div><div className="mono mt-2 text-[9px] leading-relaxed">{benchmarkReport.datasetQueryCount} REAL MSMARCO-XI QUERIES + {benchmarkReport.adversarialQueryCount} ADVERSARIAL CASES · TARGET &lt;{benchmarkReport.postTranscriptionTargetMs}MS</div></div> : <div className="mt-3 mono text-[9px] leading-relaxed">RUN THE 115-CASE AUDIT TO SEE P50 / P70 / P100 FOR THE POST-TRANSCRIPTION INTERNAL PATH. NO STATIC LATENCY IS INVENTED.</div>}
+            </div>
+          </div>
         </section>
 
         <section className="mt-5 grid gap-5 xl:grid-cols-[1.25fr_.75fr]">
