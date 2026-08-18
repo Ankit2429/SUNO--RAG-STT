@@ -12,10 +12,19 @@ describe("bounded language inventory routing", () => {
     process.env.QDRANT_API_KEY = savedQdrantKey;
   });
 
-  it.each(["en-IN", "doi-IN", "ks-IN"])("fails closed locally for unindexed %s evidence instead of calling remote retrieval", async languageCode => {
+  it.each(["doi-IN", "ks-IN"])("fails closed locally for unindexed %s evidence instead of calling remote retrieval", async languageCode => {
     const retrieval = await hybridRetrieve("What is a corporation?", languageCode);
 
     expect(retrieval).toEqual({ evidence: [], scores: new Map(), mode: "local_no_evidence" });
+  });
+
+  it("serves the source-linked English corporation prompt from bounded local companion evidence", async () => {
+    const retrieval = await hybridRetrieve("What is a corporation?", "en-IN");
+
+    expect(retrieval.mode).toBe("local_hot");
+    expect(retrieval.evidence.length).toBeGreaterThan(0);
+    expect(retrieval.evidence.every(chunk => chunk.language === "en")).toBe(true);
+    expect(retrieval.evidence.some(chunk => chunk.queryId === "1102432")).toBe(true);
   });
 
   it("marks Kannada and the fourteen compatible MSMARCO-XI languages as indexed evidence", () => {

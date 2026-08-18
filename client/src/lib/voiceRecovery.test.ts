@@ -42,13 +42,13 @@ describe("resolveVoiceRecovery", () => {
     });
   });
 
-  it("explains the indexed-evidence limitation after a successful English transcription", () => {
+  it("uses the same evidence-boundary recovery guidance for an unsupported English question", () => {
     const outcome = resolveVoiceRecovery(run({
       detectedLanguage: "en-IN",
       answer: { status: "REFUSED", answer: "", evidenceIds: [], confidenceBand: "NONE", refusalReason: "Retrieved passages did not meet the evidence sufficiency threshold." },
       trace: [{ stage: "evidence_gate", status: "REFUSED", durationMs: 1, detail: "No support." }],
     }));
-    expect(outcome.info).toContain("no English evidence shard");
+    expect(outcome.info).toContain("no directly matching MSMARCO-XI passage");
   });
 
   it("retains a successful detected-language confidence message", () => {

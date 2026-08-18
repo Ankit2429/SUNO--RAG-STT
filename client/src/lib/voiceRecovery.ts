@@ -30,12 +30,9 @@ export function resolveVoiceRecovery(run: RAGRun): VoiceRecoveryMessage {
 
   const evidenceRefused = run.answer.status === "REFUSED" && run.trace.some(event => event.stage === "evidence_gate" && event.status === "REFUSED");
   if (evidenceRefused) {
-    const isEnglish = run.detectedLanguage.toLowerCase().startsWith("en");
     return {
       error: null,
-      info: isEnglish
-        ? "Speech was transcribed successfully, but the current bounded MSMARCO-XI index has no English evidence shard for a grounded answer. Choose Hindi, Kannada, Tamil, or Marathi and use a source-backed prompt."
-        : "Speech was transcribed successfully, but no directly matching MSMARCO-XI passage was found. This is an evidence boundary, not a microphone error. Try a source-backed prompt or rephrase using terms from the indexed corpus.",
+      info: "Speech was transcribed successfully, but no directly matching MSMARCO-XI passage was found. This is an evidence boundary, not a microphone error. Try a source-backed prompt or rephrase using terms from the indexed corpus.",
     };
   }
 

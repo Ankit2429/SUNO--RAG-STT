@@ -5,7 +5,7 @@ import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
 
 vi.mock("./sarvam", () => ({ transcribeWithSarvam: vi.fn() }));
 import { transcribeWithSarvam } from "./sarvam";
-import { runVoiceHarness } from "./harness";
+import { runPostTranscriptionHarness, runVoiceHarness } from "./harness";
 
 const transcribeMock = vi.mocked(transcribeWithSarvam);
 
@@ -31,6 +31,22 @@ describe("fail-closed guardrails", () => {
     expect(refused("Insufficient evidence.")).toEqual({
       status: "REFUSED", answer: "No directly matching MSMARCO-XI passage was found for this question, so SvaraProof will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.", evidenceIds: [], confidenceBand: "NONE", refusalReason: "Insufficient evidence.",
     });
+  });
+
+  it("grounds a supported English question through the same evidence-gated route as the other focused languages", async () => {
+    const run = await runPostTranscriptionHarness({ transcript: "What is a corporation?", languageCode: "en-IN", script: "Latin" });
+
+    expect(run.answer.status).toBe("GROUNDED");
+    expect(run.evidence.some(chunk => chunk.language === "en" && chunk.queryId === "1102432")).toBe(true);
+    expect(run.trace.find(event => event.stage === "evidence_gate")?.status).toBe("OK");
+  });
+
+  it("refuses an out-of-context English question without inventing an answer", async () => {
+    const run = await runPostTranscriptionHarness({ transcript: "What is the capital of India?", languageCode: "en-IN", script: "Latin" });
+
+    expect(run.answer.status).toBe("REFUSED");
+    expect(run.answer.evidenceIds).toEqual([]);
+    expect(run.trace.find(event => event.stage === "evidence_gate")?.status).toBe("REFUSED");
   });
 
   it("does not route automatic transcription when provider language confidence is below the safety threshold", async () => {

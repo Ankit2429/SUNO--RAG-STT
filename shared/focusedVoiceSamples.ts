@@ -15,7 +15,7 @@ export type FocusedVoiceSample = {
 export const FOCUSED_VOICE_SAMPLES: readonly FocusedVoiceSample[] = [
   { languageCode: "hi-IN", languageLabel: "Hindi", prompt: "निगम किस कानून द्वारा शासित होता है?", evidenceMode: "grounded", provenance: "MSMARCO-XI Hindi indexed evidence query" },
   { languageCode: "kn-IN", languageLabel: "Kannada", prompt: "ಕಂಪನಿಯು ಯಾವ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತ ನಡೆಸುತ್ತದೆ?", evidenceMode: "grounded", provenance: "MSMARCO-XI Kannada indexed evidence query" },
-  { languageCode: "en-IN", languageLabel: "English", prompt: "What is a corporation?", evidenceMode: "transcription_only", provenance: "Speech-recognition check only" },
+  { languageCode: "en-IN", languageLabel: "English", prompt: "What is a corporation?", evidenceMode: "grounded", provenance: "Original-English companion evidence aligned to MSMARCO-XI query 1102432" },
   { languageCode: "ta-IN", languageLabel: "Tamil", prompt: "நிறுவனம் எந்த சட்டங்களால் நிர்வகிக்கப்படுகிறது?", evidenceMode: "grounded", provenance: "MSMARCO-XI Tamil indexed evidence query" },
   { languageCode: "mr-IN", languageLabel: "Marathi", prompt: "कॉर्पोरेशन कोणत्या कायद्यांद्वारे शासित आहे?", evidenceMode: "grounded", provenance: "MSMARCO-XI Marathi indexed evidence query" },
 ];

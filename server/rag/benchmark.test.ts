@@ -28,8 +28,8 @@ describe("runBenchmark", () => {
         transcript: input.transcript,
         detectedLanguage: input.languageCode,
         detectedScript: "test",
-        answer: { status: input.languageCode === "en-IN" ? "REFUSED" : "GROUNDED", answer: "test", evidenceIds: input.languageCode === "en-IN" ? [] : ["evidence"], confidenceBand: "HIGH", refusalReason: null },
-        evidence: input.languageCode === "en-IN" ? [] : [{ id: "evidence", text: "test", language: input.languageCode.slice(0, 2), source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "parent", queryId: "query", queryType: "DESCRIPTION", ordinal: 0, selected: true, overlap: 0 }],
+        answer: { status: "GROUNDED", answer: "test", evidenceIds: ["evidence"], confidenceBand: "HIGH", refusalReason: null },
+        evidence: [{ id: "evidence", text: "test", language: input.languageCode.slice(0, 2), source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "parent", queryId: "query", queryType: "DESCRIPTION", ordinal: 0, selected: true, overlap: 0 }],
         trace: [{ stage: "query_route", status: "OK", durationMs: 0.1, detail: "L1 local evidence" }],
         latency: { sttMs: 0, ragMs: sequence / 10, endToEndMs: sequence / 10 },
       } satisfies RAGRun),
@@ -39,8 +39,8 @@ describe("runBenchmark", () => {
     expect(report.rawTelemetry).toHaveLength(25);
     expect(report.languages.map(language => language.requestCount)).toEqual([5, 5, 5, 5, 5]);
     expect(report.languages.map(language => language.uniqueFixtureCount)).toEqual([5, 5, 5, 5, 5]);
-    expect(report.languages.find(language => language.languageCode === "en-IN")?.statusCounts).toEqual({ GROUNDED: 0, REFUSED: 5, ERROR: 0 });
-    expect(report.combinedStatusCounts).toEqual({ GROUNDED: 20, REFUSED: 5, ERROR: 0 });
+    expect(report.languages.find(language => language.languageCode === "en-IN")?.statusCounts).toEqual({ GROUNDED: 5, REFUSED: 0, ERROR: 0 });
+    expect(report.combinedStatusCounts).toEqual({ GROUNDED: 25, REFUSED: 0, ERROR: 0 });
     expect(report.rawTelemetry.every(sample => sample.route === "L1 local evidence")).toBe(true);
   });
 });

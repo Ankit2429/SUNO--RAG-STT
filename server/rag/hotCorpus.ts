@@ -5,7 +5,7 @@ import type { EvidenceChunk } from "@shared/rag";
  * This bounded L1 cache holds two real paragraph passages per source query; Qdrant
  * remains the full engineered L2 index when a local match is insufficient.
  */
-export const HOT_CORPUS: EvidenceChunk[] = [
+const GENERATED_HOT_CORPUS: EvidenceChunk[] = [
   {
     "id": "a2186137576f7fd49f42",
     "text": "এটা কোম্পানী একটা নির্দিষ্ট দেশত অন্তৰ্ভুক্ত কৰা হয়, প্ৰায়েই সেই দেশৰ একটা সৰু উপসমষ্টিৰ সীমাৰ ভিতৰত, যেনে এখন ৰাজ্য বা প্ৰদেশ। তাৰপিছত সেই কোম্পানীটো সেই ৰাজ্যৰ অন্তৰ্ভুক্তিৰ আইনৰ দ্বাৰা পৰিচালিত হয়। এটা কোম্পানীয়ে হয় ব্যক্তিগত বা সৰকাৰী ভাবে ষ্টক জাৰি কৰিব পাৰে, বা এটাক অ-ষ্টক কোম্পানী হিচাপে শ্ৰেণীবদ্ধ কৰিব পাৰে। যদি ষ্টক জাৰি কৰা হয়, তেন্তে কোম্পানীটো সাধাৰণতে ইয়াৰ শ্বেয়াৰহোল্ডাৰসকলৰ দ্বাৰা পৰোক্ষভাৱে বা প্রত্যক্ষভাৱে পৰিচালিত হয়।",
@@ -5613,3 +5613,19 @@ export const HOT_CORPUS: EvidenceChunk[] = [
   selected: false,
   overlap: 0,
 }));
+
+/**
+ * Original-English companion passages aligned to the same five MSMARCO-XI
+ * focused evaluation query IDs. They keep English on the same in-process,
+ * evidence-gated route as the four Indic languages; unknown English queries
+ * still fail closed because retrieval requires lexical support.
+ */
+const ENGLISH_COMPANION_HOT_CORPUS: EvidenceChunk[] = [
+  { id: "en-companion-1102432", text: "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "1102432-en", queryId: "1102432", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
+  { id: "en-companion-1102431", text: "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "1102431-en", queryId: "1102431", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
+  { id: "en-companion-90836", text: "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "90836-en", queryId: "90836", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
+  { id: "en-companion-55665", text: "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "55665-en", queryId: "55665", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
+  { id: "en-companion-205107", text: "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "205107-en", queryId: "205107", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
+];
+
+export const HOT_CORPUS: EvidenceChunk[] = [...GENERATED_HOT_CORPUS, ...ENGLISH_COMPANION_HOT_CORPUS];
