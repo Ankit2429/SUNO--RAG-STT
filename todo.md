@@ -42,3 +42,9 @@
 - [x] Validate that newly indexed Kannada and other compatible-language routes retrieve evidence without remote filter failures.
 - [x] Generate a bounded multilingual L1 hot corpus from the rebuilt evidence artifact so common indexed-language retrieval avoids cross-region Qdrant latency.
 - [x] Convert remote Qdrant timeouts into a structured evidence refusal rather than a console-level error state.
+- [x] Make the real AI4Bharat/MSMARCO-XI dataset provenance, fourteen-language evidence coverage, and source-first answer policy prominent in the live evaluator flow.
+- [x] Strengthen local L1 fast-path routing and observability so common grounded questions avoid unnecessary remote retrieval latency.
+- [x] Refine the evidence console hierarchy, empty states, and signature motifs for a cooler, clearer dataset-first experience on desktop and mobile.
+- [x] Add regression coverage for the dataset-first fast path and verify the updated interface visually.
+- [x] Refine lower-page evidence and harness waiting states with intentional source-first placeholder structure, then re-verify them on desktop and mobile.
+- [x] Strengthen the SvaraProof signature motif and wordmark hierarchy so the identity is more ownable across the header and supporting panels.

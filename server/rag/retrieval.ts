@@ -5,12 +5,20 @@ import { generationMode } from "./generation";
 import { HOT_CORPUS } from "./hotCorpus";
 
 type QdrantPoint = { id: string | number; score?: number; payload?: Record<string, unknown> };
-export type RetrievalResult = { evidence: EvidenceChunk[]; scores: Map<string, number>; mode: "cloud" | "unavailable" };
+export type RetrievalMode = "local_hot" | "local_no_evidence" | "cloud" | "unavailable";
+export type RetrievalResult = { evidence: EvidenceChunk[]; scores: Map<string, number>; mode: RetrievalMode };
 
 const COLLECTION = process.env.QDRANT_COLLECTION || "msmarco_xi_evaluation_v1";
 const EMBEDDING_MODEL = process.env.QDRANT_EMBEDDING_MODEL || ZERO_COST_EMBEDDING_MODEL;
 const INDEXED_LANGUAGE_CODES = new Set(EVALUATION_MANIFEST.languages);
 const HOT_VECTORS = new Map(HOT_CORPUS.map(chunk => [chunk.id, embedText(chunk.text)]));
+const HOT_NORMALIZED_TEXT = new Map(HOT_CORPUS.map(chunk => [chunk.id, chunk.text.normalize("NFKC").toLocaleLowerCase()]));
+const HOT_BY_LANGUAGE = new Map<string, EvidenceChunk[]>();
+for (const chunk of HOT_CORPUS) {
+  const existing = HOT_BY_LANGUAGE.get(chunk.language) || [];
+  existing.push(chunk);
+  HOT_BY_LANGUAGE.set(chunk.language, existing);
+}
 
 function configuredUrl(): string | null {
   const value = process.env.QDRANT_URL?.replace(/\/$/, "");
@@ -64,14 +72,22 @@ function cosine(left: number[], right: number[]): number {
   return left.reduce((sum, value, index) => sum + value * (right[index] || 0), 0);
 }
 
+function cachedLexicalScore(chunkId: string, terms: string[]): number {
+  const normalized = HOT_NORMALIZED_TEXT.get(chunkId) || "";
+  return terms.reduce((score, term) => score + (normalized.includes(term) ? 1 : 0), 0);
+}
+
 function retrieveHot(query: string, language: string): RetrievalResult | null {
-  const scoped = HOT_CORPUS.filter(chunk => !language || language === "unknown" || chunk.language === language.split("-")[0]);
+  const requestedLanguage = language?.split("-")[0];
+  const scoped = !requestedLanguage || requestedLanguage === "unknown"
+    ? HOT_CORPUS
+    : HOT_BY_LANGUAGE.get(requestedLanguage) || [];
   if (!scoped.length) return null;
   const terms = lexicalTerms(query);
   const queryVector = embedText(query);
   const ranked = scoped
     .map(chunk => {
-      const lexical = terms.length ? lexicalScore(chunk.text, terms) / terms.length : 0;
+      const lexical = terms.length ? cachedLexicalScore(chunk.id, terms) / terms.length : 0;
       const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));
       return { chunk, score: dense + lexical };
     })
@@ -79,7 +95,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
     .sort((left, right) => right.score - left.score)
     .slice(0, 6);
   if (!ranked.length) return null;
-  return { evidence: ranked.map(item => item.chunk), scores: new Map(ranked.map(item => [item.chunk.id, item.score])), mode: "cloud" };
+  return { evidence: ranked.map(item => item.chunk), scores: new Map(ranked.map(item => [item.chunk.id, item.score])), mode: "local_hot" };
 }
 
 export async function hybridRetrieve(query: string, language: string): Promise<RetrievalResult> {
@@ -90,7 +106,7 @@ export async function hybridRetrieve(query: string, language: string): Promise<R
     // The bounded evaluation collection has no evidence in this locale. Returning
     // empty candidates lets the evidence gate issue a truthful refusal instead of
     // spending seconds on a known-empty strict-mode Qdrant filter request.
-    return { evidence: [], scores: new Map(), mode: "cloud" };
+    return { evidence: [], scores: new Map(), mode: "local_no_evidence" };
   }
   if (!configuredUrl() || !process.env.QDRANT_API_KEY) return { evidence: [], scores: new Map(), mode: "unavailable" };
   const languageFilter = language && language !== "unknown" ? { key: "language", match: { value: language.split("-")[0] } } : null;
@@ -111,7 +127,7 @@ export async function hybridRetrieve(query: string, language: string): Promise<R
   } catch {
     // Network turbulence must never crash the evaluator. An empty candidate set
     // moves through the existing evidence gate as a truthful refusal.
-    return { evidence: [], scores: new Map(), mode: "cloud" };
+    return { evidence: [], scores: new Map(), mode: "local_no_evidence" };
   }
   lexicalPoints.sort((left, right) => lexicalScore(String(right.payload?.text || ""), terms) - lexicalScore(String(left.payload?.text || ""), terms));
   const scores = reciprocalRankFuse([semanticPoints, lexicalPoints]);

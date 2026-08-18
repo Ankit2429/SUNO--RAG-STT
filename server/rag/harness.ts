@@ -41,7 +41,14 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   let retrieval;
   try {
     retrieval = await hybridRetrieve(query, input.languageCode);
-    trace(events, "parallel_retrieve", retrieveStart, retrieval.mode === "cloud" ? "OK" : "ERROR", retrieval.mode === "cloud" ? "Dense and lexical candidates retrieved in parallel." : "Cloud retrieval index is not configured.");
+    const retrievalDetail = retrieval.mode === "local_hot"
+      ? "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+      : retrieval.mode === "local_no_evidence"
+        ? "No bounded MSMARCO-XI evidence is available for this locale or query; remote retrieval skipped for a truthful refusal."
+        : retrieval.mode === "cloud"
+          ? "Real MSMARCO-XI dense and lexical candidates retrieved from Qdrant in parallel."
+          : "Cloud retrieval index is not configured.";
+    trace(events, "parallel_retrieve", retrieveStart, retrieval.mode === "unavailable" ? "ERROR" : "OK", retrievalDetail);
   } catch (error) {
     trace(events, "parallel_retrieve", retrieveStart, "ERROR", error instanceof Error ? error.message : "Retrieval error.");
     skipped(events, ["fuse", "rerank", "evidence_gate", "generate", "verify"], "Stopped after retrieval error.");

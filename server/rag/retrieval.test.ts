@@ -6,7 +6,7 @@ describe("bounded language inventory routing", () => {
   it.each(["en-IN", "doi-IN", "ks-IN"])("fails closed locally for unindexed %s evidence instead of calling remote retrieval", async languageCode => {
     const retrieval = await hybridRetrieve("What is a corporation?", languageCode);
 
-    expect(retrieval).toEqual({ evidence: [], scores: new Map(), mode: "cloud" });
+    expect(retrieval).toEqual({ evidence: [], scores: new Map(), mode: "local_no_evidence" });
   });
 
   it("marks Kannada and the fourteen compatible MSMARCO-XI languages as indexed evidence", () => {
@@ -24,7 +24,7 @@ describe("bounded language inventory routing", () => {
   ])("serves a representative %s query from the bounded in-process evidence cache", async (languageCode, query) => {
     const retrieval = await hybridRetrieve(query, languageCode);
 
-    expect(retrieval.mode).toBe("cloud");
+    expect(retrieval.mode).toBe("local_hot");
     expect(retrieval.evidence.length).toBeGreaterThan(0);
     expect(retrieval.evidence.every(chunk => chunk.language === languageCode.split("-")[0])).toBe(true);
   });
