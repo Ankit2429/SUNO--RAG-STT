@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { AUTO_SEND_MIN_CAPTURE_MS, AUTO_SEND_SILENCE_MS, updatePauseToSendState, VOICE_ACTIVITY_THRESHOLD } from "./voiceCaptureTiming";
 
 describe("pause-to-send voice capture timing", () => {
-  it("keeps the controllable post-speech wait below 800 ms", () => {
-    expect(AUTO_SEND_SILENCE_MS).toBeLessThanOrEqual(750);
+  it("keeps the controllable post-speech wait at one-half second", () => {
+    expect(AUTO_SEND_SILENCE_MS).toBe(500);
   });
 
   it("marks speech activity and clears any pending silence timer", () => {

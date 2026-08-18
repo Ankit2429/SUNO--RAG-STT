@@ -1,8 +1,8 @@
 export const VOICE_ACTIVITY_THRESHOLD = 0.1;
 export const AUTO_SEND_MIN_CAPTURE_MS = 1_000;
-// Keep a small natural pause, but do not retain a long tail of silence before
-// sending the clip to the external STT provider.
-export const AUTO_SEND_SILENCE_MS = 750;
+// Keep a short natural pause while sending promptly after the final word.
+// A user can always use STOP & SEND NOW to submit even sooner.
+export const AUTO_SEND_SILENCE_MS = 500;
 
 export type PauseToSendState = {
   speechDetected: boolean;
