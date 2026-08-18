@@ -30,6 +30,20 @@ const corporationEvidence: EvidenceChunk = {
   overlap: 0,
 };
 
+const kannadaCorporationEvidence: EvidenceChunk = {
+  id: "corporation-kn-1",
+  text: "ಒಂದು ನಿರ್ದಿಷ್ಟ ರಾಷ್ಟ್ರದಲ್ಲಿ ಒಂದು ಕಂಪನಿಯನ್ನು ಸಂಯೋಜಿಸಲಾಗುತ್ತದೆ. ನಂತರ ಆ ಕಂಪನಿಯು ಆ ರಾಜ್ಯದಲ್ಲಿನ ಸಂಯೋಜನೆಯ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತವನ್ನು ನಡೆಸುತ್ತದೆ.",
+  language: "kn",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "corporation-kn-parent",
+  queryId: "1102432",
+  queryType: "DESCRIPTION",
+  ordinal: 0,
+  selected: true,
+  overlap: 0,
+};
+
 describe("evidence grounding", () => {
   it("refuses evidence that shares only a Hindi question particle with the query", () => {
     const answer = verifyAndSynthesize("कॉर्पोरेशन क्या है?", [ringwormEvidence], new Map([[ringwormEvidence.id, 0.8]]));
@@ -61,6 +75,18 @@ describe("evidence grounding", () => {
     expect(answer.status).toBe("GROUNDED");
     expect(answer.evidenceIds).toEqual([corporationEvidence.id]);
     expect(answer.answer).not.toContain("रिंगवर्म");
+  });
+
+  it("returns a standalone, evidence-faithful Kannada answer instead of a raw paragraph fragment", () => {
+    const answer = verifyAndSynthesize(
+      "ಕಂಪನಿಯು ಯಾವ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತ ನಡೆಸುತ್ತದೆ?",
+      [kannadaCorporationEvidence],
+      new Map([[kannadaCorporationEvidence.id, 0.9]]),
+    );
+
+    expect(answer.status).toBe("GROUNDED");
+    expect(answer.evidenceIds).toEqual([kannadaCorporationEvidence.id]);
+    expect(answer.answer).toBe("ಕಂಪನಿಯು ಅದು ಸಂಯೋಜಿತವಾಗಿರುವ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ.");
   });
 
   it.each([

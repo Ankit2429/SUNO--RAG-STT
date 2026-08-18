@@ -7,10 +7,10 @@ import { resolveEvidencePath } from "../lib/evidencePath";
 import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
 import { resolveVoiceRecovery } from "../lib/voiceRecovery";
 import { resolveVoiceOutputProgress } from "../lib/voiceProgress";
-import { normalizeTypedQuestion, validateTypedQuestion } from "../lib/typedQuestion";
+import { buildTypedQuestionHarnessInput, validateTypedQuestion } from "../lib/typedQuestion";
 import type { RAGRun } from "@shared/rag";
 import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, Send, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import React, { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { flushSync } from "react-dom";
 
 type BenchmarkState = {
@@ -75,6 +75,11 @@ function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes
     </select>
     <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{automaticDetection ? "Recommended default: Sarvam detects speech language from the clip, then SvaraProof checks whether that detected language has bounded MSMARCO-XI evidence." : selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."} A short pause after you speak sends the clip automatically; STOP &amp; SEND remains available.</p>
   </div>;
+}
+
+/** Client-side adapter used by the Home form before calling the tRPC mutation. */
+export function prepareTypedQuestionSubmission(value: string, selectedLanguage: VoiceLanguageCode) {
+  return buildTypedQuestionHarnessInput(value, selectedLanguage);
 }
 
 export default function Home() {
@@ -318,12 +323,17 @@ export default function Home() {
       setCaptureError(validationError);
       return;
     }
-    const transcript = normalizeTypedQuestion(typedQuestion);
+    const typedRequest = prepareTypedQuestionSubmission(typedQuestion, languageCode);
     setCaptureError(null);
     setRun(null);
     setAudioPackagingMs(null);
-    setCaptureInfo(`Typed question submitted • ${languageCode === AUTO_DETECT_LANGUAGE ? "language auto-detect" : languageCode} • same evidence harness.`);
-    askBrowserTranscript.mutate({ transcript, languageCode, script: "typed-input" });
+    const routingDetail = typedRequest.languageSource === "script-inferred"
+      ? `${typedRequest.input.languageCode} inferred from typed script`
+      : typedRequest.languageSource === "unresolved"
+        ? "language script unresolved"
+        : typedRequest.input.languageCode;
+    setCaptureInfo(`Typed question submitted • ${routingDetail} • same evidence harness.`);
+    askBrowserTranscript.mutate(typedRequest.input);
   };
 
   return (

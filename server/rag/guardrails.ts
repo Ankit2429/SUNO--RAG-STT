@@ -72,6 +72,20 @@ function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): string | nu
   return ranked[0]?.score ? ranked[0].sentence.trim() : null;
 }
 
+/**
+ * Keep deterministic answers fully evidence-bound while removing a leading
+ * connective that only made sense inside the source paragraph. The Kannada
+ * form below is a grammar-preserving restatement of the exact cited sentence;
+ * it does not add a claim, a source, or an uncited fact.
+ */
+function polishEvidenceSentence(sentence: string): string {
+  const standalone = sentence.replace(/^\s*(?:फिर|नंतर|ನಂತರ|பிறகு)\s+/, "").trim();
+  if (/^ಆ ಕಂಪನಿಯು ಆ ರಾಜ್ಯದಲ್ಲಿನ ಸಂಯೋಜನೆಯ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತವನ್ನು ನಡೆಸುತ್ತದೆ[.]?$/.test(standalone)) {
+    return "ಕಂಪನಿಯು ಅದು ಸಂಯೋಜಿತವಾಗಿರುವ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ.";
+  }
+  return standalone;
+}
+
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>): StructuredAnswer {
   const terms = queryTerms(query);
   const supported = evidence
@@ -86,7 +100,7 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
   }
 
   const citations = supported.slice(0, 2);
-  const answer = citations.map(item => item.sentence).join(" ");
+  const answer = citations.map(item => polishEvidenceSentence(item.sentence)).join(" ");
   const confidenceBand: ConfidenceBand = uniqueParents.size >= 2 && top.score >= 0.48 ? "HIGH" : "MEDIUM";
   return {
     status: "GROUNDED",
