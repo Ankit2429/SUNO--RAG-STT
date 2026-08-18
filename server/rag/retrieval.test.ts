@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { EVALUATION_MANIFEST } from "@shared/evaluationManifest";
-import { hybridRetrieve } from "./retrieval";
+import { hybridRetrieve, retrievalInternals } from "./retrieval";
 
 describe("bounded language inventory routing", () => {
   it.each(["en-IN", "doi-IN", "ks-IN"])("fails closed locally for unindexed %s evidence instead of calling remote retrieval", async languageCode => {
@@ -16,7 +16,7 @@ describe("bounded language inventory routing", () => {
   });
 
   it.each([
-    ["kn-IN", "ಕಾರ್ಪೊರೇಷನ್ ಎಂದರೇನು?"],
+    ["kn-IN", "ಕಾರ್ಪೊರೇಟ್ ಚೆಕ್ ಎಂದರೇನು?"],
     ["gu-IN", "શું એક કોર્પોરેશન છે?"],
     ["ml-IN", "ഒരു കോർപ്പറേഷൻ എന്താണ്?"],
     ["as-IN", "কৰ্পোৰেচন কি?"],
@@ -27,5 +27,11 @@ describe("bounded language inventory routing", () => {
     expect(retrieval.mode).toBe("local_hot");
     expect(retrieval.evidence.length).toBeGreaterThan(0);
     expect(retrieval.evidence.every(chunk => chunk.language === languageCode.split("-")[0])).toBe(true);
+  });
+
+  it("does not fast-return unrelated Kannada L1 candidates for a question with no local lexical support", async () => {
+    const retrieval = retrievalInternals.retrieveHot("ಭಾರತದ ರಾಜಧಾನಿ ಯಾವುದು?", "kn-IN");
+
+    expect(retrieval).toBeNull();
   });
 });

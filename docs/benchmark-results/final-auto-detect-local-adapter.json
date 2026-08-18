@@ -1,0 +1,71 @@
+{
+  "benchmark": "Sarvam automatic-language-detection transcription validation",
+  "measuredAt": "2026-08-18T07:17:38.956Z",
+  "endpoint": "http://localhost:3000/api/trpc/voiceRag.ask",
+  "languageHint": "unknown",
+  "requestCount": 4,
+  "failureCount": 0,
+  "languageMatchCount": 3,
+  "results": [
+    {
+      "fixtureLanguage": "en-IN",
+      "detectedLanguage": "en-IN",
+      "languageMatched": true,
+      "label": "English",
+      "ok": true,
+      "harnessStatus": "REFUSED",
+      "transcriptCharacters": 313,
+      "transcriptionError": null,
+      "sttMs": 4928.31,
+      "ragMs": 0.17,
+      "endToEndMs": 4928.5,
+      "applicationRoundTripMs": 5016.27,
+      "httpStatus": 200
+    },
+    {
+      "fixtureLanguage": "kn-IN",
+      "detectedLanguage": "gu-IN",
+      "languageMatched": false,
+      "label": "Kannada",
+      "ok": true,
+      "harnessStatus": "REFUSED",
+      "transcriptCharacters": 54,
+      "transcriptionError": null,
+      "sttMs": 2450.21,
+      "ragMs": 0,
+      "endToEndMs": 2450.22,
+      "applicationRoundTripMs": 2498.28,
+      "httpStatus": 200
+    },
+    {
+      "fixtureLanguage": "hi-IN",
+      "detectedLanguage": "hi-IN",
+      "languageMatched": true,
+      "label": "Hindi",
+      "ok": true,
+      "harnessStatus": "REFUSED",
+      "transcriptCharacters": 19,
+      "transcriptionError": null,
+      "sttMs": 1213.89,
+      "ragMs": 0,
+      "endToEndMs": 1213.9,
+      "applicationRoundTripMs": 1254.64,
+      "httpStatus": 200
+    },
+    {
+      "fixtureLanguage": "mr-IN",
+      "detectedLanguage": "mr-IN",
+      "languageMatched": true,
+      "label": "Marathi",
+      "ok": true,
+      "harnessStatus": "GROUNDED",
+      "transcriptCharacters": 22,
+      "transcriptionError": null,
+      "sttMs": 1081.32,
+      "ragMs": 0.93,
+      "endToEndMs": 1082.26,
+      "applicationRoundTripMs": 1122.58,
+      "httpStatus": 200
+    }
+  ]
+}

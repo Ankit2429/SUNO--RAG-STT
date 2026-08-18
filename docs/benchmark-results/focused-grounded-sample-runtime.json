@@ -1,0 +1,131 @@
+{
+  "scope": "local post-transcription runtime validation",
+  "samples": [
+    [
+      {
+        "languageCode": "hi-IN",
+        "transcript": "निगम किस कानून द्वारा शासित होता है?",
+        "status": "GROUNDED",
+        "evidence": [
+          {
+            "id": "abcd00370bf28170563f",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "07d5e6a0ee80f8256e35",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "e7fa2d93a7f25706b04e",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "4683701a372c6faaab3d",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "3bc560591484720bd503",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "7e39d1f5f7be140a46ed",
+            "sourceId": null,
+            "score": null
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "languageCode": "kn-IN",
+        "transcript": "ಕಂಪನಿಯು ಯಾವ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತ ನಡೆಸುತ್ತದೆ?",
+        "status": "GROUNDED",
+        "evidence": [
+          {
+            "id": "d6b5794de38c4a3f1099",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "bc44171434be470dbf2d",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "0ed298e881f6179ded38",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "cdd72560d14e6ace5767",
+            "sourceId": null,
+            "score": null
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "languageCode": "ta-IN",
+        "transcript": "நிறுவனம் எந்த சட்டங்களால் நிர்வகிக்கப்படுகிறது?",
+        "status": "GROUNDED",
+        "evidence": [
+          {
+            "id": "fe7d01189b5d4b12b986",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "ce64bfe8284cd5b9d183",
+            "sourceId": null,
+            "score": null
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "languageCode": "mr-IN",
+        "transcript": "कॉर्पोरेशन कोणत्या कायद्यांद्वारे शासित आहे?",
+        "status": "GROUNDED",
+        "evidence": [
+          {
+            "id": "d68b9fe31a57d0054b70",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "8d4939173b798ad17474",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "35c8df5bc5c2343e2eb6",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "a6895ce6b791ade021e3",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "310bf1ae0dbba86a1a00",
+            "sourceId": null,
+            "score": null
+          },
+          {
+            "id": "dde16707c2471213b628",
+            "sourceId": null,
+            "score": null
+          }
+        ]
+      }
+    ]
+  ]
+}

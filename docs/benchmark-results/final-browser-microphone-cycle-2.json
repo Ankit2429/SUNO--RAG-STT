@@ -1,0 +1,24 @@
+{
+  "benchmark": "browser MediaRecorder record-stop-send lifecycle",
+  "origin": "https://3000-ifb42uuseuk387yx2srv1-323c3b4d.us3.manus.computer",
+  "fixture": "/home/ubuntu/voice-benchmark/hindi.wav",
+  "cycles": 2,
+  "results": [
+    {
+      "cycle": 1,
+      "error": false,
+      "errorDetail": null,
+      "state": "REFUSED",
+      "output": "02 / STRUCTURED OUTPUT\nREFUSED\nREQ c1f0bdae\nTRANSCRIPT / HI-IN / DEVANAGARI\n\nकॉर्पोरेशन क्या?\n\nANSWER\n\nI can only provide an answer that is directly supported by retrieved MSMARCO-XI evidence.\n\nCONFIDENCE\nNONE\nEVIDENCE\n0 cited\nRAG PATH\n0.63 ms\nREFUSAL REASON\nRetrieved passages did not meet the evidence sufficiency threshold."
+    },
+    {
+      "cycle": 2,
+      "error": false,
+      "errorDetail": null,
+      "state": "REFUSED",
+      "output": "02 / STRUCTURED OUTPUT\nREFUSED\nREQ 020d0e72\nTRANSCRIPT / HI-IN / DEVANAGARI\n\nकॉर्पोरेशन क्या है?\n\nANSWER\n\nI can only provide an answer that is directly supported by retrieved MSMARCO-XI evidence.\n\nCONFIDENCE\nNONE\nEVIDENCE\n0 cited\nRAG PATH\n0.75 ms\nREFUSAL REASON\nRetrieved passages did not meet the evidence sufficiency threshold."
+    }
+  ],
+  "passed": true,
+  "measuredAt": "2026-08-18T07:12:57.444Z"
+}

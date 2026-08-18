@@ -47,7 +47,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   const retrieveStart = now();
   let retrieval;
   try {
-    retrieval = await hybridRetrieve(query, input.languageCode);
+    retrieval = await hybridRetrieve(query, input.languageCode, { allowCloudFallback: input.script !== "benchmark" });
     const retrievalDetail = retrieval.mode === "local_hot"
       ? "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
       : retrieval.mode === "local_no_evidence"

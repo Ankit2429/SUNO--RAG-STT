@@ -9,6 +9,14 @@ const unsafePatterns = [
 const promptInjectionPatterns = [
   /\b(?:ignore|reveal|print|show)\b.*\b(?:system|developer|hidden)\b/i,
   /\b(?:jailbreak|prompt injection|developer message)\b/i,
+  /(?:पिछले|पूर्व|पहले)\s+निर्देश(?:ों)?\s+को\s+(?:अनदेखा|नज़रअंदाज़|नजरअंदाज)\s+कर(?:ें|ो)?/,
+  /(?:सिस्टम|प्रणाली)\s*(?:प्रॉम्प्ट|निर्देश)\s*(?:दिखा(?:एं|ओ)?|बताइए|बताओ|प्रकट)/,
+  /(?:ಹಿಂದಿನ|ಮೊದಲಿನ)\s+ಸೂಚನೆ(?:ಗಳನ್ನು)?\s+(?:ನಿರ್ಲಕ್ಷಿಸಿ|ಕಡೆಗಣಿಸಿ)/,
+  /(?:ಸಿಸ್ಟಮ್|ವ್ಯವಸ್ಥೆ)\s*(?:ಪ್ರಾಂಪ್ಟ್|ಸೂಚನೆ)\s*(?:ತೋರಿಸಿ|ಬಹಿರಂಗಪಡಿಸಿ)/,
+  /(?:முந்தைய|முன்)\s+(?:வழிமுறைகளை|அறிவுறுத்தல்களை)\s+(?:புறக்கணித்து|புறக்கணிக்கவும்)/,
+  /(?:சிஸ்டம்|அமைப்பு)\s*(?:ப்ராம்ப்டை|வழிமுறையை)\s*(?:காட்டுங்கள்|வெளிப்படுத்துங்கள்)/,
+  /(?:मागील|पूर्वीच्या)\s+सूचना\s+(?:दुर्लक्ष|नजरअंदाज)\s+करा/,
+  /(?:सिस्टम|प्रणाली)\s*(?:प्रॉम्प्ट|सूचना)\s*(?:दाखवा|उघड करा)/,
 ];
 
 export function refused(reason: string): StructuredAnswer {
@@ -41,15 +49,25 @@ export function inspectQuery(query: string): string | null {
 }
 
 function queryTerms(query: string): Set<string> {
+  const nonSemanticTerms = new Set([
+    "क्या", "काय", "है", "आहे", "का", "की", "के", "को", "किस", "द्वारा", "होता", "होती", "होते",
+    "ಏನು", "ಏನದು", "ಎಂದರೇನು", "ಇದು", "ಯಾವುದು", "ಯಾವ", "ಮತ್ತು",
+    "என்ன", "எது", "ஒரு", "என்பது", "எந்த", "மற்றும்",
+    "कोणत्या", "कोणता", "द्वारे",
+    "what", "which", "when", "where", "why", "how", "the", "and", "for", "with",
+  ]);
   return new Set(
-    query.toLocaleLowerCase().split(/[^\w\u0900-\u0D7F]+/).filter(term => term.length >= 3).slice(0, 12),
+    query.toLocaleLowerCase().split(/[^\w\u0900-\u0D7F]+/).filter(term => term.length >= 3 && !nonSemanticTerms.has(term)).slice(0, 12),
   );
 }
 
 function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): string | null {
   const sentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).filter(Boolean);
   const ranked = sentences
-    .map(sentence => ({ sentence, score: Array.from(terms).filter(term => sentence.toLocaleLowerCase().includes(term)).length }))
+    .map(sentence => {
+      const sentenceTerms = new Set(sentence.toLocaleLowerCase().split(/[^\w\u0900-\u0D7F]+/).filter(Boolean));
+      return { sentence, score: Array.from(terms).filter(term => sentenceTerms.has(term)).length };
+    })
     .sort((a, b) => b.score - a.score);
   return ranked[0]?.score ? ranked[0].sentence.trim() : null;
 }

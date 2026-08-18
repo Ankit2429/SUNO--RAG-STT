@@ -55,9 +55,10 @@
 - [x] Add automatic-detection confidence handling so low-confidence provider language identification fails closed and directs the speaker to an explicit locale override.
 - [x] Surface detected-locale confidence in the structured output and document the explicit-override recovery path for misdetected clips.
 - [x] Add MediaRecorder post-stop recovery regression coverage for repeated record → stop → send sessions and recoverable terminal states.
-- [ ] Run and document a real physical-microphone validation with live speech when a user-accessible input device is available; the sandbox can only perform synthetic fake-device checks.
+- [ ] Preserve auditable real physical-microphone validation outputs for both a supported grounded prompt and an unsupported refusal prompt; the user-visible Kannada result established the scenario but is not yet stored as structured telemetry.
 - [x] Run and document the browser MediaRecorder lifecycle with Chromium’s fake microphone device as supplemental regression evidence.
-- [ ] Diagnose and eliminate the remaining live microphone, transcription, or response errors reported after the initial MIME repair.
+- [ ] Confirm with auditable real-device runs that no post-recording microphone, transcription, or response error remains; the reported Kannada outcome was diagnosed as an expected evidence-gate refusal and the interface now provides source-backed prompts and recovery guidance.
+- [x] Complete a consolidated internal validation pass and preserve its results before requesting the user’s single final end-to-end check (see docs/final-internal-validation.md and final-* telemetry artifacts).
 - [x] Surface structured pipeline errors and low-confidence automatic-detection refusals as actionable microphone recovery guidance in the live interface.
 - [x] Profile the complete voice-to-answer path and reduce controllable latency without weakening evidence or safety gates.
 - [x] Benchmark and document optimized browser-originated latency separately from Sarvam STT time.
@@ -65,3 +66,8 @@
 - [x] Update tests, capability labels, and documentation for the focused five-language experience.
 - [x] Remove stale 23-locale fallback references so live documentation consistently states the focused five-language scope.
 - [x] Audit current documentation and UI copy for residual broad-locale wording after the focused-language update.
+- [x] Reproduce and diagnose the live Kannada evidence-sufficiency refusal shown after successful automatic transcription (the capital-of-India prompt has no directly supporting Kannada MSMARCO-XI evidence, so refusal is correct).
+- [x] Tune focused-language retrieval and evidence sufficiency so supported corpus questions return grounded answers without weakening refusal boundaries (irrelevant L1 candidates now fall through instead of blocking L2; unsupported questions remain refused).
+- [x] Validate grounded-answer and refusal behavior across Hindi, Kannada, Tamil, and Marathi with auditable evidence.
+- [x] Add source-backed MSMARCO-XI sample prompts and clearer evidence-refusal guidance for the focused language experience.
+- [x] Extend prompt-injection detection to the four non-English focused voice languages and verify fail-closed refusal through the live harness (five localized refusal cases pass in docs/benchmark-results/final-internal-rag-validation.json).

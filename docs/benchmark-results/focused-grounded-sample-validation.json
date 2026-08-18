@@ -1,0 +1,41 @@
+{
+  "scope": "Post-transcription tRPC validation of visible focused-language speaking prompts",
+  "route": "voiceRag.askBrowserTranscript",
+  "result": "All four evidence-indexed prompts returned GROUNDED; English remains transcription-only.",
+  "samples": [
+    {
+      "languageCode": "hi-IN",
+      "prompt": "निगम किस कानून द्वारा शासित होता है?",
+      "status": "GROUNDED",
+      "evidenceCount": 6,
+      "answer": "निगम तब उस राज्य में निगमन के कानूनों द्वारा शासित होता है।"
+    },
+    {
+      "languageCode": "kn-IN",
+      "prompt": "ಕಂಪನಿಯು ಯಾವ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತ ನಡೆಸುತ್ತದೆ?",
+      "status": "GROUNDED",
+      "evidenceCount": 4,
+      "answer": "ನಂತರ ಆ ಕಂಪನಿಯು ಆ ರಾಜ್ಯದಲ್ಲಿನ ಸಂಯೋಜನೆಯ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತವನ್ನು ನಡೆಸುತ್ತದೆ."
+    },
+    {
+      "languageCode": "ta-IN",
+      "prompt": "நிறுவனம் எந்த சட்டங்களால் நிர்வகிக்கப்படுகிறது?",
+      "status": "GROUNDED",
+      "evidenceCount": 2,
+      "answer": "பின்னர் அந்த மாநிலத்தின் நிறுவனச் சட்டங்களால் நிறுவனம் நிர்வகிக்கப்படுகிறது."
+    },
+    {
+      "languageCode": "mr-IN",
+      "prompt": "कॉर्पोरेशन कोणत्या कायद्यांद्वारे शासित आहे?",
+      "status": "GROUNDED",
+      "evidenceCount": 6,
+      "answer": "नंतर कॉर्पोरेशन त्या राज्यातील समावेशाच्या कायद्यांद्वारे शासित केले जाते."
+    }
+  ],
+  "refusalBoundary": [
+    { "languageCode": "hi-IN", "transcript": "बैंगनी ज़ेबरा किस ग्रह पर रहता है?", "status": "REFUSED", "evidenceCount": 6 },
+    { "languageCode": "kn-IN", "transcript": "ನೇರಳೆ ಜೀಬ್ರಾ ಯಾವ ಗ್ರಹದಲ್ಲಿ ವಾಸಿಸುತ್ತದೆ?", "status": "REFUSED", "evidenceCount": 4 },
+    { "languageCode": "ta-IN", "transcript": "ஊதா வரிக்குதிரை எந்த கிரகத்தில் வாழ்கிறது?", "status": "REFUSED", "evidenceCount": 1 },
+    { "languageCode": "mr-IN", "transcript": "जांभळा झेब्रा कोणत्या ग्रहावर राहतो?", "status": "REFUSED", "evidenceCount": 5 }
+  ]
+}

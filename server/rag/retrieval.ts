@@ -87,18 +87,27 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   const queryVector = embedText(query);
   const ranked = scoped
     .map(chunk => {
-      const lexical = terms.length ? cachedLexicalScore(chunk.id, terms) / terms.length : 0;
+      const lexicalHits = terms.length ? cachedLexicalScore(chunk.id, terms) : 0;
+      const lexical = terms.length ? lexicalHits / terms.length : 0;
       const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));
-      return { chunk, score: dense + lexical };
+      return { chunk, score: dense + lexical, lexicalHits };
     })
     .filter(item => item.score > 0.1)
     .sort((left, right) => right.score - left.score)
     .slice(0, 6);
-  if (!ranked.length) return null;
-  return { evidence: ranked.map(item => item.chunk), scores: new Map(ranked.map(item => [item.chunk.id, item.score])), mode: "local_hot" };
+  // L1 is deliberately small. Unicode n-gram similarity alone can rank unrelated
+  // same-script passages, which would prevent the full corpus from being queried.
+  // Require at least one normalized query-term overlap before accepting the fast path.
+  // Otherwise, defer to Qdrant L2 where the full MSMARCO-XI language shard can supply
+  // evidence or the existing gate can refuse truthfully.
+  const supported = terms.length ? ranked.filter(item => item.lexicalHits > 0) : ranked;
+  if (!supported.length) return null;
+  return { evidence: supported.map(item => item.chunk), scores: new Map(supported.map(item => [item.chunk.id, item.score])), mode: "local_hot" };
 }
 
-export async function hybridRetrieve(query: string, language: string): Promise<RetrievalResult> {
+export const retrievalInternals = { retrieveHot };
+
+export async function hybridRetrieve(query: string, language: string, options: { allowCloudFallback?: boolean } = {}): Promise<RetrievalResult> {
   const hot = retrieveHot(query, language);
   if (hot) return hot;
   const requestedLanguage = language?.split("-")[0];
@@ -108,6 +117,7 @@ export async function hybridRetrieve(query: string, language: string): Promise<R
     // spending seconds on a known-empty strict-mode Qdrant filter request.
     return { evidence: [], scores: new Map(), mode: "local_no_evidence" };
   }
+  if (options.allowCloudFallback === false) return { evidence: [], scores: new Map(), mode: "local_no_evidence" };
   if (!configuredUrl() || !process.env.QDRANT_API_KEY) return { evidence: [], scores: new Map(), mode: "unavailable" };
   const languageFilter = language && language !== "unknown" ? { key: "language", match: { value: language.split("-")[0] } } : null;
   const evaluationOnlyFilter = { key: "strategy", match: { value: "query_linked_evaluation" } };

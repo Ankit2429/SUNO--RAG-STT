@@ -1,6 +1,7 @@
 import { trpc } from "@/lib/trpc";
 import { configureBrowserFallback, type BrowserRecognitionEvent, type BrowserRecognitionPort, VOICE_LANGUAGES, type VoiceLanguageCode, voiceLanguageLabel } from "../lib/voiceLanguage";
 import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
+import { FOCUSED_VOICE_SAMPLES, type FocusedVoiceSample } from "@shared/focusedVoiceSamples";
 import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import { resolveEvidencePath } from "../lib/evidencePath";
 import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
@@ -235,6 +236,15 @@ export default function Home() {
 
   const stopRecording = () => recorderRef.current?.state === "recording" && recorderRef.current.stop();
 
+  const chooseSample = (sample: FocusedVoiceSample) => {
+    setLanguageCode(sample.languageCode);
+    setCaptureError(null);
+    setRun(null);
+    setCaptureInfo(sample.evidenceMode === "grounded"
+      ? `${sample.languageLabel} source-backed prompt selected — speak the displayed wording.`
+      : `${sample.languageLabel} is transcription-only — the system will safely refuse without bounded evidence.`);
+  };
+
   const startBrowserFallback = () => {
     if (isPipelineBusy) return;
     setCaptureError(null);
@@ -297,6 +307,11 @@ export default function Home() {
               <div className="grid min-h-[270px] place-items-center border-2 border-dashed border-black bg-[#f4eedf] p-5 text-center">
                 <div className="w-full max-w-xl">
                   <LanguagePicker languageCode={languageCode} onChange={setLanguageCode} disabled={isPipelineBusy} indexedLanguageCodes={indexedLanguageCodes} />
+                  <div className="mb-6 border-2 border-black bg-white p-3 text-left">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2"><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Corpus-matched speaking prompts</div><span className="mono text-[8px] text-[#5f584d]">Select one, then speak it</span></div>
+                    <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{FOCUSED_VOICE_SAMPLES.map(sample => <button key={sample.languageCode} type="button" disabled={isPipelineBusy} onClick={() => chooseSample(sample)} className="brutal-button border-2 border-black bg-[#f4eedf] p-2 text-left disabled:opacity-50"><div className="flex items-center justify-between gap-2"><span className="mono text-[9px] font-bold">{sample.languageLabel}</span><span className={`mono text-[8px] ${sample.evidenceMode === "grounded" ? "text-[#31553e]" : "text-[#9b3f1c]"}`}>{sample.evidenceMode === "grounded" ? "GROUNDED" : "STT ONLY"}</span></div><p className="mt-1 text-xs font-bold leading-snug">{sample.prompt}</p></button>)}</div>
+                    <p className="mono mt-2 text-[8px] leading-relaxed text-[#5f584d]">These are real focused-evaluation prompts, not prewritten answers. English verifies transcription only; the other prompts route to bounded MSMARCO-XI evidence.</p>
+                  </div>
                   <div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div>
                   <div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} — speak for at least 1 second` : browserListening ? `listening for ${voiceLanguageLabel(languageCode)}` : awaitingResponse ? "transcribing, detecting language, and validating your question" : "microphone capture • ≤30 seconds • server-side transcription"}</div>
                   <div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={isPipelineBusy} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {awaitingResponse ? "RUNNING HARNESS" : browserListening ? "FALLBACK ACTIVE" : "START RECORDING"}</button>}</div>
