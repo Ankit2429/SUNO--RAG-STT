@@ -50,3 +50,10 @@
 - [x] Strengthen the SvaraProof signature motif and wordmark hierarchy so the identity is more ownable across the header and supporting panels.
 - [x] Inspect the user-supplied benchmark.py, validate its safety and measurement compatibility, and preserve any valid supplemental benchmark evidence (the supplied file contains only unrelated instructions, so no benchmark code was executed or integrated).
 - [x] Run and preserve a native 300-request browser-originated public-ingress voice benchmark using the verified SvaraProof runner, reporting successful-trial percentiles and provider failures separately.
+- [x] Diagnose and repair the post-recording voice error path so microphone sessions recover cleanly after speech capture.
+- [x] Add safe automatic speech-language detection while retaining explicit 23-locale coverage and evidence-bound response routing.
+- [x] Add automatic-detection confidence handling so low-confidence provider language identification fails closed and directs the speaker to an explicit locale override.
+- [x] Surface detected-locale confidence in the structured output and document the explicit-override recovery path for misdetected clips.
+- [x] Add MediaRecorder post-stop recovery regression coverage for repeated record → stop → send sessions and recoverable terminal states.
+- [ ] Run and document a real physical-microphone validation with live speech when a user-accessible input device is available; the sandbox can only perform synthetic fake-device checks.
+- [x] Run and document the browser MediaRecorder lifecycle with Chromium’s fake microphone device as supplemental regression evidence.

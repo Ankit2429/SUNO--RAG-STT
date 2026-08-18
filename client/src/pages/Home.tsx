@@ -1,5 +1,6 @@
 import { trpc } from "@/lib/trpc";
 import { configureBrowserFallback, type BrowserRecognitionEvent, type BrowserRecognitionPort, VOICE_LANGUAGES, type VoiceLanguageCode, voiceLanguageLabel } from "../lib/voiceLanguage";
+import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
 import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import { resolveEvidencePath } from "../lib/evidencePath";
 import type { RAGRun } from "@shared/rag";
@@ -53,25 +54,27 @@ function Metric({ label, value, note }: { label: string; value: string; note: st
 }
 
 function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes }: { languageCode: VoiceLanguageCode; onChange: (code: VoiceLanguageCode) => void; disabled: boolean; indexedLanguageCodes: string[] }) {
-  const selectedLanguage = VOICE_LANGUAGES.find(language => language.code === languageCode) || VOICE_LANGUAGES[0];
-  const selectedIsIndexed = indexedLanguageCodes.includes(languageCode.slice(0, 2));
+  const automaticDetection = languageCode === AUTO_DETECT_LANGUAGE;
+  const selectedLanguage = automaticDetection ? null : VOICE_LANGUAGES.find(language => language.code === languageCode) || VOICE_LANGUAGES[0];
+  const selectedIsIndexed = !automaticDetection && indexedLanguageCodes.includes(languageCode.slice(0, 2));
   return <div className="mb-6 border-2 border-black bg-[#fbf7ed] p-3 text-left">
     <div className="flex flex-wrap items-start justify-between gap-3">
-      <div><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Speech language / Sarvam Saaras v3</div><div className="mt-1 text-sm font-bold">{selectedLanguage.label} <span className="font-medium text-[#5f584d]">· {selectedLanguage.nativeLabel}</span></div></div>
-      <span className={`mono border border-black px-2 py-1 text-[9px] font-bold ${selectedIsIndexed ? "bg-[#d8ecd7]" : "bg-[#ffdbcc]"}`}>{selectedIsIndexed ? "INDEXED EVIDENCE" : "TRANSCRIPTION ONLY"}</span>
+      <div><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Speech language / Sarvam Saaras v3</div><div className="mt-1 text-sm font-bold">{automaticDetection ? "Automatic detection" : selectedLanguage?.label} <span className="font-medium text-[#5f584d]">· {automaticDetection ? "Sarvam detects the predominant speech language" : selectedLanguage?.nativeLabel}</span></div></div>
+      <span className={`mono border border-black px-2 py-1 text-[9px] font-bold ${automaticDetection ? "bg-[#d9e6f8]" : selectedIsIndexed ? "bg-[#d8ecd7]" : "bg-[#ffdbcc]"}`}>{automaticDetection ? "AUTO DETECT" : selectedIsIndexed ? "INDEXED EVIDENCE" : "TRANSCRIPTION ONLY"}</span>
     </div>
-    <label htmlFor="voice-language" className="mono mt-3 block text-[9px] uppercase tracking-[0.12em] text-[#5f584d]">Select from 23 supported speech locales</label>
+    <label htmlFor="voice-language" className="mono mt-3 block text-[9px] uppercase tracking-[0.12em] text-[#5f584d]">Automatic detection, or select from 23 speech locales</label>
     <select id="voice-language" value={languageCode} disabled={disabled} onChange={event => onChange(event.target.value as VoiceLanguageCode)} className="mt-1.5 h-11 w-full border-2 border-black bg-white px-3 text-sm font-bold outline-none focus:ring-2 focus:ring-[#ff5a1f] disabled:cursor-not-allowed disabled:opacity-50">
+      <option value={AUTO_DETECT_LANGUAGE}>Automatic detection · Sarvam identifies your spoken language</option>
       {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
     </select>
-    <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."}</p>
+    <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{automaticDetection ? "Recommended default: Sarvam detects speech language from the clip, then SvaraProof checks whether that detected language has bounded MSMARCO-XI evidence." : selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."}</p>
   </div>;
 }
 
 export default function Home() {
   const [recording, setRecording] = useState(false);
   const [browserListening, setBrowserListening] = useState(false);
-  const [languageCode, setLanguageCode] = useState<VoiceLanguageCode>("en-IN");
+  const [languageCode, setLanguageCode] = useState<VoiceLanguageCode>(AUTO_DETECT_LANGUAGE);
   const [level, setLevel] = useState(0.12);
   const [captureError, setCaptureError] = useState<string | null>(null);
   const [captureInfo, setCaptureInfo] = useState<string | null>(null);
@@ -88,7 +91,13 @@ export default function Home() {
   const discardRecordingRef = useRef(false);
   const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, { refetchOnWindowFocus: false });
   const ask = trpc.voiceRag.ask.useMutation({
-    onSuccess: response => { setRun(response); setCaptureError(response.transcriptionError || null); },
+    onSuccess: response => {
+      setRun(response);
+      setCaptureError(response.transcriptionError || null);
+      if (response.detectedLanguageConfidence !== undefined && response.detectedLanguageConfidence !== null) {
+        setCaptureInfo(`Sarvam detected ${response.detectedLanguage} • ${Math.round(response.detectedLanguageConfidence * 100)}% confidence`);
+      }
+    },
     onError: error => setCaptureError(error.message || "The server rejected the voice request."),
   });
   const askBrowserTranscript = trpc.voiceRag.askBrowserTranscript.useMutation({
@@ -179,7 +188,7 @@ export default function Home() {
         if (durationMs < 700) { setCaptureError("Recording was too short. Speak for at least one second before selecting STOP & SEND."); return; }
         if (blob.size < 512) { setCaptureError("No usable audio was captured. Check microphone permission, speak clearly, and try again."); return; }
         if (blob.size > 4 * 1024 * 1024) { setCaptureError("Recording is too large for the short-audio safety limit. Keep the clip under 30 seconds."); return; }
-        setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • ${(blob.size / 1024).toFixed(0)} KB • ${languageCode}`);
+        setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • ${(blob.size / 1024).toFixed(0)} KB • ${languageCode === AUTO_DETECT_LANGUAGE ? "language auto-detect" : languageCode}`);
         try { ask.mutate({ audioBase64: await toBase64(blob), mimeType, languageHint: languageCode }); }
         catch (error) { setCaptureError(error instanceof Error ? error.message : "Audio encoding failed."); }
       };
@@ -200,6 +209,10 @@ export default function Home() {
     setCaptureError(null);
     setCaptureInfo(null);
     setRun(null);
+    if (languageCode === AUTO_DETECT_LANGUAGE) {
+      setCaptureError("Browser-native recognition cannot provide Sarvam confidence. Choose a language override, or use the primary Sarvam microphone route with automatic detection.");
+      return;
+    }
     const Recognition = browserRecognitionConstructor();
     if (!Recognition) {
       setCaptureError("This browser does not provide native speech recognition. Use the Sarvam microphone route in a current supported browser.");
@@ -254,7 +267,7 @@ export default function Home() {
                 <div className="w-full max-w-xl">
                   <LanguagePicker languageCode={languageCode} onChange={setLanguageCode} disabled={isPipelineBusy} indexedLanguageCodes={indexedLanguageCodes} />
                   <div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div>
-                  <div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} audio — speak for at least 1 second` : browserListening ? `listening for ${voiceLanguageLabel(languageCode)} speech` : awaitingResponse ? "transcribing and validating your question" : "microphone capture • ≤30 seconds • server-side transcription"}</div>
+                  <div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} — speak for at least 1 second` : browserListening ? `listening for ${voiceLanguageLabel(languageCode)}` : awaitingResponse ? "transcribing, detecting language, and validating your question" : "microphone capture • ≤30 seconds • server-side transcription"}</div>
                   <div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={isPipelineBusy} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {awaitingResponse ? "RUNNING HARNESS" : browserListening ? "FALLBACK ACTIVE" : "START RECORDING"}</button>}</div>
                 </div>
               </div>
@@ -266,7 +279,7 @@ export default function Home() {
 
           <aside className="brutal-border bg-[#111111] text-[#f4eedf]">
             <div className="border-b-2 border-[#f4eedf] p-4 sm:p-5"><div className="mono text-[10px] tracking-[0.15em] text-[#ffb293]">02 / STRUCTURED OUTPUT</div><div className="mt-3 flex items-center justify-between gap-3">{run ? <StatusStamp status={run.answer.status} /> : <span className="border-2 border-[#f4eedf] px-2 py-1 text-xs font-bold tracking-[0.18em]">AWAITING VOICE</span>}<span className="mono text-[10px]">{run ? `REQ ${run.requestId.slice(0, 8)}` : "NO RUN"}</span></div></div>
-            <div className="p-4 sm:p-5">{run ? <><div className="mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">transcript / {run.detectedLanguage} / {run.detectedScript}</div><p className="mt-2 border-l-2 border-[#ff5a1f] pl-3 text-sm leading-relaxed text-[#f4eedf]">{run.transcript}</p><div className="mt-6 mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">answer</div><p className="mt-2 text-lg font-medium leading-snug">{run.answer.answer}</p><div className="mt-5 grid grid-cols-3 gap-2 border-t-2 border-[#f4eedf] pt-4"><div><div className="mono text-[9px] text-[#c9c0b1]">CONFIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.confidenceBand}</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">EVIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.evidenceIds.length} cited</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">RAG PATH</div><div className="mt-1 text-xs font-bold">{run.latency.ragMs} ms</div></div></div>{run.answer.refusalReason && <div className="mt-4 border-2 border-[#ffb293] p-3 text-sm text-[#ffb293]"><span className="mono text-[9px]">REFUSAL REASON</span><br />{run.answer.refusalReason}</div>}</> : <div className="relative overflow-hidden border-2 border-[#59534a] bg-[linear-gradient(135deg,rgba(255,90,31,0.12)_1px,transparent_1px)] bg-[size:14px_14px] p-5"><div className="absolute inset-x-0 top-0 flex gap-1 px-2 pt-2">{Array.from({ length: 22 }).map((_, index) => <span key={index} className="h-1 flex-1 bg-[#ff5a1f]" style={{ opacity: index % 3 === 0 ? 1 : 0.34 }} />)}</div><Radio size={30} strokeWidth={1.5} className="mt-4 text-[#ff5a1f]" /><div className="mono mt-4 text-[9px] tracking-[0.15em] text-[#ffb293]">SOURCE-BOUND OUTPUT / STANDBY</div><p className="mt-2 text-lg font-bold">No answer exists until the corpus supports one.</p><p className="mt-2 max-w-sm text-sm leading-relaxed text-[#c9c0b1]">Speak to begin a real AI4Bharat/MSMARCO-XI evidence pass. The output remains intentionally blank rather than showing an invented demonstration.</p><div className="mt-5 grid grid-cols-3 gap-px bg-[#59534a] mono text-[8px] text-[#c9c0b1]"><span className="bg-[#111111] p-2">AUDIO</span><span className="bg-[#111111] p-2">EVIDENCE</span><span className="bg-[#111111] p-2">VERIFY</span></div></div>}</div>
+            <div className="p-4 sm:p-5">{run ? <><div className="mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">transcript / {run.detectedLanguage} / {run.detectedScript}</div>{run.detectedLanguageConfidence !== undefined && run.detectedLanguageConfidence !== null && <div className="mono mt-1 text-[9px] uppercase tracking-[0.12em] text-[#ffb293]">Sarvam auto-detect confidence / {Math.round(run.detectedLanguageConfidence * 100)}%</div>}<p className="mt-2 border-l-2 border-[#ff5a1f] pl-3 text-sm leading-relaxed text-[#f4eedf]">{run.transcript}</p><div className="mt-6 mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">answer</div><p className="mt-2 text-lg font-medium leading-snug">{run.answer.answer}</p><div className="mt-5 grid grid-cols-3 gap-2 border-t-2 border-[#f4eedf] pt-4"><div><div className="mono text-[9px] text-[#c9c0b1]">CONFIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.confidenceBand}</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">EVIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.evidenceIds.length} cited</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">RAG PATH</div><div className="mt-1 text-xs font-bold">{run.latency.ragMs} ms</div></div></div>{run.answer.refusalReason && <div className="mt-4 border-2 border-[#ffb293] p-3 text-sm text-[#ffb293]"><span className="mono text-[9px]">REFUSAL REASON</span><br />{run.answer.refusalReason}</div>}</> : <div className="relative overflow-hidden border-2 border-[#59534a] bg-[linear-gradient(135deg,rgba(255,90,31,0.12)_1px,transparent_1px)] bg-[size:14px_14px] p-5"><div className="absolute inset-x-0 top-0 flex gap-1 px-2 pt-2">{Array.from({ length: 22 }).map((_, index) => <span key={index} className="h-1 flex-1 bg-[#ff5a1f]" style={{ opacity: index % 3 === 0 ? 1 : 0.34 }} />)}</div><Radio size={30} strokeWidth={1.5} className="mt-4 text-[#ff5a1f]" /><div className="mono mt-4 text-[9px] tracking-[0.15em] text-[#ffb293]">SOURCE-BOUND OUTPUT / STANDBY</div><p className="mt-2 text-lg font-bold">No answer exists until the corpus supports one.</p><p className="mt-2 max-w-sm text-sm leading-relaxed text-[#c9c0b1]">Speak to begin a real AI4Bharat/MSMARCO-XI evidence pass. The output remains intentionally blank rather than showing an invented demonstration.</p><div className="mt-5 grid grid-cols-3 gap-px bg-[#59534a] mono text-[8px] text-[#c9c0b1]"><span className="bg-[#111111] p-2">AUDIO</span><span className="bg-[#111111] p-2">EVIDENCE</span><span className="bg-[#111111] p-2">VERIFY</span></div></div>}</div>
           </aside>
         </section>
 

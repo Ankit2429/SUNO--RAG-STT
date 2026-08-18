@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { HarnessEvent, HarnessStage, RAGRun } from "@shared/rag";
+import { AUTO_DETECT_LANGUAGE, AUTO_DETECT_MIN_CONFIDENCE } from "@shared/voiceLanguages";
 import { errorAnswer, inspectQuery, refused, verifyAndSynthesize } from "./guardrails";
 import { generateEvidenceBoundAnswer, generationMode } from "./generation";
 import { hybridRetrieve } from "./retrieval";
@@ -16,7 +17,7 @@ function skipped(events: HarnessEvent[], stages: HarnessStage[], detail: string)
   stages.forEach(stage => events.push({ stage, status: "SKIPPED", durationMs: 0, detail }));
 }
 
-export async function runPostTranscriptionHarness(input: { transcript: string; languageCode: string; script: string }): Promise<RAGRun> {
+export async function runPostTranscriptionHarness(input: { transcript: string; languageCode: string; script: string; languageConfidence?: number | null }): Promise<RAGRun> {
   const requestId = randomUUID();
   const totalStart = now();
   const events: HarnessEvent[] = [];
@@ -25,6 +26,12 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   const query = input.transcript.normalize("NFC").replace(/\s+/g, " ").trim();
   trace(events, "normalize", normalizeStart, "OK", "Unicode NFC and whitespace normalization applied.");
   const languageStart = now();
+  if (input.languageCode === AUTO_DETECT_LANGUAGE) {
+    trace(events, "detect_language", languageStart, "REFUSED", "Speech language was not reliably identified. Select a language override and record again.");
+    skipped(events, ["safety/scope_gate", "query_route", "parallel_retrieve", "fuse", "rerank", "evidence_gate", "generate", "verify"], "Stopped because no reliable speech locale is available for bounded evidence routing.");
+    trace(events, "return", now(), "OK", "Fail-closed language-identification refusal returned.");
+    return { requestId, transcript: query, detectedLanguage: input.languageCode, detectedScript: input.script, detectedLanguageConfidence: input.languageConfidence ?? null, answer: refused("I could not reliably identify the spoken language. Select a language override and record again."), evidence: [], trace: events, latency: { sttMs: 0, ragMs: elapsed(ragStart), endToEndMs: elapsed(totalStart) } };
+  }
   trace(events, "detect_language", languageStart, "OK", `${input.languageCode} / ${input.script}.`);
   const gateStart = now();
   const refusal = inspectQuery(query);
@@ -32,7 +39,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
     trace(events, "safety/scope_gate", gateStart, "REFUSED", refusal);
     skipped(events, ["query_route", "parallel_retrieve", "fuse", "rerank", "evidence_gate", "generate", "verify"], "Stopped by safety or scope gate.");
     trace(events, "return", now(), "OK", "Fail-closed refusal returned.");
-    return { requestId, transcript: query, detectedLanguage: input.languageCode, detectedScript: input.script, answer: refused(refusal), evidence: [], trace: events, latency: { sttMs: 0, ragMs: elapsed(ragStart), endToEndMs: elapsed(totalStart) } };
+    return { requestId, transcript: query, detectedLanguage: input.languageCode, detectedScript: input.script, detectedLanguageConfidence: input.languageConfidence ?? null, answer: refused(refusal), evidence: [], trace: events, latency: { sttMs: 0, ragMs: elapsed(ragStart), endToEndMs: elapsed(totalStart) } };
   }
   trace(events, "safety/scope_gate", gateStart, "OK", "Input passed safety and scope gates.");
   const routeStart = now();
@@ -53,7 +60,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
     trace(events, "parallel_retrieve", retrieveStart, "ERROR", error instanceof Error ? error.message : "Retrieval error.");
     skipped(events, ["fuse", "rerank", "evidence_gate", "generate", "verify"], "Stopped after retrieval error.");
     trace(events, "return", now(), "OK", "Fail-closed error returned.");
-    return { requestId, transcript: query, detectedLanguage: input.languageCode, detectedScript: input.script, answer: errorAnswer("Retrieval service unavailable."), evidence: [], trace: events, latency: { sttMs: 0, ragMs: elapsed(ragStart), endToEndMs: elapsed(totalStart) } };
+    return { requestId, transcript: query, detectedLanguage: input.languageCode, detectedScript: input.script, detectedLanguageConfidence: input.languageConfidence ?? null, answer: errorAnswer("Retrieval service unavailable."), evidence: [], trace: events, latency: { sttMs: 0, ragMs: elapsed(ragStart), endToEndMs: elapsed(totalStart) } };
   }
   const fuseStart = now();
   trace(events, "fuse", fuseStart, "OK", "Reciprocal-rank fusion combined dense and lexical ranks.");
@@ -68,7 +75,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   const verifyStart = now();
   trace(events, "verify", verifyStart, candidate.status === "GROUNDED" ? "OK" : "REFUSED", candidate.status === "GROUNDED" ? "Every returned sentence maps to cited evidence." : "Answer withheld by verifier.");
   trace(events, "return", now(), "OK", `Structured ${candidate.status} object returned.`);
-  return { requestId, transcript: query, detectedLanguage: input.languageCode, detectedScript: input.script, answer: candidate, evidence: retrieval.evidence.map(chunk => ({ ...chunk, selected: candidate.evidenceIds.includes(chunk.id) })), trace: events, latency: { sttMs: 0, ragMs: elapsed(ragStart), endToEndMs: elapsed(totalStart) } };
+  return { requestId, transcript: query, detectedLanguage: input.languageCode, detectedScript: input.script, detectedLanguageConfidence: input.languageConfidence ?? null, answer: candidate, evidence: retrieval.evidence.map(chunk => ({ ...chunk, selected: candidate.evidenceIds.includes(chunk.id) })), trace: events, latency: { sttMs: 0, ragMs: elapsed(ragStart), endToEndMs: elapsed(totalStart) } };
 }
 
 export async function runVoiceHarness(input: { audioBase64: string; mimeType: string; languageHint?: string }): Promise<RAGRun> {
@@ -86,7 +93,17 @@ export async function runVoiceHarness(input: { audioBase64: string; mimeType: st
   try {
     const transcription = await transcribeWithSarvam(input);
     trace(events, "transcribe", sttStart, "OK", `Sarvam request ${transcription.providerRequestId || "accepted"}; idempotency key retained server-side.`);
-    const textRun = await runPostTranscriptionHarness({ transcript: transcription.transcript, languageCode: transcription.languageCode, script: transcription.script });
+    const requiresConfidence = transcription.autoDetected;
+    const languageReliable = !requiresConfidence || (transcription.languageCode !== AUTO_DETECT_LANGUAGE && transcription.languageProbability !== null && transcription.languageProbability >= AUTO_DETECT_MIN_CONFIDENCE);
+    if (!languageReliable) {
+      const detectionStart = now();
+      const confidenceDetail = transcription.languageProbability === null ? "Sarvam did not return language confidence." : `Sarvam language confidence ${(transcription.languageProbability * 100).toFixed(0)}% is below the ${(AUTO_DETECT_MIN_CONFIDENCE * 100).toFixed(0)}% routing threshold.`;
+      trace(events, "detect_language", detectionStart, "REFUSED", confidenceDetail);
+      skipped(events, ["normalize", "safety/scope_gate", "query_route", "parallel_retrieve", "fuse", "rerank", "evidence_gate", "generate", "verify"], "Stopped before retrieval because automatic language detection was not reliable enough.");
+      trace(events, "return", now(), "OK", "Fail-closed low-confidence language refusal returned.");
+      return { requestId, transcript: transcription.transcript, detectedLanguage: transcription.languageCode, detectedScript: transcription.script, detectedLanguageConfidence: transcription.languageProbability, answer: refused("I could not identify the spoken language with enough confidence. Select a language override and record again."), evidence: [], trace: events, latency: { sttMs: elapsed(sttStart), ragMs: 0, endToEndMs: elapsed(totalStart) } };
+    }
+    const textRun = await runPostTranscriptionHarness({ transcript: transcription.transcript, languageCode: transcription.languageCode, script: transcription.script, languageConfidence: transcription.languageProbability });
     return { ...textRun, requestId, trace: [...events, ...textRun.trace], latency: { sttMs: Math.max(0, Math.round((now() - sttStart - textRun.latency.ragMs) * 100) / 100), ragMs: textRun.latency.ragMs, endToEndMs: elapsed(totalStart) } };
   } catch (error) {
     const transcriptionError = error instanceof Error ? error.message : "Transcription error.";

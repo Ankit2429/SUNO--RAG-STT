@@ -1,0 +1,105 @@
+{
+  "benchmark": "browser-originated Sarvam voice-to-final-answer replay",
+  "endpoint": "https://3000-ifb42uuseuk387yx2srv1-323c3b4d.us3.manus.computer/api/trpc/voiceRag.ask",
+  "transportScope": "Chromium page-context public-ingress HTTP",
+  "fixtureProfile": "target-languages",
+  "fixtureLanguages": [
+    "en-IN",
+    "kn-IN",
+    "hi-IN",
+    "mr-IN"
+  ],
+  "languageHintOverride": "unknown",
+  "repetitionsPerLanguage": 1,
+  "requestCount": 4,
+  "failureCount": 0,
+  "browserRoundTripMs": {
+    "p50": 1936.9,
+    "p70": 2491,
+    "p100": 5046.4,
+    "sampleCount": 4
+  },
+  "serverEndToEndMs": {
+    "p50": 1868.49,
+    "p70": 2429.42,
+    "p100": 4974.23,
+    "sampleCount": 4
+  },
+  "sttMs": {
+    "p50": 1868.48,
+    "p70": 2429.4,
+    "p100": 4973.22,
+    "sampleCount": 4
+  },
+  "ragMs": {
+    "p50": 0,
+    "p70": 0.87,
+    "p100": 1.33,
+    "sampleCount": 4
+  },
+  "statuses": {
+    "REFUSED": 3,
+    "GROUNDED": 1
+  },
+  "trials": [
+    {
+      "ok": true,
+      "expectedLanguage": "en-IN",
+      "languageHint": "unknown",
+      "detectedLanguage": "en-IN",
+      "detectedLanguageConfidence": 0.999,
+      "languageMatched": true,
+      "browserRoundTripMs": 5046.4,
+      "serverEndToEndMs": 4974.23,
+      "sttMs": 4973.22,
+      "ragMs": 0.87,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "expectedLanguage": "kn-IN",
+      "languageHint": "unknown",
+      "detectedLanguage": "gu-IN",
+      "detectedLanguageConfidence": 0.76,
+      "languageMatched": false,
+      "browserRoundTripMs": 2491,
+      "serverEndToEndMs": 2429.42,
+      "sttMs": 2429.4,
+      "ragMs": 0,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "expectedLanguage": "hi-IN",
+      "languageHint": "unknown",
+      "detectedLanguage": "hi-IN",
+      "detectedLanguageConfidence": 0.761,
+      "languageMatched": true,
+      "browserRoundTripMs": 1936.9,
+      "serverEndToEndMs": 1868.49,
+      "sttMs": 1868.48,
+      "ragMs": 0,
+      "status": "REFUSED",
+      "error": null
+    },
+    {
+      "ok": true,
+      "expectedLanguage": "mr-IN",
+      "languageHint": "unknown",
+      "detectedLanguage": "mr-IN",
+      "detectedLanguageConfidence": 0.954,
+      "languageMatched": true,
+      "browserRoundTripMs": 1710.1,
+      "serverEndToEndMs": 1657.31,
+      "sttMs": 1655.97,
+      "ragMs": 1.33,
+      "status": "GROUNDED",
+      "error": null
+    }
+  ],
+  "failures": [],
+  "measuredAt": "2026-08-18T04:46:17.243Z",
+  "caveat": "Each request originates in a real Chromium page loaded at the public evaluator origin. Timing begins after a prerecorded real-audio fixture is available, and therefore excludes microphone permission, capture duration, and MediaRecorder encoding while including the browser page-context fetch and public ingress."
+}

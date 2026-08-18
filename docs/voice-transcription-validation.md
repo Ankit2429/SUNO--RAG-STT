@@ -2,13 +2,13 @@
 
 ## Scope
 
-The evaluator now asks the speaker to choose **English (`en-IN`)**, **Kannada (`kn-IN`)**, **Hindi (`hi-IN`)**, or **Marathi (`mr-IN`)** before recording. The selected locale is sent to the server-side Sarvam request and to browser-native speech recognition, eliminating the previous empty browser locale and generic automatic-detection path for the supported live workflow.
+The evaluator now defaults to **Sarvam automatic language detection**: it submits the provider’s documented `unknown` `language_code` value and uses the returned BCP-47 locale for the guarded retrieval route. All **23 Sarvam locales** remain available as an explicit override when the speaker knows their language. Browser-native fallback uses the browser’s default recognition locale while automatic detection is selected, or the exact override when one is chosen.
 
-The capture route rejects clips shorter than 0.7 seconds or smaller than 512 bytes before upload, confirms the completed capture duration and payload size, and surfaces Sarvam’s returned error detail to the user when transcription cannot proceed. The browser fallback now explains when it ends without producing a transcript.
+The capture route rejects clips shorter than 0.7 seconds or smaller than 512 bytes before upload, confirms the completed capture duration and payload size, and surfaces Sarvam’s returned error detail to the user when transcription cannot proceed. The server adapter now retries bounded network failures, timeouts, empty provider responses, and transient HTTP `408`, `425`, `429`, and `5xx` responses before returning a structured error. The browser fallback explains when it ends without producing a transcript.
 
 ## Automated contract coverage
 
-The Sarvam adapter test suite verifies that the exact selected `en-IN`, `kn-IN`, `hi-IN`, and `mr-IN` hint is carried into its multipart request. It also verifies that a non-retryable Sarvam audio-format failure is returned as an actionable error. The complete suite passed with **8 test files and 17 tests**.
+The Sarvam adapter test suite verifies that explicit locale hints are carried into multipart requests, that `audio/webm;codecs=opus` is normalized to Sarvam’s accepted `audio/webm` multipart MIME type, that Sarvam’s `unknown` sentinel is forwarded for automatic detection and returns the provider-detected locale and confidence, that a transient `502` is retried, and that a non-retryable audio-format failure remains actionable. Harness coverage also asserts that a low-confidence automatic detection is refused before retrieval. The complete suite passed with **12 test files and 59 tests**.
 
 ## Initial Sarvam replay
 
@@ -41,7 +41,7 @@ The accompanying `scripts/validate_target_voice_locales.mjs` script reproduces t
 
 ## Browser fallback coverage
 
-The browser fallback uses a tested controller, `configureBrowserFallback`, shared directly by the console. Its tests assert that English, Kannada, Hindi, and Marathi return their exact selected BCP-47 locales to native browser recognition; that a recognized transcript is forwarded through the configured handler; that provider errors remain actionable; and that a completed fallback with no result names the selected language. The standard project suite executes those tests and passed with **9 test files and 24 tests**.
+The browser fallback uses a tested controller, `configureBrowserFallback`, shared directly by the console. Its tests assert that all 23 explicit locales return their exact BCP-47 code to native browser recognition, that automatic mode leaves browser recognition on its default locale, that a recognized transcript is forwarded through the configured handler, that provider errors remain actionable, and that a completed fallback with no result gives a recovery path. To avoid routing an unverified browser locale into evidence retrieval, the UI directs automatic-mode fallback users to either the primary Sarvam route or an explicit locale override. The standard project suite now passes with **12 test files and 59 tests**.
 
 ## Final public-ingress 100-request replay
 
@@ -102,6 +102,23 @@ An additional larger replay used **75 sequential repetitions per locale** across
 The run recorded **3 provider transcription failures** (1.0% of attempts) after the adapter’s bounded retries: two Marathi (`mr-IN`) trials and one English (`en-IN`) trial. Those trials returned the structured harness `ERROR` reason **“Speech-to-text failed after bounded retries”** and did not enter the RAG stage (`ragMs: 0`). The 297 successful trials returned 148 `GROUNDED` and 149 fail-closed evidence-sufficiency `REFUSED` outcomes, with no successful-trial harness error. This is therefore preserved as an **observed reliability-stress result**, not a replacement for the clean 200-request benchmark. Its raw per-trial record is committed at [`docs/benchmark-results/browser-origin-target-language-300-observed.json`](./benchmark-results/browser-origin-target-language-300-observed.json).
 
 > The 300-request replay confirms that the internal post-transcription RAG segment remains far below the 200 ms target even under a longer provider exposure window. It also shows that literal voice-to-answer latency and rare failure behavior are dominated by external Sarvam STT. The observed full-path P100 should not be presented as an internal retrieval performance regression.
+
+## Browser-originated automatic-detection validation
+
+After making automatic detection the default, the normal Chromium page-context public-ingress runner made one real-audio request for each controlled English, Kannada, Hindi, and Marathi fixture with `languageHint: "unknown"`. The final confidence-gated validation returned **4/4 structured, non-error responses** through the same browser origin used by evaluators. Automatic evidence routing requires a Sarvam `language_probability` of **0.80 or greater**; lower-confidence classifications stop with a structured refusal before retrieval rather than producing an answer from a possibly wrong language shard.
+
+| Fixture locale | Sarvam detected locale | Result | Interpretation |
+|---|---|---|---|
+| `en-IN` | `en-IN` / 0.999 | `REFUSED` | Detection passed confidence; the evidence gate withheld an unsupported answer. |
+| `kn-IN` | `gu-IN` / 0.760 | `REFUSED` | The known misclassification is below threshold and is withheld before retrieval; select the Kannada override. |
+| `hi-IN` | `hi-IN` / 0.761 | `REFUSED` | Correct locale but below the conservative routing threshold; select Hindi override. |
+| `mr-IN` | `mr-IN` / 0.954 | `GROUNDED` | Correct, sufficiently confident automatic detection. |
+
+This is a functional route validation rather than a language-identification accuracy claim. The saved raw artifact is [`docs/benchmark-results/browser-origin-auto-detect-confidence-gated-4.json`](./benchmark-results/browser-origin-auto-detect-confidence-gated-4.json). When a user knows the language and sees an incorrect or withheld detected locale, the explicit 23-locale selector is the accuracy-preserving fallback; answers remain constrained by the evidence gate.
+
+## Browser MediaRecorder recovery check
+
+The reported post-recording failure was reproduced with Chromium’s synthetic fake microphone device. The recorded `audio/webm;codecs=opus` upload reached Sarvam but was rejected because its multipart MIME allowlist expects `audio/webm` without parameters. SvaraProof now normalizes only the outbound multipart file type to `audio/webm` and retains the original capture format locally. A browser-level regression then completed **two sequential record → stop → send cycles** with no capture error, no transcription error, and a `GROUNDED` structured response for each cycle. The raw report is committed at [`docs/benchmark-results/browser-microphone-cycle-2.json`](./benchmark-results/browser-microphone-cycle-2.json). This validates the browser lifecycle and provider handoff, but it does not claim a physical live-microphone test; that requires a user-accessible input device outside this sandbox.
 
 ## Reference
 

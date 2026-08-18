@@ -76,6 +76,7 @@ export type RAGRun = {
   transcript: string;
   detectedLanguage: string;
   detectedScript: string;
+  detectedLanguageConfidence?: number | null;
   transcriptionError?: string;
   answer: StructuredAnswer;
   evidence: EvidenceChunk[];

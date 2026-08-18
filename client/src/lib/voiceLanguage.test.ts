@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
 import { browserRecognitionLocale, configureBrowserFallback, noBrowserTranscriptMessage, type BrowserRecognitionPort, VOICE_LANGUAGES } from "./voiceLanguage";
 
 function recognitionPort(): BrowserRecognitionPort {
@@ -8,6 +9,11 @@ function recognitionPort(): BrowserRecognitionPort {
 describe("browser speech language configuration", () => {
   it.each(VOICE_LANGUAGES)("returns the selected $label locale for native recognition", language => {
     expect(browserRecognitionLocale(language.code)).toBe(language.code);
+  });
+
+  it("uses the browser default recognition locale when server-side Sarvam auto-detection is selected", () => {
+    expect(browserRecognitionLocale(AUTO_DETECT_LANGUAGE)).toBe("");
+    expect(noBrowserTranscriptMessage(AUTO_DETECT_LANGUAGE)).toContain("select a language override");
   });
 
   it("identifies the selected language when browser recognition ends without a transcript", () => {
@@ -36,7 +42,7 @@ describe("browser speech language configuration", () => {
     configureBrowserFallback(erroredRecognition, "hi-IN", { onTranscript: () => undefined, onError: message => providerErrors.push(message), onListeningChange: () => undefined });
     erroredRecognition.onerror?.({ error: "not-allowed" });
     erroredRecognition.onend?.();
-    expect(providerErrors).toEqual(["Browser speech recognition stopped: not-allowed. Check the selected language and microphone permission, then retry."]);
+    expect(providerErrors).toEqual(["Browser speech recognition stopped: not-allowed. Check microphone permission and the selected language, then retry."]);
 
     const emptyRecognition = recognitionPort();
     const emptyErrors: string[] = [];

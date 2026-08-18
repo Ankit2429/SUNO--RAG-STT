@@ -26,6 +26,13 @@ export const SARVAM_LANGUAGE_CODES = [
 
 export type SarvamLanguageCode = (typeof SARVAM_LANGUAGE_CODES)[number];
 
+/** Sarvam's documented `language_code` value for automatic speech-language detection. */
+export const AUTO_DETECT_LANGUAGE = "unknown" as const;
+/** A provider-detected locale below this probability is not used for evidence routing. */
+export const AUTO_DETECT_MIN_CONFIDENCE = 0.8;
+
+export type VoiceInputLanguageCode = SarvamLanguageCode | typeof AUTO_DETECT_LANGUAGE;
+
 export type VoiceLanguage = {
   code: SarvamLanguageCode;
   label: string;

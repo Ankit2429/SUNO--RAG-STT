@@ -1,19 +1,23 @@
-import { languageForCode, SARVAM_STT_LANGUAGES, type SarvamLanguageCode } from "@shared/voiceLanguages";
+import { AUTO_DETECT_LANGUAGE, languageForCode, SARVAM_STT_LANGUAGES, type VoiceInputLanguageCode } from "@shared/voiceLanguages";
 
 export const VOICE_LANGUAGES = SARVAM_STT_LANGUAGES;
 
-export type VoiceLanguageCode = SarvamLanguageCode;
+export type VoiceLanguageCode = VoiceInputLanguageCode;
 
 export function browserRecognitionLocale(languageCode: VoiceLanguageCode): string {
-  return languageCode;
+  // An empty locale lets the browser use its configured recognition language when
+  // Sarvam's server-side primary path is in automatic-detection mode.
+  return languageCode === AUTO_DETECT_LANGUAGE ? "" : languageCode;
 }
 
 export function voiceLanguageLabel(languageCode: VoiceLanguageCode): string {
-  return languageForCode(languageCode)?.label ?? "selected";
+  return languageCode === AUTO_DETECT_LANGUAGE ? "automatic language detection" : languageForCode(languageCode)?.label ?? "selected";
 }
 
 export function noBrowserTranscriptMessage(languageCode: VoiceLanguageCode): string {
-  return `No browser-native transcript was returned. Speak a complete ${voiceLanguageLabel(languageCode)} question, then retry.`;
+  return languageCode === AUTO_DETECT_LANGUAGE
+    ? "No browser-native transcript was returned. Speak a complete question, then retry or select a language override."
+    : `No browser-native transcript was returned. Speak a complete ${voiceLanguageLabel(languageCode)} question, then retry.`;
 }
 
 export type BrowserRecognitionEvent = { results: { [index: number]: { [index: number]: { transcript: string } } } };
@@ -47,7 +51,7 @@ export function configureBrowserFallback(
   recognition.onerror = event => {
     errorReceived = true;
     handlers.onListeningChange(false);
-    handlers.onError(`Browser speech recognition stopped: ${event.error}. Check the selected language and microphone permission, then retry.`);
+    handlers.onError(`Browser speech recognition stopped: ${event.error}. Check microphone permission${languageCode === AUTO_DETECT_LANGUAGE ? " or select a language override" : " and the selected language"}, then retry.`);
   };
   recognition.onend = () => {
     handlers.onListeningChange(false);

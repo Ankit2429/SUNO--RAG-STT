@@ -14,6 +14,7 @@ import { setTimeout as delay } from "node:timers/promises";
 const endpoint = process.env.VOICE_RAG_URL || "https://3000-ifb42uuseuk387yx2srv1-323c3b4d.us3.manus.computer/api/trpc/voiceRag.ask";
 const repetitions = Number(process.env.REPETITIONS || 25);
 const debugPort = Number(process.env.BROWSER_DEBUG_PORT || 9333);
+const languageHintOverride = process.env.VOICE_LANGUAGE_HINT || null;
 const profileDirectory = `/tmp/hh-goa-voice-benchmark-${process.pid}`;
 const fixtures = [
   { languageHint: "en-IN", mimeType: "audio/webm", path: "/home/ubuntu/voice-benchmark/external/english-osr-10s.webm" },
@@ -121,14 +122,19 @@ try {
   for (let round = 0; round < repetitions; round += 1) {
     for (const fixture of fixtures) {
       const audioBase64 = (await readFile(fixture.path)).toString("base64");
-      const runtime = await client.send("Runtime.evaluate", { expression: browserFetchExpression({ json: { audioBase64, mimeType: fixture.mimeType, languageHint: fixture.languageHint } }), awaitPromise: true, returnByValue: true });
+      const languageHint = languageHintOverride || fixture.languageHint;
+      const runtime = await client.send("Runtime.evaluate", { expression: browserFetchExpression({ json: { audioBase64, mimeType: fixture.mimeType, languageHint } }), awaitPromise: true, returnByValue: true });
       if (runtime.exceptionDetails) throw new Error(`Browser request failed: ${runtime.exceptionDetails.text || "runtime exception"}`);
       const response = runtime.result.value;
       const run = response?.run;
       const ok = response?.httpStatus >= 200 && response?.httpStatus < 300 && run && run.answer?.status !== "ERROR";
       results.push({
         ok,
-        languageHint: fixture.languageHint,
+        expectedLanguage: fixture.languageHint,
+        languageHint,
+        detectedLanguage: run?.detectedLanguage ?? null,
+        detectedLanguageConfidence: run?.detectedLanguageConfidence ?? null,
+        languageMatched: languageHint === "unknown" ? run?.detectedLanguage === fixture.languageHint : null,
         browserRoundTripMs: response?.browserRoundTripMs ?? null,
         serverEndToEndMs: run?.latency?.endToEndMs ?? null,
         sttMs: run?.latency?.sttMs ?? null,
@@ -146,6 +152,7 @@ try {
     transportScope: "Chromium page-context public-ingress HTTP",
     fixtureProfile: "target-languages",
     fixtureLanguages: fixtures.map(fixture => fixture.languageHint),
+    languageHintOverride,
     repetitionsPerLanguage: repetitions,
     requestCount: results.length,
     failureCount: failed.length,

@@ -8,19 +8,20 @@ import { recordRagRun } from "./db";
 import { runBenchmark } from "./rag/benchmark";
 import { runPostTranscriptionHarness, runVoiceHarness } from "./rag/harness";
 import { getIndexCapability } from "./rag/retrieval";
-import { SARVAM_LANGUAGE_CODES } from "@shared/voiceLanguages";
+import { AUTO_DETECT_LANGUAGE, SARVAM_LANGUAGE_CODES } from "@shared/voiceLanguages";
 
 const sarvamLanguageHint = z.enum(SARVAM_LANGUAGE_CODES);
+const voiceLanguageHint = z.union([sarvamLanguageHint, z.literal(AUTO_DETECT_LANGUAGE)]);
 
 const voiceInput = z.object({
   audioBase64: z.string().min(16).max(5_600_000),
   mimeType: z.string().regex(/^audio\//),
-  languageHint: sarvamLanguageHint.default("en-IN"),
+  languageHint: voiceLanguageHint.default(AUTO_DETECT_LANGUAGE),
 });
 
 const browserTranscriptInput = z.object({
   transcript: z.string().trim().min(1).max(2_000),
-  languageCode: sarvamLanguageHint.default("en-IN"),
+  languageCode: voiceLanguageHint.default(AUTO_DETECT_LANGUAGE),
   script: z.string().max(32).default("browser-native"),
 });
 
