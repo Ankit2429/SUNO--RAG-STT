@@ -106,3 +106,39 @@ export type BenchmarkReport = {
   postTranscriptionTargetMs: number;
   evaluatedAt: string;
 };
+
+export type BenchmarkStatusCounts = Record<AnswerStatus, number>;
+
+export type LanguageBenchmarkSample = {
+  sequence: number;
+  languageCode: "hi-IN" | "kn-IN" | "en-IN" | "ta-IN" | "mr-IN";
+  fixtureId: string;
+  repetition: number;
+  query: string;
+  status: AnswerStatus;
+  evidenceCount: number;
+  ragMs: number;
+  route: string;
+};
+
+export type LanguageBenchmarkSummary = {
+  languageCode: LanguageBenchmarkSample["languageCode"];
+  requestCount: number;
+  uniqueFixtureCount: number;
+  latency: PercentileSummary;
+  statusCounts: BenchmarkStatusCounts;
+  citedEvidenceCount: number;
+};
+
+export type FiveLanguageBenchmarkReport = {
+  queriesPerLanguage: number;
+  totalQueries: number;
+  fixtureReusePerLanguage: number;
+  postTranscriptionTargetMs: number;
+  evaluatedAt: string;
+  scope: string;
+  combined: PercentileSummary;
+  combinedStatusCounts: BenchmarkStatusCounts;
+  languages: LanguageBenchmarkSummary[];
+  rawTelemetry: LanguageBenchmarkSample[];
+};

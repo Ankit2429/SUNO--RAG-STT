@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "benchmark:terminal": "node scripts/benchmark_terminal_report.mjs",
+    "benchmark:five-languages": "node scripts/benchmark_five_languages.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
   "dependencies": {

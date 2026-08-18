@@ -5,7 +5,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { recordRagRun } from "./db";
-import { runBenchmark } from "./rag/benchmark";
+import { runBenchmark, runFiveLanguageBenchmark } from "./rag/benchmark";
 import { runPostTranscriptionHarness, runVoiceHarness } from "./rag/harness";
 import { getIndexCapability } from "./rag/retrieval";
 import { AUTO_DETECT_LANGUAGE, FOCUSED_VOICE_LANGUAGE_CODES } from "@shared/voiceLanguages";
@@ -58,6 +58,9 @@ export const appRouter = router({
       costMode: "No-cost evaluation profile; external provider secrets remain server-side.",
     })),
     benchmark: publicProcedure.mutation(async () => runBenchmark()),
+    benchmarkFiveLanguages: publicProcedure
+      .input(z.object({ queriesPerLanguage: z.number().int().min(5).max(500).default(200) }).default({ queriesPerLanguage: 200 }))
+      .mutation(async ({ input }) => runFiveLanguageBenchmark({ queriesPerLanguage: input.queriesPerLanguage })),
   }),
 });
 
