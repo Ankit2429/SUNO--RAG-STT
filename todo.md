@@ -71,3 +71,4 @@
 - [x] Validate grounded-answer and refusal behavior across Hindi, Kannada, Tamil, and Marathi with auditable evidence.
 - [x] Add source-backed MSMARCO-XI sample prompts and clearer evidence-refusal guidance for the focused language experience.
 - [x] Extend prompt-injection detection to the four non-English focused voice languages and verify fail-closed refusal through the live harness (five localized refusal cases pass in docs/benchmark-results/final-internal-rag-validation.json).
+- [x] Re-run the complete final verification pass on user request: compilation, full regression suite, live grounded/refusal harness, 115-case latency benchmark, and browser microphone lifecycle (see docs/renewed-comprehensive-verification.md).
