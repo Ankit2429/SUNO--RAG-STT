@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
+import { AUTO_DETECT_LANGUAGE, FOCUSED_VOICE_LANGUAGE_CODES } from "@shared/voiceLanguages";
 import { browserRecognitionLocale, configureBrowserFallback, noBrowserTranscriptMessage, type BrowserRecognitionPort, VOICE_LANGUAGES } from "./voiceLanguage";
 
 function recognitionPort(): BrowserRecognitionPort {
@@ -7,6 +7,10 @@ function recognitionPort(): BrowserRecognitionPort {
 }
 
 describe("browser speech language configuration", () => {
+  it("exposes only the requested five voice languages", () => {
+    expect(VOICE_LANGUAGES.map(language => language.code)).toEqual(FOCUSED_VOICE_LANGUAGE_CODES);
+  });
+
   it.each(VOICE_LANGUAGES)("returns the selected $label locale for native recognition", language => {
     expect(browserRecognitionLocale(language.code)).toBe(language.code);
   });

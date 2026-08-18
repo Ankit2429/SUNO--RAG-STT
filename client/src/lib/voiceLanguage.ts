@@ -1,8 +1,8 @@
-import { AUTO_DETECT_LANGUAGE, languageForCode, SARVAM_STT_LANGUAGES, type VoiceInputLanguageCode } from "@shared/voiceLanguages";
+import { AUTO_DETECT_LANGUAGE, FOCUSED_SARVAM_STT_LANGUAGES, languageForCode, type FocusedVoiceLanguageCode } from "@shared/voiceLanguages";
 
-export const VOICE_LANGUAGES = SARVAM_STT_LANGUAGES;
+export const VOICE_LANGUAGES = FOCUSED_SARVAM_STT_LANGUAGES;
 
-export type VoiceLanguageCode = VoiceInputLanguageCode;
+export type VoiceLanguageCode = FocusedVoiceLanguageCode | typeof AUTO_DETECT_LANGUAGE;
 
 export function browserRecognitionLocale(languageCode: VoiceLanguageCode): string {
   // An empty locale lets the browser use its configured recognition language when

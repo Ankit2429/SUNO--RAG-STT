@@ -64,7 +64,7 @@ function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes
       <div><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Speech language / Sarvam Saaras v3</div><div className="mt-1 text-sm font-bold">{automaticDetection ? "Automatic detection" : selectedLanguage?.label} <span className="font-medium text-[#5f584d]">· {automaticDetection ? "Sarvam detects the predominant speech language" : selectedLanguage?.nativeLabel}</span></div></div>
       <span className={`mono border border-black px-2 py-1 text-[9px] font-bold ${automaticDetection ? "bg-[#d9e6f8]" : selectedIsIndexed ? "bg-[#d8ecd7]" : "bg-[#ffdbcc]"}`}>{automaticDetection ? "AUTO DETECT" : selectedIsIndexed ? "INDEXED EVIDENCE" : "TRANSCRIPTION ONLY"}</span>
     </div>
-    <label htmlFor="voice-language" className="mono mt-3 block text-[9px] uppercase tracking-[0.12em] text-[#5f584d]">Automatic detection, or select from 23 speech locales</label>
+    <label htmlFor="voice-language" className="mono mt-3 block text-[9px] uppercase tracking-[0.12em] text-[#5f584d]">Automatic detection, or select from 5 supported languages</label>
     <select id="voice-language" value={languageCode} disabled={disabled} onChange={event => onChange(event.target.value as VoiceLanguageCode)} className="mt-1.5 h-11 w-full border-2 border-black bg-white px-3 text-sm font-bold outline-none focus:ring-2 focus:ring-[#ff5a1f] disabled:cursor-not-allowed disabled:opacity-50">
       <option value={AUTO_DETECT_LANGUAGE}>Automatic detection · Sarvam identifies your spoken language</option>
       {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
@@ -277,7 +277,7 @@ export default function Home() {
 
       <main className="mx-auto max-w-[1540px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <div className="mb-7 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div><div className="mono mb-2 text-[11px] font-semibold tracking-[0.2em] text-[#ff5a1f]">SVARAPROOF / 23 SPEECH LOCALES / EVIDENCE FIRST</div><h1 className="max-w-4xl text-4xl font-bold leading-[0.88] tracking-[-0.065em] sm:text-6xl xl:text-7xl">SPEAK FREELY.<br />GET ONLY WHAT<br /><span className="bg-[#ff5a1f] px-2">THE INDEX SUPPORTS.</span></h1></div>
+          <div><div className="mono mb-2 text-[11px] font-semibold tracking-[0.2em] text-[#ff5a1f]">SVARAPROOF / 5 VOICE LANGUAGES / EVIDENCE FIRST</div><h1 className="max-w-4xl text-4xl font-bold leading-[0.88] tracking-[-0.065em] sm:text-6xl xl:text-7xl">SPEAK FREELY.<br />GET ONLY WHAT<br /><span className="bg-[#ff5a1f] px-2">THE INDEX SUPPORTS.</span></h1></div>
           <div className="brutal-border bg-[#111111] p-3 text-[#f4eedf] lg:w-[300px]"><div className="mono text-[10px] uppercase tracking-[0.14em] text-[#ffb293]">non-negotiable rule</div><div className="mt-1 text-sm font-semibold leading-tight">No evidence, no answer.<br />No exceptions.</div></div>
         </div>
 

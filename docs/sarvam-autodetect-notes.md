@@ -1,8 +1,8 @@
 # Sarvam Automatic Language Detection — Implementation Note
 
-Sarvam’s official Saaras v3 guidance states that sending `unknown` as the REST `language_code` enables automatic language detection. The speech-to-text response returns the detected BCP-47 code when detection succeeds; it may return `null` if no language is detected. The REST reference lists the existing 23 SvaraProof locales and describes `unknown` as the automatic-detection value.
+Sarvam’s official Saaras v3 guidance states that sending `unknown` as the REST `language_code` enables automatic language detection. The speech-to-text response returns the detected BCP-47 code when detection succeeds; it may return `null` if no language is detected. The REST reference documents `unknown` as the automatic-detection value.
 
-SvaraProof therefore submits `unknown` by default for the primary server-side Sarvam route, retains the returned detected locale and `language_probability`, and preserves the 23 explicit locale options as an advanced override. Automatic routing now requires a Sarvam language probability of **at least 0.80**. A missing, unknown, or lower-confidence result returns a structured `REFUSED` response before retrieval, with an instruction to select the explicit locale and record again. This prevents a low-certainty language classification from silently entering the wrong evidence shard.
+SvaraProof therefore submits `unknown` by default for the primary server-side Sarvam route, retains the returned detected locale and `language_probability`, and exposes Hindi, Kannada, English, Tamil, and Marathi as explicit overrides. Automatic routing now requires a Sarvam language probability of **at least 0.80** and a detected locale inside that focused five-language scope. A missing, unknown, lower-confidence, or out-of-scope result returns a structured `REFUSED` response before retrieval, with an instruction to select a supported override and record again. This prevents an uncertain or unsupported classification from silently entering the wrong evidence shard.
 
 Browser-native recognition does not expose Sarvam’s provider confidence, so its fallback requires an explicit locale override. The primary Sarvam microphone route remains the automatic-detection path.
 
@@ -20,4 +20,4 @@ Sources: [Sarvam: How to specify language codes](https://docs.sarvam.ai/api/api-
 
 ## Visual verification
 
-The automatic-detection control was reviewed in the live evaluator at desktop (1280×720) and mobile (375×812) breakpoints. The default state visibly identifies automatic detection, explains that Sarvam selects the predominant spoken language, retains the 23 explicit locale overrides, and remains readable without clipping in both reviewed layouts.
+The automatic-detection control was reviewed in the live evaluator at desktop (1280×720) and mobile (375×812) breakpoints. The default state visibly identifies automatic detection, explains that Sarvam selects the predominant spoken language, retains the five explicit overrides, and remains readable without clipping in both reviewed layouts.

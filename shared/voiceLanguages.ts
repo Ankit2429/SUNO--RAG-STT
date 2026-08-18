@@ -26,6 +26,10 @@ export const SARVAM_LANGUAGE_CODES = [
 
 export type SarvamLanguageCode = (typeof SARVAM_LANGUAGE_CODES)[number];
 
+/** The five-language SvaraProof evaluator scope requested for the live voice experience. */
+export const FOCUSED_VOICE_LANGUAGE_CODES = ["hi-IN", "kn-IN", "en-IN", "ta-IN", "mr-IN"] as const satisfies readonly SarvamLanguageCode[];
+export type FocusedVoiceLanguageCode = (typeof FOCUSED_VOICE_LANGUAGE_CODES)[number];
+
 /** Sarvam's documented `language_code` value for automatic speech-language detection. */
 export const AUTO_DETECT_LANGUAGE = "unknown" as const;
 /** A provider-detected locale below this probability is not used for evidence routing. */
@@ -66,8 +70,18 @@ export const SARVAM_STT_LANGUAGES: readonly VoiceLanguage[] = [
   { code: "doi-IN", label: "Dogri", nativeLabel: "डोगरी", script: "Devanagari" },
 ];
 
+export const FOCUSED_SARVAM_STT_LANGUAGES: readonly VoiceLanguage[] = FOCUSED_VOICE_LANGUAGE_CODES.map(code => {
+  const language = SARVAM_STT_LANGUAGES.find(entry => entry.code === code);
+  if (!language) throw new Error(`Focused voice language ${code} is missing from the Sarvam catalog.`);
+  return language;
+});
+
 export function isSarvamLanguageCode(value: string | undefined): value is SarvamLanguageCode {
   return Boolean(value && (SARVAM_LANGUAGE_CODES as readonly string[]).includes(value));
+}
+
+export function isFocusedVoiceLanguage(value: string | undefined): value is FocusedVoiceLanguageCode {
+  return Boolean(value && (FOCUSED_VOICE_LANGUAGE_CODES as readonly string[]).includes(value));
 }
 
 export function languageForCode(code: string): VoiceLanguage | undefined {

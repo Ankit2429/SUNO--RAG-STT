@@ -2,7 +2,7 @@
 
 ## Scope
 
-The evaluator now defaults to **Sarvam automatic language detection**: it submits the provider’s documented `unknown` `language_code` value and uses the returned BCP-47 locale for the guarded retrieval route. All **23 Sarvam locales** remain available as an explicit override when the speaker knows their language. Browser-native fallback uses the browser’s default recognition locale while automatic detection is selected, or the exact override when one is chosen.
+The evaluator now defaults to **Sarvam automatic language detection**: it submits the provider’s documented `unknown` `language_code` value and uses the returned BCP-47 locale for the guarded retrieval route. **Hindi, Kannada, English, Tamil, and Marathi** are available as explicit overrides. Browser-native fallback uses the browser’s default recognition locale while automatic detection is selected, or the exact focused override when one is chosen.
 
 The capture route rejects clips shorter than 0.7 seconds or smaller than 512 bytes before upload, confirms the completed capture duration and payload size, and surfaces Sarvam’s returned error detail to the user when transcription cannot proceed. The server adapter now retries bounded network failures, timeouts, empty provider responses, and transient HTTP `408`, `425`, `429`, and `5xx` responses before returning a structured error. The browser fallback explains when it ends without producing a transcript.
 
@@ -41,7 +41,7 @@ The accompanying `scripts/validate_target_voice_locales.mjs` script reproduces t
 
 ## Browser fallback coverage
 
-The browser fallback uses a tested controller, `configureBrowserFallback`, shared directly by the console. Its tests assert that all 23 explicit locales return their exact BCP-47 code to native browser recognition, that automatic mode leaves browser recognition on its default locale, that a recognized transcript is forwarded through the configured handler, that provider errors remain actionable, and that a completed fallback with no result gives a recovery path. To avoid routing an unverified browser locale into evidence retrieval, the UI directs automatic-mode fallback users to either the primary Sarvam route or an explicit locale override. The standard project suite now passes with **12 test files and 59 tests**.
+The browser fallback uses a tested controller, `configureBrowserFallback`, shared directly by the console. Its tests assert that the five focused explicit locales return their exact BCP-47 code to native browser recognition, that automatic mode leaves browser recognition on its default locale, that a recognized transcript is forwarded through the configured handler, that provider errors remain actionable, and that a completed fallback with no result gives a recovery path. To avoid routing an unverified browser locale into evidence retrieval, the UI directs automatic-mode fallback users to either the primary Sarvam route or a Hindi, Kannada, English, Tamil, or Marathi override. The current project suite passes with **14 test files and 50 tests**.
 
 ## Final public-ingress 100-request replay
 
@@ -114,7 +114,7 @@ After making automatic detection the default, the normal Chromium page-context p
 | `hi-IN` | `hi-IN` / 0.761 | `REFUSED` | Correct locale but below the conservative routing threshold; select Hindi override. |
 | `mr-IN` | `mr-IN` / 0.954 | `GROUNDED` | Correct, sufficiently confident automatic detection. |
 
-This is a functional route validation rather than a language-identification accuracy claim. The saved raw artifact is [`docs/benchmark-results/browser-origin-auto-detect-confidence-gated-4.json`](./benchmark-results/browser-origin-auto-detect-confidence-gated-4.json). When a user knows the language and sees an incorrect or withheld detected locale, the explicit 23-locale selector is the accuracy-preserving fallback; answers remain constrained by the evidence gate.
+This is a functional route validation rather than a language-identification accuracy claim. The saved raw artifact is [`docs/benchmark-results/browser-origin-auto-detect-confidence-gated-4.json`](./benchmark-results/browser-origin-auto-detect-confidence-gated-4.json). When a user knows the language and sees an incorrect or withheld detected locale, the focused Hindi, Kannada, English, Tamil, or Marathi selector is the accuracy-preserving fallback; answers remain constrained by the evidence gate.
 
 ## Browser MediaRecorder recovery check
 

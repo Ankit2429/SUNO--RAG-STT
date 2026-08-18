@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { HarnessEvent, HarnessStage, RAGRun } from "@shared/rag";
-import { AUTO_DETECT_LANGUAGE, AUTO_DETECT_MIN_CONFIDENCE } from "@shared/voiceLanguages";
+import { AUTO_DETECT_LANGUAGE, AUTO_DETECT_MIN_CONFIDENCE, isFocusedVoiceLanguage } from "@shared/voiceLanguages";
 import { errorAnswer, inspectQuery, refused, verifyAndSynthesize } from "./guardrails";
 import { generateEvidenceBoundAnswer, generationMode } from "./generation";
 import { hybridRetrieve } from "./retrieval";
@@ -95,13 +95,19 @@ export async function runVoiceHarness(input: { audioBase64: string; mimeType: st
     trace(events, "transcribe", sttStart, "OK", `Sarvam request ${transcription.providerRequestId || "accepted"}; idempotency key retained server-side.`);
     const requiresConfidence = transcription.autoDetected;
     const languageReliable = !requiresConfidence || (transcription.languageCode !== AUTO_DETECT_LANGUAGE && transcription.languageProbability !== null && transcription.languageProbability >= AUTO_DETECT_MIN_CONFIDENCE);
-    if (!languageReliable) {
+    const languageInFocusedScope = isFocusedVoiceLanguage(transcription.languageCode);
+    if (!languageReliable || (requiresConfidence && !languageInFocusedScope)) {
       const detectionStart = now();
-      const confidenceDetail = transcription.languageProbability === null ? "Sarvam did not return language confidence." : `Sarvam language confidence ${(transcription.languageProbability * 100).toFixed(0)}% is below the ${(AUTO_DETECT_MIN_CONFIDENCE * 100).toFixed(0)}% routing threshold.`;
+      const confidenceDetail = !languageReliable
+        ? transcription.languageProbability === null ? "Sarvam did not return language confidence." : `Sarvam language confidence ${(transcription.languageProbability * 100).toFixed(0)}% is below the ${(AUTO_DETECT_MIN_CONFIDENCE * 100).toFixed(0)}% routing threshold.`
+        : `${transcription.languageCode} is outside the focused Hindi, Kannada, English, Tamil, and Marathi voice scope.`;
       trace(events, "detect_language", detectionStart, "REFUSED", confidenceDetail);
-      skipped(events, ["normalize", "safety/scope_gate", "query_route", "parallel_retrieve", "fuse", "rerank", "evidence_gate", "generate", "verify"], "Stopped before retrieval because automatic language detection was not reliable enough.");
-      trace(events, "return", now(), "OK", "Fail-closed low-confidence language refusal returned.");
-      return { requestId, transcript: transcription.transcript, detectedLanguage: transcription.languageCode, detectedScript: transcription.script, detectedLanguageConfidence: transcription.languageProbability, answer: refused("I could not identify the spoken language with enough confidence. Select a language override and record again."), evidence: [], trace: events, latency: { sttMs: elapsed(sttStart), ragMs: 0, endToEndMs: elapsed(totalStart) } };
+      skipped(events, ["normalize", "safety/scope_gate", "query_route", "parallel_retrieve", "fuse", "rerank", "evidence_gate", "generate", "verify"], "Stopped before retrieval because automatic language detection could not be routed within the focused voice scope.");
+      trace(events, "return", now(), "OK", "Fail-closed automatic-language refusal returned.");
+      const reason = !languageReliable
+        ? "I could not identify the spoken language with enough confidence. Select a language override and record again."
+        : "SvaraProof currently supports Hindi, Kannada, English, Tamil, and Marathi. Select one of these languages and record again.";
+      return { requestId, transcript: transcription.transcript, detectedLanguage: transcription.languageCode, detectedScript: transcription.script, detectedLanguageConfidence: transcription.languageProbability, answer: refused(reason), evidence: [], trace: events, latency: { sttMs: elapsed(sttStart), ragMs: 0, endToEndMs: elapsed(totalStart) } };
     }
     const textRun = await runPostTranscriptionHarness({ transcript: transcription.transcript, languageCode: transcription.languageCode, script: transcription.script, languageConfidence: transcription.languageProbability });
     return { ...textRun, requestId, trace: [...events, ...textRun.trace], latency: { sttMs: Math.max(0, Math.round((now() - sttStart - textRun.latency.ragMs) * 100) / 100), ragMs: textRun.latency.ragMs, endToEndMs: elapsed(totalStart) } };

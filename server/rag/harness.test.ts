@@ -52,4 +52,23 @@ describe("fail-closed guardrails", () => {
     expect(run.detectedLanguageConfidence).toBe(0.41);
     expect(run.trace.find(event => event.stage === "detect_language")?.status).toBe("REFUSED");
   });
+
+  it("does not route a confident automatic detection outside the focused five-language scope", async () => {
+    transcribeMock.mockResolvedValue({
+      transcript: "એક પ્રશ્ન",
+      languageCode: "gu-IN",
+      script: "Gujarati",
+      languageProbability: 0.94,
+      autoDetected: true,
+      providerRequestId: "auto-outside-scope",
+      idempotencyKey: "test-key",
+    });
+
+    const run = await runVoiceHarness({ audioBase64: Buffer.from("audio").toString("base64"), mimeType: "audio/webm", languageHint: AUTO_DETECT_LANGUAGE });
+
+    expect(run.answer.status).toBe("REFUSED");
+    expect(run.answer.refusalReason).toContain("currently supports Hindi, Kannada, English, Tamil, and Marathi");
+    expect(run.evidence).toEqual([]);
+    expect(run.trace.find(event => event.stage === "detect_language")?.detail).toContain("outside the focused");
+  });
 });

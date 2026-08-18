@@ -2,14 +2,14 @@
 
 ## Voice input
 
-The console accepts all **23 Saaras v3 speech-to-text locales**: English plus 22 Indian languages. Each selection is sent as its BCP-47 code to the server-side Sarvam adapter and browser-native fallback where the browser supports that locale. Sarvam documents this 23-language set and the locale codes in its model reference.[1]
+The live console focuses on **five Saaras v3 speech-to-text locales**: Hindi, Kannada, English, Tamil, and Marathi. Each visible override is sent as its BCP-47 code to the server-side Sarvam adapter and browser-native fallback where the browser supports that locale. Sarvam documents the underlying locale codes in its model reference.[1]
 
 | Capability | Current behavior |
 |---|---|
-| Voice transcription | 23 Sarvam Saaras v3 locales are selectable. |
+| Voice transcription | Hindi, Kannada, English, Tamil, and Marathi are selectable. |
 | Browser-native fallback | Uses the same selected BCP-47 locale; browser coverage varies by platform. |
-| Grounded answers | The bounded MSMARCO-XI evaluation index contains Assamese, Bengali, Gujarati, Hindi, Kannada, Malayalam, Marathi, Nepali, Odia, Punjabi, Sanskrit, Tamil, Telugu, and Urdu evidence. |
-| Transcription-only locales | English and the remaining selectable Sarvam locales transcribe, then safely refuse an answer when the bounded index lacks supporting evidence. |
+| Grounded answers | The bounded MSMARCO-XI evaluation index contains Hindi, Kannada, Marathi, and Tamil evidence, alongside other non-live index shards. |
+| Transcription-only locale | English transcribes, then safely refuses an answer when the bounded index lacks supporting evidence. |
 
 ## Latency scope
 

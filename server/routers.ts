@@ -8,10 +8,10 @@ import { recordRagRun } from "./db";
 import { runBenchmark } from "./rag/benchmark";
 import { runPostTranscriptionHarness, runVoiceHarness } from "./rag/harness";
 import { getIndexCapability } from "./rag/retrieval";
-import { AUTO_DETECT_LANGUAGE, SARVAM_LANGUAGE_CODES } from "@shared/voiceLanguages";
+import { AUTO_DETECT_LANGUAGE, FOCUSED_VOICE_LANGUAGE_CODES } from "@shared/voiceLanguages";
 
-const sarvamLanguageHint = z.enum(SARVAM_LANGUAGE_CODES);
-const voiceLanguageHint = z.union([sarvamLanguageHint, z.literal(AUTO_DETECT_LANGUAGE)]);
+const focusedLanguageHint = z.enum(FOCUSED_VOICE_LANGUAGE_CODES);
+const voiceLanguageHint = z.union([focusedLanguageHint, z.literal(AUTO_DETECT_LANGUAGE)]);
 
 const voiceInput = z.object({
   audioBase64: z.string().min(16).max(5_600_000),

@@ -61,3 +61,7 @@
 - [x] Surface structured pipeline errors and low-confidence automatic-detection refusals as actionable microphone recovery guidance in the live interface.
 - [x] Profile the complete voice-to-answer path and reduce controllable latency without weakening evidence or safety gates.
 - [x] Benchmark and document optimized browser-originated latency separately from Sarvam STT time.
+- [x] Restrict the visible SvaraProof voice experience to Hindi, Kannada, English, Tamil, and Marathi while retaining safe automatic-detection handling.
+- [x] Update tests, capability labels, and documentation for the focused five-language experience.
+- [x] Remove stale 23-locale fallback references so live documentation consistently states the focused five-language scope.
+- [x] Audit current documentation and UI copy for residual broad-locale wording after the focused-language update.
