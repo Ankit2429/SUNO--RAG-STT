@@ -1,6 +1,6 @@
 # SvaraProof Five-Language 1,000-Query Benchmark
 
-**Measurement date:** 2026-08-18  
+**Measurement date:** 2026-08-18 (fresh rerun)  
 **Command:** `pnpm benchmark:five-languages`  
 **Scope:** Post-transcription retrieval, grounding, answer assembly, and harness handling only. Sarvam STT, microphone capture, browser upload, and public-network transfer are excluded from the internal RAG target.
 
@@ -8,14 +8,14 @@ This run completed **1,000 sequential harness measurements**, comprising **200 r
 
 | Language | Requests | P50 | P70 | P100 | Grounded | Refused | Errors | Evidence citations |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Hindi (`hi-IN`) | 200 | 0.20 ms | 0.22 ms | 3.87 ms | 160 | 40 | 0 | 1,200 |
-| Kannada (`kn-IN`) | 200 | 0.15 ms | 0.17 ms | 0.65 ms | 200 | 0 | 0 | 960 |
-| English (`en-IN`) | 200 | 0.01 ms | 0.01 ms | 0.35 ms | 0 | 200 | 0 | 0 |
-| Tamil (`ta-IN`) | 200 | 0.16 ms | 0.18 ms | 0.60 ms | 200 | 0 | 0 | 1,040 |
-| Marathi (`mr-IN`) | 200 | 0.19 ms | 0.21 ms | 0.70 ms | 200 | 0 | 0 | 1,200 |
-| **Combined** | **1,000** | **0.16 ms** | **0.20 ms** | **3.87 ms** | **760** | **240** | **0** | **4,400** |
+| Hindi (`hi-IN`) | 200 | 0.20 ms | 0.20 ms | 0.68 ms | 160 | 40 | 0 | 1,200 |
+| Kannada (`kn-IN`) | 200 | 0.15 ms | 0.16 ms | 0.38 ms | 200 | 0 | 0 | 960 |
+| English (`en-IN`) | 200 | 0.01 ms | 0.01 ms | 0.03 ms | 0 | 200 | 0 | 0 |
+| Tamil (`ta-IN`) | 200 | 0.15 ms | 0.17 ms | 0.61 ms | 200 | 0 | 0 | 1,040 |
+| Marathi (`mr-IN`) | 200 | 0.19 ms | 0.20 ms | 0.49 ms | 200 | 0 | 0 | 1,200 |
+| **Combined** | **1,000** | **0.16 ms** | **0.18 ms** | **0.68 ms** | **760** | **240** | **0** | **4,400** |
 
-> **Result:** The combined post-transcription internal RAG P100 is **3.87 ms**, which is **196.13 ms below** the 200 ms internal target. The run has **zero harness errors**.
+> **Result:** The fresh rerun’s combined post-transcription internal RAG P100 is **0.68 ms**, which is **199.32 ms below** the 200 ms internal target. The run has **zero harness errors**.
 
 The 200 English outcomes are intentional safe refusals: English remains **STT-only** in the focused evaluator and is not represented by the indexed local evidence language path. The 40 Hindi refusals all arise from the repeated `hi-1102432` corporation-definition fixture; they are safe, zero-invention refusals rather than system errors. Kannada, Tamil, and Marathi completed all 200 requests per language with grounded, cited evidence. The status distribution demonstrates that failures to meet evidence sufficiency are represented as explicit refusals instead of fabricated answers.
 
