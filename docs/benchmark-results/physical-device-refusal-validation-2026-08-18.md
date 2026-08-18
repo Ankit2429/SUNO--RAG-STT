@@ -14,7 +14,7 @@ The user performed the Hindi off-corpus test through the live evaluator. The vis
 | Internal RAG duration | `0.33 ms` |
 | Refusal reason | Retrieved passages did not meet the evidence-sufficiency threshold. |
 
-> **Conclusion:** This is an expected fail-closed result. The question is not supported by the bounded MSMARCO-XI evidence index, so SvaraProof correctly refuses instead of inventing an answer.
+> **Conclusion:** This is an expected fail-closed result. The question is not supported by the bounded MSMARCO-XI evidence index, so SUNO correctly refuses instead of inventing an answer.
 
 ## Related, but not microphone evidence
 

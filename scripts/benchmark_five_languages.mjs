@@ -38,7 +38,7 @@ async function main() {
   await mkdir(new URL("../docs/benchmark-results/", import.meta.url), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 
-  console.log("\nSVARAPROOF / FIVE-LANGUAGE POST-TRANSCRIPTION RAG BENCHMARK");
+  console.log("SUNO / FIVE-LANGUAGE POST-TRANSCRIPTION RAG BENCHMARK");
   console.log("=".repeat(96));
   console.log(`Endpoint: ${baseUrl}`);
   console.log(`Measured: ${report.totalQueries} requests = ${report.queriesPerLanguage} each across hi-IN, kn-IN, en-IN, ta-IN, mr-IN`);

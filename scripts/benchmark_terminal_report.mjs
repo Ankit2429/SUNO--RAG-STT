@@ -46,7 +46,7 @@ async function main() {
   const stageFailures = report.warmStageTimings.reduce((sum, summary) => sum + number(summary.failureCount), 0);
   const passed = report.cold.failureCount === 0 && report.warm.failureCount === 0 && stageFailures === 0 && worstPath <= number(report.postTranscriptionTargetMs);
 
-  console.log("\nSVARAPROOF / TASK 112 — POST-TRANSCRIPTION RAG BENCHMARK");
+  console.log("\nSUNO / TASK 112 — POST-TRANSCRIPTION RAG BENCHMARK");
   console.log("=".repeat(76));
   console.log(`Endpoint: ${baseUrl}`);
   console.log("Warm-up: L1 cache and fail-closed harness are exercised by the cold pass.");

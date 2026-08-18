@@ -3,7 +3,7 @@
 **Validation date:** 2026-08-18  
 **Evidence source:** User-observed live evaluator runs during final acceptance testing.
 
-The user tested the source-backed English prompt through the real browser microphone. The first run used **Automatic Detection** and correctly failed closed because Sarvam reported only **43%** language-detection confidence—below SvaraProof’s 80% automatic-routing threshold. The user then selected **English** explicitly and repeated the same spoken prompt. That explicit-language route returned a cited, grounded answer.
+The user tested the source-backed English prompt through the real browser microphone. The first run used **Automatic Detection** and correctly failed closed because Sarvam reported only **43%** language-detection confidence—below SUNO’s 80% automatic-routing threshold. The user then selected **English** explicitly and repeated the same spoken prompt. That explicit-language route returned a cited, grounded answer.
 
 | Run | Spoken prompt | Selected route | Detection outcome | Final status | Evidence cited | Internal RAG duration |
 |---|---|---|---|---|---:|---:|

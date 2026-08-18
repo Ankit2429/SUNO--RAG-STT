@@ -1,4 +1,4 @@
-# SvaraProof Five-Language 1,000-Query Benchmark
+# SUNO Five-Language 1,000-Query Benchmark
 
 **Measurement date:** 2026-08-18 (expanded-percentile rerun)  
 **Command:** `pnpm benchmark:five-languages`  

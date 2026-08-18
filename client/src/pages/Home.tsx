@@ -72,7 +72,7 @@ function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes
       <option value={AUTO_DETECT_LANGUAGE}>Automatic detection · Sarvam identifies your spoken language</option>
       {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
     </select>
-    <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{automaticDetection ? "Recommended default: Sarvam detects speech language from the clip, then SvaraProof checks whether that detected language has bounded MSMARCO-XI evidence." : selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."} A short pause after you speak sends the clip automatically; STOP &amp; SEND remains available.</p>
+    <p className="mt-2 mono text-[9px] leading-relaxed text-[#5f584d]">{automaticDetection ? "Recommended default: Sarvam detects speech language from the clip, then SUNO checks whether that detected language has bounded MSMARCO-XI evidence." : selectedIsIndexed ? "This language currently has bounded MSMARCO-XI evidence available for grounded answers." : "Speech can be transcribed in this language. If the bounded index has no supporting evidence, the system will safely refuse rather than invent an answer."} A short pause after you speak sends the clip automatically; STOP &amp; SEND remains available.</p>
   </div>;
 }
 
@@ -331,14 +331,14 @@ export default function Home() {
     <div className="min-h-screen bg-[#f7f1e6] text-[#1b1815]">
       <header className="sticky top-0 z-30 border-b-[3px] border-black bg-[#f7f1e6]/95 px-4 py-3 backdrop-blur sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4">
-          <div className="flex items-center gap-3"><div aria-label="SvaraProof evidence mark" className="relative grid h-11 w-11 place-items-center overflow-hidden border-2 border-black bg-[#ee5b2b] font-black shadow-[2px_2px_0_#1b1815]"><span className="absolute -left-0.5 top-0 mono text-[9px]">S</span><AudioLines size={23} strokeWidth={3} /><span className="absolute bottom-0 right-0 mono text-[9px]">P</span></div><div><div className="mono text-[10px] font-semibold tracking-[0.14em]">HH GOA 2026 / TASK 112</div><div className="flex items-baseline gap-2"><div className="display text-base font-bold tracking-[-0.06em]">SVARAPROOF</div><span className="mono text-[9px] tracking-[0.12em] text-[#625a4f]">/ EVIDENCE FIRST</span></div></div></div>
+          <div className="flex items-center gap-3"><div aria-label="SUNO evidence mark" className="relative grid h-11 w-11 place-items-center overflow-hidden border-2 border-black bg-[#ee5b2b] font-black shadow-[2px_2px_0_#1b1815]"><span className="absolute -left-0.5 top-0 mono text-[9px]">S</span><AudioLines size={23} strokeWidth={3} /><span className="absolute bottom-0 right-0 mono text-[9px]">U</span></div><div><div className="mono text-[10px] font-semibold tracking-[0.14em]">HH GOA 2026 / TASK 112</div><div className="flex items-baseline gap-2"><div className="display text-base font-bold tracking-[-0.06em]">SUNO</div><span className="mono text-[9px] tracking-[0.12em] text-[#625a4f]">/ EVIDENCE FIRST</span></div></div></div>
           <div className="hidden items-center gap-3 md:flex"><span className="mono text-[10px] uppercase tracking-[0.12em]">zero-cost evaluation profile</span><span className="h-2.5 w-2.5 bg-[#ff5a1f] signal-pulse" /><span className="mono text-[10px]">SERVER ONLINE</span></div>
         </div>
       </header>
 
       <main className="mx-auto max-w-[1480px] px-4 py-7 sm:px-6 lg:px-8 lg:py-10">
         <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div><div className="svara-kicker mb-3">SvaraProof / 5 voice languages / evidence first</div><h1 className="display max-w-4xl text-4xl font-bold leading-[0.9] tracking-[-0.065em] sm:text-6xl xl:text-7xl">SPEAK FREELY.<br />GET ONLY WHAT<br /><span className="bg-[#ee5b2b] px-2.5">THE INDEX SUPPORTS.</span></h1></div>
+          <div><div className="svara-kicker mb-3">SUNO / 5 voice languages / evidence first</div><h1 className="display max-w-4xl text-4xl font-bold leading-[0.9] tracking-[-0.065em] sm:text-6xl xl:text-7xl">SPEAK FREELY.<br />GET ONLY WHAT<br /><span className="bg-[#ee5b2b] px-2.5">THE INDEX SUPPORTS.</span></h1></div>
           <div className="brutal-border bg-[#1b1815] p-4 text-[#f7f1e6] shadow-[4px_4px_0_#ee5b2b] lg:w-[310px]"><div className="mono text-[10px] uppercase tracking-[0.14em] text-[#ffb293]">non-negotiable rule</div><div className="display mt-1 text-base font-semibold leading-tight">No evidence, no answer.<br />No exceptions.</div></div>
         </div>
 
