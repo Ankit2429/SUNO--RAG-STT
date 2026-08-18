@@ -15,4 +15,9 @@ describe("zero-cost multilingual embedding", () => {
     expect(terms.length).toBeGreaterThan(1);
     expect(lexicalScore("மன்ஹாட்டன் திட்டத்தின் தாக்கம் உடனடியாக இருந்தது", terms)).toBeGreaterThan(0);
   });
+
+  it("removes spoken-query punctuation without dropping Indic content terms", () => {
+    expect(lexicalTerms("निगम किस कानून द्वारा शासित होता है?")).toEqual(["निगम", "किस", "कानून", "द्वारा", "शासित", "होता", "है"]);
+    expect(lexicalTerms("corporation—law: evidence!")).toEqual(["corporation", "law", "evidence"]);
+  });
 });

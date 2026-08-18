@@ -1,0 +1,69 @@
+{
+  "benchmark": "required-locale Sarvam transcription validation",
+  "measuredAt": "2026-08-18T08:04:26.945Z",
+  "endpoint": "http://localhost:3000/api/trpc/voiceRag.ask",
+  "requestCount": 4,
+  "failureCount": 0,
+  "results": [
+    {
+      "locale": "en-IN",
+      "language": "English",
+      "ok": true,
+      "harnessStatus": "REFUSED",
+      "transcriptCharacters": 313,
+      "transcriptPreview": "The birch canoes slid on the smooth planks. Glue the sheet to the dark blue background. It is easy to tell the depth of ",
+      "transcriptionError": null,
+      "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
+      "sttMs": 6637.05,
+      "ragMs": 0.42,
+      "endToEndMs": 6637.48,
+      "applicationRoundTripMs": 6740.4,
+      "httpStatus": 200
+    },
+    {
+      "locale": "kn-IN",
+      "language": "Kannada",
+      "ok": true,
+      "harnessStatus": "REFUSED",
+      "transcriptCharacters": 63,
+      "transcriptPreview": "ಏಕ್ ಬರ್ ಏಕ್ ಬರ್ ಏಕ್ ಬರ್ ಏಕ್ ಬರ್ ಏಕ್ ಬರ್ ಏಕ್ ಬರ್ ಏಕ್ ಬರ್ ಏಕ್ ಬರ್",
+      "transcriptionError": null,
+      "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
+      "sttMs": 4925.45,
+      "ragMs": 2002.55,
+      "endToEndMs": 6928.01,
+      "applicationRoundTripMs": 6989.75,
+      "httpStatus": 200
+    },
+    {
+      "locale": "hi-IN",
+      "language": "Hindi",
+      "ok": true,
+      "harnessStatus": "REFUSED",
+      "transcriptCharacters": 19,
+      "transcriptPreview": "कॉर्पोरेशन क्या है?",
+      "transcriptionError": null,
+      "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
+      "sttMs": 1022.04,
+      "ragMs": 0.59,
+      "endToEndMs": 1022.64,
+      "applicationRoundTripMs": 1073.58,
+      "httpStatus": 200
+    },
+    {
+      "locale": "mr-IN",
+      "language": "Marathi",
+      "ok": true,
+      "harnessStatus": "GROUNDED",
+      "transcriptCharacters": 22,
+      "transcriptPreview": "कॉर्पोरेशन म्हणजे काय?",
+      "transcriptionError": null,
+      "refusalReason": null,
+      "sttMs": 1162.21,
+      "ragMs": 1.21,
+      "endToEndMs": 1163.43,
+      "applicationRoundTripMs": 1216.09,
+      "httpStatus": 200
+    }
+  ]
+}

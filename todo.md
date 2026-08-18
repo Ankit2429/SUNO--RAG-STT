@@ -76,3 +76,7 @@
 - [x] Prototype a terminal-style benchmark result readout, then intentionally remove it from the website at the user’s request in favor of a terminal-only command.
 - [x] Expose audited stage-level benchmark percentiles from the runner and render them in the terminal-only readout alongside the cold/warm path summaries.
 - [x] Provide an evaluator-ready terminal-only benchmark command and remove the unrequested terminal benchmark panel from the website (fresh 115-case output archived; TypeScript clean; 15 files / 59 tests pass).
+- [x] Diagnose and fix delayed spoken-response delivery and generic evidence refusals for supported voice questions without weakening source-grounding safeguards (0.9 s pause-to-send, explicit external-STT status, Unicode spoken-query normalization, actionable refusal guidance, and 9/9 live harness pass; see docs/voice-response-repair.md).
+- [x] Run and preserve a post-fix end-to-end Sarvam voice-path validation with a supported grounded audio fixture (Marathi fixture: transcribed and GROUNDED; see docs/benchmark-results/voice-repair-sarvam-e2e-fixtures.json).
+- [x] Archive post-fix voice telemetry that separates transcription time from the post-transcription RAG timing and records the final grounded/refusal status (see docs/voice-response-repair.md).
+- [x] Verify the voice-response repair report explicitly references the archived post-fix Sarvam STT, RAG, and final-status telemetry (docs/voice-response-repair.md, table and reference [2]).

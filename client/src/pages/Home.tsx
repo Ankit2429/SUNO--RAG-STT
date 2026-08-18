@@ -81,6 +81,7 @@ export default function Home() {
   const [level, setLevel] = useState(0.12);
   const [captureError, setCaptureError] = useState<string | null>(null);
   const [captureInfo, setCaptureInfo] = useState<string | null>(null);
+  const [processingHint, setProcessingHint] = useState<string | null>(null);
   const [run, setRun] = useState<RAGRun | null>(null);
   const [traceOpen, setTraceOpen] = useState(true);
   const [benchmarkReport, setBenchmarkReport] = useState<BenchmarkState | null>(null);
@@ -96,22 +97,26 @@ export default function Home() {
   const silenceStartedAtRef = useRef<number | null>(null);
   const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, { refetchOnWindowFocus: false });
   const ask = trpc.voiceRag.ask.useMutation({
+    onMutate: () => setProcessingHint("Clip sent • Sarvam is transcribing your speech. This external step can take a few seconds."),
     onSuccess: response => {
+      setProcessingHint(null);
       setRun(response);
       const recovery = resolveVoiceRecovery(response);
       setCaptureError(recovery.error);
       setCaptureInfo(recovery.info);
     },
-    onError: error => setCaptureError(error.message || "The server rejected the voice request."),
+    onError: error => { setProcessingHint(null); setCaptureError(error.message || "The server rejected the voice request."); },
   });
   const askBrowserTranscript = trpc.voiceRag.askBrowserTranscript.useMutation({
+    onMutate: () => setProcessingHint("Browser transcript received • matching against bounded MSMARCO-XI evidence."),
     onSuccess: response => {
+      setProcessingHint(null);
       setRun(response);
       const recovery = resolveVoiceRecovery(response);
       setCaptureError(recovery.error);
       setCaptureInfo(recovery.info);
     },
-    onError: error => setCaptureError(error.message || "The browser transcription could not be evaluated."),
+    onError: error => { setProcessingHint(null); setCaptureError(error.message || "The browser transcription could not be evaluated."); },
   });
   const benchmark = trpc.voiceRag.benchmark.useMutation({
     onSuccess: report => setBenchmarkReport(report),
@@ -119,7 +124,7 @@ export default function Home() {
   });
   const awaitingResponse = ask.isPending || askBrowserTranscript.isPending;
   const isPipelineBusy = recording || browserListening || awaitingResponse;
-  const pipelineState = recording ? "RECORDING" : browserListening ? "LISTENING" : awaitingResponse ? "PROCESSING" : "READY";
+  const pipelineState = recording ? "RECORDING" : browserListening ? "LISTENING" : ask.isPending ? "TRANSCRIBING" : askBrowserTranscript.isPending ? "MATCHING" : "READY";
 
   const waveform = useMemo(() => Array.from({ length: 31 }, (_, index) => {
     const distance = Math.abs(index - 15) / 16;
@@ -152,6 +157,7 @@ export default function Home() {
     if (isPipelineBusy) return;
     setCaptureError(null);
     setCaptureInfo(null);
+    setProcessingHint(null);
     setRun(null);
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
       setCaptureError("This browser does not support real microphone capture. Try a current Chrome, Edge, or Firefox build.");
@@ -221,7 +227,10 @@ export default function Home() {
         if (blob.size < 512) { setCaptureError("No usable audio was captured. Check microphone permission, speak clearly, and try again."); return; }
         if (blob.size > 4 * 1024 * 1024) { setCaptureError("Recording is too large for the short-audio safety limit. Keep the clip under 30 seconds."); return; }
         setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • ${(blob.size / 1024).toFixed(0)} KB • ${languageCode === AUTO_DETECT_LANGUAGE ? "language auto-detect" : languageCode}`);
-        try { ask.mutate({ audioBase64: await toBase64(blob), mimeType, languageHint: languageCode }); }
+        try {
+          setProcessingHint("Encoding the short clip, then sending it to Sarvam transcription.");
+          ask.mutate({ audioBase64: await toBase64(blob), mimeType, languageHint: languageCode });
+        }
         catch (error) { setCaptureError(error instanceof Error ? error.message : "Audio encoding failed."); }
       };
       recorder.start();
@@ -313,11 +322,11 @@ export default function Home() {
                     <p className="mono mt-2 text-[8px] leading-relaxed text-[#5f584d]">These are real focused-evaluation prompts, not prewritten answers. English verifies transcription only; the other prompts route to bounded MSMARCO-XI evidence.</p>
                   </div>
                   <div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div>
-                  <div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} — speak for at least 1 second` : browserListening ? `listening for ${voiceLanguageLabel(languageCode)}` : awaitingResponse ? "transcribing, detecting language, and validating your question" : "microphone capture • ≤30 seconds • server-side transcription"}</div>
+                  <div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} — short pause sends after 0.9 seconds` : browserListening ? `listening for ${voiceLanguageLabel(languageCode)}` : awaitingResponse ? processingHint || "transcribing, detecting language, and validating your question" : "microphone capture • ≤30 seconds • server-side transcription"}</div>
                   <div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={isPipelineBusy} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {awaitingResponse ? "RUNNING HARNESS" : browserListening ? "FALLBACK ACTIVE" : "START RECORDING"}</button>}</div>
                 </div>
               </div>
-              {captureInfo && <div className="mt-4 border-2 border-black bg-[#d8ecd7] p-3 mono text-[10px] font-bold uppercase tracking-[0.08em]">AUDIO PREFLIGHT / {captureInfo}</div>}
+              {captureInfo && <div className={`mt-4 border-2 border-black p-3 mono text-[10px] font-bold uppercase tracking-[0.08em] ${run?.answer.status === "REFUSED" ? "bg-[#ffdbcc]" : "bg-[#d8ecd7]"}`}>AUDIO / EVIDENCE STATUS / {captureInfo}</div>}
               {captureError && <div className="mt-4 flex gap-2 border-2 border-black bg-[#ffc7bc] p-3"><TriangleAlert className="mt-0.5 shrink-0" size={17} /><div><div className="mono text-[10px] font-bold tracking-[0.12em]">CAPTURE / PIPELINE ERROR</div><p className="mt-1 text-sm leading-snug">{captureError}</p></div></div>}
               <div className="mt-4 grid gap-2 text-xs sm:grid-cols-3"><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIMARY STT</span><div className="mt-1 font-bold">Sarvam / server-only</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIVACY</span><div className="mt-1 font-bold">Audio not stored</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">RETRY POLICY</span><div className="mt-1 font-bold">3 bounded attempts</div></div></div><div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-2 border-black bg-[#e9e0cf] p-2.5"><span className="mono text-[9px] leading-relaxed">ZERO-COST FALLBACK: BROWSER-NATIVE SPEECH RECOGNITION → SAME FAIL-CLOSED HARNESS</span><button onClick={startBrowserFallback} disabled={isPipelineBusy} className="brutal-button border-2 border-black bg-[#f4eedf] px-2.5 py-1.5 mono text-[9px] font-bold disabled:opacity-60">{browserListening ? "LISTENING…" : askBrowserTranscript.isPending ? "CHECKING…" : "USE FREE FALLBACK"}</button></div>
             </div>
@@ -325,7 +334,7 @@ export default function Home() {
 
           <aside className="brutal-border bg-[#1b1815] text-[#f7f1e6] shadow-[4px_4px_0_#1b1815]">
             <div className="border-b-2 border-[#f4eedf] p-4 sm:p-5"><div className="mono text-[10px] tracking-[0.15em] text-[#ffb293]">02 / STRUCTURED OUTPUT</div><div className="mt-3 flex items-center justify-between gap-3">{run ? <StatusStamp status={run.answer.status} /> : <span className="border-2 border-[#f4eedf] px-2 py-1 text-xs font-bold tracking-[0.18em]">AWAITING VOICE</span>}<span className="mono text-[10px]">{run ? `REQ ${run.requestId.slice(0, 8)}` : "NO RUN"}</span></div></div>
-            <div className="p-4 sm:p-5">{run ? <><div className="mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">transcript / {run.detectedLanguage} / {run.detectedScript}</div>{run.detectedLanguageConfidence !== undefined && run.detectedLanguageConfidence !== null && <div className="mono mt-1 text-[9px] uppercase tracking-[0.12em] text-[#ffb293]">Sarvam auto-detect confidence / {Math.round(run.detectedLanguageConfidence * 100)}%</div>}<p className="mt-2 border-l-2 border-[#ff5a1f] pl-3 text-sm leading-relaxed text-[#f4eedf]">{run.transcript}</p><div className="mt-6 mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">answer</div><p className="mt-2 text-lg font-medium leading-snug">{run.answer.answer}</p><div className="mt-5 grid grid-cols-3 gap-2 border-t-2 border-[#f4eedf] pt-4"><div><div className="mono text-[9px] text-[#c9c0b1]">CONFIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.confidenceBand}</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">EVIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.evidenceIds.length} cited</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">RAG PATH</div><div className="mt-1 text-xs font-bold">{run.latency.ragMs} ms</div></div></div>{run.answer.refusalReason && <div className="mt-4 border-2 border-[#ffb293] p-3 text-sm text-[#ffb293]"><span className="mono text-[9px]">REFUSAL REASON</span><br />{run.answer.refusalReason}</div>}</> : <div className="relative overflow-hidden border-2 border-[#59534a] bg-[linear-gradient(135deg,rgba(255,90,31,0.12)_1px,transparent_1px)] bg-[size:14px_14px] p-5"><div className="absolute inset-x-0 top-0 flex gap-1 px-2 pt-2">{Array.from({ length: 22 }).map((_, index) => <span key={index} className="h-1 flex-1 bg-[#ff5a1f]" style={{ opacity: index % 3 === 0 ? 1 : 0.34 }} />)}</div><Radio size={30} strokeWidth={1.5} className="mt-4 text-[#ff5a1f]" /><div className="mono mt-4 text-[9px] tracking-[0.15em] text-[#ffb293]">SOURCE-BOUND OUTPUT / STANDBY</div><p className="mt-2 text-lg font-bold">No answer exists until the corpus supports one.</p><p className="mt-2 max-w-sm text-sm leading-relaxed text-[#c9c0b1]">Speak to begin a real AI4Bharat/MSMARCO-XI evidence pass. The output remains intentionally blank rather than showing an invented demonstration.</p><div className="mt-5 grid grid-cols-3 gap-px bg-[#59534a] mono text-[8px] text-[#c9c0b1]"><span className="bg-[#111111] p-2">AUDIO</span><span className="bg-[#111111] p-2">EVIDENCE</span><span className="bg-[#111111] p-2">VERIFY</span></div></div>}</div>
+            <div className="p-4 sm:p-5">{run ? <><div className="mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">transcript / {run.detectedLanguage} / {run.detectedScript}</div>{run.detectedLanguageConfidence !== undefined && run.detectedLanguageConfidence !== null && <div className="mono mt-1 text-[9px] uppercase tracking-[0.12em] text-[#ffb293]">Sarvam auto-detect confidence / {Math.round(run.detectedLanguageConfidence * 100)}%</div>}<p className="mt-2 border-l-2 border-[#ff5a1f] pl-3 text-sm leading-relaxed text-[#f4eedf]">{run.transcript}</p><div className="mt-6 mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">answer</div><p className="mt-2 text-lg font-medium leading-snug">{run.answer.answer}</p>{run.answer.status === "REFUSED" && <p className="mt-3 border-l-2 border-[#ffb293] pl-3 text-xs leading-relaxed text-[#c9c0b1]">TRANSCRIPTION COMPLETED. This is an evidence boundary, not a microphone error. Use one of the source-backed prompts above for a grounded demonstration.</p>}<div className="mt-5 grid grid-cols-3 gap-2 border-t-2 border-[#f4eedf] pt-4"><div><div className="mono text-[9px] text-[#c9c0b1]">CONFIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.confidenceBand}</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">EVIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.evidenceIds.length} cited</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">RAG PATH</div><div className="mt-1 text-xs font-bold">{run.latency.ragMs} ms</div></div></div>{run.answer.refusalReason && <div className="mt-4 border-2 border-[#ffb293] p-3 text-sm text-[#ffb293]"><span className="mono text-[9px]">REFUSAL REASON</span><br />{run.answer.refusalReason}</div>}</> : <div className="relative overflow-hidden border-2 border-[#59534a] bg-[linear-gradient(135deg,rgba(255,90,31,0.12)_1px,transparent_1px)] bg-[size:14px_14px] p-5"><div className="absolute inset-x-0 top-0 flex gap-1 px-2 pt-2">{Array.from({ length: 22 }).map((_, index) => <span key={index} className="h-1 flex-1 bg-[#ff5a1f]" style={{ opacity: index % 3 === 0 ? 1 : 0.34 }} />)}</div><Radio size={30} strokeWidth={1.5} className="mt-4 text-[#ff5a1f]" /><div className="mono mt-4 text-[9px] tracking-[0.15em] text-[#ffb293]">SOURCE-BOUND OUTPUT / STANDBY</div><p className="mt-2 text-lg font-bold">No answer exists until the corpus supports one.</p><p className="mt-2 max-w-sm text-sm leading-relaxed text-[#c9c0b1]">Speak to begin a real AI4Bharat/MSMARCO-XI evidence pass. The output remains intentionally blank rather than showing an invented demonstration.</p><div className="mt-5 grid grid-cols-3 gap-px bg-[#59534a] mono text-[8px] text-[#c9c0b1]"><span className="bg-[#111111] p-2">AUDIO</span><span className="bg-[#111111] p-2">EVIDENCE</span><span className="bg-[#111111] p-2">VERIFY</span></div></div>}</div>
           </aside>
         </section>
 

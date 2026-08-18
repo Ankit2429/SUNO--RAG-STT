@@ -31,6 +31,26 @@ describe("resolveVoiceRecovery", () => {
     expect(outcome).toEqual({ error: null, info: "Automatic detection could not confirm the spoken language (76% confidence). Select a language override and record again." });
   });
 
+  it("distinguishes an evidence-bound refusal from a microphone or transcription error", () => {
+    const outcome = resolveVoiceRecovery(run({
+      answer: { status: "REFUSED", answer: "", evidenceIds: [], confidenceBand: "NONE", refusalReason: "Retrieved passages did not meet the evidence sufficiency threshold." },
+      trace: [{ stage: "evidence_gate", status: "REFUSED", durationMs: 1, detail: "No support." }],
+    }));
+    expect(outcome).toEqual({
+      error: null,
+      info: "Speech was transcribed successfully, but no directly matching MSMARCO-XI passage was found. This is an evidence boundary, not a microphone error. Try a source-backed prompt or rephrase using terms from the indexed corpus.",
+    });
+  });
+
+  it("explains the indexed-evidence limitation after a successful English transcription", () => {
+    const outcome = resolveVoiceRecovery(run({
+      detectedLanguage: "en-IN",
+      answer: { status: "REFUSED", answer: "", evidenceIds: [], confidenceBand: "NONE", refusalReason: "Retrieved passages did not meet the evidence sufficiency threshold." },
+      trace: [{ stage: "evidence_gate", status: "REFUSED", durationMs: 1, detail: "No support." }],
+    }));
+    expect(outcome.info).toContain("no English evidence shard");
+  });
+
   it("retains a successful detected-language confidence message", () => {
     expect(resolveVoiceRecovery(run({ detectedLanguageConfidence: 0.91 }))).toEqual({ error: null, info: "Sarvam detected hi-IN • 91% confidence" });
   });

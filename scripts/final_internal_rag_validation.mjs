@@ -1,6 +1,9 @@
 import { performance } from "node:perf_hooks";
 
-const endpoint = process.env.VOICE_RAG_URL || "http://localhost:3000/api/trpc/voiceRag.askBrowserTranscript";
+const configuredUrl = process.env.VOICE_RAG_URL || "http://localhost:3000";
+const route = "/api/trpc/voiceRag.askBrowserTranscript";
+const endpoint = configuredUrl.includes(route) ? configuredUrl : `${configuredUrl.replace(/\/$/, "")}${route}`;
+const batchEndpoint = `${endpoint}${endpoint.includes("?") ? "&" : "?"}batch=1`;
 
 const groundedCases = [
   { locale: "hi-IN", label: "Hindi", transcript: "निगम किस कानून द्वारा शासित होता है?", expectedStatus: "GROUNDED" },
@@ -19,21 +22,23 @@ const refusalCases = [
 
 async function runCase(testCase, category) {
   const startedAt = performance.now();
-  const response = await fetch(endpoint, {
+  const response = await fetch(batchEndpoint, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
-      json: {
-        transcript: testCase.transcript,
-        languageCode: testCase.locale,
-        script: "final-internal-validation",
+      0: {
+        json: {
+          transcript: testCase.transcript,
+          languageCode: testCase.locale,
+          script: "final-internal-validation",
+        },
       },
     }),
     signal: AbortSignal.timeout(15_000),
   });
   const applicationRoundTripMs = Math.round((performance.now() - startedAt) * 100) / 100;
   const body = await response.json().catch(() => null);
-  const run = body?.result?.data?.json;
+  const run = body?.[0]?.result?.data?.json;
   const status = run?.answer?.status ?? "ERROR";
 
   return {

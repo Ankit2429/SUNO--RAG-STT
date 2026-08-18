@@ -33,7 +33,13 @@ export function embedText(text: string): number[] {
 }
 
 export function lexicalTerms(text: string): string[] {
-  return text.normalize("NFKC").toLocaleLowerCase().split(/\s+/).map(term => term.replace(/[.,!?;:()[\]{}"']/g, "")).filter(term => term.length > 1).slice(0, 12);
+  return text
+    .normalize("NFKC")
+    .toLocaleLowerCase()
+    .replace(/[\u2010-\u2015]/g, " ")
+    .split(/[^A-Za-z0-9\u0080-\uFFFF]+/)
+    .filter(term => term.length > 1)
+    .slice(0, 12);
 }
 
 export function lexicalScore(text: string, terms: string[]): number {
