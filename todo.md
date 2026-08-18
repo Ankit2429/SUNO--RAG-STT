@@ -113,3 +113,4 @@
 - [x] Conduct a final evaluator-grade SUNO hardening review across real voice flow, retrieval relevance, guardrails, language recovery, UI clarity, production readiness, and benchmark evidence; fixed only verified evaluator-clarity issues and archived fresh validation in `docs/final-evaluator-hardening.md`.
 - [x] Align the evaluator with verified implementation facts by surfacing P90/P95 in the 115-case latency ledger and replacing the misleading loading-state “Language Shards: 1” metric with the correct five focused grounded voice languages.
 - [x] Replace the stale evaluator footer index label `EVAL-V1` with the manifest-backed `EVAL-V2` value.
+- [x] Create a professional evaluator-ready README for SUNO covering architecture, setup, voice flow, grounding policy, benchmark scope, and repository structure; TypeScript, 19 test files / 86 tests, and production build pass; synchronize the update to GitHub.
