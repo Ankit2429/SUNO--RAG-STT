@@ -44,6 +44,48 @@ const kannadaCorporationEvidence: EvidenceChunk = {
   overlap: 0,
 };
 
+const marathiIntegrityEvidence: EvidenceChunk = {
+  id: "integrity-mr-1",
+  text: "सत्यनिष्ठा म्हणजे वर्तणूक; प्रामाणिकपणा म्हणजे तथ्यांचे पालन करणे.",
+  language: "mr",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "integrity-mr-parent",
+  queryId: "205107",
+  queryType: "DESCRIPTION",
+  ordinal: 0,
+  selected: true,
+  overlap: 0,
+};
+
+const marathiCorporationEvidence: EvidenceChunk = {
+  id: "corporation-mr-1",
+  text: "एक कंपनी एका विशिष्ट देशात स्थापित केली जाते. कॉर्पोरेशन खाजगी किंवा सार्वजनिक स्टॉक जारी करू शकते.",
+  language: "mr",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "corporation-mr-parent",
+  queryId: "1102432",
+  queryType: "DESCRIPTION",
+  ordinal: 0,
+  selected: true,
+  overlap: 0,
+};
+
+const marathiMoralEvidence: EvidenceChunk = {
+  id: "moral-mr-1",
+  text: "या कथेचा नैतिक संदेश असा आहे की प्रामाणिकपणा नेहमीच सर्वोत्तम धोरण असतो.",
+  language: "mr",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "moral-mr-parent",
+  queryId: "205107",
+  queryType: "DESCRIPTION",
+  ordinal: 1,
+  selected: true,
+  overlap: 0,
+};
+
 describe("evidence grounding", () => {
   it("refuses evidence that shares only a Hindi question particle with the query", () => {
     const answer = verifyAndSynthesize("कॉर्पोरेशन क्या है?", [ringwormEvidence], new Map([[ringwormEvidence.id, 0.8]]));
@@ -75,6 +117,19 @@ describe("evidence grounding", () => {
     expect(answer.status).toBe("GROUNDED");
     expect(answer.evidenceIds).toEqual([corporationEvidence.id]);
     expect(answer.answer).not.toContain("रिंगवर्म");
+  });
+
+  it("does not attach Marathi corporation evidence to an honesty question through the connector 'किंवा'", () => {
+    const answer = verifyAndSynthesize(
+      "प्रामाणिकपणा किंवा सचोटीची व्याख्या काय आहे?",
+      [marathiIntegrityEvidence, marathiMoralEvidence, marathiCorporationEvidence],
+      new Map([[marathiIntegrityEvidence.id, 0.81], [marathiMoralEvidence.id, 0.93], [marathiCorporationEvidence.id, 0.82]]),
+    );
+
+    expect(answer.status).toBe("GROUNDED");
+    expect(answer.evidenceIds).toEqual([marathiIntegrityEvidence.id]);
+    expect(answer.answer).toContain("सत्यनिष्ठा म्हणजे वर्तणूक");
+    expect(answer.answer).not.toContain("कॉर्पोरेशन");
   });
 
   it("returns a standalone, evidence-faithful Kannada answer instead of a raw paragraph fragment", () => {

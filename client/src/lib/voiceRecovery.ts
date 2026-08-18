@@ -1,9 +1,15 @@
 import type { RAGRun } from "@shared/rag";
+import { isFocusedVoiceLanguage, type FocusedVoiceLanguageCode } from "@shared/voiceLanguages";
 
 export type VoiceRecoveryMessage = {
   error: string | null;
   info: string | null;
 };
+
+export function suggestedExplicitLanguageRetry(run: RAGRun): FocusedVoiceLanguageCode | null {
+  const languageRefused = run.trace.some(event => event.stage === "detect_language" && event.status === "REFUSED");
+  return languageRefused && isFocusedVoiceLanguage(run.detectedLanguage) ? run.detectedLanguage : null;
+}
 
 export function resolveVoiceRecovery(run: RAGRun): VoiceRecoveryMessage {
   if (run.transcriptionError) {
@@ -24,7 +30,7 @@ export function resolveVoiceRecovery(run: RAGRun): VoiceRecoveryMessage {
       : ` (${Math.round(run.detectedLanguageConfidence * 100)}% confidence)`;
     return {
       error: null,
-      info: `Automatic detection could not confirm the spoken language${confidence}. Select a language override and record again.`,
+      info: `Automatic detection read ${run.detectedLanguage}${confidence}, but it is below the 80% routing threshold. No retrieval was run. Select ${run.detectedLanguage} explicitly and record again.`,
     };
   }
 

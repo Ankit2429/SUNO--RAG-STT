@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { RAGRun } from "@shared/rag";
-import { resolveVoiceRecovery } from "./voiceRecovery";
+import { resolveVoiceRecovery, suggestedExplicitLanguageRetry } from "./voiceRecovery";
 
 function run(overrides: Partial<RAGRun> = {}): RAGRun {
   return {
@@ -26,9 +26,14 @@ describe("resolveVoiceRecovery", () => {
     expect(outcome.error).toBe("Retrieval service unavailable.");
   });
 
-  it("explains how to recover from low-confidence auto detection", () => {
-    const outcome = resolveVoiceRecovery(run({ detectedLanguage: "gu-IN", detectedLanguageConfidence: 0.76, trace: [{ stage: "detect_language", status: "REFUSED", durationMs: 1, detail: "Below threshold." }] }));
-    expect(outcome).toEqual({ error: null, info: "Automatic detection could not confirm the spoken language (76% confidence). Select a language override and record again." });
+  it("explains how to recover from low-confidence automatic detection without implying an evidence refusal", () => {
+    const outcome = resolveVoiceRecovery(run({ detectedLanguage: "mr-IN", detectedLanguageConfidence: 0.61, trace: [{ stage: "detect_language", status: "REFUSED", durationMs: 1, detail: "Below threshold." }] }));
+    expect(outcome).toEqual({ error: null, info: "Automatic detection read mr-IN (61% confidence), but it is below the 80% routing threshold. No retrieval was run. Select mr-IN explicitly and record again." });
+  });
+
+  it("offers only a detected focused locale as a one-click explicit-language retry", () => {
+    expect(suggestedExplicitLanguageRetry(run({ detectedLanguage: "mr-IN", trace: [{ stage: "detect_language", status: "REFUSED", durationMs: 1, detail: "Below threshold." }] }))).toBe("mr-IN");
+    expect(suggestedExplicitLanguageRetry(run({ detectedLanguage: "gu-IN", trace: [{ stage: "detect_language", status: "REFUSED", durationMs: 1, detail: "Below threshold." }] }))).toBeNull();
   });
 
   it("distinguishes an evidence-bound refusal from a microphone or transcription error", () => {
