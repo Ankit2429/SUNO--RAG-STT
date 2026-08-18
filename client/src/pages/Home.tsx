@@ -7,9 +7,10 @@ import { resolveEvidencePath } from "../lib/evidencePath";
 import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
 import { resolveVoiceRecovery } from "../lib/voiceRecovery";
 import { resolveVoiceOutputProgress } from "../lib/voiceProgress";
+import { normalizeTypedQuestion, validateTypedQuestion } from "../lib/typedQuestion";
 import type { RAGRun } from "@shared/rag";
-import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, Send, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { flushSync } from "react-dom";
 
 type BenchmarkState = {
@@ -85,6 +86,7 @@ export default function Home() {
   const [captureInfo, setCaptureInfo] = useState<string | null>(null);
   const [processingHint, setProcessingHint] = useState<string | null>(null);
   const [audioPackagingMs, setAudioPackagingMs] = useState<number | null>(null);
+  const [typedQuestion, setTypedQuestion] = useState("");
   const [run, setRun] = useState<RAGRun | null>(null);
   const [traceOpen, setTraceOpen] = useState(true);
   const [benchmarkReport, setBenchmarkReport] = useState<BenchmarkState | null>(null);
@@ -111,7 +113,9 @@ export default function Home() {
     onError: error => { setProcessingHint(null); setCaptureError(error.message || "The server rejected the voice request."); },
   });
   const askBrowserTranscript = trpc.voiceRag.askBrowserTranscript.useMutation({
-    onMutate: () => setProcessingHint("Browser transcript received • matching against bounded MSMARCO-XI evidence."),
+    onMutate: input => setProcessingHint(input.script === "typed-input"
+      ? "Typed question received • matching against bounded MSMARCO-XI evidence."
+      : "Browser transcript received • matching against bounded MSMARCO-XI evidence."),
     onSuccess: response => {
       setProcessingHint(null);
       setRun(response);
@@ -306,6 +310,22 @@ export default function Home() {
     }
   };
 
+  const submitTypedQuestion = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isPipelineBusy) return;
+    const validationError = validateTypedQuestion(typedQuestion);
+    if (validationError) {
+      setCaptureError(validationError);
+      return;
+    }
+    const transcript = normalizeTypedQuestion(typedQuestion);
+    setCaptureError(null);
+    setRun(null);
+    setAudioPackagingMs(null);
+    setCaptureInfo(`Typed question submitted • ${languageCode === AUTO_DETECT_LANGUAGE ? "language auto-detect" : languageCode} • same evidence harness.`);
+    askBrowserTranscript.mutate({ transcript, languageCode, script: "typed-input" });
+  };
+
   return (
     <div className="min-h-screen bg-[#f7f1e6] text-[#1b1815]">
       <header className="sticky top-0 z-30 border-b-[3px] border-black bg-[#f7f1e6]/95 px-4 py-3 backdrop-blur sm:px-6 lg:px-8">
@@ -342,6 +362,12 @@ export default function Home() {
                     <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{FOCUSED_VOICE_SAMPLES.map(sample => <button key={sample.languageCode} type="button" disabled={isPipelineBusy} onClick={() => chooseSample(sample)} className="brutal-button border-2 border-black bg-[#f4eedf] p-2 text-left disabled:opacity-50"><div className="flex items-center justify-between gap-2"><span className="mono text-[9px] font-bold">{sample.languageLabel}</span><span className={`mono text-[8px] ${sample.evidenceMode === "grounded" ? "text-[#31553e]" : "text-[#9b3f1c]"}`}>{sample.evidenceMode === "grounded" ? "GROUNDED" : "STT ONLY"}</span></div><p className="mt-1 text-xs font-bold leading-snug">{sample.prompt}</p></button>)}</div>
                     <p className="mono mt-2 text-[8px] leading-relaxed text-[#5f584d]">These are real focused-evaluation prompts, not prewritten answers. English verifies transcription only; the other prompts route to bounded MSMARCO-XI evidence.</p>
                   </div>
+                  <form onSubmit={submitTypedQuestion} className="mb-6 border-2 border-black bg-[#fffdf7] p-3.5 text-left shadow-[3px_3px_0_#1b1815]">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2"><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Text fallback / same guarded RAG</div><span className="mono text-[8px] text-[#5f584d]">No speech-transcription wait</span></div>
+                    <label htmlFor="typed-question" className="sr-only">Type a question for the evidence harness</label>
+                    <div className="mt-2 flex flex-col gap-2 sm:flex-row"><input id="typed-question" value={typedQuestion} onChange={event => setTypedQuestion(event.target.value)} disabled={isPipelineBusy} maxLength={2_000} placeholder="Type a corpus question to test the same evidence gate…" className="h-11 min-w-0 flex-1 border-2 border-black bg-white px-3 text-sm font-medium outline-none placeholder:text-[#7b7367] focus:ring-2 focus:ring-[#ee5b2b] disabled:cursor-not-allowed disabled:opacity-60" /><button type="submit" disabled={isPipelineBusy} className="brutal-button flex h-11 items-center justify-center gap-2 border-2 border-black bg-[#d8ecd7] px-3 mono text-[9px] font-bold disabled:opacity-60"><Send size={14} /> {askBrowserTranscript.isPending ? "CHECKING…" : "CHECK TEXT"}</button></div>
+                    <p className="mono mt-2 text-[8px] leading-relaxed text-[#5f584d]">Voice is primary. Typed questions use the identical language, source-grounding, safety, retrieval, and refusal path—only Sarvam transcription is skipped.</p>
+                  </form>
                   <div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div>
                   <div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} — short pause sends after 0.75 seconds` : browserListening ? `listening for ${voiceLanguageLabel(languageCode)}` : awaitingResponse ? processingHint || "transcribing, detecting language, and validating your question" : "microphone capture • ≤30 seconds • server-side transcription"}</div>
                   <div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={isPipelineBusy} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {awaitingResponse ? "RUNNING HARNESS" : browserListening ? "FALLBACK ACTIVE" : "START RECORDING"}</button>}</div>
