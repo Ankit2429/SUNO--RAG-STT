@@ -55,9 +55,9 @@
 - [x] Add automatic-detection confidence handling so low-confidence provider language identification fails closed and directs the speaker to an explicit locale override.
 - [x] Surface detected-locale confidence in the structured output and document the explicit-override recovery path for misdetected clips.
 - [x] Add MediaRecorder post-stop recovery regression coverage for repeated record → stop → send sessions and recoverable terminal states.
-- [ ] Preserve auditable real physical-microphone validation outputs for both a supported grounded prompt and an unsupported refusal prompt; the user-visible Kannada result established the scenario but is not yet stored as structured telemetry.
+- [x] Preserve auditable real physical-microphone validation outputs for both a supported grounded prompt and an unsupported refusal prompt; see `docs/benchmark-results/physical-mic-grounded.md` and `docs/benchmark-results/physical-mic-refusal.md`.
 - [x] Run and document the browser MediaRecorder lifecycle with Chromium’s fake microphone device as supplemental regression evidence.
-- [ ] Confirm with auditable real-device runs that no post-recording microphone, transcription, or response error remains; the reported Kannada outcome was diagnosed as an expected evidence-gate refusal and the interface now provides source-backed prompts and recovery guidance.
+- [x] Confirm with auditable real-device runs that no post-recording microphone, transcription, or response error remains; real Hindi microphone runs produced one 100%-confidence GROUNDED response with one citation and one 100%-confidence safe REFUSED response with zero citations, archived in `docs/benchmark-results/physical-mic-grounded.md` and `docs/benchmark-results/physical-mic-refusal.md`.
 - [x] Complete a consolidated internal validation pass and preserve its results before requesting the user’s single final end-to-end check (see docs/final-internal-validation.md and final-* telemetry artifacts).
 - [x] Surface structured pipeline errors and low-confidence automatic-detection refusals as actionable microphone recovery guidance in the live interface.
 - [x] Profile the complete voice-to-answer path and reduce controllable latency without weakening evidence or safety gates.
