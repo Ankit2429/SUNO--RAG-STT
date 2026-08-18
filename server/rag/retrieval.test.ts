@@ -1,8 +1,17 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { EVALUATION_MANIFEST } from "@shared/evaluationManifest";
 import { hybridRetrieve, retrievalInternals } from "./retrieval";
 
 describe("bounded language inventory routing", () => {
+  const savedQdrantUrl = process.env.QDRANT_URL;
+  const savedQdrantKey = process.env.QDRANT_API_KEY;
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    process.env.QDRANT_URL = savedQdrantUrl;
+    process.env.QDRANT_API_KEY = savedQdrantKey;
+  });
+
   it.each(["en-IN", "doi-IN", "ks-IN"])("fails closed locally for unindexed %s evidence instead of calling remote retrieval", async languageCode => {
     const retrieval = await hybridRetrieve("What is a corporation?", languageCode);
 
@@ -33,5 +42,17 @@ describe("bounded language inventory routing", () => {
     const retrieval = retrievalInternals.retrieveHot("ಭಾರತದ ರಾಜಧಾನಿ ಯಾವುದು?", "kn-IN");
 
     expect(retrieval).toBeNull();
+  });
+
+  it("returns a bounded cloud-timeout refusal instead of waiting on a slow unsupported fallback", async () => {
+    process.env.QDRANT_URL = "https://qdrant.example";
+    process.env.QDRANT_API_KEY = "test-key";
+    vi.stubGlobal("fetch", (_url: string, init?: RequestInit) => new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
+    }));
+
+    const retrieval = await hybridRetrieve("ಭಾರತದ ರಾಜಧಾನಿ ಯಾವುದು?", "kn-IN", { cloudTimeoutMs: 25 });
+
+    expect(retrieval).toEqual({ evidence: [], scores: new Map(), mode: "cloud_timeout" });
   });
 });

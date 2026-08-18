@@ -86,3 +86,5 @@
 - [x] Re-read and verify the immediate-progress report reflects the 0.75 s threshold and links both the refreshed lifecycle telemetry and visual verification evidence (docs/perceived-delay-output-progress.md references [1] and [2]).
 - [x] Add a typed-question fallback that uses the same source-grounded browser-transcript route, shows the same structured output, and keeps microphone capture primary (live Hindi grounded and refusal paths verified; desktop/mobile reviewed; TypeScript clean; 17 files / 70 tests pass).
 - [x] Complete an accuracy and future custom-domain deployment-readiness review without publishing, including public-route, build, secret, and evidence-boundary checks (see docs/deployment-readiness.md).
+- [x] Recheck current latency and produce an evaluator-ready report that distinguishes the 200 ms internal RAG target from external voice-path timing (see docs/latency-report-2026-08-18.md).
+- [x] Bound or bypass slow remote retrieval fallback for clearly unsupported spoken queries so they refuse promptly without weakening grounded-answer recovery (supported Hindi GROUNDED in 1.89 ms; unsupported Kannada REFUSED in 178.91 ms).

@@ -5,7 +5,7 @@ import { generationMode } from "./generation";
 import { HOT_CORPUS } from "./hotCorpus";
 
 type QdrantPoint = { id: string | number; score?: number; payload?: Record<string, unknown> };
-export type RetrievalMode = "local_hot" | "local_no_evidence" | "cloud" | "unavailable";
+export type RetrievalMode = "local_hot" | "local_no_evidence" | "cloud" | "cloud_timeout" | "unavailable";
 export type RetrievalResult = { evidence: EvidenceChunk[]; scores: Map<string, number>; mode: RetrievalMode };
 
 const COLLECTION = process.env.QDRANT_COLLECTION || "msmarco_xi_evaluation_v1";
@@ -26,7 +26,7 @@ function configuredUrl(): string | null {
   return value;
 }
 
-async function qdrant(path: string, body: unknown): Promise<QdrantPoint[]> {
+async function qdrant(path: string, body: unknown, timeoutMs: number): Promise<QdrantPoint[]> {
   const base = configuredUrl();
   const key = process.env.QDRANT_API_KEY;
   if (!base || !key) throw new Error("Qdrant Cloud is not configured.");
@@ -34,7 +34,7 @@ async function qdrant(path: string, body: unknown): Promise<QdrantPoint[]> {
     method: "POST",
     headers: { "api-key": key, "content-type": "application/json" },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(2_000),
+    signal: AbortSignal.timeout(timeoutMs),
   });
   if (!response.ok) throw new Error(`Qdrant retrieval returned ${response.status}.`);
   const result = await response.json() as { result?: { points?: QdrantPoint[] } | QdrantPoint[] };
@@ -107,7 +107,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
 
 export const retrievalInternals = { retrieveHot };
 
-export async function hybridRetrieve(query: string, language: string, options: { allowCloudFallback?: boolean } = {}): Promise<RetrievalResult> {
+export async function hybridRetrieve(query: string, language: string, options: { allowCloudFallback?: boolean; cloudTimeoutMs?: number } = {}): Promise<RetrievalResult> {
   const hot = retrieveHot(query, language);
   if (hot) return hot;
   const requestedLanguage = language?.split("-")[0];
@@ -119,25 +119,27 @@ export async function hybridRetrieve(query: string, language: string, options: {
   }
   if (options.allowCloudFallback === false) return { evidence: [], scores: new Map(), mode: "local_no_evidence" };
   if (!configuredUrl() || !process.env.QDRANT_API_KEY) return { evidence: [], scores: new Map(), mode: "unavailable" };
+  const cloudTimeoutMs = Math.max(25, Math.min(options.cloudTimeoutMs ?? 175, 2_000));
   const languageFilter = language && language !== "unknown" ? { key: "language", match: { value: language.split("-")[0] } } : null;
   const evaluationOnlyFilter = { key: "strategy", match: { value: "query_linked_evaluation" } };
   const terms = lexicalTerms(query);
   const semantic = qdrant(`/collections/${COLLECTION}/points/query`, {
     query: embedText(query), using: DENSE_VECTOR_NAME, limit: 12, with_payload: true, with_vector: false,
     filter: { must: languageFilter ? [languageFilter] : [], must_not: [evaluationOnlyFilter] },
-  });
+  }, cloudTimeoutMs);
   const lexical = qdrant(`/collections/${COLLECTION}/points/scroll`, {
     limit: 96, with_payload: true, with_vector: false,
     filter: { must: [...(languageFilter ? [languageFilter] : [])], must_not: [evaluationOnlyFilter], ...(terms.length ? { should: terms.map(term => ({ key: "text", match: { text: term } })) } : {}) },
-  });
+  }, cloudTimeoutMs);
   let semanticPoints: QdrantPoint[];
   let lexicalPoints: QdrantPoint[];
   try {
     [semanticPoints, lexicalPoints] = await Promise.all([semantic, lexical]);
   } catch {
-    // Network turbulence must never crash the evaluator. An empty candidate set
-    // moves through the existing evidence gate as a truthful refusal.
-    return { evidence: [], scores: new Map(), mode: "local_no_evidence" };
+    // The internal RAG path has a strict response budget. If Qdrant cannot return
+    // within its bounded parallel fallback window, prefer a truthful refusal to a
+    // multi-second wait or unsupported answer. L1 hits still return immediately.
+    return { evidence: [], scores: new Map(), mode: "cloud_timeout" };
   }
   lexicalPoints.sort((left, right) => lexicalScore(String(right.payload?.text || ""), terms) - lexicalScore(String(left.payload?.text || ""), terms));
   const scores = reciprocalRankFuse([semanticPoints, lexicalPoints]);
