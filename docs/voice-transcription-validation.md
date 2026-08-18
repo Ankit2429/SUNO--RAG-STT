@@ -141,6 +141,10 @@ To confirm that the optimization did not degrade the guarded service path, the C
 
 The raw report is [`docs/benchmark-results/browser-origin-target-language-100-post-capture-optimization.json`](./benchmark-results/browser-origin-target-language-100-post-capture-optimization.json). This replay starts after prerecorded fixtures are available, so it verifies browser transport, public ingress, Sarvam, and the guarded RAG route; it does **not** measure MediaRecorder capture time or the new pause-to-send behavior. The higher STT percentiles versus the earlier 100-request replay are provider-time variation, not a retrieval regression: the internal post-transcription path remains well under the 200 ms target.
 
+### Actionable live recovery states
+
+The live console now resolves every completed voice run into one of three explicit recovery states: a transcription failure is displayed as a capture/pipeline error; a structured pipeline error is displayed with its server-provided recovery reason; and a low-confidence automatic-language refusal asks the speaker to choose an explicit locale and repeat the recording. Successful automatic identification continues to display the detected locale and confidence. The mapping is covered by four focused regressions in `voiceRecovery.test.ts`, in addition to the microphone lifecycle and Sarvam adapter suites.
+
 ## Reference
 
 Sarvam documents the selected BCP-47 language codes, WebM support, completed nonempty `MediaRecorder` blobs, and the 30-second REST limit in its [STT reference](https://docs.sarvam.ai/api-reference/speech-to-text/transcribe) and [recording FAQ](https://docs.sarvam.ai/api/speech-to-text/faq).

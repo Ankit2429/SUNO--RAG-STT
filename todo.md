@@ -58,5 +58,6 @@
 - [ ] Run and document a real physical-microphone validation with live speech when a user-accessible input device is available; the sandbox can only perform synthetic fake-device checks.
 - [x] Run and document the browser MediaRecorder lifecycle with Chromium’s fake microphone device as supplemental regression evidence.
 - [ ] Diagnose and eliminate the remaining live microphone, transcription, or response errors reported after the initial MIME repair.
+- [x] Surface structured pipeline errors and low-confidence automatic-detection refusals as actionable microphone recovery guidance in the live interface.
 - [x] Profile the complete voice-to-answer path and reduce controllable latency without weakening evidence or safety gates.
 - [x] Benchmark and document optimized browser-originated latency separately from Sarvam STT time.

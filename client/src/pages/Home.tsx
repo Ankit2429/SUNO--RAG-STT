@@ -4,6 +4,7 @@ import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
 import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import { resolveEvidencePath } from "../lib/evidencePath";
 import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
+import { resolveVoiceRecovery } from "../lib/voiceRecovery";
 import type { RAGRun } from "@shared/rag";
 import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -96,15 +97,19 @@ export default function Home() {
   const ask = trpc.voiceRag.ask.useMutation({
     onSuccess: response => {
       setRun(response);
-      setCaptureError(response.transcriptionError || null);
-      if (response.detectedLanguageConfidence !== undefined && response.detectedLanguageConfidence !== null) {
-        setCaptureInfo(`Sarvam detected ${response.detectedLanguage} • ${Math.round(response.detectedLanguageConfidence * 100)}% confidence`);
-      }
+      const recovery = resolveVoiceRecovery(response);
+      setCaptureError(recovery.error);
+      setCaptureInfo(recovery.info);
     },
     onError: error => setCaptureError(error.message || "The server rejected the voice request."),
   });
   const askBrowserTranscript = trpc.voiceRag.askBrowserTranscript.useMutation({
-    onSuccess: response => setRun(response),
+    onSuccess: response => {
+      setRun(response);
+      const recovery = resolveVoiceRecovery(response);
+      setCaptureError(recovery.error);
+      setCaptureInfo(recovery.info);
+    },
     onError: error => setCaptureError(error.message || "The browser transcription could not be evaluated."),
   });
   const benchmark = trpc.voiceRag.benchmark.useMutation({
