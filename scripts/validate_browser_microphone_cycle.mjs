@@ -90,11 +90,15 @@ try {
     await evaluate(client, `(() => [...document.querySelectorAll('button')].find(button => button.textContent.includes('START RECORDING'))?.click())()`);
     await waitFor(client, `document.body.innerText.includes('RECORDING')`, 8_000);
     await delay(1_200);
+    const stopClickedAt = Date.now();
     await evaluate(client, `(() => [...document.querySelectorAll('button')].find(button => button.textContent.includes('STOP & SEND'))?.click())()`);
+    const progress = await waitFor(client, `(() => { const output = [...document.querySelectorAll('aside')].find(node => node.innerText.includes('STRUCTURED OUTPUT'))?.innerText || ''; if (!output.includes('LIVE RUN') || !output.includes('IN PROGRESS')) return null; return { label: output.includes('SARVAM TRANSCRIBING') ? 'SARVAM TRANSCRIBING' : output.includes('PACKAGING AUDIO') ? 'PACKAGING AUDIO' : 'MATCHING EVIDENCE' }; })()`, 5_000);
+    const progressObservedAfterMs = Date.now() - stopClickedAt;
     const state = await waitFor(client, `(() => { const output = [...document.querySelectorAll('aside')].find(node => node.innerText.includes('STRUCTURED OUTPUT'))?.innerText || ''; const complete = !output.includes('AWAITING VOICE') && (output.includes('GROUNDED') || output.includes('REFUSED') || output.includes('ERROR')); if (!complete) return null; const error = [...document.querySelectorAll('div')].find(node => node.children.length === 2 && node.innerText.startsWith('CAPTURE / PIPELINE ERROR'))?.innerText || null; return { error: Boolean(error), errorDetail: error ? error.slice(0, 320) : null, state: output.includes('ERROR') ? 'ERROR' : output.includes('GROUNDED') ? 'GROUNDED' : 'REFUSED', output: output.slice(0, 520) }; })()`);
-    results.push({ cycle, ...state });
+    const packagingMs = await evaluate(client, `Number(document.querySelector('[data-audio-packaging-ms]')?.dataset.audioPackagingMs || 0) || null`);
+    results.push({ cycle, liveProgress: progress.label, progressObservedAfterMs, packagingMs, ...state });
   }
-  const report = { benchmark: "browser MediaRecorder record-stop-send lifecycle", origin, fixture, cycles, results, passed: results.every(result => !result.error && result.state !== "ERROR"), measuredAt: new Date().toISOString() };
+  const report = { benchmark: "browser MediaRecorder record-stop-send lifecycle", origin, fixture, cycles, results, passed: results.every(result => !result.error && result.state !== "ERROR" && ["PACKAGING AUDIO", "SARVAM TRANSCRIBING", "MATCHING EVIDENCE"].includes(result.liveProgress) && result.progressObservedAfterMs <= 750 && result.packagingMs !== null), measuredAt: new Date().toISOString() };
   console.log(JSON.stringify(report, null, 2));
   if (!report.passed) process.exitCode = 1;
 } finally {
