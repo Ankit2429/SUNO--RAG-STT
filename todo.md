@@ -114,4 +114,4 @@
 - [x] Align the evaluator with verified implementation facts by surfacing P90/P95 in the 115-case latency ledger and replacing the misleading loading-state “Language Shards: 1” metric with the correct five focused grounded voice languages.
 - [x] Replace the stale evaluator footer index label `EVAL-V1` with the manifest-backed `EVAL-V2` value.
 - [x] Create a professional evaluator-ready README for SUNO covering architecture, setup, voice flow, grounding policy, benchmark scope, and repository structure; TypeScript, 19 test files / 86 tests, and production build pass; synchronize the update to GitHub.
-- [ ] Verify the latest SUNO repository state, commit any remaining credential-safe changes, and push the current main branch to the authorized GitHub repository.
+- [x] Verify the latest SUNO repository state, commit the final credential-safe checklist update, and push the current main branch to the authorized GitHub repository; remote `main` verified at commit `57379393958dd6d8a9611ac53669d203e539379f`.
