@@ -1,15 +1,16 @@
 /** @vitest-environment jsdom */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { RAGRun } from "@shared/rag";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { BenchmarkReport, RAGRun } from "@shared/rag";
 
 const mutationSpies = vi.hoisted(() => ({
   ask: vi.fn(),
   askBrowserTranscript: vi.fn(),
   benchmark: vi.fn(),
   askOptions: undefined as { onSuccess?: (run: RAGRun) => void } | undefined,
+  benchmarkOptions: undefined as { onSuccess?: (report: BenchmarkReport) => void } | undefined,
 }));
 
 vi.mock("@/lib/trpc", () => ({
@@ -34,7 +35,7 @@ vi.mock("@/lib/trpc", () => ({
       },
       ask: { useMutation: (options: { onSuccess?: (run: RAGRun) => void }) => { mutationSpies.askOptions = options; return { mutate: mutationSpies.ask, isPending: false }; } },
       askBrowserTranscript: { useMutation: () => ({ mutate: mutationSpies.askBrowserTranscript, isPending: false }) },
-      benchmark: { useMutation: () => ({ mutate: mutationSpies.benchmark, isPending: false }) },
+      benchmark: { useMutation: (options: { onSuccess?: (report: BenchmarkReport) => void }) => { mutationSpies.benchmarkOptions = options; return { mutate: mutationSpies.benchmark, isPending: false }; } },
     },
   },
 }));
@@ -42,11 +43,16 @@ vi.mock("@/lib/trpc", () => ({
 import Home from "./Home";
 
 describe("Home typed-question submission", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   beforeEach(() => {
     mutationSpies.ask.mockReset();
     mutationSpies.askBrowserTranscript.mockReset();
     mutationSpies.benchmark.mockReset();
     mutationSpies.askOptions = undefined;
+    mutationSpies.benchmarkOptions = undefined;
   });
 
   it("submits automatic Hindi typed input to the actual browser-transcript mutation without client-only fields", async () => {
@@ -84,5 +90,34 @@ describe("Home typed-question submission", () => {
     const retry = await screen.findByRole("button", { name: "SELECT MARATHI & RETRY" });
     await user.click(retry);
     expect(await screen.findByText(/Marathi selected\. Record the same question again for explicit routing\./)).toBeTruthy();
+  });
+
+  it("shows the focused voice scope and the manifest-backed index version", () => {
+    render(<Home />);
+
+    expect(screen.getByText("LIVE VOICE LANGUAGES")).toBeTruthy();
+    expect(screen.getByText("Hindi · Kannada · English · Tamil · Marathi")).toBeTruthy();
+    expect(screen.getByText(/INDEX VERSION: test-index/)).toBeTruthy();
+  });
+
+  it("renders the complete warm latency percentile set after an audit", async () => {
+    const user = userEvent.setup();
+    render(<Home />);
+
+    await user.click(screen.getByRole("button", { name: "RUN 115-CASE AUDIT" }));
+    mutationSpies.benchmarkOptions?.onSuccess?.({
+      queryCount: 115,
+      cold: { p50: 0.3, p70: 0.4, p90: 0.5, p95: 0.6, p100: 0.7, sampleCount: 115, failureCount: 0 },
+      warm: { p50: 0.1, p70: 0.2, p90: 0.3, p95: 0.4, p100: 0.5, sampleCount: 115, failureCount: 0 },
+      coldStageTimings: [],
+      warmStageTimings: [],
+      postTranscriptionTargetMs: 200,
+      evaluatedAt: "2026-08-18T00:00:00.000Z",
+    });
+
+    expect(await screen.findByText("P90 / warm")).toBeTruthy();
+    expect(screen.getByText("P95 / warm")).toBeTruthy();
+    expect(screen.getByText("0.3 ms")).toBeTruthy();
+    expect(screen.getByText("0.4 ms")).toBeTruthy();
   });
 });
