@@ -1,7 +1,6 @@
 import { trpc } from "@/lib/trpc";
 import { configureBrowserFallback, type BrowserRecognitionEvent, type BrowserRecognitionPort, VOICE_LANGUAGES, type VoiceLanguageCode, voiceLanguageLabel } from "../lib/voiceLanguage";
 import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
-import { FOCUSED_VOICE_SAMPLES, type FocusedVoiceSample } from "@shared/focusedVoiceSamples";
 import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import { resolveEvidencePath } from "../lib/evidencePath";
 import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
@@ -276,15 +275,6 @@ export default function Home() {
     recorderRef.current.stop();
   };
 
-  const chooseSample = (sample: FocusedVoiceSample) => {
-    setLanguageCode(sample.languageCode);
-    setCaptureError(null);
-    setRun(null);
-    setCaptureInfo(sample.evidenceMode === "grounded"
-      ? `${sample.languageLabel} source-backed prompt selected — speak the displayed wording.`
-      : `${sample.languageLabel} is transcription-only — the system will safely refuse without bounded evidence.`);
-  };
-
   const startBrowserFallback = () => {
     if (isPipelineBusy) return;
     setCaptureError(null);
@@ -368,11 +358,6 @@ export default function Home() {
               <div className="grid min-h-[270px] place-items-center border-2 border-dashed border-black bg-[#f4eedf] p-5 text-center">
                 <div className="w-full max-w-xl">
                   <LanguagePicker languageCode={languageCode} onChange={setLanguageCode} disabled={isPipelineBusy} indexedLanguageCodes={indexedLanguageCodes} />
-                  <div className="mb-6 border-2 border-black bg-white p-3 text-left">
-                    <div className="flex flex-wrap items-baseline justify-between gap-2"><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Corpus-matched speaking prompts</div><span className="mono text-[8px] text-[#5f584d]">Select one, then speak it</span></div>
-                    <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{FOCUSED_VOICE_SAMPLES.map(sample => <button key={sample.languageCode} type="button" disabled={isPipelineBusy} onClick={() => chooseSample(sample)} className="brutal-button border-2 border-black bg-[#f4eedf] p-2 text-left disabled:opacity-50"><div className="flex items-center justify-between gap-2"><span className="mono text-[9px] font-bold">{sample.languageLabel}</span><span className={`mono text-[8px] ${sample.evidenceMode === "grounded" ? "text-[#31553e]" : "text-[#9b3f1c]"}`}>{sample.evidenceMode === "grounded" ? "GROUNDED" : "STT ONLY"}</span></div><p className="mt-1 text-xs font-bold leading-snug">{sample.prompt}</p></button>)}</div>
-                    <p className="mono mt-2 text-[8px] leading-relaxed text-[#5f584d]">These are real focused-evaluation prompts, not prewritten answers. All five prompts route to bounded MSMARCO-XI evidence and refuse only when support is insufficient.</p>
-                  </div>
                   <form onSubmit={submitTypedQuestion} className="mb-6 border-2 border-black bg-[#fffdf7] p-3.5 text-left shadow-[3px_3px_0_#1b1815]">
                     <div className="flex flex-wrap items-baseline justify-between gap-2"><div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Text fallback / same guarded RAG</div><span className="mono text-[8px] text-[#5f584d]">No speech-transcription wait</span></div>
                     <label htmlFor="typed-question" className="sr-only">Type a question for the evidence harness</label>
