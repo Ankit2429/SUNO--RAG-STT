@@ -9,6 +9,8 @@ export function summarizeLatency(samples: number[], failureCount = 0): Percentil
   return {
     p50: percentile(0.5),
     p70: percentile(0.7),
+    p90: percentile(0.9),
+    p95: percentile(0.95),
     p100: percentile(1),
     sampleCount: sorted.length,
     failureCount,

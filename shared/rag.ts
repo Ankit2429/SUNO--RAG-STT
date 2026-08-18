@@ -87,6 +87,8 @@ export type RAGRun = {
 export type PercentileSummary = {
   p50: number;
   p70: number;
+  p90: number;
+  p95: number;
   p100: number;
   sampleCount: number;
   failureCount: number;

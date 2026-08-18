@@ -13,6 +13,12 @@ describe("runBenchmark", () => {
     expect(report.warm.sampleCount).toBe(report.queryCount);
     expect(report.cold.p100).toBeGreaterThanOrEqual(report.cold.p50);
     expect(report.warm.p100).toBeGreaterThanOrEqual(report.warm.p50);
+    expect(report.cold.p100).toBeGreaterThanOrEqual(report.cold.p95);
+    expect(report.cold.p95).toBeGreaterThanOrEqual(report.cold.p90);
+    expect(report.cold.p90).toBeGreaterThanOrEqual(report.cold.p70);
+    expect(report.warm.p100).toBeGreaterThanOrEqual(report.warm.p95);
+    expect(report.warm.p95).toBeGreaterThanOrEqual(report.warm.p90);
+    expect(report.warm.p90).toBeGreaterThanOrEqual(report.warm.p70);
     expect(report.coldStageTimings.map(summary => summary.stage)).toEqual(["normalize + scope", "route + retrieval", "evidence + verify", "answer assembly", "total internal"]);
     expect(report.warmStageTimings).toHaveLength(5);
     expect(report.warmStageTimings.every(summary => summary.sampleCount === report.queryCount && summary.p100 >= summary.p50 && summary.averageMs >= 0)).toBe(true);
@@ -42,5 +48,8 @@ describe("runBenchmark", () => {
     expect(report.languages.find(language => language.languageCode === "en-IN")?.statusCounts).toEqual({ GROUNDED: 5, REFUSED: 0, ERROR: 0 });
     expect(report.combinedStatusCounts).toEqual({ GROUNDED: 25, REFUSED: 0, ERROR: 0 });
     expect(report.rawTelemetry.every(sample => sample.route === "L1 local evidence")).toBe(true);
+    expect(report.combined.p100).toBeGreaterThanOrEqual(report.combined.p95);
+    expect(report.combined.p95).toBeGreaterThanOrEqual(report.combined.p90);
+    expect(report.combined.p90).toBeGreaterThanOrEqual(report.combined.p70);
   });
 });

@@ -15,11 +15,11 @@ function ms(value, width = 7) {
 }
 
 function row(label, summary) {
-  return `${label.padEnd(20)} ${ms(summary.p50)}  ${ms(summary.p70)}  ${ms(summary.p100)}  ${String(summary.sampleCount).padStart(7)}  ${String(summary.failureCount).padStart(4)}`;
+  return `${label.padEnd(20)} ${ms(summary.p50)}  ${ms(summary.p70)}  ${ms(summary.p90)}  ${ms(summary.p95)}  ${ms(summary.p100)}  ${String(summary.sampleCount).padStart(7)}  ${String(summary.failureCount).padStart(4)}`;
 }
 
 function stageRow(summary) {
-  return `${summary.stage.padEnd(20)} ${ms(summary.averageMs)}  ${ms(summary.p50)}  ${ms(summary.p70)}  ${ms(summary.p100)}  ${String(summary.sampleCount).padStart(6)}  ${String(summary.failureCount).padStart(4)}`;
+  return `${summary.stage.padEnd(20)} ${ms(summary.averageMs)}  ${ms(summary.p50)}  ${ms(summary.p70)}  ${ms(summary.p90)}  ${ms(summary.p95)}  ${ms(summary.p100)}  ${String(summary.sampleCount).padStart(6)}  ${String(summary.failureCount).padStart(4)}`;
 }
 
 async function main() {
@@ -53,13 +53,13 @@ async function main() {
   console.log(`Ran ${report.queryCount} query cases × cold + warm = ${report.cold.sampleCount + report.warm.sampleCount} measured requests`);
   console.log(`Composition: ${report.datasetQueryCount} real AI4Bharat/MSMARCO-XI cases + ${report.adversarialQueryCount} adversarial safety cases\n`);
 
-  console.log("PATH                    P50       P70       P100    SAMPLES  FAIL");
+  console.log("PATH                    P50       P70       P90       P95       P100    SAMPLES  FAIL");
   console.log("-".repeat(76));
   console.log(row("cold internal RAG", report.cold));
   console.log(row("warm internal RAG", report.warm));
 
   console.log("\nWARM HARNESS STAGE PROFILE (aggregated once per query)");
-  console.log("STAGE                    AVG       P50       P70       P100      N  FAIL");
+  console.log("STAGE                    AVG       P50       P70       P90       P95       P100      N  FAIL");
   console.log("-".repeat(76));
   report.warmStageTimings.forEach(summary => console.log(stageRow(summary)));
 

@@ -1,31 +1,48 @@
 # SvaraProof Five-Language 1,000-Query Benchmark
 
-**Measurement date:** 2026-08-18 (English-grounding rerun)  
+**Measurement date:** 2026-08-18 (expanded-percentile rerun)  
 **Command:** `pnpm benchmark:five-languages`  
 **Scope:** Post-transcription retrieval, grounding, answer assembly, and harness handling only. Sarvam STT, microphone capture, browser upload, and public-network transfer are excluded from the internal RAG target.
 
-This run completed **1,000 sequential harness measurements**, comprising **200 requests each** for Hindi, Kannada, English, Tamil, and Marathi. The schedule interleaved **five real MSMARCO-XI query themes per language** for **40 repetitions per theme**. It is therefore a broad **latency and reliability repetition benchmark**, not a claim of 1,000 distinct-question accuracy evaluation. The fixture themes map to source query IDs `1102432`, `1102431`, `90836`, `55665`, and `205107` in the bounded project corpus derived from AI4Bharat/MSMARCO-XI.[1]
+This fresh run completed **1,000 sequential harness measurements**, comprising **200 requests each** for Hindi, Kannada, English, Tamil, and Marathi. The schedule interleaved **five real MSMARCO-XI query themes per language** for **40 repetitions per theme**. It is therefore a reliability and latency repetition benchmark, not a claim of 1,000 distinct-question accuracy evaluations. The fixture themes map to source query IDs `1102432`, `1102431`, `90836`, `55665`, and `205107` in the bounded corpus derived from AI4Bharat/MSMARCO-XI.[1]
 
-| Language | Requests | P50 | P70 | P100 | Grounded | Refused | Errors | Evidence citations |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Hindi (`hi-IN`) | 200 | 0.20 ms | 0.21 ms | 2.40 ms | 160 | 40 | 0 | 1,200 |
-| Kannada (`kn-IN`) | 200 | 0.15 ms | 0.16 ms | 0.50 ms | 200 | 0 | 0 | 960 |
-| English (`en-IN`) | 200 | 0.05 ms | 0.05 ms | 0.42 ms | 200 | 0 | 0 | 800 |
-| Tamil (`ta-IN`) | 200 | 0.16 ms | 0.19 ms | 0.49 ms | 200 | 0 | 0 | 1,040 |
-| Marathi (`mr-IN`) | 200 | 0.19 ms | 0.20 ms | 0.43 ms | 200 | 0 | 0 | 1,200 |
-| **Combined** | **1,000** | **0.16 ms** | **0.20 ms** | **2.40 ms** | **960** | **40** | **0** | **5,200** |
+## Five-language internal-RAG results
 
-> **Result:** With English now evidence-grounded, the combined post-transcription internal RAG P100 is **2.40 ms**, which is **197.60 ms below** the 200 ms internal target. The run has **zero harness errors**.
+| Language | Requests | P50 | P70 | P90 | P95 | P100 | Grounded | Refused | Errors | Evidence citations |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Hindi (`hi-IN`) | 200 | 0.25 ms | 0.32 ms | 0.44 ms | 0.52 ms | 2.92 ms | 160 | 40 | 0 | 1,200 |
+| Kannada (`kn-IN`) | 200 | 0.18 ms | 0.22 ms | 0.34 ms | 0.41 ms | 0.53 ms | 200 | 0 | 0 | 960 |
+| English (`en-IN`) | 200 | 0.05 ms | 0.06 ms | 0.08 ms | 0.10 ms | 0.38 ms | 200 | 0 | 0 | 800 |
+| Tamil (`ta-IN`) | 200 | 0.19 ms | 0.22 ms | 0.33 ms | 0.38 ms | 0.55 ms | 200 | 0 | 0 | 1,040 |
+| Marathi (`mr-IN`) | 200 | 0.23 ms | 0.28 ms | 0.37 ms | 0.41 ms | 0.57 ms | 200 | 0 | 0 | 1,200 |
+| **Combined** | **1,000** | **0.20 ms** | **0.25 ms** | **0.36 ms** | **0.42 ms** | **2.92 ms** | **960** | **40** | **0** | **5,200** |
 
-English now completed all **200/200** benchmark cases as grounded, cited answers through source-linked English companion evidence. The 40 Hindi refusals all arise from the repeated `hi-1102432` fixture when its bounded local evidence does not meet the sufficiency threshold; they are safe, zero-invention refusals rather than system errors. Kannada, Tamil, and Marathi also completed all 200 requests per language with grounded, cited evidence. The status distribution demonstrates that failures to meet evidence sufficiency are represented as explicit refusals instead of fabricated answers.
+> **Result:** The combined internal-RAG P50/P70/P90/P95/P100 is **0.20 / 0.25 / 0.36 / 0.42 / 2.92 ms**. P100 is **197.08 ms below** the 200 ms internal target, with **zero harness errors**.
 
-The raw result file is [`five-language-1000-query-raw.json`](./five-language-1000-query-raw.json). It contains all 1,000 per-request records, including language, fixture ID, repetition, query text, status, evidence count, internal RAG duration, and retrieval route. Its persisted record count was independently checked after the run.
+English, Kannada, Tamil, and Marathi completed all 200 benchmark requests as grounded, cited outputs. The 40 Hindi refusals are the intentionally repeated short-form `hi-1102432` evidence-boundary fixture. They are safe zero-invention refusals rather than harness errors.
+
+## Complementary cold/warm harness audit
+
+The terminal audit runs **115 query cases** (100 real AI4Bharat/MSMARCO-XI cases and 15 adversarial safety cases) once cold and once warm, producing 230 measurements.
+
+| Path | Samples | P50 | P70 | P90 | P95 | P100 | Failures |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Cold internal RAG | 115 | 0.32 ms | 0.38 ms | 0.46 ms | 0.59 ms | 0.78 ms | 0 |
+| Warm internal RAG | 115 | 0.19 ms | 0.24 ms | 0.28 ms | 0.31 ms | 0.44 ms | 0 |
+
+| Warm-stage aggregate | Average | P50 | P70 | P90 | P95 | P100 | Failures |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Normalize + scope | 0.00 ms | 0.00 ms | 0.00 ms | 0.00 ms | 0.00 ms | 0.00 ms | 0 |
+| Route + retrieval | 0.11 ms | 0.10 ms | 0.14 ms | 0.18 ms | 0.20 ms | 0.29 ms | 0 |
+| Evidence + verify | 0.07 ms | 0.08 ms | 0.09 ms | 0.11 ms | 0.13 ms | 0.32 ms | 0 |
+| Answer assembly | 0.00 ms | 0.00 ms | 0.00 ms | 0.00 ms | 0.00 ms | 0.00 ms | 0 |
+| **Total internal** | **0.19 ms** | **0.19 ms** | **0.24 ms** | **0.28 ms** | **0.31 ms** | **0.44 ms** | **0** |
+
+The raw five-language telemetry is stored in [`five-language-1000-query-raw.json`](./five-language-1000-query-raw.json). It contains all 1,000 requests, including language, fixture ID, repetition, query text, outcome, evidence count, internal RAG time, and retrieval route.
 
 ## Interpretation
 
-The benchmark clears the stated **internal RAG latency** requirement across all focused routes. It does **not** represent the user-perceived voice round trip, because a physical microphone and Sarvam STT precede this measured section of the pipeline. Separately captured voice-path timing must be used when assessing end-user delay.
-
-The result is intentionally conservative in its correctness behavior. A `REFUSED` outcome is not counted as an error when no sufficient indexed evidence exists; this is the fail-closed guardrail working as designed. A separate diverse-query evaluation would be required to estimate semantic answer recall beyond the five source-backed query themes repeated here.
+The fresh benchmark clears the stated **internal RAG latency** requirement across every focused route. It is not a user-perceived voice-round-trip measurement because microphone capture, upload, Sarvam STT, and network transfer precede this path. A `REFUSED` outcome is not counted as an error when the evidence-sufficiency gate prevents an unsupported answer.
 
 ## Reference
 
