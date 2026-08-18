@@ -16,6 +16,7 @@ export type TranscriptionResult = {
 
 const MAX_AUDIO_BYTES = 4 * 1024 * 1024;
 const RETRYABLE_STATUS = new Set([429, 503]);
+const SUPPORTED_LANGUAGE_HINTS = new Set(["unknown", "en-IN", "kn-IN", "hi-IN", "mr-IN", "ta-IN", "te-IN", "bn-IN"]);
 
 function base64ToBytes(value: string): Uint8Array {
   return Uint8Array.from(Buffer.from(value.replace(/^data:[^;]+;base64,/, ""), "base64"));
@@ -48,6 +49,7 @@ export async function transcribeWithSarvam(input: {
   const bytes = base64ToBytes(input.audioBase64);
   if (!bytes.byteLength) throw new Error("The recorded audio is empty.");
   if (bytes.byteLength > MAX_AUDIO_BYTES) throw new Error("The recording exceeds the 4 MB upload guardrail.");
+  const languageHint = SUPPORTED_LANGUAGE_HINTS.has(input.languageHint || "") ? input.languageHint! : "unknown";
 
   const idempotencyKey = createHash("sha256").update(bytes).digest("hex").slice(0, 32);
   const extension = input.mimeType.includes("ogg") ? "ogg" : input.mimeType.includes("wav") ? "wav" : "webm";
@@ -60,12 +62,12 @@ export async function transcribeWithSarvam(input: {
     form.set("file", new Blob([audio.buffer], { type: input.mimeType }), `voice-${randomUUID()}.${extension}`);
     form.set("model", "saaras:v3");
     form.set("mode", "transcribe");
-    form.set("language_code", input.languageHint || "unknown");
+    form.set("language_code", languageHint);
     const response = await fetch("https://api.sarvam.ai/speech-to-text", {
       method: "POST",
       headers: { "api-subscription-key": secret, "x-idempotency-key": idempotencyKey },
       body: form,
-      signal: AbortSignal.timeout(12_000),
+      signal: AbortSignal.timeout(25_000),
     }).catch(error => {
       throw new Error(`Sarvam network failure: ${error instanceof Error ? error.message : "unknown"}`);
     });
@@ -80,7 +82,7 @@ export async function transcribeWithSarvam(input: {
         idempotencyKey,
       };
     }
-    lastError = payload.error?.message || `Sarvam responded with ${response.status}.`;
+    lastError = payload.error?.message || (response.ok ? "Sarvam returned an empty transcript. Speak clearly for at least one second, then try again." : `Sarvam responded with ${response.status}.`);
     if (!RETRYABLE_STATUS.has(response.status) || attempt === 2) break;
     await pause(120 * 2 ** attempt);
   }

@@ -1,4 +1,5 @@
 import { trpc } from "@/lib/trpc";
+import { configureBrowserFallback, type BrowserRecognitionEvent, type BrowserRecognitionPort, VOICE_LANGUAGES, type VoiceLanguageCode, voiceLanguageLabel } from "../lib/voiceLanguage";
 import type { RAGRun } from "@shared/rag";
 import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -13,14 +14,7 @@ type BenchmarkState = {
   cacheDefinition: string;
 };
 
-type BrowserRecognitionEvent = { results: { [index: number]: { [index: number]: { transcript: string } } } };
-type BrowserRecognition = {
-  lang: string;
-  interimResults: boolean;
-  maxAlternatives: number;
-  onresult: ((event: BrowserRecognitionEvent) => void) | null;
-  onerror: ((event: { error: string }) => void) | null;
-  onend: (() => void) | null;
+type BrowserRecognition = BrowserRecognitionPort & {
   start: () => void;
 };
 type BrowserRecognitionConstructor = new () => BrowserRecognition;
@@ -59,8 +53,10 @@ function Metric({ label, value, note }: { label: string; value: string; note: st
 export default function Home() {
   const [recording, setRecording] = useState(false);
   const [browserListening, setBrowserListening] = useState(false);
+  const [languageCode, setLanguageCode] = useState<VoiceLanguageCode>("en-IN");
   const [level, setLevel] = useState(0.12);
   const [captureError, setCaptureError] = useState<string | null>(null);
+  const [captureInfo, setCaptureInfo] = useState<string | null>(null);
   const [run, setRun] = useState<RAGRun | null>(null);
   const [traceOpen, setTraceOpen] = useState(false);
   const [benchmarkReport, setBenchmarkReport] = useState<BenchmarkState | null>(null);
@@ -70,9 +66,10 @@ export default function Home() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const frameRef = useRef<number | null>(null);
   const recognitionRef = useRef<BrowserRecognition | null>(null);
+  const recordingStartedAtRef = useRef(0);
   const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, { refetchOnWindowFocus: false });
   const ask = trpc.voiceRag.ask.useMutation({
-    onSuccess: response => setRun(response),
+    onSuccess: response => { setRun(response); setCaptureError(response.transcriptionError || null); },
     onError: error => setCaptureError(error.message || "The server rejected the voice request."),
   });
   const askBrowserTranscript = trpc.voiceRag.askBrowserTranscript.useMutation({
@@ -108,6 +105,7 @@ export default function Home() {
 
   const startRecording = async () => {
     setCaptureError(null);
+    setCaptureInfo(null);
     setRun(null);
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
       setCaptureError("This browser does not support real microphone capture. Try a current Chrome, Edge, or Firefox build.");
@@ -134,12 +132,16 @@ export default function Home() {
         stopVisualizer();
         const mimeType = recorder.mimeType || "audio/webm";
         const blob = new Blob(chunksRef.current, { type: mimeType });
-        if (!blob.size) { setCaptureError("No audio was captured. Please allow microphone access and try again."); return; }
+        const durationMs = Math.max(0, performance.now() - recordingStartedAtRef.current);
+        if (durationMs < 700) { setCaptureError("Recording was too short. Speak for at least one second before selecting STOP & SEND."); return; }
+        if (blob.size < 512) { setCaptureError("No usable audio was captured. Check microphone permission, speak clearly, and try again."); return; }
         if (blob.size > 4 * 1024 * 1024) { setCaptureError("Recording is too large for the short-audio safety limit. Keep the clip under 30 seconds."); return; }
-        try { ask.mutate({ audioBase64: await toBase64(blob), mimeType, languageHint: "unknown" }); }
+        setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • ${(blob.size / 1024).toFixed(0)} KB • ${languageCode}`);
+        try { ask.mutate({ audioBase64: await toBase64(blob), mimeType, languageHint: languageCode }); }
         catch (error) { setCaptureError(error instanceof Error ? error.message : "Audio encoding failed."); }
       };
       recorder.start(250);
+      recordingStartedAtRef.current = performance.now();
       setRecording(true);
     } catch (error) { stopVisualizer(); setCaptureError(error instanceof DOMException && error.name === "NotAllowedError" ? "Microphone permission was denied. Enable it in your browser settings and retry." : "Microphone capture could not be started."); }
   };
@@ -148,6 +150,7 @@ export default function Home() {
 
   const startBrowserFallback = () => {
     setCaptureError(null);
+    setCaptureInfo(null);
     setRun(null);
     const Recognition = browserRecognitionConstructor();
     if (!Recognition) {
@@ -155,15 +158,11 @@ export default function Home() {
       return;
     }
     const recognition = new Recognition();
-    recognition.lang = "";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-    recognition.onresult = event => {
-      const transcript = event.results[0]?.[0]?.transcript?.trim();
-      if (transcript) askBrowserTranscript.mutate({ transcript, languageCode: "unknown", script: "browser-native" });
-    };
-    recognition.onerror = event => setCaptureError(`Browser speech recognition stopped: ${event.error}.`);
-    recognition.onend = () => setBrowserListening(false);
+    configureBrowserFallback(recognition, languageCode, {
+      onTranscript: transcript => { setCaptureInfo(`Browser-native transcript received • ${languageCode}`); askBrowserTranscript.mutate({ transcript, languageCode, script: "browser-native" }); },
+      onError: message => setCaptureError(message),
+      onListeningChange: setBrowserListening,
+    });
     recognitionRef.current = recognition;
     setBrowserListening(true);
     recognition.start();
@@ -189,8 +188,9 @@ export default function Home() {
             <div className="flex items-start justify-between gap-4 border-b-2 border-black p-4 sm:p-5"><div><div className="mono text-[10px] font-semibold tracking-[0.15em] text-[#5f584d]">01 / LIVE INPUT</div><h2 className="mt-1 text-2xl font-bold tracking-[-0.04em]">Speak the question</h2></div><div className="flex items-center gap-2 border-2 border-black bg-[#f4eedf] px-2.5 py-1.5"><span className={`h-2.5 w-2.5 ${recording ? "bg-[#ff5a1f] signal-pulse" : "bg-[#111111]"}`} /><span className="mono text-[10px] font-semibold">{recording ? "RECORDING" : ask.isPending ? "PROCESSING" : "READY"}</span></div></div>
             <div className="p-4 sm:p-5">
               <div className="grid min-h-[270px] place-items-center border-2 border-dashed border-black bg-[#f4eedf] p-5 text-center">
-                <div className="w-full max-w-xl"><div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div><div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? "capturing real browser audio — stop when complete" : "microphone capture • ≤30 seconds • server-side transcription"}</div><div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={ask.isPending} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {ask.isPending ? "RUNNING HARNESS" : "HOLD TO SPEAK"}</button>}</div></div>
+                <div className="w-full max-w-xl"><div className="mb-4"><div className="mono mb-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#5f584d]">Language for this recording</div><div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Speech language">{VOICE_LANGUAGES.map(language => <button key={language.code} type="button" disabled={recording || ask.isPending || browserListening} onClick={() => setLanguageCode(language.code)} className={`brutal-button border-2 border-black px-2.5 py-1.5 text-left text-xs font-bold disabled:opacity-50 ${languageCode === language.code ? "bg-[#ff5a1f]" : "bg-[#fbf7ed]"}`}><span>{language.label}</span><span className="mono ml-1 text-[9px]">{language.nativeLabel}</span></button>)}</div></div><div className="mb-6 flex h-20 items-center justify-center gap-[3px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1.5 ${recording ? "bg-[#ff5a1f]" : "bg-black"}`} style={{ height: `${height}px`, opacity: recording ? 0.55 + level * 0.45 : 0.28 + (index % 4) * 0.1 }} />)}</div><div className="mono text-[11px] uppercase tracking-[0.14em] text-[#5f584d]">{recording ? `capturing ${voiceLanguageLabel(languageCode)} audio — speak for at least 1 second` : "microphone capture • ≤30 seconds • server-side transcription"}</div><div className="mt-5 flex justify-center">{recording ? <button onClick={stopRecording} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#111111] px-5 py-3 text-sm font-bold text-[#f4eedf]"><CircleStop size={18} /> STOP & SEND</button> : <button onClick={startRecording} disabled={ask.isPending} className="brutal-button brutal-border brutal-shadow-sm flex items-center gap-2 bg-[#ff5a1f] px-5 py-3 text-sm font-bold disabled:opacity-50"><Mic size={18} /> {ask.isPending ? "RUNNING HARNESS" : "START RECORDING"}</button>}</div></div>
               </div>
+              {captureInfo && <div className="mt-4 border-2 border-black bg-[#d8ecd7] p-3 mono text-[10px] font-bold uppercase tracking-[0.08em]">AUDIO PREFLIGHT / {captureInfo}</div>}
               {captureError && <div className="mt-4 flex gap-2 border-2 border-black bg-[#ffc7bc] p-3"><TriangleAlert className="mt-0.5 shrink-0" size={17} /><div><div className="mono text-[10px] font-bold tracking-[0.12em]">CAPTURE / PIPELINE ERROR</div><p className="mt-1 text-sm leading-snug">{captureError}</p></div></div>}
               <div className="mt-4 grid gap-2 text-xs sm:grid-cols-3"><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIMARY STT</span><div className="mt-1 font-bold">Sarvam / server-only</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">PRIVACY</span><div className="mt-1 font-bold">Audio not stored</div></div><div className="border-2 border-black p-2.5"><span className="mono text-[9px] text-[#5f584d]">RETRY POLICY</span><div className="mt-1 font-bold">3 bounded attempts</div></div></div><div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-2 border-black bg-[#e9e0cf] p-2.5"><span className="mono text-[9px] leading-relaxed">ZERO-COST FALLBACK: BROWSER-NATIVE SPEECH RECOGNITION → SAME FAIL-CLOSED HARNESS</span><button onClick={startBrowserFallback} disabled={recording || ask.isPending || askBrowserTranscript.isPending || browserListening} className="brutal-button border-2 border-black bg-[#f4eedf] px-2.5 py-1.5 mono text-[9px] font-bold disabled:opacity-60">{browserListening ? "LISTENING…" : askBrowserTranscript.isPending ? "CHECKING…" : "USE FREE FALLBACK"}</button></div>
             </div>

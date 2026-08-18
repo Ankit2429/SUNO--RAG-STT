@@ -26,3 +26,7 @@
 - [x] Make every rubric requirement directly inspectable in the evaluator console through evidence, method metadata, harness traces, benchmark provenance, and explicit failure states rather than relying on undocumented backend behavior.
 - [ ] Measure and report P50, P70, and P100 for at least 100 real-audio Sarvam voice-to-final-answer requests, including browser-to-server transport and transcription, before claiming the literal full-pipeline 200 ms target.
 - [x] Produce a traceable ten-loop evaluator-style report that keeps Sarvam full-path latency, post-transcription RAG latency, pass/fail status, and safety outcomes separate.
+- [x] Re-run automated checks and both separated latency benchmarks immediately before the user’s publish decision.
+- [x] Diagnose and fix live microphone transcription so spoken English, Kannada, Hindi, and Marathi reliably appear as transcripts before entering the guarded RAG harness.
+- [x] Validate the live Sarvam route with reproducible real English and Kannada audio fixtures, then record the target-language evidence.
+- [x] Add automated browser-fallback coverage for selected-language propagation and transcript/error surfacing.

@@ -82,8 +82,9 @@ export async function runVoiceHarness(input: { audioBase64: string; mimeType: st
     const textRun = await runPostTranscriptionHarness({ transcript: transcription.transcript, languageCode: transcription.languageCode, script: transcription.script });
     return { ...textRun, requestId, trace: [...events, ...textRun.trace], latency: { sttMs: Math.max(0, Math.round((now() - sttStart - textRun.latency.ragMs) * 100) / 100), ragMs: textRun.latency.ragMs, endToEndMs: elapsed(totalStart) } };
   } catch (error) {
-    trace(events, "transcribe", sttStart, "ERROR", error instanceof Error ? error.message : "Transcription error.");
+    const transcriptionError = error instanceof Error ? error.message : "Transcription error.";
+    trace(events, "transcribe", sttStart, "ERROR", transcriptionError);
     skipped(events, ["normalize", "detect_language", "safety/scope_gate", "query_route", "parallel_retrieve", "fuse", "rerank", "evidence_gate", "generate", "verify", "return"], "Stopped after transcription error.");
-    return { requestId, transcript: "", detectedLanguage: "unknown", detectedScript: "unknown", answer: errorAnswer("Speech-to-text failed after bounded retries."), evidence: [], trace: events, latency: { sttMs: elapsed(sttStart), ragMs: 0, endToEndMs: elapsed(totalStart) } };
+    return { requestId, transcript: "", detectedLanguage: "unknown", detectedScript: "unknown", transcriptionError, answer: errorAnswer("Speech-to-text failed after bounded retries."), evidence: [], trace: events, latency: { sttMs: elapsed(sttStart), ragMs: 0, endToEndMs: elapsed(totalStart) } };
   }
 }
