@@ -92,10 +92,17 @@ export type PercentileSummary = {
   failureCount: number;
 };
 
+export type StageLatencySummary = PercentileSummary & {
+  stage: string;
+  averageMs: number;
+};
+
 export type BenchmarkReport = {
   queryCount: number;
   cold: PercentileSummary;
   warm: PercentileSummary;
+  coldStageTimings: StageLatencySummary[];
+  warmStageTimings: StageLatencySummary[];
   postTranscriptionTargetMs: number;
   evaluatedAt: string;
 };

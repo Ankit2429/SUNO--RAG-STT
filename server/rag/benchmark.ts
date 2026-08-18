@@ -1,4 +1,4 @@
-import type { BenchmarkReport } from "@shared/rag";
+import type { BenchmarkReport, StageLatencySummary } from "@shared/rag";
 import { summarizeLatency } from "./metrics";
 import { runPostTranscriptionHarness } from "./harness";
 
@@ -33,15 +33,44 @@ const adversarialTemplates = [
 
 const benchmarkQueries = [...datasetQueries, ...datasetQueries, ...datasetQueries, ...datasetQueries, ...adversarialTemplates];
 
+const STAGE_BUCKETS: ReadonlyArray<{ stage: string; stages: readonly string[] }> = [
+  { stage: "normalize + scope", stages: ["normalize", "detect_language", "safety/scope_gate"] },
+  { stage: "route + retrieval", stages: ["query_route", "parallel_retrieve", "fuse", "rerank"] },
+  { stage: "evidence + verify", stages: ["evidence_gate", "verify", "return"] },
+  { stage: "answer assembly", stages: ["generate"] },
+  { stage: "total internal", stages: [] },
+];
+
+function stageSummary(stage: string, samples: number[], failureCount: number): StageLatencySummary {
+  const latency = summarizeLatency(samples, failureCount);
+  const averageMs = samples.length ? Math.round((samples.reduce((sum, sample) => sum + sample, 0) / samples.length) * 100) / 100 : 0;
+  return { stage, averageMs, ...latency };
+}
+
 async function execute(kind: "cold" | "warm") {
   const timings: number[] = [];
   let failures = 0;
+  const stageSamples = new Map(STAGE_BUCKETS.map(bucket => [bucket.stage, [] as number[]]));
+  const stageFailures = new Map(STAGE_BUCKETS.map(bucket => [bucket.stage, 0]));
   for (const item of benchmarkQueries) {
     const run = await runPostTranscriptionHarness({ transcript: item.query, languageCode: item.language, script: "benchmark" });
     timings.push(run.latency.ragMs);
+    stageSamples.get("total internal")?.push(run.latency.ragMs);
     if (run.answer.status === "ERROR") failures += 1;
+    if (run.answer.status === "ERROR") stageFailures.set("total internal", (stageFailures.get("total internal") || 0) + 1);
+    for (const bucket of STAGE_BUCKETS) {
+      if (bucket.stage === "total internal") continue;
+      const events = run.trace.filter(event => bucket.stages.includes(event.stage));
+      stageSamples.get(bucket.stage)?.push(events.reduce((sum, event) => sum + event.durationMs, 0));
+      if (events.some(event => event.status === "ERROR")) {
+        stageFailures.set(bucket.stage, (stageFailures.get(bucket.stage) || 0) + 1);
+      }
+    }
   }
-  return summarizeLatency(timings, failures);
+  return {
+    path: summarizeLatency(timings, failures),
+    stageTimings: STAGE_BUCKETS.map(bucket => stageSummary(bucket.stage, stageSamples.get(bucket.stage) || [], stageFailures.get(bucket.stage) || 0)),
+  };
 }
 
 export async function runBenchmark(): Promise<BenchmarkReport & { datasetQueryCount: number; adversarialQueryCount: number; cacheDefinition: string }> {
@@ -49,8 +78,10 @@ export async function runBenchmark(): Promise<BenchmarkReport & { datasetQueryCo
   const warm = await execute("warm");
   return {
     queryCount: benchmarkQueries.length,
-    cold,
-    warm,
+    cold: cold.path,
+    warm: warm.path,
+    coldStageTimings: cold.stageTimings,
+    warmStageTimings: warm.stageTimings,
     postTranscriptionTargetMs: 200,
     evaluatedAt: new Date().toISOString(),
     datasetQueryCount: datasetQueries.length * 4,

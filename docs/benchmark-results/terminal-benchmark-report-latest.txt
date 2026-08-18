@@ -1,0 +1,31 @@
+
+> hh-goa-voice-rag@1.0.0 benchmark:terminal /home/ubuntu/hh-goa-voice-rag
+> node scripts/benchmark_terminal_report.mjs
+
+
+SVARAPROOF / TASK 112 — POST-TRANSCRIPTION RAG BENCHMARK
+============================================================================
+Endpoint: http://127.0.0.1:3000
+Warm-up: L1 cache and fail-closed harness are exercised by the cold pass.
+Ran 115 query cases × cold + warm = 230 measured requests
+Composition: 100 real AI4Bharat/MSMARCO-XI cases + 15 adversarial safety cases
+
+PATH                    P50       P70       P100    SAMPLES  FAIL
+----------------------------------------------------------------------------
+cold internal RAG       0.26ms     0.32ms     2.24ms      115     0
+warm internal RAG       0.19ms     0.23ms     0.61ms      115     0
+
+WARM HARNESS STAGE PROFILE (aggregated once per query)
+STAGE                    AVG       P50       P70       P100      N  FAIL
+----------------------------------------------------------------------------
+normalize + scope       0.00ms     0.00ms     0.00ms     0.01ms     115     0
+route + retrieval       0.15ms     0.14ms     0.19ms     0.58ms     115     0
+evidence + verify       0.04ms     0.05ms     0.05ms     0.09ms     115     0
+answer assembly         0.00ms     0.00ms     0.00ms     0.00ms     115     0
+total internal          0.19ms     0.19ms     0.23ms     0.61ms     115     0
+
+Latency budget: 200.0ms | P100 worst internal path: 2.24ms
+PASS: within internal RAG budget
+Scope: post-transcription only. Sarvam STT, microphone capture, browser upload, and network transfer are reported separately.
+Evaluated at: 2026-08-18T07:41:48.233Z
+

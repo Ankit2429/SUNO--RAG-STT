@@ -12,6 +12,9 @@ describe("runBenchmark", () => {
     expect(report.warm.sampleCount).toBe(report.queryCount);
     expect(report.cold.p100).toBeGreaterThanOrEqual(report.cold.p50);
     expect(report.warm.p100).toBeGreaterThanOrEqual(report.warm.p50);
+    expect(report.coldStageTimings.map(summary => summary.stage)).toEqual(["normalize + scope", "route + retrieval", "evidence + verify", "answer assembly", "total internal"]);
+    expect(report.warmStageTimings).toHaveLength(5);
+    expect(report.warmStageTimings.every(summary => summary.sampleCount === report.queryCount && summary.p100 >= summary.p50 && summary.averageMs >= 0)).toBe(true);
     expect(report.postTranscriptionTargetMs).toBe(200);
   });
 });
