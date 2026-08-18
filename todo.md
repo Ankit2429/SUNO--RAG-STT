@@ -85,3 +85,4 @@
 - [x] Verify and preserve the immediate-output progress report with links to the refreshed timing and visual evidence (25–32 ms first output progress; docs/perceived-delay-output-progress.md).
 - [x] Re-read and verify the immediate-progress report reflects the 0.75 s threshold and links both the refreshed lifecycle telemetry and visual verification evidence (docs/perceived-delay-output-progress.md references [1] and [2]).
 - [x] Add a typed-question fallback that uses the same source-grounded browser-transcript route, shows the same structured output, and keeps microphone capture primary (live Hindi grounded and refusal paths verified; desktop/mobile reviewed; TypeScript clean; 17 files / 70 tests pass).
+- [x] Complete an accuracy and future custom-domain deployment-readiness review without publishing, including public-route, build, secret, and evidence-boundary checks (see docs/deployment-readiness.md).
