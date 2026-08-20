@@ -92,17 +92,35 @@ describe("Home typed-question submission", () => {
     expect(await screen.findByText(/Marathi selected\. Record the same question again for explicit routing\./)).toBeTruthy();
   });
 
-  it("shows the focused voice scope and the manifest-backed index version", () => {
+  it("explains an STT failure as a pre-retrieval fail-closed outcome", async () => {
+    render(<Home />);
+
+    mutationSpies.askOptions?.onSuccess?.({
+      requestId: "stt-failure",
+      transcript: "",
+      detectedLanguage: "UNKNOWN",
+      detectedScript: "Unknown",
+      answer: { status: "ERROR", answer: "Speech-to-text failed after bounded retries.", evidenceIds: [], confidenceBand: "NONE", refusalReason: "Sarvam transcription did not complete." },
+      evidence: [],
+      trace: [{ stage: "transcribe", status: "ERROR", durationMs: 2, detail: "Sarvam retries exhausted." }],
+      latency: { sttMs: 2, ragMs: 0, endToEndMs: 2 },
+    });
+
+    expect(await screen.findByText("STT UNAVAILABLE")).toBeTruthy();
+    expect(screen.getByText(/Retrieval was not run and no answer was generated/)).toBeTruthy();
+  });
+
+  it("shows the focused five-language voice scope in the minimal idle state", () => {
     render(<Home />);
 
     expect(screen.getByRole("heading", { name: /SUNO, ask by voice and answer by evidence/i })).toBeTruthy();
-    expect(screen.getByText(/FIVE GROUNDED ROUTES/)).toBeTruthy();
+    expect(screen.getByText(/FIVE ROUTES/)).toBeTruthy();
     expect(screen.getByRole("option", { name: /Hindi/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /Kannada/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /English/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /Tamil/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /Marathi/ })).toBeTruthy();
-    expect(screen.getByText(/INDEX VERSION: test-index/)).toBeTruthy();
+    expect(screen.getByText("EVALUATOR DETAILS")).toBeTruthy();
   });
 
   it("keeps the primary voice action and typed evidence route in a shared responsive control rail", () => {
@@ -118,14 +136,23 @@ describe("Home typed-question submission", () => {
     render(<Home />);
 
     expect(screen.queryByTestId("answer-reveal-panel")).toBeNull();
-    expect(screen.queryByText("02 / ANSWER REVEAL")).toBeNull();
+    expect(screen.queryByText("ANSWER")).toBeNull();
     expect(screen.getByRole("button", { name: "CHECK TEXT" }).getAttribute("aria-expanded")).toBe("false");
   });
 
-  it("renders the complete warm latency percentile set after an audit", async () => {
+  it("prefills the typed harness with a tappable source-backed example", async () => {
     const user = userEvent.setup();
     render(<Home />);
 
+    await user.click(screen.getByRole("button", { name: "What is a corporation?" }));
+    expect(screen.getByLabelText("Type a question for the evidence harness").getAttribute("value")).toBe("What is a corporation?");
+  });
+
+  it("keeps latency evidence behind the evaluator-details disclosure and renders the full warm percentile set after an audit", async () => {
+    const user = userEvent.setup();
+    render(<Home />);
+
+    await user.click(screen.getByText("EVALUATOR DETAILS"));
     await user.click(screen.getByRole("button", { name: "RUN 115-CASE AUDIT" }));
     mutationSpies.benchmarkOptions?.onSuccess?.({
       queryCount: 115,
@@ -137,9 +164,20 @@ describe("Home typed-question submission", () => {
       evaluatedAt: "2026-08-18T00:00:00.000Z",
     });
 
-    expect(await screen.findByText("P90 / warm")).toBeTruthy();
-    expect(screen.getByText("P95 / warm")).toBeTruthy();
+    expect(await screen.findByText("P90 WARM")).toBeTruthy();
+    expect(screen.getByText("P95 WARM")).toBeTruthy();
     expect(screen.getByText("0.3 ms")).toBeTruthy();
     expect(screen.getByText("0.4 ms")).toBeTruthy();
+  });
+
+  it("separates internal RAG latency from measured browser-originated voice latency and labels benchmark coverage", async () => {
+    const user = userEvent.setup();
+    render(<Home />);
+
+    await user.click(screen.getByText("EVALUATOR DETAILS"));
+
+    expect(await screen.findByText(/P50 \/ P70 \/ P100: 0\.19 \/ 0\.22 \/ 1\.02 ms/)).toBeTruthy();
+    expect(screen.getByText(/P50 \/ P70 \/ P100: 1,520\.60 \/ 1,707\.00 \/ 4,413\.80 ms/)).toBeTruthy();
+    expect(screen.getByText(/5,000-request result is an in-domain success-path benchmark only/)).toBeTruthy();
   });
 });

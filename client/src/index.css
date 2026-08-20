@@ -204,6 +204,7 @@
 .suno-editorial-grid .brutal-border > :first-child { padding-left: 0; padding-right: 0; }
 .suno-editorial-grid .svara-panel-flat > :last-child,
 .suno-editorial-grid .brutal-border > :last-child { padding-left: 0; padding-right: 0; }
+
 @media (min-width: 1024px) {
   .suno-editorial-grid > .svara-panel-flat + .svara-panel-flat,
   .suno-editorial-grid > .brutal-border + .brutal-border { border-top: 0; border-left: 2px solid #1b1815; padding-left: 2rem; }
