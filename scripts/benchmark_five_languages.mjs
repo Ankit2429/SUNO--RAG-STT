@@ -2,8 +2,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 
 const baseUrl = (process.env.VOICE_RAG_URL || "http://127.0.0.1:3000").replace(/\/$/, "");
 const endpoint = `${baseUrl}/api/trpc/voiceRag.benchmarkFiveLanguages?batch=1`;
-const outputPath = new URL("../docs/benchmark-results/five-language-1000-query-raw.json", import.meta.url);
 const queriesPerLanguage = Number.parseInt(process.env.QUERIES_PER_LANGUAGE || "200", 10);
+const totalQueries = queriesPerLanguage * 5;
+const outputPath = new URL(`../docs/benchmark-results/five-language-${totalQueries}-query-raw.json`, import.meta.url);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);

@@ -27,6 +27,13 @@ describe("bounded language inventory routing", () => {
     expect(retrieval.evidence.some(chunk => chunk.queryId === "1102432")).toBe(true);
   });
 
+  it("routes the short Hindi corporation wording to its direct MSMARCO-XI source evidence", () => {
+    const retrieval = retrievalInternals.retrieveHot("कॉर्पोरेशन क्या है?", "hi-IN");
+
+    expect(retrieval?.mode).toBe("local_hot");
+    expect(retrieval?.evidence.some(chunk => chunk.queryId === "1102432")).toBe(true);
+  });
+
   it("marks Kannada and the fourteen compatible MSMARCO-XI languages as indexed evidence", () => {
     expect(EVALUATION_MANIFEST.languages).toHaveLength(14);
     expect(EVALUATION_MANIFEST.languages).toContain("kn");

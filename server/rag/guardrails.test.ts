@@ -101,6 +101,14 @@ describe("evidence grounding", () => {
     expect(answer.evidenceIds).toEqual([ringwormEvidence.id]);
   });
 
+  it("grounds a direct Hindi corporation wording only through the cited source synonym", () => {
+    const answer = verifyAndSynthesize("कॉर्पोरेशन क्या है?", [corporationEvidence], new Map([[corporationEvidence.id, 0.8]]));
+
+    expect(answer.status).toBe("GROUNDED");
+    expect(answer.evidenceIds).toEqual([corporationEvidence.id]);
+    expect(answer.answer).toContain("निगम");
+  });
+
   it("does not treat a content token as supported when it appears only inside a different word", () => {
     const answer = verifyAndSynthesize("कार कानून क्या है?", [ringwormEvidence], new Map([[ringwormEvidence.id, 0.8]]));
 

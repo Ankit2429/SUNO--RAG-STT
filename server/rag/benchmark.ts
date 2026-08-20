@@ -164,8 +164,8 @@ export async function runFiveLanguageBenchmark(options: {
   runner?: BenchmarkHarnessRunner;
 } = {}): Promise<FiveLanguageBenchmarkReport> {
   const queriesPerLanguage = options.queriesPerLanguage ?? 200;
-  if (!Number.isInteger(queriesPerLanguage) || queriesPerLanguage < 5 || queriesPerLanguage > 500) {
-    throw new Error("queriesPerLanguage must be a whole number from 5 through 500.");
+  if (!Number.isInteger(queriesPerLanguage) || queriesPerLanguage < 5 || queriesPerLanguage > 1_000) {
+    throw new Error("queriesPerLanguage must be a whole number from 5 through 1000.");
   }
 
   const runner = options.runner ?? runPostTranscriptionHarness;

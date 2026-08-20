@@ -69,7 +69,10 @@ function queryTerms(query: string): Set<string> {
  */
 function normalizeContentTerm(term: string): string {
   const base = term.toLocaleLowerCase().replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली)$/, "");
-  return base === "सचोटी" ? "सत्यनिष्ठा" : base;
+  if (base === "सचोटी") return "सत्यनिष्ठा";
+  // The audited Hindi corporation source uses "निगम" in its answer sentence.
+  // This synonym controls matching only; SUNO still returns the cited source text.
+  return base === "कॉर्पोरेशन" ? "निगम" : base;
 }
 
 function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number } | null {

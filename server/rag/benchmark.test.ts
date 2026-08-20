@@ -52,4 +52,25 @@ describe("runBenchmark", () => {
     expect(report.combined.p95).toBeGreaterThanOrEqual(report.combined.p90);
     expect(report.combined.p90).toBeGreaterThanOrEqual(report.combined.p70);
   });
+
+  it("supports the documented 5,000-request stress-evaluation cap while rejecting a larger unbounded run", async () => {
+    let calls = 0;
+    const report = await runFiveLanguageBenchmark({
+      queriesPerLanguage: 1_000,
+      runner: async input => ({
+        requestId: `stress-${calls += 1}`,
+        transcript: input.transcript,
+        detectedLanguage: input.languageCode,
+        detectedScript: "test",
+        answer: { status: "GROUNDED", answer: "test", evidenceIds: ["evidence"], confidenceBand: "HIGH", refusalReason: null },
+        evidence: [],
+        trace: [{ stage: "query_route", status: "OK", durationMs: 0.1, detail: "L1 local evidence" }],
+        latency: { sttMs: 0, ragMs: 0.1, endToEndMs: 0.1 },
+      } satisfies RAGRun),
+    });
+
+    expect(report.totalQueries).toBe(5_000);
+    expect(report.languages.map(language => language.requestCount)).toEqual([1_000, 1_000, 1_000, 1_000, 1_000]);
+    await expect(runFiveLanguageBenchmark({ queriesPerLanguage: 1_001 })).rejects.toThrow("5 through 1000");
+  });
 });

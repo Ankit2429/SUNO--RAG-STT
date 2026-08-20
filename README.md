@@ -18,7 +18,7 @@ The project is designed to demonstrate the full voice-to-answer path while being
 | Retrieval | L1 in-process multilingual evidence cache plus bounded L2 Qdrant Cloud dense/lexical retrieval and reciprocal-rank fusion. |
 | Answering | Deterministic single-sentence extractive assembly from cited evidence; no default LLM answer generation. |
 | Guardrails | Structured safety, prompt-injection, language-confidence, evidence-sufficiency, and grounding-verification gates. |
-| Latest five-language benchmark | 1,000 requests, 0 harness errors, internal RAG P50/P70/P90/P95/P100 of **0.20 / 0.24 / 0.36 / 0.41 / 3.00 ms**.[2] |
+| Latest five-language benchmark | 5,000 requests, 0 harness errors, internal RAG P50/P70/P90/P95/P100 of **0.19 / 0.22 / 0.28 / 0.35 / 1.02 ms**.[2] |
 
 > **Latency scope:** The under-200 ms claim applies to the **post-transcription internal RAG path**: transcript normalization, retrieval, fusion, grounding verification, deterministic answer assembly, and harness handling. It does not include microphone capture, browser upload, Sarvam STT, or network transfer, which are measured separately.[2]
 
@@ -138,8 +138,9 @@ The interface also provides a typed-transcript fallback for debugging and evalua
 | `pnpm build` | Production bundle build. |
 | `pnpm benchmark:terminal` | 115-case cold/warm internal-RAG audit, including adversarial safety cases. |
 | `pnpm benchmark:five-languages` | 1,000-request five-language post-transcription RAG benchmark. |
+| `pnpm benchmark:five-languages:5000` | 5,000-request five-language stress evaluation with 1,000 requests per language. |
 
-The five-language benchmark uses 200 requests per focused language, interleaving five source-backed MSMARCO-XI fixture themes per language. It reports per-language outcomes and P50/P70/P90/P95/P100 timings. The accompanying cold/warm audit executes 100 dataset queries and 15 adversarial safety cases in each state.[2]
+The five-language benchmark interleaves five source-backed MSMARCO-XI fixture themes per language and reports per-language outcomes plus P50/P70/P90/P95/P100 timings. The dedicated 5,000-request command repeats each source-backed theme evenly 200 times per language, making its stress scope explicit rather than claiming 5,000 unique questions. The accompanying cold/warm audit executes 100 dataset queries and 15 adversarial safety cases in each state.[2]
 
 ## Repository Map
 
@@ -163,6 +164,7 @@ The repository keeps its evaluator artifacts in `docs/`. The most relevant start
 | Record | Description |
 |---|---|
 | [`docs/final-evaluator-hardening.md`](./docs/final-evaluator-hardening.md) | Final UI, production, benchmark, and regression validation summary. |
+| [`docs/benchmark-results/five-language-5000-query-report.md`](./docs/benchmark-results/five-language-5000-query-report.md) | Latest 5,000-request stress evaluation, raw-telemetry link, and audited retrieval calibration. |
 | [`docs/benchmark-results/five-language-1000-query-report.md`](./docs/benchmark-results/five-language-1000-query-report.md) | Expanded percentile evidence and per-language benchmark results. |
 | [`docs/verified-five-language-question-bank.md`](./docs/verified-five-language-question-bank.md) | Source-backed prompts for repeatable live testing. |
 | [`docs/marathi-relevance-repair.md`](./docs/marathi-relevance-repair.md) | Marathi low-confidence and answer-relevance correction record. |
@@ -181,7 +183,7 @@ This project is released under the **MIT License**. See `package.json` for the d
 
 [1]: [AI4Bharat/MSMARCO-XI dataset](https://huggingface.co/datasets/ai4bharat/MSMARCO-XI)
 
-[2]: [Five-language benchmark report](./docs/benchmark-results/five-language-1000-query-report.md)
+[2]: [Five-language 5,000-request report](./docs/benchmark-results/five-language-5000-query-report.md)
 
 [3]: [Voice harness implementation](./server/rag/harness.ts)
 

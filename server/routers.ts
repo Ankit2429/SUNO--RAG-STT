@@ -59,7 +59,7 @@ export const appRouter = router({
     })),
     benchmark: publicProcedure.mutation(async () => runBenchmark()),
     benchmarkFiveLanguages: publicProcedure
-      .input(z.object({ queriesPerLanguage: z.number().int().min(5).max(500).default(200) }).default({ queriesPerLanguage: 200 }))
+      .input(z.object({ queriesPerLanguage: z.number().int().min(5).max(1_000).default(200) }).default({ queriesPerLanguage: 200 }))
       .mutation(async ({ input }) => runFiveLanguageBenchmark({ queriesPerLanguage: input.queriesPerLanguage })),
   }),
 });

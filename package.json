@@ -12,6 +12,7 @@
     "test": "vitest run",
     "benchmark:terminal": "node scripts/benchmark_terminal_report.mjs",
     "benchmark:five-languages": "node scripts/benchmark_five_languages.mjs",
+    "benchmark:five-languages:5000": "QUERIES_PER_LANGUAGE=1000 node scripts/benchmark_five_languages.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
   "dependencies": {
