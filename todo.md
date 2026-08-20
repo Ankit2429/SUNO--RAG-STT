@@ -129,3 +129,6 @@
 - [x] Make STT failure, microphone failure, language-routing refusal, bounded retrieval timeout, degraded-index capability, and evidence-boundary refusal visually distinct and explicit about whether transcription, retrieval, and answer generation ran.
 - [x] Separate internal post-transcription RAG latency from browser voice-submission-to-rendered-answer latency, document the 5,000-run as in-domain success-path only, and report the archived browser-originated full-voice audit without inferring its percentiles from internal RAG.
 - [x] Add regression coverage for minimal idle state, example-prompt prefill, failure-state clarity, disclosure accessibility, latency-scope copy, and benchmark-coverage disclosure; visually review desktop/mobile and save a validated checkpoint.
+- [x] Enrich SUNO’s cream–orange visual system with warmer depth, a restrained source-signal palette, and improved contrast while preserving readable evaluator states.
+- [x] Add purposeful, reduced-motion-safe interface animation and lightweight evidence-inspired visual motifs around the hero and active prompt state without adding decorative clutter.
+- [x] Add or update visual-regression coverage, validate the animated responsive interface on desktop and mobile, and checkpoint the completed enhancement.

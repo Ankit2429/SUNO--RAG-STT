@@ -121,8 +121,9 @@
     @apply bg-background text-foreground;
     font-family: "Manrope", Arial, sans-serif;
     font-feature-settings: "ss01" 1, "cv01" 1;
-    background-image: radial-gradient(#1b18150e 0.7px, transparent 0.7px);
-    background-size: 11px 11px;
+    background-color: #f7f1e6;
+    background-image: radial-gradient(#1b18150e 0.7px, transparent 0.7px), linear-gradient(135deg, #fffaf0 0%, #f7f1e6 48%, #f3e9d9 100%);
+    background-size: 11px 11px, auto;
     text-rendering: optimizeLegibility;
   }
   button:not(:disabled),
@@ -189,6 +190,36 @@
 .brutal-button { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms cubic-bezier(0.23, 1, 0.32, 1); }
 .brutal-button:hover:not(:disabled) { transform: translate(-1px, -1px); }
 .brutal-button:active { transform: translate(3px, 3px) scale(0.97); box-shadow: 0 0 0 #1b1815; }
+.suno-page { isolation: isolate; overflow: hidden; position: relative; background: linear-gradient(135deg, rgba(255, 253, 247, 0.7), rgba(247, 241, 230, 0.5)); }
+.suno-page::before, .suno-page::after { content: ""; position: fixed; z-index: -1; width: min(38vw, 32rem); aspect-ratio: 1; border: 1px solid rgba(238, 91, 43, 0.22); pointer-events: none; }
+.suno-page::before { top: 6rem; left: -19rem; border-radius: 50%; box-shadow: 0 0 0 1.4rem rgba(238, 91, 43, 0.045), 0 0 0 3.2rem rgba(238, 91, 43, 0.028); }
+.suno-page::after { right: -18rem; bottom: 4rem; rotate: 45deg; background: repeating-linear-gradient(135deg, rgba(238, 91, 43, 0.055) 0 1px, transparent 1px 12px); }
+.suno-main { position: relative; }
+.suno-hero { isolation: isolate; }
+.suno-signal-field { position: absolute; z-index: -1; top: 1.6rem; left: 50%; display: flex; align-items: center; justify-content: center; gap: clamp(0.25rem, 1.3vw, 0.72rem); width: min(96vw, 49rem); height: 9rem; transform: translateX(-50%); opacity: 0.7; pointer-events: none; }
+.suno-signal-field span { width: 2px; min-height: 12px; background: linear-gradient(to bottom, transparent, rgba(238, 91, 43, 0.42), transparent); }
+.suno-signal-field span:nth-child(3n) { height: 70%; }
+.suno-signal-field span:nth-child(3n + 1) { height: 38%; }
+.suno-signal-field span:nth-child(3n + 2) { height: 56%; }
+.suno-hero-underline { background: linear-gradient(90deg, #ee5b2b 0%, #f27646 62%, #f3b29a 100%); box-shadow: 0 4px 0 rgba(27, 24, 21, 0.1); }
+.suno-wordmark { text-shadow: 4px 4px 0 rgba(255, 253, 247, 0.58); }
+.suno-route-ribbon { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem; font-family: "IBM Plex Mono", monospace; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em; color: #625a4f; }
+.suno-route-ribbon span { position: relative; padding: 0.28rem 0.45rem; border: 1px solid rgba(27, 24, 21, 0.32); background: rgba(255, 253, 247, 0.48); }
+.suno-route-ribbon span::before { content: ""; display: inline-block; width: 0.27rem; height: 0.27rem; margin-right: 0.32rem; background: #ee5b2b; vertical-align: middle; }
+.suno-prompt-shell { position: relative; }
+.suno-prompt-shell::before { content: ""; position: absolute; top: -1px; right: 0; width: 4.3rem; height: 2px; background: #ee5b2b; }
+.suno-control-rail { position: relative; box-shadow: 7px 7px 0 rgba(27, 24, 21, 0.1); transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1); }
+.suno-control-rail:focus-within { transform: translate(-2px, -2px); box-shadow: 9px 9px 0 rgba(238, 91, 43, 0.3); }
+.suno-record-button { position: relative; overflow: hidden; }
+.suno-record-button::after { content: ""; position: absolute; inset: 0; opacity: 0; background: repeating-linear-gradient(-45deg, transparent 0 6px, rgba(255, 253, 247, 0.25) 6px 8px); transition: opacity 150ms ease-out; }
+.suno-record-button:hover::after { opacity: 1; }
+.suno-record-button > * { position: relative; z-index: 1; }
+.suno-send-button { background-image: linear-gradient(135deg, #e7f1dc 0%, #d8ecd7 55%, #b8dcbd 100%); }
+.suno-example-chip { position: relative; overflow: hidden; transition: color 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+.suno-example-chip:hover:not(:disabled) { background: #f9d9cc; }
+.suno-answer-card { box-shadow: 7px 7px 0 rgba(238, 91, 43, 0.16); }
+.suno-details { transition: background-color 180ms cubic-bezier(0.23, 1, 0.32, 1), padding 180ms cubic-bezier(0.23, 1, 0.32, 1); }
+.suno-details[open] { background: rgba(255, 253, 247, 0.56); padding-inline: clamp(0.75rem, 3vw, 1.5rem); }
 .svara-panel { border: 2px solid #1b1815; background: #fffdf7; box-shadow: 4px 4px 0 #1b1815; }
 .svara-panel-flat { border: 2px solid #1b1815; background: #fffdf7; }
 .svara-kicker { color: #8b391d; font-family: "IBM Plex Mono", monospace; font-size: 0.625rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
@@ -215,6 +246,22 @@
 @media (prefers-reduced-motion: no-preference) {
   .signal-pulse { animation: signal-pulse 1.4s steps(2, end) infinite; }
   .answer-reveal-enter { animation: answer-reveal 260ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  .suno-signal-field span { animation: signal-bars 2.6s cubic-bezier(0.77, 0, 0.175, 1) infinite alternate; }
+  .suno-signal-field span:nth-child(2n) { animation-delay: -1.2s; }
+  .suno-signal-field span:nth-child(3n) { animation-delay: -0.45s; }
+  .suno-hero-underline { animation: underline-breathe 3.4s cubic-bezier(0.77, 0, 0.175, 1) infinite alternate; }
+  .suno-route-ribbon span { animation: route-step 3s cubic-bezier(0.23, 1, 0.32, 1) infinite alternate; }
+  .suno-route-ribbon span:nth-child(2n) { animation-delay: -1.4s; }
 }
 @keyframes signal-pulse { 50% { opacity: 0.36; } }
 @keyframes answer-reveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes signal-bars { from { opacity: 0.28; transform: scaleY(0.58); } to { opacity: 0.88; transform: scaleY(1); } }
+@keyframes underline-breathe { from { filter: saturate(0.82); transform: scaleX(0.92); transform-origin: center; } to { filter: saturate(1.18); transform: scaleX(1); transform-origin: center; } }
+@keyframes route-step { from { background-color: rgba(255, 253, 247, 0.38); } to { background-color: rgba(249, 217, 204, 0.58); } }
+@media (max-width: 640px) {
+  .suno-page::after { display: none; }
+  .suno-page::before { width: 14rem; top: 9rem; left: -10rem; }
+  .suno-signal-field { top: 1rem; height: 7.4rem; gap: 0.48rem; }
+  .suno-signal-field span:nth-child(n + 12) { display: none; }
+  .suno-control-rail { box-shadow: 4px 4px 0 rgba(27, 24, 21, 0.12); }
+}
