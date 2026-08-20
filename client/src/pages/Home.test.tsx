@@ -95,8 +95,8 @@ describe("Home typed-question submission", () => {
   it("shows the focused voice scope and the manifest-backed index version", () => {
     render(<Home />);
 
-    expect(screen.getByRole("heading", { name: /the sound of evidence/i })).toBeTruthy();
-    expect(screen.getByText("5 grounded routes")).toBeTruthy();
+    expect(screen.getByRole("heading", { name: /SUNO, ask by voice and answer by evidence/i })).toBeTruthy();
+    expect(screen.getByText(/5 GROUNDED ROUTES/)).toBeTruthy();
     expect(screen.getByRole("option", { name: /Hindi/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /Kannada/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /English/ })).toBeTruthy();
@@ -109,7 +109,7 @@ describe("Home typed-question submission", () => {
     render(<Home />);
 
     const controlRail = screen.getByTestId("voice-text-actions");
-    expect(controlRail.className).toContain("lg:grid-cols");
+    expect(controlRail.className).toContain("sm:flex-row");
     expect(screen.getByRole("button", { name: "START RECORDING" })).toBeTruthy();
     expect(screen.getByLabelText("Type a question for the evidence harness")).toBeTruthy();
   });
