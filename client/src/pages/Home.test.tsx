@@ -95,9 +95,23 @@ describe("Home typed-question submission", () => {
   it("shows the focused voice scope and the manifest-backed index version", () => {
     render(<Home />);
 
-    expect(screen.getByText("LIVE VOICE LANGUAGES")).toBeTruthy();
-    expect(screen.getByText("Hindi · Kannada · English · Tamil · Marathi")).toBeTruthy();
+    expect(screen.getByRole("heading", { name: /the sound of evidence/i })).toBeTruthy();
+    expect(screen.getByText("5 grounded routes")).toBeTruthy();
+    expect(screen.getByRole("option", { name: /Hindi/ })).toBeTruthy();
+    expect(screen.getByRole("option", { name: /Kannada/ })).toBeTruthy();
+    expect(screen.getByRole("option", { name: /English/ })).toBeTruthy();
+    expect(screen.getByRole("option", { name: /Tamil/ })).toBeTruthy();
+    expect(screen.getByRole("option", { name: /Marathi/ })).toBeTruthy();
     expect(screen.getByText(/INDEX VERSION: test-index/)).toBeTruthy();
+  });
+
+  it("keeps the primary voice action and typed evidence route in a shared responsive control rail", () => {
+    render(<Home />);
+
+    const controlRail = screen.getByTestId("voice-text-actions");
+    expect(controlRail.className).toContain("lg:grid-cols");
+    expect(screen.getByRole("button", { name: "START RECORDING" })).toBeTruthy();
+    expect(screen.getByLabelText("Type a question for the evidence harness")).toBeTruthy();
   });
 
   it("renders the complete warm latency percentile set after an audit", async () => {
