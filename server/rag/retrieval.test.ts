@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { EVALUATION_MANIFEST } from "@shared/evaluationManifest";
-import { hybridRetrieve, retrievalInternals } from "./retrieval";
+import { getIndexCapability, hybridRetrieve, retrievalInternals } from "./retrieval";
 
 describe("bounded language inventory routing", () => {
   const savedQdrantUrl = process.env.QDRANT_URL;
@@ -63,5 +63,16 @@ describe("bounded language inventory routing", () => {
     const retrieval = await hybridRetrieve("ಭಾರತದ ರಾಜಧಾನಿ ಯಾವುದು?", "kn-IN", { cloudTimeoutMs: 25 });
 
     expect(retrieval).toEqual({ evidence: [], scores: new Map(), mode: "cloud_timeout" });
+  });
+
+  it("reports a healthy full Qdrant collection through a separately bounded metadata probe", async () => {
+    process.env.QDRANT_URL = "https://qdrant.example";
+    process.env.QDRANT_API_KEY = "test-key";
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ result: { points_count: 12_650 } }), { status: 200 })));
+
+    const capability = await getIndexCapability();
+
+    expect(retrievalInternals.indexHealthTimeoutMs).toBe(8_000);
+    expect(capability).toMatchObject({ health: "READY", points: 12_650, collection: "msmarco_xi_evaluation_v1" });
   });
 });

@@ -13,6 +13,9 @@ const EMBEDDING_MODEL = process.env.QDRANT_EMBEDDING_MODEL || ZERO_COST_EMBEDDIN
 const INDEXED_LANGUAGE_CODES = new Set(EVALUATION_MANIFEST.languages);
 const HOT_VECTORS = new Map(HOT_CORPUS.map(chunk => [chunk.id, embedText(chunk.text)]));
 const HOT_NORMALIZED_TEXT = new Map(HOT_CORPUS.map(chunk => [chunk.id, chunk.text.normalize("NFKC").toLocaleLowerCase()]));
+// Index metadata is informational and must not inherit the live answer-path deadline.
+// Qdrant cold starts can exceed two seconds while the collection remains healthy.
+const INDEX_HEALTH_TIMEOUT_MS = 8_000;
 const HOT_BY_LANGUAGE = new Map<string, EvidenceChunk[]>();
 for (const chunk of HOT_CORPUS) {
   const existing = HOT_BY_LANGUAGE.get(chunk.language) || [];
@@ -105,7 +108,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   return { evidence: supported.map(item => item.chunk), scores: new Map(supported.map(item => [item.chunk.id, item.score])), mode: "local_hot" };
 }
 
-export const retrievalInternals = { retrieveHot };
+export const retrievalInternals = { retrieveHot, indexHealthTimeoutMs: INDEX_HEALTH_TIMEOUT_MS };
 
 export async function hybridRetrieve(query: string, language: string, options: { allowCloudFallback?: boolean; cloudTimeoutMs?: number } = {}): Promise<RetrievalResult> {
   const hot = retrieveHot(query, language);
@@ -171,7 +174,7 @@ export async function getIndexCapability() {
   };
   if (!base || !key) return { ...baseStatus, health: "UNCONFIGURED" as const, points: 0 };
   try {
-    const response = await fetch(`${base}/collections/${COLLECTION}`, { headers: { "api-key": key }, signal: AbortSignal.timeout(2_000) });
+    const response = await fetch(`${base}/collections/${COLLECTION}`, { headers: { "api-key": key }, signal: AbortSignal.timeout(INDEX_HEALTH_TIMEOUT_MS) });
     if (response.status === 404) return { ...baseStatus, health: "MISSING" as const, points: 0 };
     if (!response.ok) return { ...baseStatus, health: "ERROR" as const, points: 0 };
     const payload = await response.json() as { result?: { points_count?: number } };

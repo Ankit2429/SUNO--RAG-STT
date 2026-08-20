@@ -1,6 +1,6 @@
 # SUNO Five-Language 1,000-Query Benchmark
 
-**Measurement date:** 2026-08-18 (final evaluator-grade rerun)  
+**Measurement date:** 2026-08-20 (fresh dataset-provenance rerun)  
 **Command:** `pnpm benchmark:five-languages`  
 **Scope:** Post-transcription retrieval, grounding, answer assembly, and harness handling only. Sarvam STT, microphone capture, browser upload, and public-network transfer are excluded from the internal RAG target.
 
@@ -10,14 +10,14 @@ This fresh run completed **1,000 sequential harness measurements**, comprising *
 
 | Language | Requests | P50 | P70 | P90 | P95 | P100 | Grounded | Refused | Errors | Evidence citations |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Hindi (`hi-IN`) | 200 | 0.25 ms | 0.28 ms | 0.42 ms | 0.45 ms | 3.00 ms | 160 | 40 | 0 | 1,200 |
-| Kannada (`kn-IN`) | 200 | 0.18 ms | 0.22 ms | 0.34 ms | 0.38 ms | 0.54 ms | 200 | 0 | 0 | 960 |
-| English (`en-IN`) | 200 | 0.05 ms | 0.06 ms | 0.08 ms | 0.10 ms | 0.39 ms | 200 | 0 | 0 | 800 |
-| Tamil (`ta-IN`) | 200 | 0.19 ms | 0.21 ms | 0.33 ms | 0.38 ms | 0.91 ms | 200 | 0 | 0 | 1,040 |
-| Marathi (`mr-IN`) | 200 | 0.23 ms | 0.26 ms | 0.37 ms | 0.43 ms | 1.06 ms | 200 | 0 | 0 | 1,200 |
-| **Combined** | **1,000** | **0.20 ms** | **0.24 ms** | **0.36 ms** | **0.41 ms** | **3.00 ms** | **960** | **40** | **0** | **5,200** |
+| Hindi (`hi-IN`) | 200 | 0.24 ms | 0.30 ms | 0.46 ms | 0.52 ms | 1.55 ms | 160 | 40 | 0 | 1,200 |
+| Kannada (`kn-IN`) | 200 | 0.17 ms | 0.20 ms | 0.36 ms | 0.42 ms | 0.77 ms | 200 | 0 | 0 | 960 |
+| English (`en-IN`) | 200 | 0.05 ms | 0.06 ms | 0.08 ms | 0.15 ms | 0.38 ms | 200 | 0 | 0 | 800 |
+| Tamil (`ta-IN`) | 200 | 0.19 ms | 0.22 ms | 0.37 ms | 0.40 ms | 0.56 ms | 200 | 0 | 0 | 1,040 |
+| Marathi (`mr-IN`) | 200 | 0.23 ms | 0.25 ms | 0.39 ms | 0.45 ms | 0.67 ms | 200 | 0 | 0 | 1,200 |
+| **Combined** | **1,000** | **0.19 ms** | **0.24 ms** | **0.38 ms** | **0.43 ms** | **1.55 ms** | **960** | **40** | **0** | **5,200** |
 
-> **Result:** The combined internal-RAG P50/P70/P90/P95/P100 is **0.20 / 0.24 / 0.36 / 0.41 / 3.00 ms**. P100 is **197.00 ms below** the 200 ms internal target, with **zero harness errors**.
+> **Result:** The combined internal-RAG P50/P70/P90/P95/P100 is **0.19 / 0.24 / 0.38 / 0.43 / 1.55 ms**. P100 is **198.45 ms below** the 200 ms internal target, with **zero harness errors**.
 
 English, Kannada, Tamil, and Marathi completed all 200 benchmark requests as grounded, cited outputs. The 40 Hindi refusals are the intentionally repeated short-form `hi-1102432` evidence-boundary fixture. They are safe zero-invention refusals rather than harness errors.
 
