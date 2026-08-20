@@ -114,14 +114,12 @@ describe("Home typed-question submission", () => {
     expect(screen.getByLabelText("Type a question for the evidence harness")).toBeTruthy();
   });
 
-  it("connects typed submission to a focused in-flow answer reveal panel", () => {
+  it("keeps the answer reveal fully hidden until a typed or voice run begins", () => {
     render(<Home />);
 
-    const revealPanel = screen.getByTestId("answer-reveal-panel");
-    expect(revealPanel.getAttribute("id")).toBe("answer-output");
-    expect(revealPanel.getAttribute("data-state")).toBe("idle");
-    expect(screen.getByRole("button", { name: "CHECK TEXT" }).getAttribute("aria-controls")).toBe("answer-output");
-    expect(screen.getByText("02 / ANSWER REVEAL")).toBeTruthy();
+    expect(screen.queryByTestId("answer-reveal-panel")).toBeNull();
+    expect(screen.queryByText("02 / ANSWER REVEAL")).toBeNull();
+    expect(screen.getByRole("button", { name: "CHECK TEXT" }).getAttribute("aria-expanded")).toBe("false");
   });
 
   it("renders the complete warm latency percentile set after an audit", async () => {
