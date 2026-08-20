@@ -132,3 +132,5 @@
 - [x] Enrich SUNO’s cream–orange visual system with warmer depth, a restrained source-signal palette, and improved contrast while preserving readable evaluator states.
 - [x] Add purposeful, reduced-motion-safe interface animation and lightweight evidence-inspired visual motifs around the hero and active prompt state without adding decorative clutter.
 - [x] Add or update visual-regression coverage, validate the animated responsive interface on desktop and mobile, and checkpoint the completed enhancement.
+- [x] Add workflow-aware motion to the SUNO hero, voice control, prompt rail, and answer lifecycle while preserving clear primary actions.
+- [x] Ensure all new SUNO motion is reduced-motion-safe, keyboard-safe, responsive, and visually validated alongside the existing voice and typed flows.
