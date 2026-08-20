@@ -8,7 +8,7 @@ import { resolveVoiceRecovery, suggestedExplicitLanguageRetry } from "../lib/voi
 import { resolveVoiceOutputProgress } from "../lib/voiceProgress";
 import { buildTypedQuestionHarnessInput, validateTypedQuestion } from "../lib/typedQuestion";
 import type { RAGRun } from "@shared/rag";
-import { Activity, AudioLines, ChevronDown, CircleStop, Database, FileText, Mic, Radio, Send, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
+import { Activity, ChevronDown, CircleStop, Database, FileText, Mic, Radio, Send, ShieldCheck, Timer, TriangleAlert, Zap } from "lucide-react";
 import React, { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { flushSync } from "react-dom";
 
@@ -97,16 +97,30 @@ export default function Home() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const frameRef = useRef<number | null>(null);
   const recognitionRef = useRef<BrowserRecognition | null>(null);
+  const responsePanelRef = useRef<HTMLElement | null>(null);
   const recordingStartedAtRef = useRef(0);
   const discardRecordingRef = useRef(false);
   const speechDetectedRef = useRef(false);
   const silenceStartedAtRef = useRef<number | null>(null);
+  const revealResponsePanel = (delay = 64) => {
+    window.setTimeout(() => {
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      const responsePanel = responsePanelRef.current;
+      if (responsePanel && typeof responsePanel.scrollIntoView === "function") {
+        responsePanel.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+      }
+    }, delay);
+  };
   const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, { refetchOnWindowFocus: false });
   const ask = trpc.voiceRag.ask.useMutation({
-    onMutate: () => setProcessingHint(current => current?.startsWith("Secure clip sent") ? current : "Secure clip sent • Sarvam is transcribing your speech. This external step can take a few seconds."),
+    onMutate: () => {
+      setProcessingHint(current => current?.startsWith("Secure clip sent") ? current : "Secure clip sent • Sarvam is transcribing your speech. This external step can take a few seconds.");
+      revealResponsePanel();
+    },
     onSuccess: response => {
       setProcessingHint(null);
       setRun(response);
+      revealResponsePanel();
       const recovery = resolveVoiceRecovery(response);
       setCaptureError(recovery.error);
       setCaptureInfo(recovery.info);
@@ -114,12 +128,16 @@ export default function Home() {
     onError: error => { setProcessingHint(null); setCaptureError(error.message || "The server rejected the voice request."); },
   });
   const askBrowserTranscript = trpc.voiceRag.askBrowserTranscript.useMutation({
-    onMutate: input => setProcessingHint(input.script === "typed-input"
-      ? "Typed question received • matching against bounded MSMARCO-XI evidence."
-      : "Browser transcript received • matching against bounded MSMARCO-XI evidence."),
+    onMutate: input => {
+      setProcessingHint(input.script === "typed-input"
+        ? "Typed question received • matching against bounded MSMARCO-XI evidence."
+        : "Browser transcript received • matching against bounded MSMARCO-XI evidence.");
+      revealResponsePanel();
+    },
     onSuccess: response => {
       setProcessingHint(null);
       setRun(response);
+      revealResponsePanel();
       const recovery = resolveVoiceRecovery(response);
       setCaptureError(recovery.error);
       setCaptureInfo(recovery.info);
@@ -326,41 +344,34 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#f7f1e6] text-[#1b1815]">
-      <header className="sticky top-0 z-30 border-b-[3px] border-black bg-[#f7f1e6]/95 px-4 py-3 backdrop-blur sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4">
-          <div className="flex items-center gap-3"><div aria-label="SUNO evidence mark" className="relative grid h-11 w-11 place-items-center overflow-hidden border-2 border-black bg-[#ee5b2b] font-black shadow-[2px_2px_0_#1b1815]"><span className="absolute -left-0.5 top-0 mono text-[9px]">S</span><AudioLines size={23} strokeWidth={3} /><span className="absolute bottom-0 right-0 mono text-[9px]">U</span></div><div><div className="mono text-[10px] font-semibold tracking-[0.14em]">HH GOA 2026 / TASK 112</div><div className="flex items-baseline gap-2"><div className="display text-base font-bold tracking-[-0.06em]">SUNO</div><span className="mono text-[9px] tracking-[0.12em] text-[#625a4f]">/ EVIDENCE FIRST</span></div></div></div>
-          <div className="hidden items-center gap-3 md:flex"><span className="mono text-[10px] uppercase tracking-[0.12em]">zero-cost evaluation profile</span><span className="h-2.5 w-2.5 bg-[#ff5a1f] signal-pulse" /><span className="mono text-[10px]">SERVER ONLINE</span></div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-[1480px] px-4 py-7 sm:px-6 lg:px-8 lg:py-10">
-        <section aria-labelledby="suno-hero" className="mx-auto mb-7 max-w-5xl py-6 text-center sm:py-10">
-          <div className="mx-auto inline-flex items-center gap-2 border-2 border-black bg-[#fffdf7] px-3 py-1.5 mono text-[9px] font-bold tracking-[0.13em] shadow-[2px_2px_0_#1b1815]"><span className="h-1.5 w-1.5 bg-[#ee5b2b]" />VOICE EVIDENCE / 5 GROUNDED ROUTES / ZERO-COST</div>
+      <main className="mx-auto max-w-[1180px] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-20">
+        <section aria-labelledby="suno-hero" className="mx-auto max-w-4xl pb-8 text-center sm:pb-10">
+          <div className="mono text-[9px] font-bold tracking-[0.18em] text-[#625a4f]"><span className="mr-2 inline-block h-1.5 w-1.5 bg-[#ee5b2b]" />VOICE EVIDENCE / FIVE GROUNDED ROUTES</div>
           <div className="relative mx-auto mt-6 w-fit"><div className="absolute inset-x-0 bottom-3 h-4 bg-[#ee5b2b] sm:bottom-5 sm:h-6" /><h1 id="suno-hero" aria-label="SUNO, ask by voice and answer by evidence" className="display relative text-[clamp(5.7rem,18vw,13.5rem)] font-bold leading-[0.7] tracking-[-0.12em]">SUNO</h1></div>
           <h2 className="display mt-6 text-3xl font-bold tracking-[-0.06em] sm:text-5xl">Ask by voice. <span className="text-[#8b391d]">Answer by evidence.</span></h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-[#5f584d] sm:text-base">A source-first multilingual RAG console for AI4Bharat/MSMARCO-XI. Every response is cited; unsupported claims stop at the evidence boundary.</p>
-          <div className="mx-auto mt-5 flex max-w-3xl flex-wrap items-center justify-center gap-2 mono text-[9px]"><span className="border border-black bg-[#d8ecd7] px-2.5 py-1">AI4BHARAT / MSMARCO-XI</span><span className="border border-black bg-[#d9e6f8] px-2.5 py-1">L1 CACHE → QDRANT</span><span className="border border-black bg-[#ffdbcc] px-2.5 py-1">{manifestRowTotal ? `${manifestRowTotal.toLocaleString()} SOURCE ROWS` : "INDEX CHECKING"}</span></div>
+          <p className="mx-auto mt-4 max-w-xl text-sm font-medium leading-relaxed text-[#5f584d] sm:text-base">A source-first multilingual RAG console for AI4Bharat/MSMARCO-XI. Every response is cited; unsupported claims stop at the evidence boundary.</p>
+          <div className="mx-auto mt-5 flex max-w-2xl flex-wrap items-center justify-center gap-2 mono text-[9px]"><span className="border border-black bg-[#d8ecd7] px-2.5 py-1">AI4BHARAT / MSMARCO-XI</span><span className="border border-black bg-[#d9e6f8] px-2.5 py-1">L1 CACHE → QDRANT</span><span className="border border-black bg-[#ffdbcc] px-2.5 py-1">{manifestRowTotal ? `${manifestRowTotal.toLocaleString()} SOURCE ROWS` : "INDEX CHECKING"}</span></div>
         </section>
 
-        <section className="mx-auto max-w-5xl">
-          <div className="border-2 border-black bg-[#fffdf7] p-4 shadow-[4px_4px_0_#1b1815] sm:p-5">
-            <div className="flex items-center justify-between gap-4"><div className="mono text-[9px] font-bold tracking-[0.14em] text-[#5f584d]">LIVE QUESTION / CITE OR REFUSE</div><div className="flex items-center gap-2 mono text-[9px] font-bold"><span className={`h-2 w-2 ${recording || browserListening ? "bg-[#ee5b2b] signal-pulse" : awaitingResponse ? "bg-[#f2c94c] signal-pulse" : "bg-[#1b1815]"}`} />{pipelineState}</div></div>
-            <div className="mt-5"><LanguagePicker languageCode={languageCode} onChange={setLanguageCode} disabled={isPipelineBusy} indexedLanguageCodes={indexedLanguageCodes} /></div>
-            <form onSubmit={submitTypedQuestion} data-testid="voice-text-actions" className="flex flex-col gap-2 border-2 border-black bg-white p-2 shadow-[2px_2px_0_#ee5b2b] sm:flex-row sm:items-center">
+        <section className="mx-auto max-w-4xl">
+          <div className="border-y-2 border-black py-5 sm:py-6">
+            <div className="flex items-center justify-between gap-4"><div className="mono text-[9px] font-bold tracking-[0.14em] text-[#5f584d]">ASK / CITE / OR REFUSE</div><div className="flex items-center gap-2 mono text-[9px] font-bold"><span className={`h-2 w-2 ${recording || browserListening ? "bg-[#ee5b2b] signal-pulse" : awaitingResponse ? "bg-[#f2c94c] signal-pulse" : "bg-[#1b1815]"}`} />{pipelineState}</div></div>
+            <div className="mt-4"><LanguagePicker languageCode={languageCode} onChange={setLanguageCode} disabled={isPipelineBusy} indexedLanguageCodes={indexedLanguageCodes} /></div>
+            <form onSubmit={submitTypedQuestion} data-testid="voice-text-actions" className="flex flex-col gap-2 border-2 border-black bg-[#fffdf7] p-1.5 sm:flex-row sm:items-center">
               {recording ? <button type="button" onClick={stopRecording} aria-label="STOP & SEND NOW" className="brutal-button flex h-12 shrink-0 items-center justify-center gap-2 border-2 border-black bg-[#1b1815] px-4 text-xs font-bold text-[#f7f1e6]"><CircleStop size={18} /> <span className="sm:hidden">STOP &amp; SEND NOW</span></button> : <button type="button" onClick={startRecording} disabled={isPipelineBusy} aria-label={awaitingResponse ? "RUNNING HARNESS" : browserListening ? "FALLBACK ACTIVE" : "START RECORDING"} className="brutal-button flex h-12 shrink-0 items-center justify-center gap-2 border-2 border-black bg-[#ee5b2b] px-4 text-xs font-bold text-[#1b1815] disabled:opacity-50"><Mic size={19} strokeWidth={2.5} /> <span className="sm:hidden">{awaitingResponse ? "RUNNING HARNESS" : browserListening ? "FALLBACK ACTIVE" : "START RECORDING"}</span></button>}
               <label htmlFor="typed-question" className="sr-only">Type a question for the evidence harness</label>
               <input id="typed-question" value={typedQuestion} onChange={event => setTypedQuestion(event.target.value)} disabled={isPipelineBusy} maxLength={2_000} placeholder="Speak a question, or type it here…" className="h-12 min-w-0 flex-1 bg-white px-3 text-sm font-medium outline-none placeholder:text-[#7b7367] focus:ring-2 focus:ring-[#ee5b2b] disabled:cursor-not-allowed disabled:opacity-60" />
-              <button type="submit" disabled={isPipelineBusy} aria-label={askBrowserTranscript.isPending ? "CHECKING TEXT" : "CHECK TEXT"} className="brutal-button flex h-12 shrink-0 items-center justify-center gap-2 border-2 border-black bg-[#d8ecd7] px-4 mono text-[9px] font-bold disabled:opacity-60"><Send size={15} /><span className="sm:hidden">{askBrowserTranscript.isPending ? "CHECKING…" : "CHECK TEXT"}</span></button>
+              <button type="submit" disabled={isPipelineBusy} aria-controls="answer-output" aria-label={askBrowserTranscript.isPending ? "CHECKING TEXT" : "CHECK TEXT"} className="brutal-button flex h-12 shrink-0 items-center justify-center gap-2 border-2 border-black bg-[#d8ecd7] px-4 mono text-[9px] font-bold disabled:opacity-60"><Send size={15} /><span className="sm:hidden">{askBrowserTranscript.isPending ? "CHECKING…" : "CHECK TEXT"}</span></button>
             </form>
             <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mono text-[8px] text-[#625a4f]"><span className="inline-flex items-center gap-1.5">{recording ? <span className="h-1.5 w-1.5 bg-[#ee5b2b] signal-pulse" /> : <span className="h-1.5 w-1.5 bg-black" />}{recording ? `CAPTURING ${voiceLanguageLabel(languageCode).toUpperCase()} · AUTO-SENDS AFTER 0.5S` : browserListening ? `LISTENING FOR ${voiceLanguageLabel(languageCode).toUpperCase()}` : awaitingResponse ? processingHint || "MATCHING EVIDENCE" : "PRESS MIC & SPEAK, OR TYPE & SEND"}</span><span>·</span><span>SARVAM STT / SERVER-ONLY</span><span>·</span><span>NO AUDIO STORED</span></div>
-            <div className="mt-4 flex h-6 items-center justify-center gap-[2px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className={`w-1 ${recording ? "bg-[#ee5b2b]" : "bg-black"}`} style={{ height: `${Math.max(4, height * 0.26)}px`, opacity: recording ? 0.55 + level * 0.45 : 0.18 + (index % 4) * 0.08 }} />)}</div>
+            {recording && <div className="mt-3 flex h-3 items-center justify-center gap-[2px]" aria-label="Live audio level">{waveform.map((height, index) => <span key={index} className="w-1 bg-[#ee5b2b]" style={{ height: `${Math.max(3, height * 0.14)}px`, opacity: 0.55 + level * 0.45 }} />)}</div>}
             {captureInfo && <div data-audio-packaging-ms={audioPackagingMs ?? undefined} className={`mt-4 border-2 border-black p-3 mono text-[10px] font-bold uppercase tracking-[0.08em] ${run?.answer.status === "REFUSED" ? "bg-[#ffdbcc]" : "bg-[#d8ecd7]"}`}>AUDIO / EVIDENCE STATUS / {captureInfo}</div>}
             {captureError && <div className="mt-4 flex gap-2 border-2 border-black bg-[#ffc7bc] p-3"><TriangleAlert className="mt-0.5 shrink-0" size={17} /><div><div className="mono text-[10px] font-bold tracking-[0.12em]">CAPTURE / PIPELINE ERROR</div><p className="mt-1 text-sm leading-snug">{captureError}</p></div></div>}
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3 border-t-2 border-black pt-3"><span className="mono text-[8px] text-[#625a4f]">BROWSER-NATIVE FALLBACK → SAME FAIL-CLOSED HARNESS</span><button type="button" onClick={startBrowserFallback} disabled={isPipelineBusy} className="brutal-button border-2 border-black bg-[#f4eedf] px-2.5 py-1.5 mono text-[9px] font-bold disabled:opacity-60">{browserListening ? "LISTENING…" : askBrowserTranscript.isPending ? "CHECKING…" : "USE FREE FALLBACK"}</button></div>
           </div>
 
-          <aside className="brutal-border bg-[#1b1815] text-[#f7f1e6] shadow-[4px_4px_0_#1b1815]">
-            <div className="border-b-2 border-[#f4eedf] p-4 sm:p-5"><div className="mono text-[10px] tracking-[0.15em] text-[#ffb293]">02 / STRUCTURED OUTPUT</div><div className="mt-3 flex items-center justify-between gap-3">{run ? <StatusStamp status={run.answer.status} /> : outputProgress ? <span className="border-2 border-[#ffb293] bg-[#ffdbcc] px-2 py-1 text-xs font-bold tracking-[0.18em] text-[#1b1815]">LIVE RUN</span> : <span className="border-2 border-[#f4eedf] px-2 py-1 text-xs font-bold tracking-[0.18em]">AWAITING VOICE</span>}<span className="mono text-[10px]">{run ? `REQ ${run.requestId.slice(0, 8)}` : outputProgress ? "IN PROGRESS" : "NO RUN"}</span></div></div>
+          <aside ref={responsePanelRef} id="answer-output" tabIndex={-1} aria-live={awaitingResponse ? "polite" : undefined} data-testid="answer-reveal-panel" data-state={run ? "answered" : outputProgress ? "working" : "idle"} className="brutal-border scroll-mt-24 bg-[#1b1815] text-[#f7f1e6] shadow-[4px_4px_0_#1b1815] focus:outline-none">
+            <div className="border-b-2 border-[#f4eedf] p-4 sm:p-5"><div className="mono text-[10px] tracking-[0.15em] text-[#ffb293]">02 / ANSWER REVEAL</div><div className="mt-3 flex items-center justify-between gap-3">{run ? <StatusStamp status={run.answer.status} /> : outputProgress ? <span className="border-2 border-[#ffb293] bg-[#ffdbcc] px-2 py-1 text-xs font-bold tracking-[0.18em] text-[#1b1815]">LIVE RUN</span> : <span className="border-2 border-[#f4eedf] px-2 py-1 text-xs font-bold tracking-[0.18em]">AWAITING QUESTION</span>}<span className="mono text-[10px]">{run ? `REQ ${run.requestId.slice(0, 8)}` : outputProgress ? "IN PROGRESS" : "NO RUN"}</span></div></div>
             <div className="p-4 sm:p-5">{run ? <><div className="mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">transcript / {run.detectedLanguage} / {run.detectedScript}</div>{run.detectedLanguageConfidence !== undefined && run.detectedLanguageConfidence !== null && <div className="mono mt-1 text-[9px] uppercase tracking-[0.12em] text-[#ffb293]">Sarvam auto-detect confidence / {Math.round(run.detectedLanguageConfidence * 100)}%</div>}<p className="mt-2 border-l-2 border-[#ff5a1f] pl-3 text-sm leading-relaxed text-[#f4eedf]">{run.transcript}</p><div className="mt-6 mono text-[10px] uppercase tracking-[0.12em] text-[#c9c0b1]">answer</div><p className="mt-2 text-lg font-medium leading-snug">{run.answer.answer}</p>{run.answer.status === "REFUSED" && (suggestedLanguageRetry ? <div className="mt-3 border-l-2 border-[#ffb293] pl-3 text-xs leading-relaxed text-[#c9c0b1]"><p>TRANSCRIPTION COMPLETED. Automatic Detection read {voiceLanguageLabel(suggestedLanguageRetry)}, but confidence was below the 80% routing threshold. Retrieval was not run.</p><button type="button" onClick={() => { setLanguageCode(suggestedLanguageRetry); setCaptureError(null); setCaptureInfo(`${voiceLanguageLabel(suggestedLanguageRetry)} selected. Record the same question again for explicit routing.`); setRun(null); }} className="brutal-button mt-3 border-2 border-[#f4eedf] bg-[#ff5a1f] px-3 py-2 mono text-[9px] font-bold text-[#1b1815]">SELECT {voiceLanguageLabel(suggestedLanguageRetry).toUpperCase()} &amp; RETRY</button></div> : <p className="mt-3 border-l-2 border-[#ffb293] pl-3 text-xs leading-relaxed text-[#c9c0b1]">TRANSCRIPTION COMPLETED. This is an evidence boundary, not a microphone error. Use one of the source-backed prompts above for a grounded demonstration.</p>)}<div className="mt-5 grid grid-cols-3 gap-2 border-t-2 border-[#f4eedf] pt-4"><div><div className="mono text-[9px] text-[#c9c0b1]">CONFIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.confidenceBand}</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">EVIDENCE</div><div className="mt-1 text-xs font-bold">{run.answer.evidenceIds.length} cited</div></div><div><div className="mono text-[9px] text-[#c9c0b1]">RAG PATH</div><div className="mt-1 text-xs font-bold">{run.latency.ragMs} ms</div></div></div>{run.answer.refusalReason && <div className="mt-4 border-2 border-[#ffb293] p-3 text-sm text-[#ffb293]"><span className="mono text-[9px]">REFUSAL REASON</span><br />{run.answer.refusalReason}</div>}</> : outputProgress ? <div role="status" aria-live="polite" className="relative overflow-hidden border-2 border-[#ffb293] bg-[linear-gradient(135deg,rgba(255,90,31,0.15)_1px,transparent_1px)] bg-[size:14px_14px] p-5"><div className="absolute inset-x-0 top-0 flex gap-1 px-2 pt-2">{Array.from({ length: 22 }).map((_, index) => <span key={index} className={`h-1 flex-1 bg-[#ff5a1f] ${index % 3 === 0 ? "signal-pulse" : ""}`} style={{ opacity: index % 3 === 0 ? 1 : 0.34 }} />)}</div><Radio size={30} strokeWidth={1.5} className="mt-4 text-[#ff5a1f] signal-pulse" /><div className="mono mt-4 text-[9px] tracking-[0.15em] text-[#ffb293]">LIVE OUTPUT / {outputProgress.label}</div><p className="mt-2 text-lg font-bold">{outputProgress.title}</p><p className="mt-2 max-w-sm text-sm leading-relaxed text-[#c9c0b1]">{outputProgress.detail}</p><div className="mt-5 grid grid-cols-3 gap-px bg-[#59534a] mono text-[8px] text-[#c9c0b1]"><span className={`p-2 ${outputProgress.activeStep >= 0 ? "bg-[#ff5a1f] text-[#1b1815]" : "bg-[#111111]"}`}>1 AUDIO</span><span className={`p-2 ${outputProgress.activeStep >= 1 ? "bg-[#ff5a1f] text-[#1b1815]" : "bg-[#111111]"}`}>2 TRANSCRIBE</span><span className={`p-2 ${outputProgress.activeStep >= 2 ? "bg-[#ff5a1f] text-[#1b1815]" : "bg-[#111111]"}`}>3 VERIFY</span></div></div> : <div className="relative overflow-hidden border-2 border-[#59534a] bg-[linear-gradient(135deg,rgba(255,90,31,0.12)_1px,transparent_1px)] bg-[size:14px_14px] p-5"><div className="absolute inset-x-0 top-0 flex gap-1 px-2 pt-2">{Array.from({ length: 22 }).map((_, index) => <span key={index} className="h-1 flex-1 bg-[#ff5a1f]" style={{ opacity: index % 3 === 0 ? 1 : 0.34 }} />)}</div><Radio size={30} strokeWidth={1.5} className="mt-4 text-[#ff5a1f]" /><div className="mono mt-4 text-[9px] tracking-[0.15em] text-[#ffb293]">SOURCE-BOUND OUTPUT / STANDBY</div><p className="mt-2 text-lg font-bold">No answer exists until the corpus supports one.</p><p className="mt-2 max-w-sm text-sm leading-relaxed text-[#c9c0b1]">Speak to begin a real AI4Bharat/MSMARCO-XI evidence pass. The output remains intentionally blank rather than showing an invented demonstration.</p><div className="mt-5 grid grid-cols-3 gap-px bg-[#59534a] mono text-[8px] text-[#c9c0b1]"><span className="bg-[#111111] p-2">AUDIO</span><span className="bg-[#111111] p-2">EVIDENCE</span><span className="bg-[#111111] p-2">VERIFY</span></div></div>}</div>
           </aside>
         </section>

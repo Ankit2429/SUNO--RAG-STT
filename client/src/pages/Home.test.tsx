@@ -96,7 +96,7 @@ describe("Home typed-question submission", () => {
     render(<Home />);
 
     expect(screen.getByRole("heading", { name: /SUNO, ask by voice and answer by evidence/i })).toBeTruthy();
-    expect(screen.getByText(/5 GROUNDED ROUTES/)).toBeTruthy();
+    expect(screen.getByText(/FIVE GROUNDED ROUTES/)).toBeTruthy();
     expect(screen.getByRole("option", { name: /Hindi/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /Kannada/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /English/ })).toBeTruthy();
@@ -112,6 +112,16 @@ describe("Home typed-question submission", () => {
     expect(controlRail.className).toContain("sm:flex-row");
     expect(screen.getByRole("button", { name: "START RECORDING" })).toBeTruthy();
     expect(screen.getByLabelText("Type a question for the evidence harness")).toBeTruthy();
+  });
+
+  it("connects typed submission to a focused in-flow answer reveal panel", () => {
+    render(<Home />);
+
+    const revealPanel = screen.getByTestId("answer-reveal-panel");
+    expect(revealPanel.getAttribute("id")).toBe("answer-output");
+    expect(revealPanel.getAttribute("data-state")).toBe("idle");
+    expect(screen.getByRole("button", { name: "CHECK TEXT" }).getAttribute("aria-controls")).toBe("answer-output");
+    expect(screen.getByText("02 / ANSWER REVEAL")).toBeTruthy();
   });
 
   it("renders the complete warm latency percentile set after an audit", async () => {
