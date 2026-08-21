@@ -146,3 +146,6 @@
 - [x] Audit all visible application, metadata, browser, managed-project, and accessibility references for legacy SvaraProof branding.
 - [x] Replace every remaining visible legacy name with SUNO and align the managed project title with the product identity.
 - [x] Validate the rebrand through metadata checks, regressions, and visual review before checkpointing.
+- [x] Replace the current Iron-Canary-Shark theme with the supplied red, cream, saffron, forest-green, and cobalt-blue SUNO palette.
+- [x] Apply the five-color system to SUNO hierarchy, controls, evidence states, background motifs, and motion while retaining the clean evaluator flow.
+- [x] Validate contrast, responsive presentation, functional regressions, and the refined five-color interface before checkpointing.
