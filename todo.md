@@ -134,3 +134,6 @@
 - [x] Add or update visual-regression coverage, validate the animated responsive interface on desktop and mobile, and checkpoint the completed enhancement.
 - [x] Add workflow-aware motion to the SUNO hero, voice control, prompt rail, and answer lifecycle while preserving clear primary actions.
 - [x] Ensure all new SUNO motion is reduced-motion-safe, keyboard-safe, responsive, and visually validated alongside the existing voice and typed flows.
+- [x] Replace SUNO’s cream-and-orange visual system with a high-contrast black, burgundy (#6D001A-inspired), and white palette drawn from the supplied reference while retaining a distinct SUNO identity.
+- [x] Re-map controls, evidence states, animations, borders, and background motifs for readable black-burgundy-white contrast across desktop and mobile.
+- [x] Run functional regressions, visual review, and checkpoint the palette redesign.
