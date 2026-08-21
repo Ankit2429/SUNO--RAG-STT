@@ -157,3 +157,5 @@
 - [x] Restore SUNO’s original cream #F7F1E6, black #1B1815, and safety-orange #EE5B2B visual system across all active surfaces and motion accents.
 - [x] Remove the Display / Focus / Audit controls and move the voice-language selection below the primary microphone-and-text prompt rail.
 - [x] Update affected interaction coverage, validate responsive layout and full regressions, and checkpoint the restored SUNO interface.
+- [x] Elevate SUNO’s restored cream-black-orange interface with a more premium neo-brutalist hierarchy, refined material treatment, and restrained interaction polish without changing the voice-RAG flow.
+- [x] Verify the premium visual pass on desktop and mobile, run regressions, and save a reviewable checkpoint.
