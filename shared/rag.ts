@@ -71,6 +71,12 @@ export type LatencyBreakdown = {
   endToEndMs: number;
 };
 
+export type DeliveryTrace = {
+  serverMs: number;
+  cache: "HIT" | "MISS" | "BYPASS";
+  cacheAgeMs?: number;
+};
+
 export type RAGRun = {
   requestId: string;
   transcript: string;
@@ -82,6 +88,7 @@ export type RAGRun = {
   evidence: EvidenceChunk[];
   trace: HarnessEvent[];
   latency: LatencyBreakdown;
+  delivery?: DeliveryTrace;
 };
 
 export type PercentileSummary = {

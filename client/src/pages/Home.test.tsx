@@ -95,6 +95,16 @@ describe("Home typed-question submission", () => {
     expect(screen.getByTestId("answer-reveal-panel")).toBeTruthy();
   });
 
+  it("truthfully marks a still-pending request as in transit or processing after the short elapsed threshold", async () => {
+    const user = userEvent.setup();
+    render(<Home />);
+
+    await user.type(screen.getByLabelText("Type a question for the evidence harness"), "What is a corporation?");
+    await user.click(screen.getByRole("button", { name: "CHECK TEXT" }));
+
+    expect(await screen.findByText(/request is still in transit or processing/i, {}, { timeout: 1_500 })).toBeTruthy();
+  }, 2_500);
+
   it("offers a one-click Marathi override after low-confidence automatic detection", async () => {
     const user = userEvent.setup();
     render(<Home />);

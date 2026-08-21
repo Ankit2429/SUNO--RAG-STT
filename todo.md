@@ -176,3 +176,4 @@
 - [x] Audit semantic fidelity of every live grounded answer against its cited MSMARCO-XI evidence, repair only confirmed answer–evidence mismatches, and revalidate the strict matrix.
 - [x] Profile the reported public text-query latency, reduce controllable path overhead toward a verified sub-100-ms target without weakening source grounding or refusals, and preserve fresh benchmark evidence.
 - [x] Measure repeated live response-latency spikes, isolate cold-start/network/retrieval causes, and stabilize the controllable path without weakening grounded answers or refusals.
+- [x] Add privacy-safe end-to-end timing traces, source-safe repeat-query caching, and truthful live progress states; then validate cold and warm latency distributions without weakening citations or refusals.

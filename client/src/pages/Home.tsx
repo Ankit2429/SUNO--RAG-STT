@@ -88,6 +88,7 @@ export default function Home() {
   const [captureError, setCaptureError] = useState<string | null>(null);
   const [captureInfo, setCaptureInfo] = useState<string | null>(null);
   const [processingHint, setProcessingHint] = useState<string | null>(null);
+  const [deliveryWaitMs, setDeliveryWaitMs] = useState(0);
   const [audioPackagingMs, setAudioPackagingMs] = useState<number | null>(null);
   const [typedQuestion, setTypedQuestion] = useState("");
   const [run, setRun] = useState<RAGRun | null>(null);
@@ -160,6 +161,17 @@ export default function Home() {
   const awaitingResponse = ask.isPending || askBrowserTranscript.isPending || Boolean(processingHint);
   const isPipelineBusy = recording || browserListening || awaitingResponse;
   const pipelineState = recording ? "RECORDING" : browserListening ? "LISTENING" : processingHint?.includes("transcribing") ? "TRANSCRIBING" : processingHint ? "PACKAGING" : askBrowserTranscript.isPending ? "MATCHING" : "READY";
+
+  useEffect(() => {
+    if (!awaitingResponse) {
+      setDeliveryWaitMs(0);
+      return;
+    }
+
+    const startedAt = performance.now();
+    const timer = window.setInterval(() => setDeliveryWaitMs(Math.round(performance.now() - startedAt)), 250);
+    return () => window.clearInterval(timer);
+  }, [awaitingResponse]);
 
   const waveform = useMemo(() => Array.from({ length: 31 }, (_, index) => {
     const distance = Math.abs(index - 15) / 16;
@@ -417,9 +429,9 @@ export default function Home() {
 
           {shouldShowAnswerPanel && <aside ref={responsePanelRef} id="answer-output" tabIndex={-1} aria-live={awaitingResponse ? "polite" : undefined} data-testid="answer-reveal-panel" data-state={run ? "answered" : "working"} className="suno-answer-card answer-reveal-enter mt-8 border-t-2 border-[#1B1815] bg-[#FFFDF7] focus:outline-none">
             {run ? <div className="p-5 sm:p-7"><div className="flex flex-wrap items-center justify-between gap-3"><StatusStamp status={run.answer.status} /><span className="mono text-[9px] tracking-[0.12em] text-[#625A4F]">{runStateLabel}</span></div><p className="mt-5 border-l border-[#EE5B2B] pl-3 mono text-xs leading-relaxed text-[#625A4F]">{run.transcript || "No transcript was available."}</p><div className="mt-7"><div className="mono text-[9px] font-bold tracking-[0.14em] text-[#625A4F]">ANSWER</div><p className="display mt-3 max-w-2xl text-[clamp(1.3rem,3vw,1.8rem)] font-bold leading-[1.18] tracking-[-0.04em]">{run.answer.answer}</p></div>{run.answer.status !== "GROUNDED" && <div className="mt-5 border-l-2 border-[#EE5B2B] pl-3"><p className="text-sm leading-relaxed">{runStateExplanation}</p>{run.answer.refusalReason && <p className="mt-2 mono text-[9px] leading-relaxed text-[#625A4F]">{run.answer.refusalReason}</p>}{suggestedLanguageRetry && <button type="button" onClick={() => { setLanguageCode(suggestedLanguageRetry); setCaptureError(null); setCaptureInfo(voiceLanguageLabel(suggestedLanguageRetry) + " selected. Record the same question again for explicit routing."); setRun(null); }} className="brutal-button mt-4 border-2 border-[#1B1815] bg-[#EE5B2B] px-3 py-2 mono text-[9px] font-bold text-[#1B1815]">SELECT {voiceLanguageLabel(suggestedLanguageRetry).toUpperCase()} &amp; RETRY</button>}</div>}
-            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 border-t border-[#1B1815] pt-4 mono text-[9px] text-[#625A4F]"><span>{run.answer.confidenceBand} CONFIDENCE</span><span>{run.answer.evidenceIds.length} CITATION{run.answer.evidenceIds.length === 1 ? "" : "S"}</span><span>{run.latency.ragMs} MS POST-TRANSCRIPTION RAG</span></div>
+            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 border-t border-[#1B1815] pt-4 mono text-[9px] text-[#625A4F]"><span>{run.answer.confidenceBand} CONFIDENCE</span><span>{run.answer.evidenceIds.length} CITATION{run.answer.evidenceIds.length === 1 ? "" : "S"}</span><span>{run.latency.ragMs} MS POST-TRANSCRIPTION RAG</span>{run.delivery && <><span>{run.delivery.serverMs} MS SERVER</span><span>RESPONSE CACHE {run.delivery.cache}</span></>}</div>
             {selectedEvidence.length > 0 && <div className="mt-6 border-l-2 border-[#EE5B2B] pl-4"><div className="flex flex-wrap items-center justify-between gap-3"><div className="mono text-[9px] font-bold tracking-[0.14em] text-[#625A4F]">CITED EVIDENCE</div><button type="button" onClick={() => setTraceOpen(true)} className="brutal-button border border-[#1B1815] bg-[#EE5B2B] px-2 py-1 mono text-[8px] font-bold text-[#1B1815] hover:bg-[#1B1815] hover:text-[#F7F1E6]">OPEN REQUEST TRACE</button></div>{selectedEvidence.map(evidence => <article key={evidence.id} className="mt-3"><p className="text-sm leading-relaxed">{evidence.text}</p><p className="mt-2 mono text-[9px] text-[#625A4F]">{evidence.strategy.replaceAll("_", " ")} · {evidence.language} · {evidence.parentId.slice(0, 10)}</p></article>)}</div>}
-            </div> : <div role="status" className="p-5 sm:p-7"><div className="flex items-center gap-3"><Radio size={20} strokeWidth={1.5} className="text-[#EE5B2B] signal-pulse" /><span className="mono text-[9px] font-bold tracking-[0.14em] text-[#625A4F]">{outputProgress?.label || "LIVE REQUEST"}</span></div><p className="display mt-5 text-2xl font-bold tracking-[-0.04em]">{outputProgress?.title || "Checking the evidence."}</p><p className="mt-2 max-w-lg text-sm leading-relaxed text-[#625A4F]">{outputProgress?.detail || "SUNO is processing the request through its source-grounded harness."}</p></div>}
+            </div> : <div role="status" className="p-5 sm:p-7"><div className="flex items-center gap-3"><Radio size={20} strokeWidth={1.5} className="text-[#EE5B2B] signal-pulse" /><span className="mono text-[9px] font-bold tracking-[0.14em] text-[#625A4F]">{outputProgress?.label || "LIVE REQUEST"}</span></div><p className="display mt-5 text-2xl font-bold tracking-[-0.04em]">{outputProgress?.title || "Checking the evidence."}</p><p className="mt-2 max-w-lg text-sm leading-relaxed text-[#625A4F]">{outputProgress?.detail || "SUNO is processing the request through its source-grounded harness."}</p>{deliveryWaitMs >= 750 && <p className="mt-3 mono text-[9px] text-[#625A4F]">{deliveryWaitMs} MS ELAPSED · REQUEST IS STILL IN TRANSIT OR PROCESSING.</p>}</div>}
           </aside>}
         </section>
 

@@ -8,7 +8,10 @@ import { recordRagRun } from "./db";
 import { runBenchmark, runFiveLanguageBenchmark } from "./rag/benchmark";
 import { runPostTranscriptionHarness, runVoiceHarness } from "./rag/harness";
 import { getIndexCapability } from "./rag/retrieval";
+import { typedResponseCache } from "./rag/responseCache";
 import { AUTO_DETECT_LANGUAGE, FOCUSED_VOICE_LANGUAGE_CODES } from "@shared/voiceLanguages";
+import type { DeliveryTrace, RAGRun } from "@shared/rag";
+import { randomUUID } from "node:crypto";
 
 const focusedLanguageHint = z.enum(FOCUSED_VOICE_LANGUAGE_CODES);
 const voiceLanguageHint = z.union([focusedLanguageHint, z.literal(AUTO_DETECT_LANGUAGE)]);
@@ -25,6 +28,24 @@ const browserTranscriptInput = z.object({
   script: z.string().max(32).default("browser-native"),
 });
 
+function elapsed(startedAt: number) {
+  return Math.round((performance.now() - startedAt) * 100) / 100;
+}
+
+function withDelivery(run: RAGRun, serverMs: number, cache: DeliveryTrace["cache"], cacheAgeMs?: number): RAGRun {
+  return { ...run, delivery: { serverMs, cache, ...(cacheAgeMs === undefined ? {} : { cacheAgeMs }) } };
+}
+
+function setTimingHeader(res: { setHeader(name: string, value: string): unknown }, run: RAGRun) {
+  const delivery = run.delivery;
+  if (!delivery) return;
+  res.setHeader("Server-Timing", `suno;dur=${delivery.serverMs.toFixed(2)}, rag;dur=${run.latency.ragMs.toFixed(2)}, cache;desc=\"${delivery.cache.toLowerCase()}\"`);
+}
+
+function persistAfterResponse(run: RAGRun) {
+  void recordRagRun(run).catch(() => undefined);
+}
+
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
@@ -39,14 +60,23 @@ export const appRouter = router({
     }),
   }),
   voiceRag: router({
-    ask: publicProcedure.input(voiceInput).mutation(async ({ input }) => {
-      const run = await runVoiceHarness(input);
-      await recordRagRun(run).catch(() => undefined);
+    ask: publicProcedure.input(voiceInput).mutation(async ({ input, ctx }) => {
+      const startedAt = performance.now();
+      const run = withDelivery(await runVoiceHarness(input), elapsed(startedAt), "BYPASS");
+      setTimingHeader(ctx.res, run);
+      persistAfterResponse(run);
       return run;
     }),
-    askBrowserTranscript: publicProcedure.input(browserTranscriptInput).mutation(async ({ input }) => {
-      const run = await runPostTranscriptionHarness(input);
-      await recordRagRun(run).catch(() => undefined);
+    askBrowserTranscript: publicProcedure.input(browserTranscriptInput).mutation(async ({ input, ctx }) => {
+      const startedAt = performance.now();
+      const hit = typedResponseCache.get(input.transcript, input.languageCode);
+      const run = hit
+        ? withDelivery({ ...hit.run, requestId: randomUUID() }, elapsed(startedAt), "HIT", hit.ageMs)
+        : withDelivery(await runPostTranscriptionHarness(input), elapsed(startedAt), "MISS");
+
+      if (!hit) typedResponseCache.set(input.transcript, input.languageCode, run);
+      setTimingHeader(ctx.res, run);
+      persistAfterResponse(run);
       return run;
     }),
     indexStatus: publicProcedure.query(async () => ({
