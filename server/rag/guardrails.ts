@@ -48,16 +48,11 @@ export function inspectQuery(query: string): string | null {
   return null;
 }
 
+import { STOP_WORDS } from "./embedding";
+
 function queryTerms(query: string): Set<string> {
-  const nonSemanticTerms = new Set([
-    "क्या", "काय", "है", "आहे", "का", "की", "के", "को", "किस", "द्वारा", "होता", "होती", "होते",
-    "ಏನು", "ಏನದು", "ಎಂದರೇನು", "ಇದು", "ಯಾವುದು", "ಯಾವ", "ಮತ್ತು",
-    "என்ன", "எது", "ஒரு", "என்பது", "எந்த", "மற்றும்",
-    "कोणत्या", "कोणता", "द्वारे", "किंवा", "आणि", "आहे", "आहेत", "असे", "असा", "एक", "त्या", "त्याचा", "त्याची", "त्याचे", "मध्ये", "वर", "खाली", "ला", "ने", "चा", "ची", "चे",
-    "what", "which", "when", "where", "why", "how", "the", "and", "for", "with",
-  ]);
   return new Set(
-    query.toLocaleLowerCase().split(/[^\w\u0900-\u0D7F]+/).map(normalizeContentTerm).filter(term => term.length >= 3 && !nonSemanticTerms.has(term)).slice(0, 12),
+    query.toLocaleLowerCase().split(/[^\w\u0900-\u0D7F]+/).map(normalizeContentTerm).filter(term => term.length >= 2 && !STOP_WORDS.has(term)).slice(0, 12),
   );
 }
 
@@ -160,7 +155,8 @@ function asksForUnsupportedFoodEnumeration(query: string): boolean {
   return /(?:\b(?:show|list)\b|सूची|ಪಟ್ಟಿ|ಪಟ್ಟಿಯನ್ನು|பட்டியல்|தரவும்|यादी|द्या)/i.test(query);
 }
 
-function focusedSourceFaithfulAnswer(query: string, languageCode: string | undefined, queryId: string, evidence: EvidenceChunk[]): StructuredAnswer | null {
+function focusedSourceFaithfulAnswer(query: string, languageCode: string | undefined, queryId: string, evidence: EvidenceChunk[], termMatches: number): StructuredAnswer | null {
+  if (termMatches < 1) return null;
   const language = languageCode?.split("-")[0] || "";
   const answer = SOURCE_FAITHFUL_FOCUSED_ANSWERS[language]?.[queryId];
   const companion = evidence.find(chunk => chunk.id === `en-companion-${queryId}` && chunk.queryId === queryId);
@@ -181,16 +177,16 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
   const terms = queryTerms(query);
   const supported = evidence
     .map(chunk => ({ chunk, match: evidenceSentence(chunk, terms), score: scores.get(chunk.id) ?? 0 }))
-    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item.match))
+    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item.match) && item.match.termMatches >= 1)
     .sort((a, b) => b.match.termMatches - a.match.termMatches || b.score - a.score);
 
   const uniqueParents = new Set(supported.map(item => item.chunk.parentId));
   const top = supported[0];
-  if (!top || top.score < 0.28 || !uniqueParents.size) {
+  if (!top || top.score < 0.28 || top.match.termMatches < 1 || !uniqueParents.size) {
     return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
   }
 
-  const sourceFaithfulAnswer = focusedSourceFaithfulAnswer(query, languageCode, top.chunk.queryId, evidence);
+  const sourceFaithfulAnswer = focusedSourceFaithfulAnswer(query, languageCode, top.chunk.queryId, evidence, top.match.termMatches);
   if (sourceFaithfulAnswer) return sourceFaithfulAnswer;
 
   // One tightly matched sentence is safer than stitching together nearby but
