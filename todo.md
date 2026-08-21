@@ -177,3 +177,4 @@
 - [x] Profile the reported public text-query latency, reduce controllable path overhead toward a verified sub-100-ms target without weakening source grounding or refusals, and preserve fresh benchmark evidence.
 - [x] Measure repeated live response-latency spikes, isolate cold-start/network/retrieval causes, and stabilize the controllable path without weakening grounded answers or refusals.
 - [x] Add privacy-safe end-to-end timing traces, source-safe repeat-query caching, and truthful live progress states; then validate cold and warm latency distributions without weakening citations or refusals.
+- [x] Further profile and reduce the public-delivery latency tail, then run every available project test, provider smoke check, strict live evaluation, repeated cold/warm probe, and browser verification with observed results recorded.

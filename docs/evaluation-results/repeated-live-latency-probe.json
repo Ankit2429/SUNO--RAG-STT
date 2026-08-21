@@ -1,81 +1,81 @@
 {
-  "evaluatedAt": "2026-08-21T09:28:54.120Z",
+  "evaluatedAt": "2026-08-21T10:05:38.657Z",
   "endpoint": "https://3000-ifb42uuseuk387yx2srv1-323c3b4d.us3.manus.computer/api/trpc/voiceRag.askBrowserTranscript?batch=1",
-  "runsPerProbe": 10,
+  "runsPerProbe": 50,
   "scope": "Sequential repeated live typed-query probe. Separates public round trip from server-reported internal RAG and retrieval-stage timing; it excludes microphone capture and Sarvam STT.",
   "grouped": {
     "grounded_l1": {
       "statuses": {
-        "GROUNDED": 10
+        "GROUNDED": 50
       },
       "clientRoundTripMs": {
-        "count": 10,
-        "p50": 7.06,
-        "p70": 7.8,
-        "p95": 137.94,
-        "p100": 137.94
+        "count": 50,
+        "p50": 5.47,
+        "p70": 5.9,
+        "p95": 6.94,
+        "p100": 158.21
       },
       "internalRagMs": {
-        "count": 10,
-        "p50": 0.48,
-        "p70": 0.48,
-        "p95": 0.48,
-        "p100": 0.48
+        "count": 50,
+        "p50": 0.44,
+        "p70": 0.44,
+        "p95": 0.44,
+        "p100": 0.44
       },
       "retrievalStageMs": {
-        "count": 10,
-        "p50": 0.18,
-        "p70": 0.18,
-        "p95": 0.18,
-        "p100": 0.18
+        "count": 50,
+        "p50": 0.16,
+        "p70": 0.16,
+        "p95": 0.16,
+        "p100": 0.16
       }
     },
     "out_of_scope_fallback": {
       "statuses": {
-        "REFUSED": 10
+        "REFUSED": 50
       },
       "clientRoundTripMs": {
-        "count": 10,
-        "p50": 7.14,
-        "p70": 8.3,
-        "p95": 52.83,
-        "p100": 52.83
+        "count": 50,
+        "p50": 5.56,
+        "p70": 5.81,
+        "p95": 8.73,
+        "p100": 81.57
       },
       "internalRagMs": {
-        "count": 10,
-        "p50": 0.19,
-        "p70": 0.25,
-        "p95": 0.4,
-        "p100": 0.4
+        "count": 50,
+        "p50": 0.16,
+        "p70": 0.18,
+        "p95": 0.23,
+        "p100": 0.26
       },
       "retrievalStageMs": {
-        "count": 10,
-        "p50": 0.11,
-        "p70": 0.13,
-        "p95": 0.29,
-        "p100": 0.29
+        "count": 50,
+        "p50": 0.1,
+        "p70": 0.11,
+        "p95": 0.15,
+        "p100": 0.18
       }
     },
     "safety_gate": {
       "statuses": {
-        "REFUSED": 10
+        "REFUSED": 50
       },
       "clientRoundTripMs": {
-        "count": 10,
-        "p50": 5.87,
-        "p70": 7.33,
-        "p95": 8.84,
-        "p100": 8.84
+        "count": 50,
+        "p50": 5.32,
+        "p70": 6.03,
+        "p95": 7.23,
+        "p100": 17.23
       },
       "internalRagMs": {
-        "count": 10,
-        "p50": 0.02,
-        "p70": 0.02,
+        "count": 50,
+        "p50": 0.01,
+        "p70": 0.01,
         "p95": 0.02,
-        "p100": 0.02
+        "p100": 0.05
       },
       "retrievalStageMs": {
-        "count": 10,
+        "count": 50,
         "p50": 0,
         "p70": 0,
         "p95": 0,
@@ -88,25 +88,25 @@
       "id": "grounded_l1",
       "cycle": 1,
       "status": "GROUNDED",
-      "clientRoundTripMs": 137.94,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
+      "clientRoundTripMs": 158.21,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "out_of_scope_fallback",
       "cycle": 1,
       "status": "REFUSED",
-      "clientRoundTripMs": 52.83,
-      "internalRagMs": 0.4,
-      "retrievalStageMs": 0.29,
+      "clientRoundTripMs": 81.57,
+      "internalRagMs": 0.19,
+      "retrievalStageMs": 0.12,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "safety_gate",
       "cycle": 1,
       "status": "REFUSED",
-      "clientRoundTripMs": 7.33,
+      "clientRoundTripMs": 6.81,
       "internalRagMs": 0.02,
       "retrievalStageMs": 0,
       "retrievalDetail": "Stopped by safety or scope gate."
@@ -115,161 +115,161 @@
       "id": "grounded_l1",
       "cycle": 2,
       "status": "GROUNDED",
-      "clientRoundTripMs": 9.1,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
+      "clientRoundTripMs": 6.39,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "out_of_scope_fallback",
       "cycle": 2,
       "status": "REFUSED",
-      "clientRoundTripMs": 8.69,
-      "internalRagMs": 0.31,
-      "retrievalStageMs": 0.2,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "safety_gate",
-      "cycle": 2,
-      "status": "REFUSED",
-      "clientRoundTripMs": 8.39,
-      "internalRagMs": 0.02,
-      "retrievalStageMs": 0,
-      "retrievalDetail": "Stopped by safety or scope gate."
-    },
-    {
-      "id": "grounded_l1",
-      "cycle": 3,
-      "status": "GROUNDED",
-      "clientRoundTripMs": 9.52,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "out_of_scope_fallback",
-      "cycle": 3,
-      "status": "REFUSED",
-      "clientRoundTripMs": 8.3,
-      "internalRagMs": 0.25,
-      "retrievalStageMs": 0.11,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "safety_gate",
-      "cycle": 3,
-      "status": "REFUSED",
-      "clientRoundTripMs": 8.84,
-      "internalRagMs": 0.02,
-      "retrievalStageMs": 0,
-      "retrievalDetail": "Stopped by safety or scope gate."
-    },
-    {
-      "id": "grounded_l1",
-      "cycle": 4,
-      "status": "GROUNDED",
-      "clientRoundTripMs": 7.06,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "out_of_scope_fallback",
-      "cycle": 4,
-      "status": "REFUSED",
-      "clientRoundTripMs": 8.22,
+      "clientRoundTripMs": 6.92,
       "internalRagMs": 0.19,
-      "retrievalStageMs": 0.11,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "safety_gate",
-      "cycle": 4,
-      "status": "REFUSED",
-      "clientRoundTripMs": 5.1,
-      "internalRagMs": 0.02,
-      "retrievalStageMs": 0,
-      "retrievalDetail": "Stopped by safety or scope gate."
-    },
-    {
-      "id": "grounded_l1",
-      "cycle": 5,
-      "status": "GROUNDED",
-      "clientRoundTripMs": 7.26,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "out_of_scope_fallback",
-      "cycle": 5,
-      "status": "REFUSED",
-      "clientRoundTripMs": 8.39,
-      "internalRagMs": 0.18,
-      "retrievalStageMs": 0.1,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "safety_gate",
-      "cycle": 5,
-      "status": "REFUSED",
-      "clientRoundTripMs": 6.41,
-      "internalRagMs": 0.02,
-      "retrievalStageMs": 0,
-      "retrievalDetail": "Stopped by safety or scope gate."
-    },
-    {
-      "id": "grounded_l1",
-      "cycle": 6,
-      "status": "GROUNDED",
-      "clientRoundTripMs": 7.8,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "out_of_scope_fallback",
-      "cycle": 6,
-      "status": "REFUSED",
-      "clientRoundTripMs": 6.3,
-      "internalRagMs": 0.19,
-      "retrievalStageMs": 0.11,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "safety_gate",
-      "cycle": 6,
-      "status": "REFUSED",
-      "clientRoundTripMs": 5.86,
-      "internalRagMs": 0.02,
-      "retrievalStageMs": 0,
-      "retrievalDetail": "Stopped by safety or scope gate."
-    },
-    {
-      "id": "grounded_l1",
-      "cycle": 7,
-      "status": "GROUNDED",
-      "clientRoundTripMs": 5.31,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
-      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
-    },
-    {
-      "id": "out_of_scope_fallback",
-      "cycle": 7,
-      "status": "REFUSED",
-      "clientRoundTripMs": 7.14,
-      "internalRagMs": 0.24,
       "retrievalStageMs": 0.13,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "safety_gate",
+      "cycle": 2,
+      "status": "REFUSED",
+      "clientRoundTripMs": 7.53,
+      "internalRagMs": 0.02,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 3,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.35,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 3,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.81,
+      "internalRagMs": 0.18,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 3,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.58,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 4,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.72,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 4,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.94,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 4,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.41,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 5,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.27,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 5,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.69,
+      "internalRagMs": 0.16,
+      "retrievalStageMs": 0.1,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 5,
+      "status": "REFUSED",
+      "clientRoundTripMs": 17.23,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 6,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.4,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 6,
+      "status": "REFUSED",
+      "clientRoundTripMs": 8.73,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 6,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.25,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 7,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.9,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
       "cycle": 7,
       "status": "REFUSED",
-      "clientRoundTripMs": 7.49,
-      "internalRagMs": 0.02,
+      "clientRoundTripMs": 5.22,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.1,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 7,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.53,
+      "internalRagMs": 0.01,
       "retrievalStageMs": 0,
       "retrievalDetail": "Stopped by safety or scope gate."
     },
@@ -277,26 +277,26 @@
       "id": "grounded_l1",
       "cycle": 8,
       "status": "GROUNDED",
-      "clientRoundTripMs": 6.18,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
+      "clientRoundTripMs": 5.79,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "out_of_scope_fallback",
       "cycle": 8,
       "status": "REFUSED",
-      "clientRoundTripMs": 6.74,
-      "internalRagMs": 0.26,
-      "retrievalStageMs": 0.14,
+      "clientRoundTripMs": 5.36,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.1,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "safety_gate",
       "cycle": 8,
       "status": "REFUSED",
-      "clientRoundTripMs": 5.7,
-      "internalRagMs": 0.02,
+      "clientRoundTripMs": 6.65,
+      "internalRagMs": 0.01,
       "retrievalStageMs": 0,
       "retrievalDetail": "Stopped by safety or scope gate."
     },
@@ -304,53 +304,1133 @@
       "id": "grounded_l1",
       "cycle": 9,
       "status": "GROUNDED",
-      "clientRoundTripMs": 6.5,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
+      "clientRoundTripMs": 5.26,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "out_of_scope_fallback",
       "cycle": 9,
       "status": "REFUSED",
-      "clientRoundTripMs": 7.06,
+      "clientRoundTripMs": 6.95,
+      "internalRagMs": 0.18,
+      "retrievalStageMs": 0.12,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 9,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.42,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 10,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.98,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 10,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.4,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 10,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 11,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.61,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 11,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.23,
+      "internalRagMs": 0.23,
+      "retrievalStageMs": 0.18,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 11,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.12,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 12,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.47,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 12,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.38,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 12,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.52,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 13,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.25,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 13,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.28,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 13,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.3,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 14,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.22,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 14,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.48,
+      "internalRagMs": 0.21,
+      "retrievalStageMs": 0.15,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 14,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.86,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 15,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.21,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 15,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.4,
+      "internalRagMs": 0.16,
+      "retrievalStageMs": 0.1,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 15,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.04,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 16,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.39,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 16,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.24,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 16,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.19,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 17,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.94,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 17,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.8,
+      "internalRagMs": 0.21,
+      "retrievalStageMs": 0.14,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 17,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.59,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 18,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.96,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 18,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.57,
+      "internalRagMs": 0.16,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 18,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.8,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 19,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.38,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 19,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.82,
       "internalRagMs": 0.18,
       "retrievalStageMs": 0.1,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "safety_gate",
-      "cycle": 9,
+      "cycle": 19,
       "status": "REFUSED",
-      "clientRoundTripMs": 5.3,
+      "clientRoundTripMs": 5.64,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 20,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.96,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 20,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.17,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 20,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.04,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 21,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.29,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 21,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.14,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.1,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 21,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.14,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 22,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.08,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 22,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.19,
+      "internalRagMs": 0.23,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 22,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.03,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 23,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.85,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 23,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.99,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 23,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.87,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 24,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.9,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 24,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.19,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 24,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.88,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 25,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.39,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 25,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.14,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 25,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.09,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 26,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.88,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 26,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.46,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 26,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.13,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 27,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.5,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 27,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.56,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 27,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.35,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 28,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.4,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 28,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.36,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 28,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.01,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 29,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.27,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 29,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.22,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 29,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.93,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 30,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.04,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 30,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.78,
+      "internalRagMs": 0.13,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 30,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.03,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 31,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.1,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 31,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.66,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 31,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.99,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 32,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.99,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 32,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.37,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 32,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.24,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 33,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.9,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 33,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.16,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 33,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.58,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 34,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.29,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 34,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.09,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 34,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.53,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 35,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.7,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 35,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.6,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 35,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.16,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 36,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 7.03,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 36,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.18,
+      "internalRagMs": 0.26,
+      "retrievalStageMs": 0.18,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 36,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.79,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 37,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.75,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 37,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.28,
+      "internalRagMs": 0.2,
+      "retrievalStageMs": 0.13,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 37,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.38,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 38,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.48,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 38,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.15,
+      "internalRagMs": 0.2,
+      "retrievalStageMs": 0.12,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 38,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.32,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 39,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.32,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 39,
+      "status": "REFUSED",
+      "clientRoundTripMs": 7.39,
+      "internalRagMs": 0.19,
+      "retrievalStageMs": 0.12,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 39,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.04,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 40,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.48,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 40,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.61,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 40,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.93,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 41,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.72,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 41,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.99,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 41,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.29,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 42,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.52,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 42,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.38,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 42,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.77,
+      "internalRagMs": 0.05,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 43,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 4.85,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 43,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.7,
+      "internalRagMs": 0.15,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 43,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.47,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 44,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.01,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 44,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.22,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 44,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.03,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 45,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.21,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 45,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.09,
+      "internalRagMs": 0.21,
+      "retrievalStageMs": 0.12,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 45,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.18,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 46,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.66,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 46,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.91,
+      "internalRagMs": 0.14,
+      "retrievalStageMs": 0.09,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 46,
+      "status": "REFUSED",
+      "clientRoundTripMs": 6.43,
       "internalRagMs": 0.02,
       "retrievalStageMs": 0,
       "retrievalDetail": "Stopped by safety or scope gate."
     },
     {
       "id": "grounded_l1",
-      "cycle": 10,
+      "cycle": 47,
       "status": "GROUNDED",
-      "clientRoundTripMs": 5.95,
-      "internalRagMs": 0.48,
-      "retrievalStageMs": 0.18,
+      "clientRoundTripMs": 6.05,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "out_of_scope_fallback",
-      "cycle": 10,
+      "cycle": 47,
       "status": "REFUSED",
-      "clientRoundTripMs": 6.83,
-      "internalRagMs": 0.17,
+      "clientRoundTripMs": 6.44,
+      "internalRagMs": 0.19,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 47,
+      "status": "REFUSED",
+      "clientRoundTripMs": 7.23,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 48,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 5.41,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 48,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.71,
+      "internalRagMs": 0.16,
       "retrievalStageMs": 0.1,
       "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
     },
     {
       "id": "safety_gate",
-      "cycle": 10,
+      "cycle": 48,
       "status": "REFUSED",
-      "clientRoundTripMs": 5.87,
-      "internalRagMs": 0.02,
+      "clientRoundTripMs": 5.35,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 49,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.43,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 49,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.61,
+      "internalRagMs": 0.17,
+      "retrievalStageMs": 0.11,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 49,
+      "status": "REFUSED",
+      "clientRoundTripMs": 4.77,
+      "internalRagMs": 0.01,
+      "retrievalStageMs": 0,
+      "retrievalDetail": "Stopped by safety or scope gate."
+    },
+    {
+      "id": "grounded_l1",
+      "cycle": 50,
+      "status": "GROUNDED",
+      "clientRoundTripMs": 6.94,
+      "internalRagMs": 0.44,
+      "retrievalStageMs": 0.16,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "out_of_scope_fallback",
+      "cycle": 50,
+      "status": "REFUSED",
+      "clientRoundTripMs": 12.73,
+      "internalRagMs": 0.2,
+      "retrievalStageMs": 0.15,
+      "retrievalDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
+    },
+    {
+      "id": "safety_gate",
+      "cycle": 50,
+      "status": "REFUSED",
+      "clientRoundTripMs": 5.42,
+      "internalRagMs": 0.01,
       "retrievalStageMs": 0,
       "retrievalDetail": "Stopped by safety or scope gate."
     }

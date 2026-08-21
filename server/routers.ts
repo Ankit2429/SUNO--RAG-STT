@@ -60,6 +60,9 @@ export const appRouter = router({
     }),
   }),
   voiceRag: router({
+    // A deliberately trivial same-origin request used only after the page is idle.
+    // It primes the API route without invoking retrieval, providers, or telemetry.
+    warmup: publicProcedure.query(() => ({ ready: true as const })),
     ask: publicProcedure.input(voiceInput).mutation(async ({ input, ctx }) => {
       const startedAt = performance.now();
       const run = withDelivery(await runVoiceHarness(input), elapsed(startedAt), "BYPASS");

@@ -1,5 +1,5 @@
 {
-  "evaluatedAt": "2026-08-21T09:28:53.693Z",
+  "evaluatedAt": "2026-08-21T10:05:17.485Z",
   "endpoint": "https://3000-ifb42uuseuk387yx2srv1-323c3b4d.us3.manus.computer/api/trpc/voiceRag.askBrowserTranscript?batch=1",
   "totalCases": 60,
   "scope": "One-time live typed-transcript evaluation. It exercises the post-transcription harness, not microphone capture, Sarvam transcription, browser upload, or audio network transfer.",
@@ -37,18 +37,18 @@
   },
   "latency": {
     "internalRagMs": {
-      "p50": 0.54,
-      "p70": 0.68,
-      "p90": 1.13,
-      "p95": 1.75,
-      "p100": 82.28
+      "p50": 0.47,
+      "p70": 0.56,
+      "p90": 0.92,
+      "p95": 1.22,
+      "p100": 81.84
     },
     "clientRoundTripMs": {
-      "p50": 9.22,
-      "p70": 9.94,
-      "p90": 15.42,
-      "p95": 87.99,
-      "p100": 344.39
+      "p50": 7.44,
+      "p70": 8.63,
+      "p90": 11.03,
+      "p95": 87.86,
+      "p100": 145.07
     }
   },
   "results": [
@@ -76,9 +76,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 3.86,
-      "endToEndMs": 3.9,
-      "clientRoundTripMs": 195.92,
+      "ragMs": 2.98,
+      "endToEndMs": 2.99,
+      "clientRoundTripMs": 145.07,
       "answer": "निगम एक कानूनी संस्था है जो निगमन से बनती है और जिस देश या राज्य में स्थापित होती है, वहां के निगमन कानूनों से शासित होती है।"
     },
     {
@@ -106,9 +106,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 1.75,
-      "endToEndMs": 1.75,
-      "clientRoundTripMs": 344.39,
+      "ragMs": 1.22,
+      "endToEndMs": 1.22,
+      "clientRoundTripMs": 116,
       "answer": "निगम एक कानूनी संस्था है जो निगमन से बनती है और जिस देश या राज्य में स्थापित होती है, वहां के निगमन कानूनों से शासित होती है।"
     },
     {
@@ -135,9 +135,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 1.13,
-      "endToEndMs": 1.14,
-      "clientRoundTripMs": 13.64,
+      "ragMs": 1.12,
+      "endToEndMs": 1.12,
+      "clientRoundTripMs": 11.57,
       "answer": "रेचल कार्सन ने ‘द ऑब्लिगेशन टू एंड्योर’ अंधाधुंध कीटनाशक उपयोग और उसके पर्यावरण, वन्यजीवों व लोगों पर लंबे समय तक पड़ने वाले प्रभावों के बारे में चेतावनी देने के लिए लिखा।"
     },
     {
@@ -165,9 +165,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 1.13,
-      "endToEndMs": 1.13,
-      "clientRoundTripMs": 14.85,
+      "ragMs": 1,
+      "endToEndMs": 1,
+      "clientRoundTripMs": 9.14,
       "answer": "रेचल कार्सन ने ‘द ऑब्लिगेशन टू एंड्योर’ अंधाधुंध कीटनाशक उपयोग और उसके पर्यावरण, वन्यजीवों व लोगों पर लंबे समय तक पड़ने वाले प्रभावों के बारे में चेतावनी देने के लिए लिखा।"
     },
     {
@@ -193,9 +193,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.86,
-      "endToEndMs": 0.86,
-      "clientRoundTripMs": 12.7,
+      "ragMs": 0.79,
+      "endToEndMs": 0.79,
+      "clientRoundTripMs": 9.82,
       "answer": "कम पोटेशियम वाले खाद्य पदार्थों का चार्ट ऐसे भोजन विकल्प और उनकी मात्रा बताता है जो कम-पोटेशियम आहार के लिए उपयुक्त हों।"
     },
     {
@@ -222,9 +222,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.98,
-      "endToEndMs": 0.98,
-      "clientRoundTripMs": 15.42,
+      "ragMs": 0.92,
+      "endToEndMs": 0.92,
+      "clientRoundTripMs": 10.13,
       "answer": "कम पोटेशियम वाले खाद्य पदार्थों का चार्ट ऐसे भोजन विकल्प और उनकी मात्रा बताता है जो कम-पोटेशियम आहार के लिए उपयुक्त हों।"
     },
     {
@@ -252,9 +252,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 1.16,
-      "endToEndMs": 1.16,
-      "clientRoundTripMs": 10.41,
+      "ragMs": 0.67,
+      "endToEndMs": 0.67,
+      "clientRoundTripMs": 10.84,
       "answer": "मालवाहक जहाज़ का निचला बाहरी हिस्सा उसका तल या हल होता है; बिल्ज सबसे निचला अंदरूनी भाग है जहाँ पानी जमा हो सकता है।"
     },
     {
@@ -281,9 +281,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.7,
-      "endToEndMs": 0.7,
-      "clientRoundTripMs": 15.96,
+      "ragMs": 0.66,
+      "endToEndMs": 0.66,
+      "clientRoundTripMs": 8.64,
       "answer": "मालवाहक जहाज़ का निचला बाहरी हिस्सा उसका तल या हल होता है; बिल्ज सबसे निचला अंदरूनी भाग है जहाँ पानी जमा हो सकता है।"
     },
     {
@@ -310,9 +310,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.7,
-      "endToEndMs": 0.7,
-      "clientRoundTripMs": 12.08,
+      "ragMs": 0.65,
+      "endToEndMs": 0.66,
+      "clientRoundTripMs": 8.5,
       "answer": "ईमानदारी और सत्यनिष्ठा का अर्थ है सच बोलना, भरोसेमंद होना और सही नैतिक सिद्धांतों के अनुसार चलना।"
     },
     {
@@ -338,9 +338,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.64,
-      "endToEndMs": 0.64,
-      "clientRoundTripMs": 11.06,
+      "ragMs": 0.63,
+      "endToEndMs": 0.63,
+      "clientRoundTripMs": 8.2,
       "answer": "ईमानदारी और सत्यनिष्ठा का अर्थ है सच बोलना, भरोसेमंद होना और सही नैतिक सिद्धांतों के अनुसार चलना।"
     },
     {
@@ -366,9 +366,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.52,
-      "endToEndMs": 0.52,
-      "clientRoundTripMs": 11.44,
+      "ragMs": 0.54,
+      "endToEndMs": 0.54,
+      "clientRoundTripMs": 8.98,
       "answer": "ಕಾರ್ಪೊರೇಷನ್ ಎನ್ನುವುದು ಸಂಯೋಜನೆಯ ಮೂಲಕ ನಿರ್ಮಿತವಾದ ಕಾನೂನು ಘಟಕ; ಅದು ಸ್ಥಾಪಿತವಾಗಿರುವ ದೇಶ ಅಥವಾ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ."
     },
     {
@@ -396,9 +396,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.68,
-      "endToEndMs": 0.68,
-      "clientRoundTripMs": 9.92,
+      "ragMs": 0.83,
+      "endToEndMs": 0.83,
+      "clientRoundTripMs": 9.97,
       "answer": "ಕಾರ್ಪೊರೇಷನ್ ಎನ್ನುವುದು ಸಂಯೋಜನೆಯ ಮೂಲಕ ನಿರ್ಮಿತವಾದ ಕಾನೂನು ಘಟಕ; ಅದು ಸ್ಥಾಪಿತವಾಗಿರುವ ದೇಶ ಅಥವಾ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ."
     },
     {
@@ -426,9 +426,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.49,
-      "endToEndMs": 0.49,
-      "clientRoundTripMs": 9.57,
+      "ragMs": 0.45,
+      "endToEndMs": 0.45,
+      "clientRoundTripMs": 8.63,
       "answer": "ರೆಚೆಲ್ ಕಾರ್ಸನ್ ‘ದಿ ಒಬ್ಲಿಗೇಷನ್ ಟು ಎಂಡ್ಯೂರ್’ ಅನ್ನು ವಿವೇಚನೆಯಿಲ್ಲದ ಕೀಟನಾಶಕ ಬಳಕೆ ಮತ್ತು ಅದರ ಪರಿಸರ, ವನ್ಯಜೀವಿ ಹಾಗೂ ಜನರ ಮೇಲಿನ ದೀರ್ಘಕಾಲದ ಪರಿಣಾಮಗಳ ಬಗ್ಗೆ ಎಚ್ಚರಿಸಲು ಬರೆದರು."
     },
     {
@@ -454,9 +454,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.54,
-      "endToEndMs": 0.54,
-      "clientRoundTripMs": 9.67,
+      "ragMs": 0.41,
+      "endToEndMs": 0.41,
+      "clientRoundTripMs": 5.72,
       "answer": "ರೆಚೆಲ್ ಕಾರ್ಸನ್ ‘ದಿ ಒಬ್ಲಿಗೇಷನ್ ಟು ಎಂಡ್ಯೂರ್’ ಅನ್ನು ವಿವೇಚನೆಯಿಲ್ಲದ ಕೀಟನಾಶಕ ಬಳಕೆ ಮತ್ತು ಅದರ ಪರಿಸರ, ವನ್ಯಜೀವಿ ಹಾಗೂ ಜನರ ಮೇಲಿನ ದೀರ್ಘಕಾಲದ ಪರಿಣಾಮಗಳ ಬಗ್ಗೆ ಎಚ್ಚರಿಸಲು ಬರೆದರು."
     },
     {
@@ -483,9 +483,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.53,
-      "endToEndMs": 0.53,
-      "clientRoundTripMs": 9.86,
+      "ragMs": 0.43,
+      "endToEndMs": 0.44,
+      "clientRoundTripMs": 7.44,
       "answer": "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಇರುವ ಆಹಾರಗಳ ಚಾರ್ಟ್ ಕಡಿಮೆ-ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರ ಕ್ರಮಕ್ಕೆ ಹೊಂದುವ ಆಹಾರ ಆಯ್ಕೆಗಳು ಮತ್ತು ಅವುಗಳ ಪ್ರಮಾಣಗಳನ್ನು ತಿಳಿಸುತ್ತದೆ."
     },
     {
@@ -512,9 +512,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.57,
-      "endToEndMs": 0.57,
-      "clientRoundTripMs": 9.12,
+      "ragMs": 0.45,
+      "endToEndMs": 0.45,
+      "clientRoundTripMs": 6.9,
       "answer": "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಇರುವ ಆಹಾರಗಳ ಚಾರ್ಟ್ ಕಡಿಮೆ-ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರ ಕ್ರಮಕ್ಕೆ ಹೊಂದುವ ಆಹಾರ ಆಯ್ಕೆಗಳು ಮತ್ತು ಅವುಗಳ ಪ್ರಮಾಣಗಳನ್ನು ತಿಳಿಸುತ್ತದೆ."
     },
     {
@@ -537,9 +537,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.69,
-      "endToEndMs": 0.7,
-      "clientRoundTripMs": 9.22,
+      "ragMs": 0.39,
+      "endToEndMs": 0.39,
+      "clientRoundTripMs": 8.98,
       "answer": "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗವು ಅದರ ತಳ ಅಥವಾ ಹಲ್; ಬಿಲ್ಜ್ ಎಂದರೆ ನೀರು ಸೇರುವ ಅತಿ ಕೆಳಗಿನ ಒಳಭಾಗ."
     },
     {
@@ -563,9 +563,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.58,
-      "endToEndMs": 0.58,
-      "clientRoundTripMs": 9.56,
+      "ragMs": 0.5,
+      "endToEndMs": 0.51,
+      "clientRoundTripMs": 6.4,
       "answer": "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗವು ಅದರ ತಳ ಅಥವಾ ಹಲ್; ಬಿಲ್ಜ್ ಎಂದರೆ ನೀರು ಸೇರುವ ಅತಿ ಕೆಳಗಿನ ಒಳಭಾಗ."
     },
     {
@@ -591,9 +591,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.6,
-      "endToEndMs": 0.6,
-      "clientRoundTripMs": 12.83,
+      "ragMs": 0.7,
+      "endToEndMs": 0.7,
+      "clientRoundTripMs": 11.03,
       "answer": "ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ನೈತಿಕ ಸಮಗ್ರತೆ ಎಂದರೆ ಸತ್ಯವಂತರಾಗಿರುವುದು, ನಂಬಿಗಸ್ತರಾಗಿರುವುದು ಮತ್ತು ಸದುದ್ದೇಶದ ನೈತಿಕ ತತ್ವಗಳನ್ನು ಅನುಸರಿಸುವುದು."
     },
     {
@@ -616,9 +616,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.4,
-      "endToEndMs": 0.4,
-      "clientRoundTripMs": 8.2,
+      "ragMs": 0.57,
+      "endToEndMs": 0.57,
+      "clientRoundTripMs": 7.29,
       "answer": "ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ನೈತಿಕ ಸಮಗ್ರತೆ ಎಂದರೆ ಸತ್ಯವಂತರಾಗಿರುವುದು, ನಂಬಿಗಸ್ತರಾಗಿರುವುದು ಮತ್ತು ಸದುದ್ದೇಶದ ನೈತಿಕ ತತ್ವಗಳನ್ನು ಅನುಸರಿಸುವುದು."
     },
     {
@@ -643,9 +643,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.48,
-      "endToEndMs": 0.48,
-      "clientRoundTripMs": 9.67,
+      "ragMs": 0.44,
+      "endToEndMs": 0.44,
+      "clientRoundTripMs": 12.18,
       "answer": "A corporation is a legal entity created by incorporation and governed by the incorporation laws of the country or state in which it is formed."
     },
     {
@@ -668,9 +668,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.19,
-      "endToEndMs": 0.19,
-      "clientRoundTripMs": 9.79,
+      "ragMs": 0.16,
+      "endToEndMs": 0.16,
+      "clientRoundTripMs": 6.18,
       "answer": "A corporation is a legal entity created by incorporation and governed by the incorporation laws of the country or state in which it is formed."
     },
     {
@@ -695,9 +695,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.2,
-      "endToEndMs": 0.2,
-      "clientRoundTripMs": 8.14,
+      "ragMs": 0.24,
+      "endToEndMs": 0.24,
+      "clientRoundTripMs": 6.57,
       "answer": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people."
     },
     {
@@ -722,9 +722,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.23,
-      "endToEndMs": 0.23,
-      "clientRoundTripMs": 7.06,
+      "ragMs": 0.24,
+      "endToEndMs": 0.24,
+      "clientRoundTripMs": 5.3,
       "answer": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people."
     },
     {
@@ -751,9 +751,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.34,
-      "endToEndMs": 0.34,
-      "clientRoundTripMs": 7.91,
+      "ragMs": 0.28,
+      "endToEndMs": 0.28,
+      "clientRoundTripMs": 6.8,
       "answer": "A low-potassium food chart identifies food choices and serving sizes that fit a low-potassium diet."
     },
     {
@@ -777,9 +777,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.24,
-      "endToEndMs": 0.24,
-      "clientRoundTripMs": 9.04,
+      "ragMs": 0.13,
+      "endToEndMs": 0.14,
+      "clientRoundTripMs": 6.56,
       "answer": "A low-potassium food chart identifies food choices and serving sizes that fit a low-potassium diet."
     },
     {
@@ -805,9 +805,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.23,
-      "endToEndMs": 0.23,
-      "clientRoundTripMs": 7.79,
+      "ragMs": 0.19,
+      "endToEndMs": 0.19,
+      "clientRoundTripMs": 6.83,
       "answer": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect."
     },
     {
@@ -833,9 +833,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.22,
-      "endToEndMs": 0.22,
-      "clientRoundTripMs": 11.15,
+      "ragMs": 0.2,
+      "endToEndMs": 0.2,
+      "clientRoundTripMs": 5.64,
       "answer": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect."
     },
     {
@@ -862,9 +862,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.3,
-      "endToEndMs": 0.3,
-      "clientRoundTripMs": 7.57,
+      "ragMs": 0.23,
+      "endToEndMs": 0.23,
+      "clientRoundTripMs": 7.07,
       "answer": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles."
     },
     {
@@ -887,9 +887,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.16,
-      "endToEndMs": 0.16,
-      "clientRoundTripMs": 6.46,
+      "ragMs": 0.15,
+      "endToEndMs": 0.15,
+      "clientRoundTripMs": 5.47,
       "answer": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles."
     },
     {
@@ -916,9 +916,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.64,
-      "endToEndMs": 0.64,
-      "clientRoundTripMs": 8.7,
+      "ragMs": 0.59,
+      "endToEndMs": 0.59,
+      "clientRoundTripMs": 8.19,
       "answer": "ஒரு கார்ப்பரேஷன் என்பது இணைப்பின் மூலம் உருவான சட்ட அமைப்பு; அது உருவாக்கப்பட்ட நாடு அல்லது மாநிலத்தின் இணைப்பு சட்டங்களால் நிர்வகிக்கப்படுகிறது."
     },
     {
@@ -945,9 +945,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.58,
-      "endToEndMs": 0.58,
-      "clientRoundTripMs": 6.66,
+      "ragMs": 0.45,
+      "endToEndMs": 0.45,
+      "clientRoundTripMs": 6.56,
       "answer": "ஒரு கார்ப்பரேஷன் என்பது இணைப்பின் மூலம் உருவான சட்ட அமைப்பு; அது உருவாக்கப்பட்ட நாடு அல்லது மாநிலத்தின் இணைப்பு சட்டங்களால் நிர்வகிக்கப்படுகிறது."
     },
     {
@@ -975,9 +975,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.52,
-      "endToEndMs": 0.52,
-      "clientRoundTripMs": 7.28,
+      "ragMs": 0.46,
+      "endToEndMs": 0.46,
+      "clientRoundTripMs": 7.12,
       "answer": "ரேச்சல் கார்சன் ‘தி ஒப்ளிகேஷன் டு என்ட்யூர்’ கட்டுரையை கட்டுப்பாடற்ற பூச்சிக்கொல்லி பயன்பாடு மற்றும் அதன் சுற்றுச்சூழல், வனவிலங்குகள், மனிதர்கள் மீதான நீண்டகால விளைவுகளை எச்சரிக்க எழுதினார்."
     },
     {
@@ -1000,9 +1000,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.44,
-      "endToEndMs": 0.44,
-      "clientRoundTripMs": 8.98,
+      "ragMs": 0.42,
+      "endToEndMs": 0.42,
+      "clientRoundTripMs": 6.09,
       "answer": "ரேச்சல் கார்சன் ‘தி ஒப்ளிகேஷன் டு என்ட்யூர்’ கட்டுரையை கட்டுப்பாடற்ற பூச்சிக்கொல்லி பயன்பாடு மற்றும் அதன் சுற்றுச்சூழல், வனவிலங்குகள், மனிதர்கள் மீதான நீண்டகால விளைவுகளை எச்சரிக்க எழுதினார்."
     },
     {
@@ -1025,9 +1025,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.45,
-      "endToEndMs": 0.45,
-      "clientRoundTripMs": 8.97,
+      "ragMs": 0.5,
+      "endToEndMs": 0.5,
+      "clientRoundTripMs": 6.75,
       "answer": "குறைந்த பொட்டாசியம் உணவுப் பட்டியல், குறைந்த பொட்டாசியம் உணவுமுறைக்கு ஏற்ற உணவுத் தேர்வுகளையும் அவற்றின் அளவுகளையும் காட்டுகிறது."
     },
     {
@@ -1054,9 +1054,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.54,
-      "endToEndMs": 0.54,
-      "clientRoundTripMs": 17.28,
+      "ragMs": 0.52,
+      "endToEndMs": 0.52,
+      "clientRoundTripMs": 6.87,
       "answer": "குறைந்த பொட்டாசியம் உணவுப் பட்டியல், குறைந்த பொட்டாசியம் உணவுமுறைக்கு ஏற்ற உணவுத் தேர்வுகளையும் அவற்றின் அளவுகளையும் காட்டுகிறது."
     },
     {
@@ -1079,9 +1079,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.5,
-      "endToEndMs": 0.51,
-      "clientRoundTripMs": 9.86,
+      "ragMs": 0.38,
+      "endToEndMs": 0.38,
+      "clientRoundTripMs": 6.61,
       "answer": "சரக்கு கப்பலின் கீழ்புறம் அதன் அடிப்பகுதி அல்லது ஹல்; பில்ஜ் என்பது நீர் சேரக்கூடிய மிகக் கீழான உள்புற பகுதி."
     },
     {
@@ -1104,9 +1104,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.57,
-      "endToEndMs": 0.57,
-      "clientRoundTripMs": 8.32,
+      "ragMs": 0.51,
+      "endToEndMs": 0.51,
+      "clientRoundTripMs": 7.34,
       "answer": "சரக்கு கப்பலின் கீழ்புறம் அதன் அடிப்பகுதி அல்லது ஹல்; பில்ஜ் என்பது நீர் சேரக்கூடிய மிகக் கீழான உள்புற பகுதி."
     },
     {
@@ -1133,9 +1133,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.53,
-      "endToEndMs": 0.53,
-      "clientRoundTripMs": 8.34,
+      "ragMs": 0.5,
+      "endToEndMs": 0.5,
+      "clientRoundTripMs": 6.36,
       "answer": "நேர்மையும் ஒருமைப்பாடும் என்பது உண்மையாக இருப்பது, நம்பகமாக இருப்பது, நல்ல ஒழுக்கக் கொள்கைகளால் வழிநடத்தப்படுவது ஆகும்."
     },
     {
@@ -1161,9 +1161,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.5,
-      "endToEndMs": 0.5,
-      "clientRoundTripMs": 6.84,
+      "ragMs": 0.39,
+      "endToEndMs": 0.39,
+      "clientRoundTripMs": 5.38,
       "answer": "நேர்மையும் ஒருமைப்பாடும் என்பது உண்மையாக இருப்பது, நம்பகமாக இருப்பது, நல்ல ஒழுக்கக் கொள்கைகளால் வழிநடத்தப்படுவது ஆகும்."
     },
     {
@@ -1191,9 +1191,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.54,
-      "endToEndMs": 0.54,
-      "clientRoundTripMs": 9.67,
+      "ragMs": 0.53,
+      "endToEndMs": 0.53,
+      "clientRoundTripMs": 7.91,
       "answer": "कॉर्पोरेशन ही निगमनातून निर्माण झालेली कायदेशीर संस्था आहे आणि ज्या देशात किंवा राज्यात ती स्थापन होते त्या ठिकाणच्या निगमन कायद्यांनुसार चालते."
     },
     {
@@ -1216,9 +1216,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.45,
-      "endToEndMs": 0.45,
-      "clientRoundTripMs": 9.94,
+      "ragMs": 0.36,
+      "endToEndMs": 0.36,
+      "clientRoundTripMs": 5.24,
       "answer": "कॉर्पोरेशन ही निगमनातून निर्माण झालेली कायदेशीर संस्था आहे आणि ज्या देशात किंवा राज्यात ती स्थापन होते त्या ठिकाणच्या निगमन कायद्यांनुसार चालते."
     },
     {
@@ -1245,9 +1245,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.58,
-      "endToEndMs": 0.58,
-      "clientRoundTripMs": 7.42,
+      "ragMs": 0.51,
+      "endToEndMs": 0.51,
+      "clientRoundTripMs": 8.03,
       "answer": "रेचल कार्सन यांनी ‘द ऑब्लिगेशन टू एंड्योर’ हे अंधाधुंद कीटकनाशक वापर आणि त्याचे पर्यावरण, वन्यजीव व लोकांवरील दीर्घकालीन परिणाम याबद्दल इशारा देण्यासाठी लिहिले."
     },
     {
@@ -1274,8 +1274,8 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.86,
-      "endToEndMs": 0.86,
+      "ragMs": 0.47,
+      "endToEndMs": 0.47,
       "clientRoundTripMs": 8.96,
       "answer": "रेचल कार्सन यांनी ‘द ऑब्लिगेशन टू एंड्योर’ हे अंधाधुंद कीटकनाशक वापर आणि त्याचे पर्यावरण, वन्यजीव व लोकांवरील दीर्घकालीन परिणाम याबद्दल इशारा देण्यासाठी लिहिले."
     },
@@ -1303,9 +1303,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.6,
-      "endToEndMs": 0.6,
-      "clientRoundTripMs": 8.17,
+      "ragMs": 0.56,
+      "endToEndMs": 0.56,
+      "clientRoundTripMs": 7.69,
       "answer": "कमी पोटॅशियम असलेल्या अन्नपदार्थांचा तक्ता कमी-पोटॅशियम आहारासाठी योग्य अन्नपर्याय आणि त्यांचे प्रमाण सांगतो."
     },
     {
@@ -1332,9 +1332,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.65,
-      "endToEndMs": 0.66,
-      "clientRoundTripMs": 9.36,
+      "ragMs": 0.56,
+      "endToEndMs": 0.56,
+      "clientRoundTripMs": 8.59,
       "answer": "कमी पोटॅशियम असलेल्या अन्नपदार्थांचा तक्ता कमी-पोटॅशियम आहारासाठी योग्य अन्नपर्याय आणि त्यांचे प्रमाण सांगतो."
     },
     {
@@ -1357,9 +1357,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.42,
-      "endToEndMs": 0.42,
-      "clientRoundTripMs": 7.32,
+      "ragMs": 0.37,
+      "endToEndMs": 0.37,
+      "clientRoundTripMs": 7.24,
       "answer": "मालवाहू जहाजाचा खालचा बाह्य भाग तळ किंवा हुल असतो; बिल्ज हा पाणी साचू शकणारा सर्वात खालचा अंतर्गत भाग आहे."
     },
     {
@@ -1385,9 +1385,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.77,
-      "endToEndMs": 0.77,
-      "clientRoundTripMs": 9.17,
+      "ragMs": 0.42,
+      "endToEndMs": 0.42,
+      "clientRoundTripMs": 6.11,
       "answer": "मालवाहू जहाजाचा खालचा बाह्य भाग तळ किंवा हुल असतो; बिल्ज हा पाणी साचू शकणारा सर्वात खालचा अंतर्गत भाग आहे."
     },
     {
@@ -1414,9 +1414,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.77,
-      "endToEndMs": 0.77,
-      "clientRoundTripMs": 8.49,
+      "ragMs": 0.52,
+      "endToEndMs": 0.52,
+      "clientRoundTripMs": 7.3,
       "answer": "प्रामाणिकपणा आणि सचोटी म्हणजे सत्यवादी व विश्वासार्ह असणे आणि योग्य नैतिक तत्त्वांनुसार वागणे."
     },
     {
@@ -1444,9 +1444,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": null,
-      "ragMs": 0.82,
-      "endToEndMs": 0.82,
-      "clientRoundTripMs": 8.81,
+      "ragMs": 0.5,
+      "endToEndMs": 0.5,
+      "clientRoundTripMs": 7.56,
       "answer": "प्रामाणिकपणा आणि सचोटी म्हणजे सत्यवादी व विश्वासार्ह असणे आणि योग्य नैतिक तत्त्वांनुसार वागणे."
     },
     {
@@ -1471,9 +1471,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
-      "ragMs": 0.83,
-      "endToEndMs": 0.83,
-      "clientRoundTripMs": 10.63,
+      "ragMs": 0.54,
+      "endToEndMs": 0.54,
+      "clientRoundTripMs": 8.84,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1491,9 +1491,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
-      "ragMs": 82.28,
-      "endToEndMs": 82.28,
-      "clientRoundTripMs": 90.59,
+      "ragMs": 81.84,
+      "endToEndMs": 81.84,
+      "clientRoundTripMs": 87.86,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1518,7 +1518,7 @@
       "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
       "ragMs": 0.27,
       "endToEndMs": 0.27,
-      "clientRoundTripMs": 8.63,
+      "clientRoundTripMs": 9.05,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1536,9 +1536,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
-      "ragMs": 81,
-      "endToEndMs": 81,
-      "clientRoundTripMs": 87.99,
+      "ragMs": 81.13,
+      "endToEndMs": 81.13,
+      "clientRoundTripMs": 88.26,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1563,9 +1563,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "Retrieved passages did not meet the evidence sufficiency threshold.",
-      "ragMs": 0.8,
-      "endToEndMs": 0.8,
-      "clientRoundTripMs": 9.56,
+      "ragMs": 0.77,
+      "endToEndMs": 0.77,
+      "clientRoundTripMs": 7.78,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1583,9 +1583,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "The prompt-injection gate blocked the request.",
-      "ragMs": 0.17,
-      "endToEndMs": 0.17,
-      "clientRoundTripMs": 10.62,
+      "ragMs": 0.15,
+      "endToEndMs": 0.15,
+      "clientRoundTripMs": 7.64,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1603,9 +1603,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "The prompt-injection gate blocked the request.",
-      "ragMs": 0.05,
-      "endToEndMs": 0.05,
-      "clientRoundTripMs": 7.15,
+      "ragMs": 0.04,
+      "endToEndMs": 0.04,
+      "clientRoundTripMs": 7.93,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1623,9 +1623,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "The safety gate blocked an unsafe request.",
-      "ragMs": 0.03,
-      "endToEndMs": 0.03,
-      "clientRoundTripMs": 8.91,
+      "ragMs": 0.02,
+      "endToEndMs": 0.02,
+      "clientRoundTripMs": 4.57,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1645,7 +1645,7 @@
       "refusalReason": "The safety gate blocked an unsafe request.",
       "ragMs": 0.02,
       "endToEndMs": 0.02,
-      "clientRoundTripMs": 6.51,
+      "clientRoundTripMs": 5.99,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     },
     {
@@ -1663,9 +1663,9 @@
       "hasExpectedSource": true,
       "hasExpectedCitation": true,
       "refusalReason": "The safety gate blocked an unsafe request.",
-      "ragMs": 0.04,
-      "endToEndMs": 0.04,
-      "clientRoundTripMs": 8.21,
+      "ragMs": 0.02,
+      "endToEndMs": 0.02,
+      "clientRoundTripMs": 4.95,
       "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms."
     }
   ]

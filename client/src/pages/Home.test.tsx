@@ -12,6 +12,7 @@ const mutationSpies = vi.hoisted(() => ({
   askOptions: undefined as { onSuccess?: (run: RAGRun) => void } | undefined,
   benchmarkOptions: undefined as { onSuccess?: (report: BenchmarkReport) => void } | undefined,
   indexStatusOptions: undefined as { enabled?: boolean; staleTime?: number; refetchOnWindowFocus?: boolean } | undefined,
+  warmupOptions: undefined as { enabled?: boolean; staleTime?: number; refetchOnWindowFocus?: boolean; retry?: boolean } | undefined,
 }));
 
 vi.mock("@/lib/trpc", () => ({
@@ -35,6 +36,12 @@ vi.mock("@/lib/trpc", () => ({
               mode: "L1_LOCAL",
             },
           };
+        },
+      },
+      warmup: {
+        useQuery: (_input: unknown, options: { enabled?: boolean; staleTime?: number; refetchOnWindowFocus?: boolean; retry?: boolean }) => {
+          mutationSpies.warmupOptions = options;
+          return { data: { ready: true } };
         },
       },
       ask: { useMutation: (options: { onSuccess?: (run: RAGRun) => void }) => { mutationSpies.askOptions = options; return { mutate: mutationSpies.ask, isPending: false }; } },
@@ -66,6 +73,17 @@ describe("Home typed-question submission", () => {
     mutationSpies.askOptions = undefined;
     mutationSpies.benchmarkOptions = undefined;
     mutationSpies.indexStatusOptions = undefined;
+    mutationSpies.warmupOptions = undefined;
+  });
+
+  it("keeps the API warm-up idle-only so it cannot compete with the first question", () => {
+    render(<Home />);
+
+    expect(mutationSpies.warmupOptions).toMatchObject({
+      enabled: false,
+      retry: false,
+      refetchOnWindowFocus: false,
+    });
   });
 
   it("submits automatic Hindi typed input to the actual browser-transcript mutation without client-only fields", async () => {

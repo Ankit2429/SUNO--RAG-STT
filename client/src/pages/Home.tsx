@@ -95,6 +95,7 @@ export default function Home() {
   const [traceOpen, setTraceOpen] = useState(false);
   const [benchmarkReport, setBenchmarkReport] = useState<BenchmarkState | null>(null);
   const [indexStatusEnabled, setIndexStatusEnabled] = useState(false);
+  const [warmupEnabled, setWarmupEnabled] = useState(false);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
@@ -119,6 +120,14 @@ export default function Home() {
   // required to answer a question, so defer it beyond the first interaction.
   const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, {
     enabled: indexStatusEnabled,
+    refetchOnWindowFocus: false,
+    staleTime: 60_000,
+  });
+  // Let the initial screen render and a fast user action win. If the page stays
+  // idle, prime the same-origin API route without running any RAG work.
+  trpc.voiceRag.warmup.useQuery(undefined, {
+    enabled: warmupEnabled,
+    retry: false,
     refetchOnWindowFocus: false,
     staleTime: 60_000,
   });
@@ -172,6 +181,11 @@ export default function Home() {
     const timer = window.setInterval(() => setDeliveryWaitMs(Math.round(performance.now() - startedAt)), 250);
     return () => window.clearInterval(timer);
   }, [awaitingResponse]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setWarmupEnabled(true), 900);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const waveform = useMemo(() => Array.from({ length: 31 }, (_, index) => {
     const distance = Math.abs(index - 15) / 16;
