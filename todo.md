@@ -152,3 +152,5 @@
 - [x] Replace the current five-color SUNO theme with the supplied black, dove-grey, and pale-blue palette across visible surfaces and motion accents.
 - [x] Add focused interactive elements that improve evaluator use: a compact display-mode control, live interaction-state feedback, and clearer source/evidence affordances without altering the voice-RAG pipeline.
 - [x] Add or update regression coverage for the new interactions, verify desktop/mobile usability, and checkpoint the completed visual upgrade.
+- [x] Make the external Qdrant and Sarvam credential smoke tests resilient to transient network connection timeouts without masking genuine authentication or API failures.
+- [x] Re-run repeated full validation cycles and record the distinction between internal test reliability and external provider reachability.
