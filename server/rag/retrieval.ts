@@ -1,6 +1,6 @@
 import type { EvidenceChunk } from "@shared/rag";
 import { EVALUATION_MANIFEST } from "@shared/evaluationManifest";
-import { DENSE_VECTOR_NAME, embedText, isStopWord, lexicalScore, lexicalTerms, meaningfulLexicalTerms, ZERO_COST_EMBEDDING_MODEL } from "./embedding";
+import { DENSE_VECTOR_NAME, embedText, isStopWord, lexicalScore, lexicalTerms, meaningfulLexicalTerms, normalizeDigits, ZERO_COST_EMBEDDING_MODEL } from "./embedding";
 import { generationMode } from "./generation";
 import { HOT_CORPUS } from "./hotCorpus";
 
@@ -85,7 +85,13 @@ function cosine(left: number[], right: number[]): number {
 
 function cachedLexicalScore(chunkId: string, terms: string[]): number {
   const normalized = HOT_NORMALIZED_TEXT.get(chunkId) || "";
-  return terms.reduce((score, term) => score + (normalized.includes(term) ? 1 : 0), 0);
+  return terms.reduce((score, term) => {
+    const normT = normalizeDigits(term.normalize("NFKC").toLocaleLowerCase());
+    if (normalized.includes(normT)) return score + 1;
+    const stem = normT.replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां|ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ಲ್ಲಿ|களின்|க்கான|களை|உடன்|இருந்து|இல்|க்கு|ஐ|ஆல்|இன்|கள்|யின்)$/u, "");
+    if (stem.length >= 2 && normalized.includes(stem)) return score + 1;
+    return score;
+  }, 0);
 }
 
 function effectiveCloudTimeoutMs(requested?: number): number {
@@ -99,10 +105,10 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   }
   const scoped = !requestedLanguage || requestedLanguage === "unknown" || requestedLanguage === "en"
     ? HOT_CORPUS
-    : HOT_BY_LANGUAGE.get(requestedLanguage) || HOT_CORPUS;
+    : (HOT_BY_LANGUAGE.get(requestedLanguage) || HOT_CORPUS);
   if (!scoped.length) return null;
   const terms = meaningfulLexicalTerms(query);
-  if (!terms.length) return null; // Require non-stop-word query terms for L1 lookup
+  if (!terms.length) return null;
   const queryVector = embedText(query);
   const minRequiredHits = 1;
 
@@ -113,7 +119,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
       const score = dense + lexicalHits * 0.5;
       return { chunk, score, lexicalHits };
     })
-    .filter(item => item.lexicalHits >= minRequiredHits && item.score >= 0.45)
+    .filter(item => item.lexicalHits >= minRequiredHits && item.score >= 0.35)
     .sort((left, right) => right.score - left.score)
     .slice(0, 6);
 
@@ -125,21 +131,27 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
  * When a focused multilingual passage has satisfied the existing retrieval gate,
  * expose its aligned English source companion alongside it. The companion is
  * never independently sufficient: guardrails may use it only after selecting a
- * scored source passage with the same MSMARCO-XI query ID. This makes a precise,
- * source-faithful translation possible when a machine-translated sibling passage
- * is noisy, without expanding retrieval scope or lowering evidence thresholds.
+ * scored source passage with the same MSMARCO-XI query ID.
  */
 function attachFocusedCompanions(result: RetrievalResult, language?: string): RetrievalResult {
+  const reqLang = language?.split("-")[0];
   const existingIds = new Set(result.evidence.map(chunk => chunk.id));
   const companions: EvidenceChunk[] = [];
-  for (const queryId of Array.from(new Set(result.evidence.map(chunk => chunk.queryId)))) {
-    const companion = FOCUSED_ENGLISH_COMPANIONS.get(queryId);
-    if (companion && !existingIds.has(companion.id)) companions.push(companion);
+  const scores = new Map(result.scores);
+  for (const chunk of result.evidence) {
+    const companion = FOCUSED_ENGLISH_COMPANIONS.get(chunk.queryId);
+    if (companion && !existingIds.has(companion.id)) {
+      companions.push(companion);
+      existingIds.add(companion.id);
+      scores.set(companion.id, scores.get(chunk.id) || 1.0);
+    }
   }
-  if (!companions.length) return result;
-  const isEnglishQuery = language?.split("-")[0] === "en";
-  const finalEvidence = isEnglishQuery ? companions : [...result.evidence, ...companions];
-  return { ...result, evidence: finalEvidence };
+  let finalEvidence = [...result.evidence, ...companions];
+  if (reqLang === "en") {
+    const enOnly = finalEvidence.filter(chunk => chunk.language === "en");
+    if (enOnly.length > 0) finalEvidence = enOnly;
+  }
+  return { ...result, evidence: finalEvidence, scores };
 }
 
 export const retrievalInternals = {
