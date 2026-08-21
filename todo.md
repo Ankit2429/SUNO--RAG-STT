@@ -140,3 +140,6 @@
 - [x] Make black, burgundy, and white each visibly present in SUNO’s palette: black for structure, burgundy for active emphasis, and white for high-clarity content surfaces.
 - [x] Rebalance hero, prompt rail, answer cards, evaluator details, and motion accents so the three-color system reads clearly on desktop and mobile.
 - [x] Validate contrast, functional regressions, and responsive palette balance before checkpointing the adjustment.
+- [x] Replace all SUNO visual colors with only Iron #CDD2D7, Canary #E6FF50, and Shark #28282D, including backgrounds, controls, status signals, evidence, and animation accents.
+- [x] Re-map semantic states for accessible Shark-on-Iron and Shark-on-Canary contrast without introducing any fourth visual color.
+- [x] Verify color exclusivity, responsive composition, functional regressions, and the final Iron-Canary-Shark interface before checkpointing.
