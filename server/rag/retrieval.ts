@@ -18,6 +18,9 @@ const FOCUSED_ENGLISH_COMPANIONS = new Map(
     .filter(chunk => chunk.id.startsWith("en-companion-"))
     .map(chunk => [chunk.queryId, chunk]),
 );
+// The optional cloud tier must not consume the sub-100 ms internal RAG budget.
+// L1 remains preferred; an L2 overrun fails closed rather than delaying a reply.
+const LIVE_CLOUD_FALLBACK_TIMEOUT_MS = 80;
 // Index metadata is informational and must not inherit the live answer-path deadline.
 // Qdrant cold starts can exceed two seconds while the collection remains healthy.
 const INDEX_HEALTH_TIMEOUT_MS = 8_000;
@@ -85,6 +88,10 @@ function cachedLexicalScore(chunkId: string, terms: string[]): number {
   return terms.reduce((score, term) => score + (normalized.includes(term) ? 1 : 0), 0);
 }
 
+function effectiveCloudTimeoutMs(requested?: number): number {
+  return Math.max(25, Math.min(requested ?? LIVE_CLOUD_FALLBACK_TIMEOUT_MS, LIVE_CLOUD_FALLBACK_TIMEOUT_MS));
+}
+
 function retrieveHot(query: string, language: string): RetrievalResult | null {
   const requestedLanguage = language?.split("-")[0];
   const scoped = !requestedLanguage || requestedLanguage === "unknown"
@@ -136,7 +143,12 @@ function attachFocusedCompanions(result: RetrievalResult): RetrievalResult {
   return { ...result, evidence: [...result.evidence, ...companions] };
 }
 
-export const retrievalInternals = { retrieveHot, indexHealthTimeoutMs: INDEX_HEALTH_TIMEOUT_MS };
+export const retrievalInternals = {
+  retrieveHot,
+  indexHealthTimeoutMs: INDEX_HEALTH_TIMEOUT_MS,
+  liveCloudFallbackTimeoutMs: LIVE_CLOUD_FALLBACK_TIMEOUT_MS,
+  effectiveCloudTimeoutMs,
+};
 
 export async function hybridRetrieve(query: string, language: string, options: { allowCloudFallback?: boolean; cloudTimeoutMs?: number } = {}): Promise<RetrievalResult> {
   const hot = retrieveHot(query, language);
@@ -150,7 +162,7 @@ export async function hybridRetrieve(query: string, language: string, options: {
   }
   if (options.allowCloudFallback === false) return { evidence: [], scores: new Map(), mode: "local_no_evidence" };
   if (!configuredUrl() || !process.env.QDRANT_API_KEY) return { evidence: [], scores: new Map(), mode: "unavailable" };
-  const cloudTimeoutMs = Math.max(25, Math.min(options.cloudTimeoutMs ?? 175, 2_000));
+  const cloudTimeoutMs = effectiveCloudTimeoutMs(options.cloudTimeoutMs);
   const languageFilter = language && language !== "unknown" ? { key: "language", match: { value: language.split("-")[0] } } : null;
   const evaluationOnlyFilter = { key: "strategy", match: { value: "query_linked_evaluation" } };
   const terms = lexicalTerms(query);

@@ -49,7 +49,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   try {
     retrieval = await hybridRetrieve(query, input.languageCode, {
       allowCloudFallback: input.script !== "benchmark",
-      cloudTimeoutMs: input.script === "benchmark" ? 25 : 175,
+      cloudTimeoutMs: input.script === "benchmark" ? 25 : 80,
     });
     const retrievalDetail = retrieval.mode === "local_hot"
       ? "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped."
@@ -58,7 +58,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
       : retrieval.mode === "cloud"
           ? "Real MSMARCO-XI dense and lexical candidates retrieved from Qdrant in parallel."
           : retrieval.mode === "cloud_timeout"
-            ? "Remote Qdrant fallback exceeded the bounded 175 ms retrieval window; returned a truthful evidence refusal without waiting."
+            ? "Remote Qdrant fallback exceeded the bounded 80 ms retrieval window; returned a truthful evidence refusal without waiting."
           : "Cloud retrieval index is not configured.";
     trace(events, "parallel_retrieve", retrieveStart, retrieval.mode === "unavailable" ? "ERROR" : "OK", retrievalDetail);
   } catch (error) {

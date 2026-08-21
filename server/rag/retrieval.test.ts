@@ -105,6 +105,13 @@ describe("bounded language inventory routing", () => {
     expect(retrieval).toEqual({ evidence: [], scores: new Map(), mode: "cloud_timeout" });
   });
 
+  it("caps live cloud fallback at the internal RAG budget while preserving the shorter benchmark budget", () => {
+    expect(retrievalInternals.liveCloudFallbackTimeoutMs).toBe(80);
+    expect(retrievalInternals.effectiveCloudTimeoutMs(175)).toBe(80);
+    expect(retrievalInternals.effectiveCloudTimeoutMs()).toBe(80);
+    expect(retrievalInternals.effectiveCloudTimeoutMs(25)).toBe(25);
+  });
+
   it("reports a healthy full Qdrant collection through a separately bounded metadata probe", async () => {
     process.env.QDRANT_URL = "https://qdrant.example";
     process.env.QDRANT_API_KEY = "test-key";
