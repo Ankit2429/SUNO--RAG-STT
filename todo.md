@@ -137,3 +137,6 @@
 - [x] Replace SUNO’s cream-and-orange visual system with a high-contrast black, burgundy (#6D001A-inspired), and white palette drawn from the supplied reference while retaining a distinct SUNO identity.
 - [x] Re-map controls, evidence states, animations, borders, and background motifs for readable black-burgundy-white contrast across desktop and mobile.
 - [x] Run functional regressions, visual review, and checkpoint the palette redesign.
+- [x] Make black, burgundy, and white each visibly present in SUNO’s palette: black for structure, burgundy for active emphasis, and white for high-clarity content surfaces.
+- [x] Rebalance hero, prompt rail, answer cards, evaluator details, and motion accents so the three-color system reads clearly on desktop and mobile.
+- [x] Validate contrast, functional regressions, and responsive palette balance before checkpointing the adjustment.
