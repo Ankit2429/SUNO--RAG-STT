@@ -72,6 +72,8 @@ function normalizeContentTerm(term: string): string {
     .replace(/(?:ের|দের|কে|তে|এর|রে|থেকে|রা)$/u, "")
     .replace(/(?:નું|ના|ની|ને|માં|થી|ઓ)$/u, "");
 
+  base = base.replace(/ங்$/u, "ம்");
+
   // Corporation / Company / Governance
   if (base.startsWith("निगम") || base.startsWith("कम्पनी") || base.startsWith("कंपनी") || base.startsWith("कॉर्प") || base === "संस्था" || base === "संयोजन") return "corporation";
   if (base.startsWith("ನಿಗಮ") || base.startsWith("ಕಂಪನಿ") || base.startsWith("ಕಾರ್ಪ") || base.startsWith("ಸಂಯೋಜನೆ")) return "corporation";
@@ -141,7 +143,10 @@ function normalizeContentTerm(term: string): string {
   // Specific entity / procedure / object concepts
   if (base.startsWith("ইমপ্লাণ্ট") || base.startsWith("ইমপ্লান্ট") || base.startsWith("इम्प्लांट") || base.startsWith("ಇಂಪ್ಲಾಂಟ್") || base.startsWith("இம்ப்ளான்ட்") || base.startsWith("implant")) return "implant";
   if (base.startsWith("মুকুট") || base.startsWith("क्राउन") || base.startsWith("ಕ್ರೌನ್") || base.startsWith("கிரீடம்") || base.startsWith("crown")) return "crown";
-  if (base.startsWith("ল্যাপটপ") || base.startsWith("लैपटॉप") || base.startsWith("ಲ್ಯಾಪ್ಟಾಪ್") || base.startsWith("லேப்டாப்") || base.startsWith("laptop")) return "laptop";
+  if (base.startsWith("डेंटल") || base.startsWith("दांत") || base.startsWith("दंत") || base.startsWith("பல்") || base.startsWith("பற்க") || base.startsWith("ಹಲ್ಲಿ") || base.startsWith("dental") || base.startsWith("tooth") || base.startsWith("teeth")) return "dental";
+  if (base.startsWith("सोलर") || base.startsWith("सौर") || base.startsWith("ಸೌರ") || base.startsWith("சூரிய") || base.startsWith("solar") || base.startsWith("pv")) return "solar";
+  if (base.startsWith("बिजली") || base.startsWith("वीज") || base.startsWith("ವಿದ್ಯುತ್") || base.startsWith("மின்சாரம்") || base.startsWith("electricity") || base.startsWith("kwh") || base.startsWith("किलोवाट") || base.startsWith("किलोवॅट")) return "electricity";
+  if (base.startsWith("ल্যাপটপ") || base.startsWith("लैपटॉप") || base.startsWith("ಲ್ಯಾಪ್ಟಾಪ್") || base.startsWith("லேப்டாப்") || base.startsWith("laptop")) return "laptop";
   if (base.startsWith("ডেস্কটপ") || base.startsWith("डेस्कटॉप") || base.startsWith("ಡೆಸ್ಕ್ಟಾಪ್") || base.startsWith("டெஸ்க்டாப்") || base.startsWith("desktop")) return "desktop";
   if (base.startsWith("টিকা") || base.startsWith("ভ্যাকসিন") || base.startsWith("वैक्सीन") || base.startsWith("लसीका") || base.startsWith("தடுப்பூசி") || base.startsWith("vaccine")) return "vaccine";
   if (base.startsWith("অ্যান্টিবায়োটিক") || base.startsWith("एंटीबायोटिक") || base.startsWith("ಆಂಟಿಬಯೋಟಿಕ್") || base.startsWith("நுண்ணுயிர் எதிர்ப்பி") || base.startsWith("antibiotic")) return "antibiotic";
@@ -150,7 +155,7 @@ function normalizeContentTerm(term: string): string {
   if (base.startsWith("বিমান") || base.startsWith("विमान") || base.startsWith("விமானம்") || base.startsWith("aircraft") || base.startsWith("airplane")) return "aircraft";
   if (base.startsWith("ইনপেশেন্ট") || base.startsWith("इनपेशेंट") || base.startsWith("inpatient")) return "inpatient";
   if (base.startsWith("আউটপেশেন্ট") || base.startsWith("आउटपेशेंट") || base.startsWith("outpatient")) return "outpatient";
-  if (base.startsWith("খরচ") || base.startsWith("খৰচ") || base.startsWith("মূল্য") || base.startsWith("দাম") || base.startsWith("किंमत") || base.startsWith("खर्च") || base.startsWith("लागत") || base.startsWith("ಬೆಲೆ") || base.startsWith("விலை") || base.startsWith("cost") || base.startsWith("price") || base.startsWith("rate") || base.startsWith("average") || base.startsWith("গড়")) return "cost_attribute";
+  if (base.startsWith("খরচ") || base.startsWith("খৰচ") || base.startsWith("मूल्य") || base.startsWith("দাম") || base.startsWith("किंमत") || base.startsWith("खर्च") || base.startsWith("लागत") || base.startsWith("செலவு") || base.startsWith("ಬೆಲೆ") || base.startsWith("விலை") || base.startsWith("cost") || base.startsWith("price") || base.startsWith("rate") || base.startsWith("average") || base.startsWith("গড়")) return "cost_attribute";
 
   // Ringworm / Fungus / Trichophyton Rubrum
   if (base.startsWith("रिंगवर्म") || base.startsWith("दाद") || base.startsWith("ರಿಂಗ್ವರ್ಮ್") || base.startsWith("ரிங்வோர்") || base.startsWith("ringworm")) return "ringworm";

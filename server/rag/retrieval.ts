@@ -103,7 +103,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   if (requestedLanguage && requestedLanguage !== "unknown" && !INDEXED_LANGUAGE_CODES.has(requestedLanguage)) {
     return null;
   }
-  const scoped = !requestedLanguage || requestedLanguage === "unknown"
+  const scoped = !requestedLanguage || requestedLanguage === "unknown" || requestedLanguage === "en"
     ? HOT_CORPUS
     : (HOT_BY_LANGUAGE.get(requestedLanguage) || HOT_CORPUS);
   if (!scoped.length) return null;
