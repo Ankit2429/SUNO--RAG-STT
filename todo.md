@@ -161,3 +161,4 @@
 - [x] Verify the premium visual pass on desktop and mobile, run regressions, and save a reviewable checkpoint.
 - [x] Trace SUNO’s active live-query route, run real source-backed requests against the deployed provider configuration, and distinguish observed outcomes from unit-test coverage.
 - [x] Repair only a reproduced real query-path defect, add regression coverage, revalidate with live evidence checks, and checkpoint the result. No reproducible execution defect was observed, so no query-path code change was made.
+- [x] Replace only the server listener’s dynamic-port fallback with Render-compatible `PORT` binding on `0.0.0.0`, then verify the production build succeeds.
