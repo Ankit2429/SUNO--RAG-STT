@@ -20,7 +20,7 @@ const FOCUSED_ENGLISH_COMPANIONS = new Map(
 );
 // The optional cloud tier must not consume the sub-100 ms internal RAG budget.
 // L1 remains preferred; an L2 overrun fails closed rather than delaying a reply.
-const LIVE_CLOUD_FALLBACK_TIMEOUT_MS = 25;
+const LIVE_CLOUD_FALLBACK_TIMEOUT_MS = 20;
 // Index metadata is informational and must not inherit the live answer-path deadline.
 // Qdrant cold starts can exceed two seconds while the collection remains healthy.
 const INDEX_HEALTH_TIMEOUT_MS = 8_000;
@@ -29,6 +29,14 @@ for (const chunk of HOT_CORPUS) {
   const existing = HOT_BY_LANGUAGE.get(chunk.language) || [];
   existing.push(chunk);
   HOT_BY_LANGUAGE.set(chunk.language, existing);
+}
+
+function raceTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+  let timer: NodeJS.Timeout;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error("Cloud retrieval timeout exceeded")), timeoutMs);
+  });
+  return Promise.race([promise, timeoutPromise]).finally(() => clearTimeout(timer));
 }
 
 function configuredUrl(): string | null {
@@ -207,7 +215,7 @@ export async function hybridRetrieve(query: string, language: string, options: {
   let semanticPoints: QdrantPoint[];
   let lexicalPoints: QdrantPoint[];
   try {
-    [semanticPoints, lexicalPoints] = await Promise.all([semantic, lexical]);
+    [semanticPoints, lexicalPoints] = await raceTimeout(Promise.all([semantic, lexical]), cloudTimeoutMs);
   } catch {
     // The internal RAG path has a strict response budget. If Qdrant cannot return
     // within its bounded parallel fallback window, prefer a truthful refusal to a
