@@ -10,6 +10,7 @@ afterEach(() => {
   globalThis.fetch = originalFetch;
   if (originalApiKey === undefined) delete process.env.SARVAM_API_KEY;
   else process.env.SARVAM_API_KEY = originalApiKey;
+  vi.restoreAllMocks();
 });
 
 describe("transcribeWithSarvam", () => {
@@ -66,5 +67,32 @@ describe("transcribeWithSarvam", () => {
     globalThis.fetch = vi.fn(async () => new Response(JSON.stringify({ error: { message: "Failed to read the file, please check the audio format." } }), { status: 400, headers: { "Content-Type": "application/json" } })) as typeof fetch;
 
     await expect(transcribeWithSarvam({ audioBase64, mimeType: "audio/webm;codecs=opus", languageHint: "kn-IN" })).rejects.toThrow("Failed to read the file, please check the audio format.");
+  });
+
+  it("logs only safe request diagnostics for a Sarvam response", async () => {
+    process.env.SARVAM_API_KEY = "test-key";
+    const infoSpy = vi.spyOn(console, "info").mockImplementation(() => undefined);
+    globalThis.fetch = vi.fn(async () => new Response(JSON.stringify({ transcript: "Safe transcript", language_code: "en-IN" }), { status: 200, statusText: "OK", headers: { "Content-Type": "application/json" } })) as typeof fetch;
+
+    await transcribeWithSarvam({ audioBase64, mimeType: "audio/webm;codecs=opus", languageHint: "en-IN" });
+
+    const log = infoSpy.mock.calls.flat().join(" ");
+    expect(log).toMatch(/\[Sarvam\] attempt=1\/3 starting at=/);
+    expect(log).toMatch(/\[Sarvam\] attempt=1\/3 status=200 statusText="OK" durationMs=\d+ transcript=true/);
+    expect(log).not.toContain("test-key");
+    expect(log).not.toContain(audioBase64);
+  });
+
+  it("logs safe network diagnostics before preserving the existing retry path", async () => {
+    process.env.SARVAM_API_KEY = "test-key";
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    globalThis.fetch = vi.fn()
+      .mockRejectedValueOnce(new TypeError("network offline"))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ transcript: "Recovered transcript", language_code: "en-IN" }), { status: 200, headers: { "Content-Type": "application/json" } })) as typeof fetch;
+
+    const result = await transcribeWithSarvam({ audioBase64, mimeType: "audio/webm;codecs=opus", languageHint: "en-IN" });
+
+    expect(result.transcript).toBe("Recovered transcript");
+    expect(warnSpy.mock.calls.flat().join(" ")).toMatch(/\[Sarvam\] attempt=1\/3 network_error name=TypeError message="network offline" durationMs=\d+/);
   });
 });

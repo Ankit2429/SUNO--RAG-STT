@@ -179,3 +179,4 @@
 - [x] Add privacy-safe end-to-end timing traces, source-safe repeat-query caching, and truthful live progress states; then validate cold and warm latency distributions without weakening citations or refusals.
 - [x] Further profile and reduce the public-delivery latency tail, then run every available project test, provider smoke check, strict live evaluation, repeated cold/warm probe, and browser verification with observed results recorded.
 - [x] Commit and push all safe SUNO project changes to GitHub main while keeping the confidential Render credential audit outside version control.
+- [x] Add temporary privacy-safe Sarvam request diagnostics for attempts, response status, transcript presence, provider errors, network errors, and duration; preserve all STT behavior, credentials, retries, endpoint, model, and frontend behavior, then validate and push the isolated change.

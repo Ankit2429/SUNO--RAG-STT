@@ -34,6 +34,15 @@ function pause(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function safeDiagnosticMessage(value: unknown): string {
+  const message = value instanceof Error ? value.message : typeof value === "string" ? value : "unknown";
+  return message
+    .replace(/(api-subscription-key|authorization|x-idempotency-key)\s*[:=]\s*[^\s,;]+/gi, "$1=[REDACTED]")
+    .replace(/data:[^;]+;base64,[A-Za-z0-9+/=]+/gi, "[REDACTED_AUDIO]")
+    .replace(/[\r\n]+/g, " ")
+    .slice(0, 500);
+}
+
 export async function transcribeWithSarvam(input: {
   audioBase64: string;
   mimeType: string;
@@ -54,6 +63,10 @@ export async function transcribeWithSarvam(input: {
   let lastError = "Sarvam did not return a transcription.";
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
+    const attemptNumber = attempt + 1;
+    const startedAt = new Date().toISOString();
+    const startedAtMs = Date.now();
+    console.info(`[Sarvam] attempt=${attemptNumber}/3 starting at=${startedAt}`);
     const form = new FormData();
     const audio = new Uint8Array(bytes.byteLength);
     audio.set(bytes);
@@ -70,6 +83,10 @@ export async function transcribeWithSarvam(input: {
         signal: AbortSignal.timeout(25_000),
       });
     } catch (error) {
+      console.warn(
+        `[Sarvam] attempt=${attemptNumber}/3 network_error name=${error instanceof Error ? error.name : "UnknownError"} ` +
+        `message=${JSON.stringify(safeDiagnosticMessage(error))} durationMs=${Date.now() - startedAtMs}`,
+      );
       const timedOut = error instanceof Error && error.name === "TimeoutError";
       lastError = timedOut ? "Sarvam transcription timed out. Please retry your question." : `Sarvam network failure: ${error instanceof Error ? error.message : "unknown"}`;
       if (attempt === 2) break;
@@ -77,13 +94,24 @@ export async function transcribeWithSarvam(input: {
       continue;
     }
     const payload = (await response.json().catch(() => ({}))) as SarvamResponse & { error?: { message?: string } };
-    if (response.ok && payload.transcript?.trim()) {
+    const hasTranscript = Boolean(payload.transcript?.trim());
+    const providerError = payload.error?.message ? safeDiagnosticMessage(payload.error.message) : null;
+    const responseLog = [
+      `[Sarvam] attempt=${attemptNumber}/3`,
+      `status=${response.status}`,
+      `statusText=${JSON.stringify(response.statusText)}`,
+      `durationMs=${Date.now() - startedAtMs}`,
+      `transcript=${hasTranscript}`,
+    ];
+    if (providerError) responseLog.push(`error=${JSON.stringify(providerError)}`);
+    console.info(responseLog.join(" "));
+    if (response.ok && hasTranscript) {
       const languageCode = payload.language_code || "unknown";
       const languageProbability = typeof payload.language_probability === "number" && payload.language_probability >= 0 && payload.language_probability <= 1
         ? payload.language_probability
         : null;
       return {
-        transcript: payload.transcript.trim(),
+        transcript: payload.transcript!.trim(),
         languageCode,
         script: scriptFor(languageCode),
         languageProbability,
