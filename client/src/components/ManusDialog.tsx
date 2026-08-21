@@ -51,10 +51,10 @@ export function ManusDialog({
       open={onOpenChange ? open : internalOpen}
       onOpenChange={handleOpenChange}
     >
-      <DialogContent className="py-5 bg-[#F2EADA] rounded-[20px] w-[400px] shadow-[0px_4px_11px_0px_rgba(40,40,45,0.32)] border border-[#244FA0] backdrop-blur-2xl p-0 gap-0 text-center">
+      <DialogContent className="py-5 bg-[#BFCED7] rounded-[20px] w-[400px] shadow-[0px_4px_11px_0px_rgba(40,40,45,0.32)] border border-[#000000] backdrop-blur-2xl p-0 gap-0 text-center">
         <div className="flex flex-col items-center gap-2 p-5 pt-12">
           {logo ? (
-            <div className="w-16 h-16 bg-[#E9A329] rounded-xl border border-[#244FA0] flex items-center justify-center">
+            <div className="w-16 h-16 bg-[#686B6C] rounded-xl border border-[#000000] flex items-center justify-center">
               <img
                 src={logo}
                 alt="Dialog graphic"
@@ -65,11 +65,11 @@ export function ManusDialog({
 
           {/* Title and subtitle */}
           {title ? (
-            <DialogTitle className="text-xl font-semibold text-[#244FA0] leading-[26px] tracking-[-0.44px]">
+            <DialogTitle className="text-xl font-semibold text-[#000000] leading-[26px] tracking-[-0.44px]">
               {title}
             </DialogTitle>
           ) : null}
-          <DialogDescription className="text-sm text-[#244FA0] leading-5 tracking-[-0.154px]">
+          <DialogDescription className="text-sm text-[#000000] leading-5 tracking-[-0.154px]">
             Please login with Manus to continue
           </DialogDescription>
         </div>
@@ -78,7 +78,7 @@ export function ManusDialog({
           {/* Login button */}
           <Button
             onClick={onLogin}
-            className="w-full h-10 bg-[#E9A329] hover:bg-[#F2EADA] text-[#244FA0] rounded-[10px] text-sm font-medium leading-5 tracking-[-0.154px]"
+            className="w-full h-10 bg-[#686B6C] hover:bg-[#BFCED7] text-[#000000] rounded-[10px] text-sm font-medium leading-5 tracking-[-0.154px]"
           >
             Login with Manus
           </Button>

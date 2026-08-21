@@ -149,3 +149,6 @@
 - [x] Replace the current Iron-Canary-Shark theme with the supplied red, cream, saffron, forest-green, and cobalt-blue SUNO palette.
 - [x] Apply the five-color system to SUNO hierarchy, controls, evidence states, background motifs, and motion while retaining the clean evaluator flow.
 - [x] Validate contrast, responsive presentation, functional regressions, and the refined five-color interface before checkpointing.
+- [x] Replace the current five-color SUNO theme with the supplied black, dove-grey, and pale-blue palette across visible surfaces and motion accents.
+- [x] Add focused interactive elements that improve evaluator use: a compact display-mode control, live interaction-state feedback, and clearer source/evidence affordances without altering the voice-RAG pipeline.
+- [x] Add or update regression coverage for the new interactions, verify desktop/mobile usability, and checkpoint the completed visual upgrade.
