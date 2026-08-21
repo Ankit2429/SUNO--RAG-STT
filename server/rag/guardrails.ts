@@ -138,6 +138,20 @@ function normalizeContentTerm(term: string): string {
   if (base.startsWith("एनएचएल") || base.startsWith("ಎನ್ಹೆಚ್ಎಲ್") || base.startsWith("என்ஹெச்எல்") || base.startsWith("nhl")) return "nhl";
   if (base.startsWith("प्लेऑफ") || base.startsWith("ಪ್ಲೇಆಫ್") || base.startsWith("பிளேஆஃப்") || base.startsWith("playoff")) return "playoffs";
 
+  // Specific entity / procedure / object concepts
+  if (base.startsWith("ইমপ্লাণ্ট") || base.startsWith("ইমপ্লান্ট") || base.startsWith("इम्प्लांट") || base.startsWith("ಇಂಪ್ಲಾಂಟ್") || base.startsWith("இம்ப்ளான்ட்") || base.startsWith("implant")) return "implant";
+  if (base.startsWith("মুকুট") || base.startsWith("क्राउन") || base.startsWith("ಕ್ರೌನ್") || base.startsWith("கிரீடம்") || base.startsWith("crown")) return "crown";
+  if (base.startsWith("ল্যাপটপ") || base.startsWith("लैपटॉप") || base.startsWith("ಲ್ಯಾಪ್ಟಾಪ್") || base.startsWith("லேப்டாப்") || base.startsWith("laptop")) return "laptop";
+  if (base.startsWith("ডেস্কটপ") || base.startsWith("डेस्कटॉप") || base.startsWith("ಡೆಸ್ಕ್ಟಾಪ್") || base.startsWith("டெஸ்க்டாப்") || base.startsWith("desktop")) return "desktop";
+  if (base.startsWith("টিকা") || base.startsWith("ভ্যাকসিন") || base.startsWith("वैक्सीन") || base.startsWith("लसीका") || base.startsWith("தடுப்பூசி") || base.startsWith("vaccine")) return "vaccine";
+  if (base.startsWith("অ্যান্টিবায়োটিক") || base.startsWith("एंटीबायोटिक") || base.startsWith("ಆಂಟಿಬಯೋಟಿಕ್") || base.startsWith("நுண்ணுயிர் எதிர்ப்பி") || base.startsWith("antibiotic")) return "antibiotic";
+  if (base.startsWith("विखंडन") || base.startsWith("fission")) return "fission";
+  if (base.startsWith("संलयन") || base.startsWith("fusion")) return "fusion";
+  if (base.startsWith("বিমান") || base.startsWith("विमान") || base.startsWith("விமானம்") || base.startsWith("aircraft") || base.startsWith("airplane")) return "aircraft";
+  if (base.startsWith("ইনপেশেন্ট") || base.startsWith("इनपेशेंट") || base.startsWith("inpatient")) return "inpatient";
+  if (base.startsWith("আউটপেশেন্ট") || base.startsWith("आउटपेशेंट") || base.startsWith("outpatient")) return "outpatient";
+  if (base.startsWith("খরচ") || base.startsWith("খৰচ") || base.startsWith("মূল্য") || base.startsWith("দাম") || base.startsWith("किंमत") || base.startsWith("खर्च") || base.startsWith("लागत") || base.startsWith("ಬೆಲೆ") || base.startsWith("விலை") || base.startsWith("cost") || base.startsWith("price") || base.startsWith("rate") || base.startsWith("average") || base.startsWith("গড়")) return "cost_attribute";
+
   // Ringworm / Fungus / Trichophyton Rubrum
   if (base.startsWith("रिंगवर्म") || base.startsWith("दाद") || base.startsWith("ರಿಂಗ್ವರ್ಮ್") || base.startsWith("ரிங்வோர்") || base.startsWith("ringworm")) return "ringworm";
   if (base.startsWith("टिनिया") || base.startsWith("டினியா") || base.startsWith("tinea")) return "tinea";
@@ -259,22 +273,37 @@ const CORE_DOMAIN_KEYWORDS = new Set([
 
 const GENERIC_CONTAINER_TERMS = new Set([
   // English / Stems
-  "solar", "energy", "system", "water", "food", "research", "treatment", "service", "customer", "school", "education", "student", "output", "hours", "team", "teams", "list", "show", "give", "help", "section", "article",
+  "solar", "energy", "system", "water", "food", "research", "treatment", "service", "customer", "school", "education", "student", "output", "hours", "team", "teams", "list", "show", "give", "help", "section", "article", "cost_attribute", "cost", "price", "rate", "average", "difference", "meaning", "definition",
   // Hindi
-  "सौर", "ऊर्जा", "प्रणाली", "पानी", "आहार", "भोजन", "शोध", "अध्ययन", "उपचार", "सेवा", "स्कूल", "शिक्षा", "छात्र", "देश", "यादी", "सूची", "घंटे",
+  "सौर", "ऊर्जा", "प्रणाली", "पानी", "आहार", "भोजन", "शोध", "अध्ययन", "उपचार", "सेवा", "स्कूल", "शिक्षा", "छात्र", "देश", "यादी", "सूची", "घंटे", "लागत", "खर्च", "मूल्य",
   // Kannada
-  "ನೀರು", "ಸಂಶೋಧನೆ", "ಶಿಕ್ಷಣ", "ಶಾಲೆ", "ವಿದ್ಯಾರ್ಥಿ", "ಸೇವೆ", "ತಂಡಗಳು", "ಪಟ್ಟಿ", "ಮಾಹಿತಿ",
+  "ನೀರು", "ಸಂಶೋಧನೆ", "ಶಿಕ್ಷಣ", "ಶಾಲೆ", "ವಿದ್ಯಾರ್ಥಿ", "ಸೇವೆ", "ತಂಡಗಳು", "ಪಟ್ಟಿ", "ಮಾಹಿತಿ", "ಬೆಲೆ",
   // Tamil
-  "உணவு", "நீர்", "ஆராய்ச்சி", "கல்வி", "பள்ளி", "மாணவர்", "சேவை", "அணிகள்", "பட்டியல்", "தகவல்",
+  "உணவு", "நீர்", "ஆராய்ச்சி", "கல்வி", "பள்ளி", "மாணவர்", "சேவை", "அணிகள்", "பட்டியல்", "தகவல்", "விலை",
   // Marathi
-  "अन्न", "पाणी", "अभ्यास", "शिक्षण", "ಶಾळा", "सेवा", "संघ", "यादी"
+  "अन्न", "पाणी", "अभ्यास", "शिक्षण", "ಶಾळा", "सेवा", "संघ", "यादी", "खर्च", "किंमत"
 ]);
+
+const MUTUALLY_EXCLUSIVE_CONCEPTS: Array<Set<string>> = [
+  new Set(["implant", "crown", "bridge", "denture"]),
+  new Set(["laptop", "desktop"]),
+  new Set(["vaccine", "antibiotic"]),
+  new Set(["aircraft", "airplane", "ship", "boat"]),
+  new Set(["fission", "fusion"]),
+  new Set(["virus", "bacteria", "fungus"]),
+  new Set(["inpatient", "outpatient"]),
+  new Set(["buyer", "seller"]),
+  new Set(["indoor", "outdoor"]),
+  new Set(["import", "export"])
+];
 
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
   const terms = queryTerms(query);
   if (!terms.size) {
     return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
   }
+
+  const queryConcepts = new Set(Array.from(terms).map(normalizeContentTerm).filter(Boolean));
 
   const supported = evidence
     .map(chunk => {
@@ -290,6 +319,26 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
           .filter(w => w && w.length >= 2)
       );
 
+      const chunkConcepts = new Set(
+        normalizeDigits(chunk.text.normalize("NFKC").toLocaleLowerCase())
+          .split(/[^\p{L}\p{M}\p{N}]+/u)
+          .map(normalizeContentTerm)
+          .filter(Boolean)
+      );
+
+      // Specificity Requirement 4: Negative concept conflict handling (implant vs crown, laptop vs desktop, etc.)
+      for (const group of MUTUALLY_EXCLUSIVE_CONCEPTS) {
+        for (const qc of queryConcepts) {
+          if (group.has(qc)) {
+            for (const other of group) {
+              if (other !== qc && chunkConcepts.has(other) && !chunkConcepts.has(qc)) {
+                return null; // Reject candidate due to specific procedure/entity conflict
+              }
+            }
+          }
+        }
+      }
+
       const matchedTerms = Array.from(terms).filter(t => {
         const normT = normalizeContentTerm(t);
         return (normT && normT.length >= 2 && sentenceWords.has(normT)) || sentenceWords.has(t);
@@ -297,6 +346,19 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
 
       const effectiveMatchCount = matchedTerms.length;
       if (effectiveMatchCount === 0) return null;
+
+      // Specificity Requirement 3: Generic attribute/context overlap is not sufficient when query has a specific entity
+      const matchedNormalized = matchedTerms.map(normalizeContentTerm);
+      const isOnlyGenericAttributes = matchedNormalized.every(t => 
+        t === "cost_attribute" || GENERIC_CONTAINER_TERMS.has(t)
+      );
+      const hasSpecificQueryConcept = Array.from(queryConcepts).some(t => 
+        t !== "cost_attribute" && !GENERIC_CONTAINER_TERMS.has(t) && t.length >= 2
+      );
+
+      if (hasSpecificQueryConcept && isOnlyGenericAttributes) {
+        return null; // Reject: Query asked for a specific entity but evidence only matched generic words (e.g. "cost")
+      }
 
       const hasDomainAnchor = matchedTerms.some(t => {
         const normT = normalizeContentTerm(t);
