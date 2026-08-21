@@ -1,6 +1,6 @@
 import type { EvidenceChunk } from "@shared/rag";
 import { EVALUATION_MANIFEST } from "@shared/evaluationManifest";
-import { DENSE_VECTOR_NAME, embedText, lexicalScore, lexicalTerms, ZERO_COST_EMBEDDING_MODEL } from "./embedding";
+import { DENSE_VECTOR_NAME, embedText, lexicalScore, lexicalTerms, meaningfulLexicalTerms, ZERO_COST_EMBEDDING_MODEL } from "./embedding";
 import { generationMode } from "./generation";
 import { HOT_CORPUS } from "./hotCorpus";
 
@@ -98,30 +98,23 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
     ? HOT_CORPUS
     : HOT_BY_LANGUAGE.get(requestedLanguage) || [];
   if (!scoped.length) return null;
-  const terms = lexicalTerms(query);
+  const terms = meaningfulLexicalTerms(query);
+  if (!terms.length) return null; // Require at least one non-stop-word query term for L1 lookup
   const queryVector = embedText(query);
   const ranked = scoped
     .map(chunk => {
-      const lexicalHits = terms.length ? cachedLexicalScore(chunk.id, terms) : 0;
-      const lexical = terms.length ? lexicalHits / terms.length : 0;
+      const lexicalHits = cachedLexicalScore(chunk.id, terms);
       const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));
-      // Exact source-bearing terms are intentionally weighted ahead of Unicode
-      // n-gram similarity. This prevents a same-script passage with incidental
-      // character overlap from displacing a passage that carries several audited
-      // query concepts, while preserving the dense signal as a tie-breaker.
-      return { chunk, score: dense + lexicalHits * 0.4, lexicalHits };
+      // Require non-stop-word lexical hit as primary signal, dense as tie-breaker
+      const score = dense + lexicalHits * 0.5;
+      return { chunk, score, lexicalHits };
     })
-    .filter(item => item.score > 0.1)
+    .filter(item => item.lexicalHits >= 1 && item.score >= 0.45)
     .sort((left, right) => right.score - left.score)
     .slice(0, 6);
-  // L1 is deliberately small. Unicode n-gram similarity alone can rank unrelated
-  // same-script passages, which would prevent the full corpus from being queried.
-  // Require at least one normalized query-term overlap before accepting the fast path.
-  // Otherwise, defer to Qdrant L2 where the full MSMARCO-XI language shard can supply
-  // evidence or the existing gate can refuse truthfully.
-  const supported = terms.length ? ranked.filter(item => item.lexicalHits > 0) : ranked;
-  if (!supported.length) return null;
-  return { evidence: supported.map(item => item.chunk), scores: new Map(supported.map(item => [item.chunk.id, item.score])), mode: "local_hot" };
+
+  if (!ranked.length) return null;
+  return { evidence: ranked.map(item => item.chunk), scores: new Map(ranked.map(item => [item.chunk.id, item.score])), mode: "local_hot" };
 }
 
 /**
