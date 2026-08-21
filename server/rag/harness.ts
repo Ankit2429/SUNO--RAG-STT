@@ -48,7 +48,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   let retrieval;
   try {
     retrieval = await hybridRetrieve(query, input.languageCode, {
-      allowCloudFallback: input.script !== "benchmark",
+      allowCloudFallback: false,
       cloudTimeoutMs: 20,
     });
     const retrievalDetail = retrieval.mode === "local_hot"
