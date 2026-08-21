@@ -163,3 +163,5 @@
 - [x] Repair only a reproduced real query-path defect, add regression coverage, revalidate with live evidence checks, and checkpoint the result. No reproducible execution defect was observed, so no query-path code change was made.
 - [x] Replace only the server listener’s dynamic-port fallback with Render-compatible `PORT` binding on `0.0.0.0`, then verify the production build succeeds.
 - [x] Commit and push the verified Render listener adjustment to the configured GitHub `main` branch.
+- [x] Inspect existing SUNO environment configuration and report only verified values for the requested Render variables without changing code or secrets.
+- [x] Commit and push the completed Render environment-audit record to the configured GitHub `main` branch.
