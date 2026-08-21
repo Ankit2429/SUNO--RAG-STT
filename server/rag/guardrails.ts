@@ -22,7 +22,7 @@ const promptInjectionPatterns = [
 export function refused(reason: string): StructuredAnswer {
   return {
     status: "REFUSED",
-    answer: "No directly matching MSMARCO-XI passage was found for this question, so SvaraProof will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+    answer: "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
     evidenceIds: [],
     confidenceBand: "NONE",
     refusalReason: reason,

@@ -111,7 +111,7 @@ export async function runVoiceHarness(input: { audioBase64: string; mimeType: st
       trace(events, "return", now(), "OK", "Fail-closed automatic-language refusal returned.");
       const reason = !languageReliable
         ? "I could not identify the spoken language with enough confidence. Select a language override and record again."
-        : "SvaraProof currently supports Hindi, Kannada, English, Tamil, and Marathi. Select one of these languages and record again.";
+        : "SUNO currently supports Hindi, Kannada, English, Tamil, and Marathi. Select one of these languages and record again.";
       return { requestId, transcript: transcription.transcript, detectedLanguage: transcription.languageCode, detectedScript: transcription.script, detectedLanguageConfidence: transcription.languageProbability, answer: refused(reason), evidence: [], trace: events, latency: { sttMs: elapsed(sttStart), ragMs: 0, endToEndMs: elapsed(totalStart) } };
     }
     const textRun = await runPostTranscriptionHarness({ transcript: transcription.transcript, languageCode: transcription.languageCode, script: transcription.script, languageConfidence: transcription.languageProbability });

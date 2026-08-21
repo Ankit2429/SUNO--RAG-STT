@@ -166,3 +166,4 @@
 - [x] Inspect existing SUNO environment configuration and report only verified values for the requested Render variables without changing code or secrets.
 - [x] Commit and push the completed Render environment-audit record to the configured GitHub `main` branch.
 - [x] Run a one-time 40-case live evaluation loop across grounded retrieval, five-language routing, refusals, injection/unsafe guardrails, citations, and observed latency; report actual outcomes without changing application logic.
+- [x] Replace all active user-facing SvaraProof refusal branding with SUNO, add or update regression coverage, and verify the corrected state without altering retrieval or guardrail logic.
