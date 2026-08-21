@@ -48,12 +48,12 @@ export function inspectQuery(query: string): string | null {
   return null;
 }
 
-import { STOP_WORDS } from "./embedding";
+import { STOP_WORDS, meaningfulLexicalTerms } from "./embedding";
 
 function queryTerms(query: string): Set<string> {
-  return new Set(
-    query.toLocaleLowerCase().split(/[^\w\u0900-\u0D7F]+/).map(normalizeContentTerm).filter(term => term.length >= 2 && !STOP_WORDS.has(term)).slice(0, 12),
-  );
+  const extracted = meaningfulLexicalTerms(query);
+  const normalized = extracted.map(normalizeContentTerm);
+  return new Set(normalized.filter(term => term.length >= 2 && !STOP_WORDS.has(term)));
 }
 
 /**
@@ -173,13 +173,27 @@ function focusedSourceFaithfulAnswer(query: string, languageCode: string | undef
   };
 }
 
+const GENERIC_SINGLE_MATCH_TERMS = new Set([
+  "रोग", "रोगों", "प्रकल्प", "सर्वात", "अत्यांत", "नियंत्रित", "जातात", "काम", "વિગત", "ವಿವರಗಳು", "விவரங்கள்", "ಮಾಹಿತಿ", "जानकारी", "विवरण", "विस्तार", "என்றால்", "काय", "एंदरेनू", "ಎಂದರೇನು", "എന്താണ്", "अति", "अत्यंत", "விளக்கம்", "विस्तार", "प्रकार", "कसे"
+]);
+
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
   const terms = queryTerms(query);
-  const minRequiredMatches = terms.size >= 4 ? 2 : 1;
+  const minRequiredMatches = 1;
 
   const supported = evidence
-    .map(chunk => ({ chunk, match: evidenceSentence(chunk, terms), score: scores.get(chunk.id) ?? 0 }))
-    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item.match) && item.match.termMatches >= minRequiredMatches)
+    .map(chunk => {
+      const match = evidenceSentence(chunk, terms);
+      if (!match || match.termMatches < minRequiredMatches) return null;
+      if (terms.size >= 3 && match.termMatches === 1) {
+        const matchedTermList = Array.from(terms).filter(t => match.sentence.toLocaleLowerCase().includes(t));
+        if (matchedTermList.length === 1 && GENERIC_SINGLE_MATCH_TERMS.has(matchedTermList[0])) {
+          return null;
+        }
+      }
+      return { chunk, match, score: scores.get(chunk.id) ?? 0 };
+    })
+    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item))
     .sort((a, b) => b.match.termMatches - a.match.termMatches || b.score - a.score);
 
   const uniqueParents = new Set(supported.map(item => item.chunk.parentId));
