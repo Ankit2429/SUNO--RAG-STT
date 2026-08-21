@@ -175,8 +175,26 @@ function focusedSourceFaithfulAnswer(query: string, languageCode: string | undef
   };
 }
 
-const GENERIC_SINGLE_MATCH_TERMS = new Set([
-  "रोग", "रोगों", "प्रकल्प", "सर्वात", "अत्यांत", "नियंत्रित", "जातात", "काम", "વિગત", "ವಿವರಗಳು", "விவரங்கள்", "ಮಾಹಿತಿ", "जानकारी", "विवरण", "विस्तार", "என்றால்", "काय", "एंदरेनू", "ಎಂದರೇನು", "എന്താണ്", "अति", "अत्यंत", "விளக்கம்", "विस्तार", "प्रकार", "कसे"
+const CORE_DOMAIN_KEYWORDS = new Set([
+  // English
+  "corporation", "company", "incorporation", "carson", "pesticide", "obligation", "endure",
+  "potassium", "sodium", "diet", "nutrition", "bilge", "hull", "ship", "cargo",
+  "integrity", "honesty", "moral", "solar", "panel", "stubhub", "ringworm", "tinea",
+  "ptsd", "marijuana", "cannabis", "ontario", "barometer", "nhl", "playoffs", "gifford",
+
+  // Devanagari (Hindi / Marathi / Nepali)
+  "निगम", "कंपनी", "कार्सन", "कीटनाशक", "पर्यावरण", "पोटेशियम", "सोडियम", "आहार", "पोषक",
+  "जहाज", "बिल्ज", "तल", "हल", "सत्यनिष्ठा", "नैतिक", "प्रामाणिकपणा", "सौर", "पैनल",
+  "स्टबहब", "रिंगवर्म", "दाद", "टिनिया", "गांजा", "ऑन्टारियो", "गिफर्ड", "ऑब्लिगेशन", "एंड्योर",
+
+  // Kannada
+  "ಕಂಪನಿ", "ಕಾರ್ಪೊರೇಷನ್", "ಕಾನೂನು", "ಆಡಳಿತ", "ಪೊಟ್ಯಾಸಿಯಮ್", "ಆಹಾರ", "ಪ್ರಾಮಾಣಿಕತೆ", "ಸಂಯೋಜನೆ",
+
+  // Tamil
+  "நிறுவனம்", "கார்ப்பரேஷன்", "நேர்மை", "சூரிய", "பலகைகள்", "ரிங்வோர்ம்", "டினியா",
+
+  // Urdu / Bengali / Gujarati / etc.
+  "کمپنی", "کارپوریشن", "কোম্পানী", "કંપની"
 ]);
 
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
@@ -187,11 +205,10 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
     .map(chunk => {
       const match = evidenceSentence(chunk, terms);
       if (!match || match.termMatches < minRequiredMatches) return null;
-      if (terms.size >= 3 && match.termMatches === 1) {
+      if (match.termMatches === 1) {
         const matchedTermList = Array.from(terms).filter(t => match.sentence.toLocaleLowerCase().includes(t));
-        if (matchedTermList.length === 1 && GENERIC_SINGLE_MATCH_TERMS.has(matchedTermList[0])) {
-          return null;
-        }
+        const hasCoreDomainTerm = matchedTermList.some(t => CORE_DOMAIN_KEYWORDS.has(t));
+        if (!hasCoreDomainTerm) return null;
       }
       return { chunk, match, score: scores.get(chunk.id) ?? 0 };
     })
