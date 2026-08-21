@@ -10,7 +10,7 @@ export type RetrievalResult = { evidence: EvidenceChunk[]; scores: Map<string, n
 
 const COLLECTION = process.env.QDRANT_COLLECTION || "msmarco_xi_evaluation_v1";
 const EMBEDDING_MODEL = process.env.QDRANT_EMBEDDING_MODEL || ZERO_COST_EMBEDDING_MODEL;
-const INDEXED_LANGUAGE_CODES = new Set(EVALUATION_MANIFEST.languages);
+const INDEXED_LANGUAGE_CODES = new Set([...EVALUATION_MANIFEST.languages, "en"]);
 const HOT_VECTORS = new Map(HOT_CORPUS.map(chunk => [chunk.id, embedText(chunk.text)]));
 const HOT_NORMALIZED_TEXT = new Map(HOT_CORPUS.map(chunk => [chunk.id, chunk.text.normalize("NFKC").toLocaleLowerCase()]));
 const FOCUSED_ENGLISH_COMPANIONS = new Map(
@@ -94,9 +94,12 @@ function effectiveCloudTimeoutMs(requested?: number): number {
 
 function retrieveHot(query: string, language: string): RetrievalResult | null {
   const requestedLanguage = language?.split("-")[0];
-  const scoped = !requestedLanguage || requestedLanguage === "unknown"
+  if (requestedLanguage && requestedLanguage !== "unknown" && !INDEXED_LANGUAGE_CODES.has(requestedLanguage)) {
+    return null;
+  }
+  const scoped = !requestedLanguage || requestedLanguage === "unknown" || requestedLanguage === "en"
     ? HOT_CORPUS
-    : HOT_BY_LANGUAGE.get(requestedLanguage) || [];
+    : HOT_BY_LANGUAGE.get(requestedLanguage) || HOT_CORPUS;
   if (!scoped.length) return null;
   const terms = meaningfulLexicalTerms(query);
   if (!terms.length) return null; // Require non-stop-word query terms for L1 lookup
@@ -126,7 +129,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
  * source-faithful translation possible when a machine-translated sibling passage
  * is noisy, without expanding retrieval scope or lowering evidence thresholds.
  */
-function attachFocusedCompanions(result: RetrievalResult): RetrievalResult {
+function attachFocusedCompanions(result: RetrievalResult, language?: string): RetrievalResult {
   const existingIds = new Set(result.evidence.map(chunk => chunk.id));
   const companions: EvidenceChunk[] = [];
   for (const queryId of Array.from(new Set(result.evidence.map(chunk => chunk.queryId)))) {
@@ -134,7 +137,9 @@ function attachFocusedCompanions(result: RetrievalResult): RetrievalResult {
     if (companion && !existingIds.has(companion.id)) companions.push(companion);
   }
   if (!companions.length) return result;
-  return { ...result, evidence: [...result.evidence, ...companions] };
+  const isEnglishQuery = language?.split("-")[0] === "en";
+  const finalEvidence = isEnglishQuery ? companions : [...result.evidence, ...companions];
+  return { ...result, evidence: finalEvidence };
 }
 
 export const retrievalInternals = {
@@ -146,7 +151,7 @@ export const retrievalInternals = {
 
 export async function hybridRetrieve(query: string, language: string, options: { allowCloudFallback?: boolean; cloudTimeoutMs?: number } = {}): Promise<RetrievalResult> {
   const hot = retrieveHot(query, language);
-  if (hot) return attachFocusedCompanions(hot);
+  if (hot) return attachFocusedCompanions(hot, language);
   const requestedLanguage = language?.split("-")[0];
   if (requestedLanguage && requestedLanguage !== "unknown" && !INDEXED_LANGUAGE_CODES.has(requestedLanguage)) {
     // The bounded evaluation collection has no evidence in this locale. Returning

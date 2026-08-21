@@ -63,27 +63,29 @@ function queryTerms(query: string): Set<string> {
  * new answer or introduces an uncited synonym into the returned text.
  */
 function normalizeContentTerm(term: string): string {
-  const base = term.toLocaleLowerCase().replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली)$/, "");
+  let base = term.toLocaleLowerCase()
+    .replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां)$/u, "")
+    .replace(/(?:ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ನ|ಲ್ಲಿ)$/u, "")
+    .replace(/(?:இன்|ஐ|க்கு|இல்|உடன்|ஆல்|க்கான|களின்|களை|து|இருந்து|ன்|கள்)$/u, "")
+    .replace(/(?:యొక్క|లో|కి|కు|తో|చేత|ను|ల|లో|ని|ను)$/u, "")
+    .replace(/(?:ের|দের|কে|তে|এর|রে|থেকে|র|রা)$/u, "")
+    .replace(/(?:નું|ના|ની|ને|માં|થી|ઓ|ના)$/u, "");
+
   if (base === "सचोटी") return "सत्यनिष्ठा";
-  // These source-backed focused-language prompts use a bare noun while the
-  // matching evidence sentence carries only its inflected form. Normalizing
-  // these audited forms permits cited-sentence matching; it does not widen the
-  // evidence score threshold or create any new answer text.
-  if (["ಪ್ರಾಮಾಣಿಕತೆಯು", "ಪ್ರಾಮಾಣಿಕತೆಯೇ", "ಪ್ರಾಮಾಣಿಕತೆಯನ್ನು", "ಪ್ರಾಮಾಣಿಕತೆಯಿಂದ"].includes(base)) return "ಪ್ರಾಮಾಣಿಕತೆ";
-  if (["நேர்மையின்", "நேர்மையை", "நேர்மையுடன்"].includes(base)) return "நேர்மை";
-  if (base === "जहाज़") return "जहाज";
-  if (base === "निचले") return "नीचे";
-  if (base.startsWith("भाग") || base === "विभाग") return "खंड";
-  if (base.startsWith("ಕಾರ್ಪ") || base === "ಕಂಪನಿಯು") return "ಕಂಪನಿ";
-  if (base === "ಕಾನೂನುಗಳ" || base === "ಕಾನೂನುಗಳಿಂದ") return "ಕಾನೂನು";
-  if (base === "ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ" || base === "ಆಡಳಿತವನ್ನು") return "ಆಡಳಿತ";
-  if (base === "ಪೊಟ್ಯಾಸಿಯಂ") return "ಪೊಟ್ಯಾಸಿಯಮ್";
-  if (base === "ಆಹಾರಕ್ರಮದ") return "ಆಹಾರ";
-  if (base === "கார்ப்பரேஷன்") return "நிறுவனம்";
-  if (base.startsWith("तळ") || base === "खाल") return "खाल";
-  // The audited Hindi corporation source uses "निगम" in its answer sentence.
-  // This synonym controls matching only; SUNO still returns the cited source text.
-  return base === "कॉर्पोरेशन" ? "निगम" : base;
+  if (["ಪ್ರಾಮಾಣಿಕತೆಯು", "ಪ್ರಾಮಾಣಿಕತೆಯೇ", "ಪ್ರಾಮಾಣಿಕತೆಯನ್ನು", "ಪ್ರಾಮಾಣಿಕತೆಯಿಂದ", "ಪ್ರಾಮಾಣಿಕತೆ"].includes(base)) return "ಪ್ರಾಮಾಣಿಕತೆ";
+  if (["நேர்மையின்", "நேர்மையை", "நேர்மையுடன்", "நேர்மை"].includes(base)) return "நேர்மை";
+  if (base.startsWith("जहाज") || base === "जहाज़") return "जहाज";
+  if (base.startsWith("निचल") || base === "नीचे") return "नीचे";
+  if (base.startsWith("भाग") || base === "विभाग" || base.startsWith("खंड")) return "खंड";
+  if (base.startsWith("ಕಾರ್ಪ") || base.startsWith("ಕಂಪನಿ")) return "ಕಂಪನಿ";
+  if (base.startsWith("ಕಾನೂನು")) return "ಕಾನೂನು";
+  if (base.startsWith("ನಿಯಂತ್ರಿತ") || base.startsWith("ಆಡಳಿತ")) return "ಆಡಳಿತ";
+  if (base.startsWith("ಪೊಟ್ಯಾಸಿಯ")) return "ಪೊಟ್ಯಾಸಿಯಮ್";
+  if (base.startsWith("ಆಹಾರ")) return "ಆಹಾರ";
+  if (base.startsWith("கார்ப்பரேஷன்") || base.startsWith("நிறுவனம்")) return "நிறுவனம்";
+  if (base.startsWith("तळ") || base.startsWith("खाल")) return "खाल";
+  if (base.startsWith("कॉर्पोरेशन") || base === "निगम") return "निगम";
+  return base;
 }
 
 function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number } | null {
