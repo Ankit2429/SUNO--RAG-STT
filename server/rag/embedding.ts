@@ -112,8 +112,24 @@ function add(vector: number[], feature: string, weight: number) {
   vector[slot] += (value & 1 ? 1 : -1) * weight;
 }
 
+const EMBED_CACHE = new Map<string, number[]>();
+const LEXICAL_CACHE = new Map<string, string[]>();
+const MEANINGFUL_LEXICAL_CACHE = new Map<string, string[]>();
+const MAX_CACHE_SIZE = 2000;
+
+function setBoundedCache<V>(cache: Map<string, V>, key: string, value: V) {
+  if (cache.size >= MAX_CACHE_SIZE) {
+    const firstKey = cache.keys().next().value;
+    if (firstKey) cache.delete(firstKey);
+  }
+  cache.set(key, value);
+}
+
 /** A deterministic, server-only, Unicode-aware dense fallback for the zero-cost profile. */
 export function embedText(text: string): number[] {
+  const cached = EMBED_CACHE.get(text);
+  if (cached) return cached;
+
   const normalized = normalizeDigits(text.normalize("NFKC").toLocaleLowerCase().replace(/\s+/g, " ").trim());
   const vector = Array.from({ length: DENSE_VECTOR_SIZE }, () => 0);
   for (const token of normalized.split(" ").filter(Boolean)) add(vector, `token:${token}`, 2.4);
@@ -124,7 +140,9 @@ export function embedText(text: string): number[] {
     if (index + 2 < characters.length) add(vector, `char3:${characters.slice(index, index + 3).join("")}`, 1.25);
   }
   const magnitude = Math.sqrt(vector.reduce((sum, value) => sum + value * value, 0));
-  return magnitude ? vector.map(value => value / magnitude) : vector;
+  const result = magnitude ? vector.map(value => value / magnitude) : vector;
+  setBoundedCache(EMBED_CACHE, text, result);
+  return result;
 }
 
 export function isStopWord(term: string): boolean {
@@ -132,6 +150,9 @@ export function isStopWord(term: string): boolean {
 }
 
 export function lexicalTerms(text: string): string[] {
+  const cached = LEXICAL_CACHE.get(text);
+  if (cached) return cached;
+
   const normalizedText = normalizeDigits(text.normalize("NFKC").toLocaleLowerCase().replace(/[\u2010-\u2015]/g, " "));
   const rawTerms = normalizedText
     .split(/[^\p{L}\p{M}\p{N}]+/u)
@@ -144,11 +165,18 @@ export function lexicalTerms(text: string): string[] {
     ...(LEXICAL_TERM_EXPANSIONS[term] || []),
   ]);
 
-  return Array.from(new Set(terms));
+  const result = Array.from(new Set(terms));
+  setBoundedCache(LEXICAL_CACHE, text, result);
+  return result;
 }
 
 export function meaningfulLexicalTerms(text: string): string[] {
-  return lexicalTerms(text).filter(term => !STOP_WORDS.has(term) && term.length > 1);
+  const cached = MEANINGFUL_LEXICAL_CACHE.get(text);
+  if (cached) return cached;
+
+  const result = lexicalTerms(text).filter(term => !STOP_WORDS.has(term) && term.length > 1);
+  setBoundedCache(MEANINGFUL_LEXICAL_CACHE, text, result);
+  return result;
 }
 
 export function lexicalScore(text: string, terms: string[]): number {
@@ -156,3 +184,4 @@ export function lexicalScore(text: string, terms: string[]): number {
   const meaningful = terms.filter(t => !STOP_WORDS.has(t));
   return meaningful.reduce((score, term) => score + (normalized.includes(term) ? 1 : 0), 0);
 }
+
