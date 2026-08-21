@@ -175,14 +175,16 @@ function focusedSourceFaithfulAnswer(query: string, languageCode: string | undef
 
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
   const terms = queryTerms(query);
+  const minRequiredMatches = 1;
+
   const supported = evidence
     .map(chunk => ({ chunk, match: evidenceSentence(chunk, terms), score: scores.get(chunk.id) ?? 0 }))
-    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item.match) && item.match.termMatches >= 1)
+    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item.match) && item.match.termMatches >= minRequiredMatches)
     .sort((a, b) => b.match.termMatches - a.match.termMatches || b.score - a.score);
 
   const uniqueParents = new Set(supported.map(item => item.chunk.parentId));
   const top = supported[0];
-  if (!top || top.score < 0.28 || top.match.termMatches < 1 || !uniqueParents.size) {
+  if (!top || top.score < 0.28 || top.match.termMatches < minRequiredMatches || !uniqueParents.size) {
     return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
   }
 

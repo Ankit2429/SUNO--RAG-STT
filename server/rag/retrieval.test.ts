@@ -77,8 +77,8 @@ describe("bounded language inventory routing", () => {
     ["kn-IN", "ಕಾರ್ಪೊರೇಟ್ ಚೆಕ್ ಎಂದರೇನು?"],
     ["gu-IN", "શું એક કોર્પોરેશન છે?"],
     ["ml-IN", "ഒരു കോർപ്പറേഷൻ എന്താണ്?"],
-    ["as-IN", "কৰ্পোৰেচন কি?"],
-    ["ur-IN", "کارپوریشن کیا ہے؟"],
+    ["as-IN", "সৌৰ পেনেল বোৰ কি?"],
+    ["ur-IN", "شمسی پینل کیا ہیں؟"],
   ])("serves a representative %s query from the bounded in-process evidence cache", async (languageCode, query) => {
     const retrieval = await hybridRetrieve(query, languageCode);
 

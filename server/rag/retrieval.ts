@@ -1,6 +1,6 @@
 import type { EvidenceChunk } from "@shared/rag";
 import { EVALUATION_MANIFEST } from "@shared/evaluationManifest";
-import { DENSE_VECTOR_NAME, embedText, lexicalScore, lexicalTerms, meaningfulLexicalTerms, ZERO_COST_EMBEDDING_MODEL } from "./embedding";
+import { DENSE_VECTOR_NAME, embedText, isStopWord, lexicalScore, lexicalTerms, meaningfulLexicalTerms, ZERO_COST_EMBEDDING_MODEL } from "./embedding";
 import { generationMode } from "./generation";
 import { HOT_CORPUS } from "./hotCorpus";
 
@@ -99,17 +99,18 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
     : HOT_BY_LANGUAGE.get(requestedLanguage) || [];
   if (!scoped.length) return null;
   const terms = meaningfulLexicalTerms(query);
-  if (!terms.length) return null; // Require at least one non-stop-word query term for L1 lookup
+  if (!terms.length) return null; // Require non-stop-word query terms for L1 lookup
   const queryVector = embedText(query);
+  const minRequiredHits = 1;
+
   const ranked = scoped
     .map(chunk => {
       const lexicalHits = cachedLexicalScore(chunk.id, terms);
       const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));
-      // Require non-stop-word lexical hit as primary signal, dense as tie-breaker
       const score = dense + lexicalHits * 0.5;
       return { chunk, score, lexicalHits };
     })
-    .filter(item => item.lexicalHits >= 1 && item.score >= 0.45)
+    .filter(item => item.lexicalHits >= minRequiredHits && item.score >= 0.45)
     .sort((left, right) => right.score - left.score)
     .slice(0, 6);
 
