@@ -165,3 +165,4 @@
 - [x] Commit and push the verified Render listener adjustment to the configured GitHub `main` branch.
 - [x] Inspect existing SUNO environment configuration and report only verified values for the requested Render variables without changing code or secrets.
 - [x] Commit and push the completed Render environment-audit record to the configured GitHub `main` branch.
+- [x] Run a one-time 40-case live evaluation loop across grounded retrieval, five-language routing, refusals, injection/unsafe guardrails, citations, and observed latency; report actual outcomes without changing application logic.
