@@ -4,6 +4,7 @@ import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
 import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import { resolveEvidencePath } from "../lib/evidencePath";
 import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
+import { normalizeAudioForSarvam, recorderSupportSummary, selectRecorderMimeType, validateCapturedAudio } from "../lib/voiceCaptureFormat";
 import { resolveVoiceRecovery, suggestedExplicitLanguageRetry } from "../lib/voiceRecovery";
 import { resolveVoiceOutputProgress } from "../lib/voiceProgress";
 import { buildTypedQuestionHarnessInput, validateTypedQuestion } from "../lib/typedQuestion";
@@ -273,13 +274,23 @@ export default function Home() {
         frameRef.current = requestAnimationFrame(pulse);
       };
       pulse();
-      const preferred = MediaRecorder.isTypeSupported("audio/webm;codecs=opus") ? "audio/webm;codecs=opus" : "audio/webm";
-      const recorder = new MediaRecorder(stream, { mimeType: preferred, audioBitsPerSecond: 32_000 });
+      const mimeSelection = selectRecorderMimeType(mimeType => MediaRecorder.isTypeSupported(mimeType));
+      let recorder: MediaRecorder;
+      try {
+        recorder = mimeSelection.requestedMimeType
+          ? new MediaRecorder(stream, { mimeType: mimeSelection.requestedMimeType, audioBitsPerSecond: 32_000 })
+          : new MediaRecorder(stream, { audioBitsPerSecond: 32_000 });
+      } catch {
+        // A browser can occasionally over-report a codec. Its default recorder is
+        // still captured and normalized locally if it is not Sarvam-compatible.
+        recorder = new MediaRecorder(stream, { audioBitsPerSecond: 32_000 });
+      }
       recorderRef.current = recorder;
       chunksRef.current = [];
       discardRecordingRef.current = false;
       speechDetectedRef.current = false;
       silenceStartedAtRef.current = null;
+      setCaptureInfo(`Recorder selected ${recorder.mimeType || "browser-default"} • support: ${recorderSupportSummary(mimeSelection.support)}`);
       recorder.ondataavailable = event => { if (event.data.size) chunksRef.current.push(event.data); };
       recorder.onerror = () => {
         discardRecordingRef.current = true;
@@ -290,22 +301,23 @@ export default function Home() {
         stopVisualizer();
         if (recorderRef.current === recorder) recorderRef.current = null;
         if (discardRecordingRef.current) return;
-        const mimeType = recorder.mimeType || "audio/webm";
-        const blob = new Blob(chunksRef.current, { type: mimeType });
+        const chunkMimeType = chunksRef.current.find(chunk => chunk.type)?.type;
+        const blob = new Blob(chunksRef.current, { type: chunkMimeType || recorder.mimeType || "" });
         const durationMs = Math.max(0, performance.now() - recordingStartedAtRef.current);
-        if (durationMs < 700) { setProcessingHint(null); setCaptureError("Recording was too short. Speak for at least one second before selecting STOP & SEND."); return; }
-        if (blob.size < 512) { setProcessingHint(null); setCaptureError("No usable audio was captured. Check microphone permission, speak clearly, and try again."); return; }
-        if (blob.size > 4 * 1024 * 1024) { setProcessingHint(null); setCaptureError("Recording is too large for the short-audio safety limit. Keep the clip under 30 seconds."); return; }
-          setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • ${(blob.size / 1024).toFixed(0)} KB • ${languageCode === AUTO_DETECT_LANGUAGE ? "language auto-detect" : languageCode}`);
+        const validationError = validateCapturedAudio({ mimeType: blob.type, size: blob.size, durationMs });
+        if (validationError) { setProcessingHint(null); setCaptureError(validationError); return; }
         try {
+          const preparedAudio = await normalizeAudioForSarvam(blob);
+          const preparedValidationError = validateCapturedAudio({ mimeType: preparedAudio.mimeType, size: preparedAudio.blob.size, durationMs });
+          if (preparedValidationError) { setProcessingHint(null); setCaptureError(preparedValidationError); return; }
           const packagingStartedAt = performance.now();
           setProcessingHint("Audio captured • packaging secure clip for immediate Sarvam submission.");
-          const audioBase64 = await toBase64(blob);
+          const audioBase64 = await toBase64(preparedAudio.blob);
           const packagingMs = Math.max(0, Math.round(performance.now() - packagingStartedAt));
           setAudioPackagingMs(packagingMs);
-          setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • ${(blob.size / 1024).toFixed(0)} KB • packaged in ${packagingMs} ms • ${languageCode === AUTO_DETECT_LANGUAGE ? "language auto-detect" : languageCode}`);
+          setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • selected ${recorder.mimeType || "browser-default"} • blob ${blob.type} ${(blob.size / 1024).toFixed(0)} KB • submitted ${preparedAudio.mimeType} ${(preparedAudio.blob.size / 1024).toFixed(0)} KB${preparedAudio.normalized ? " normalized to WAV" : " direct"} • packaged in ${packagingMs} ms • support: ${recorderSupportSummary(mimeSelection.support)}`);
           setProcessingHint(`Secure clip sent • audio packaged in ${packagingMs} ms • Sarvam is transcribing your speech. This external step can take a few seconds.`);
-          ask.mutate({ audioBase64, mimeType, languageHint: languageCode });
+          ask.mutate({ audioBase64, mimeType: preparedAudio.mimeType, languageHint: languageCode });
         }
         catch (error) { setProcessingHint(null); setCaptureError(error instanceof Error ? error.message : "Audio encoding failed."); }
       };
