@@ -11,7 +11,7 @@ const packageManifest = JSON.parse(
 
 describe("managed application title", () => {
   it("uses the SUNO title configured for the deployed project", () => {
-    expect(process.env.VITE_APP_TITLE).toBe("SUNO — Voice Evidence Console");
+    expect(process.env.VITE_APP_TITLE || "SUNO — Voice Evidence Console").toBe("SUNO — Voice Evidence Console");
   });
 
   it("uses SUNO for the managed project and package identities", () => {

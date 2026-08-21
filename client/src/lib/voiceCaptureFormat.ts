@@ -3,6 +3,7 @@ export const RECORDER_MIME_CANDIDATES = [
   "audio/webm",
   "audio/ogg;codecs=opus",
   "audio/ogg",
+  "audio/mp4",
 ] as const;
 
 // Match SUNO's existing manual STOP & SEND threshold. The separate pause-to-send
@@ -24,6 +25,84 @@ export type RecorderMimeSelection = {
 export function selectRecorderMimeType(isTypeSupported: (mimeType: string) => boolean): RecorderMimeSelection {
   const support = RECORDER_MIME_CANDIDATES.map(mimeType => ({ mimeType, supported: isTypeSupported(mimeType) }));
   return { requestedMimeType: support.find(candidate => candidate.supported)?.mimeType || null, support };
+}
+
+export function detectBrowser(
+  userAgent: string = typeof navigator !== "undefined" ? navigator.userAgent : "",
+  nav: any = typeof navigator !== "undefined" ? navigator : {}
+): string {
+  if (nav?.brave && typeof nav.brave.isBrave === "function") {
+    return "Brave";
+  }
+  if (/Edg\//i.test(userAgent)) {
+    return "Edge";
+  }
+  if (/Firefox\//i.test(userAgent)) {
+    return "Firefox";
+  }
+  if (/Chrome\//i.test(userAgent) && !/Edg\//i.test(userAgent)) {
+    return "Chrome";
+  }
+  if (/Safari\//i.test(userAgent) && !/Chrome\//i.test(userAgent)) {
+    return "Safari";
+  }
+  return "Unknown Browser";
+}
+
+export type ClientDiagnosticsInput = {
+  browser?: string;
+  selectedMimeType: string | null;
+  blobMimeType: string;
+  blobSize: number;
+  durationMs: number;
+  supportSummary: string;
+  isMediaRecorderSupported?: boolean;
+};
+
+export type ClientDiagnostics = {
+  browser: string;
+  selectedMimeType: string;
+  blobMimeType: string;
+  blobSize: number;
+  durationMs: number;
+  supportSummary: string;
+  isMediaRecorderSupported: boolean;
+  isEmpty: boolean;
+  summaryString: string;
+};
+
+export function buildClientDiagnostics(input: ClientDiagnosticsInput): ClientDiagnostics {
+  const browser = input.browser || detectBrowser();
+  const selectedMimeType = input.selectedMimeType || "browser-default";
+  const blobMimeType = input.blobMimeType || "unknown";
+  const blobSize = input.blobSize;
+  const durationMs = Math.round(input.durationMs);
+  const supportSummary = input.supportSummary;
+  const isMediaRecorderSupported = input.isMediaRecorderSupported ?? (typeof MediaRecorder !== "undefined");
+  const isEmpty = blobSize === 0;
+
+  const summaryString = [
+    `[Diagnostics] browser: ${browser}`,
+    `mediaRecorderSupported: ${isMediaRecorderSupported ? "yes" : "no"}`,
+    `selectedMime: ${selectedMimeType}`,
+    `blobMime: ${blobMimeType}`,
+    `blobSize: ${blobSize} bytes (${(blobSize / 1024).toFixed(1)} KB)`,
+    `duration: ${durationMs} ms`,
+    `isEmpty: ${isEmpty ? "YES" : "NO"}`,
+    `support: ${supportSummary}`,
+  ].join(" | ");
+
+  return {
+    browser,
+    selectedMimeType,
+    blobMimeType,
+    blobSize,
+    durationMs,
+    supportSummary,
+    isMediaRecorderSupported,
+    isEmpty,
+    summaryString,
+  };
 }
 
 export function normalizeAudioMimeType(value: string | null | undefined): string {

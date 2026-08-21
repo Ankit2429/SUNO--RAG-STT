@@ -4,7 +4,7 @@ import { AUTO_DETECT_LANGUAGE } from "@shared/voiceLanguages";
 import { buildInternalLatencyBudget } from "../lib/latencyBudget";
 import { resolveEvidencePath } from "../lib/evidencePath";
 import { updatePauseToSendState } from "../lib/voiceCaptureTiming";
-import { normalizeAudioForSarvam, recorderSupportSummary, selectRecorderMimeType, validateCapturedAudio } from "../lib/voiceCaptureFormat";
+import { buildClientDiagnostics, detectBrowser, normalizeAudioForSarvam, recorderSupportSummary, selectRecorderMimeType, validateCapturedAudio } from "../lib/voiceCaptureFormat";
 import { resolveVoiceRecovery, suggestedExplicitLanguageRetry } from "../lib/voiceRecovery";
 import { resolveVoiceOutputProgress } from "../lib/voiceProgress";
 import { buildTypedQuestionHarnessInput, validateTypedQuestion } from "../lib/typedQuestion";
@@ -227,17 +227,26 @@ export default function Home() {
     setProcessingHint(null);
     setAudioPackagingMs(null);
     setRun(null);
+    const currentBrowser = detectBrowser();
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
-      setCaptureError("This browser does not support real microphone capture. Try a current Chrome, Edge, or Firefox build.");
+      const isSupported = typeof navigator !== "undefined" && Boolean(navigator.mediaDevices?.getUserMedia) && typeof MediaRecorder !== "undefined";
+      setCaptureError(`[Diagnostics] browser: ${currentBrowser} | mediaRecorderSupported: ${isSupported ? "yes" : "no"} | error: Microphone capture is unsupported in this browser.`);
       return;
     }
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+        });
+      } catch {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      }
       streamRef.current = stream;
       const handleMicrophoneLoss = () => {
         if (recorderRef.current?.state === "recording") {
           discardRecordingRef.current = true;
-          setCaptureError("The microphone became unavailable before recording finished. Check the device, then retry.");
+          setCaptureError(`[Diagnostics] browser: ${currentBrowser} | error: The microphone became unavailable before recording finished.`);
           recorderRef.current.stop();
         }
       };
@@ -268,7 +277,7 @@ export default function Home() {
               setCaptureInfo("Short pause detected • sending audio now.");
               setProcessingHint("Recording stopped • packaging secure clip for immediate Sarvam submission.");
             });
-            recorderRef.current.stop();
+            stopRecording();
           }
         }
         frameRef.current = requestAnimationFrame(pulse);
@@ -278,23 +287,21 @@ export default function Home() {
       let recorder: MediaRecorder;
       try {
         recorder = mimeSelection.requestedMimeType
-          ? new MediaRecorder(stream, { mimeType: mimeSelection.requestedMimeType, audioBitsPerSecond: 32_000 })
-          : new MediaRecorder(stream, { audioBitsPerSecond: 32_000 });
+          ? new MediaRecorder(stream, { mimeType: mimeSelection.requestedMimeType })
+          : new MediaRecorder(stream);
       } catch {
-        // A browser can occasionally over-report a codec. Its default recorder is
-        // still captured and normalized locally if it is not Sarvam-compatible.
-        recorder = new MediaRecorder(stream, { audioBitsPerSecond: 32_000 });
+        recorder = new MediaRecorder(stream);
       }
       recorderRef.current = recorder;
       chunksRef.current = [];
       discardRecordingRef.current = false;
       speechDetectedRef.current = false;
       silenceStartedAtRef.current = null;
-      setCaptureInfo(`Recorder selected ${recorder.mimeType || "browser-default"} • support: ${recorderSupportSummary(mimeSelection.support)}`);
-      recorder.ondataavailable = event => { if (event.data.size) chunksRef.current.push(event.data); };
+      setCaptureInfo(`[Diagnostics] browser: ${currentBrowser} | mediaRecorderSupported: yes | selectedMime: ${recorder.mimeType || "browser-default"} | support: ${recorderSupportSummary(mimeSelection.support)}`);
+      recorder.ondataavailable = event => { if (event.data && event.data.size > 0) chunksRef.current.push(event.data); };
       recorder.onerror = () => {
         discardRecordingRef.current = true;
-        setCaptureError("The microphone recorder stopped unexpectedly. No audio was sent; please retry.");
+        setCaptureError(`[Diagnostics] browser: ${currentBrowser} | error: The microphone recorder stopped unexpectedly. No audio was sent; please retry.`);
       };
       recorder.onstop = async () => {
         setRecording(false);
@@ -304,22 +311,32 @@ export default function Home() {
         const chunkMimeType = chunksRef.current.find(chunk => chunk.type)?.type;
         const blob = new Blob(chunksRef.current, { type: chunkMimeType || recorder.mimeType || "" });
         const durationMs = Math.max(0, performance.now() - recordingStartedAtRef.current);
+        const diagnostics = buildClientDiagnostics({
+          browser: currentBrowser,
+          selectedMimeType: recorder.mimeType || "browser-default",
+          blobMimeType: blob.type,
+          blobSize: blob.size,
+          durationMs,
+          supportSummary: recorderSupportSummary(mimeSelection.support),
+          isMediaRecorderSupported: true,
+        });
+
         const validationError = validateCapturedAudio({ mimeType: blob.type, size: blob.size, durationMs });
-        if (validationError) { setProcessingHint(null); setCaptureError(validationError); return; }
+        if (validationError) { setProcessingHint(null); setCaptureError(`${diagnostics.summaryString} | validationError: ${validationError}`); return; }
         try {
           const preparedAudio = await normalizeAudioForSarvam(blob);
           const preparedValidationError = validateCapturedAudio({ mimeType: preparedAudio.mimeType, size: preparedAudio.blob.size, durationMs });
-          if (preparedValidationError) { setProcessingHint(null); setCaptureError(preparedValidationError); return; }
+          if (preparedValidationError) { setProcessingHint(null); setCaptureError(`${diagnostics.summaryString} | validationError: ${preparedValidationError}`); return; }
           const packagingStartedAt = performance.now();
           setProcessingHint("Audio captured • packaging secure clip for immediate Sarvam submission.");
           const audioBase64 = await toBase64(preparedAudio.blob);
           const packagingMs = Math.max(0, Math.round(performance.now() - packagingStartedAt));
           setAudioPackagingMs(packagingMs);
-          setCaptureInfo(`${(durationMs / 1000).toFixed(1)} s captured • selected ${recorder.mimeType || "browser-default"} • blob ${blob.type} ${(blob.size / 1024).toFixed(0)} KB • submitted ${preparedAudio.mimeType} ${(preparedAudio.blob.size / 1024).toFixed(0)} KB${preparedAudio.normalized ? " normalized to WAV" : " direct"} • packaged in ${packagingMs} ms • support: ${recorderSupportSummary(mimeSelection.support)}`);
+          setCaptureInfo(`${diagnostics.summaryString} | submitted: ${preparedAudio.mimeType} ${(preparedAudio.blob.size / 1024).toFixed(1)} KB${preparedAudio.normalized ? " (normalized to WAV)" : " (direct)"} | packagedIn: ${packagingMs} ms`);
           setProcessingHint(`Secure clip sent • audio packaged in ${packagingMs} ms • Sarvam is transcribing your speech. This external step can take a few seconds.`);
           ask.mutate({ audioBase64, mimeType: preparedAudio.mimeType, languageHint: languageCode });
         }
-        catch (error) { setProcessingHint(null); setCaptureError(error instanceof Error ? error.message : "Audio encoding failed."); }
+        catch (error) { setProcessingHint(null); setCaptureError(`${diagnostics.summaryString} | error: ${error instanceof Error ? error.message : "Audio encoding failed."}`); }
       };
       recorder.start();
       recordingStartedAtRef.current = performance.now();
@@ -327,16 +344,19 @@ export default function Home() {
     } catch (error) {
       stopVisualizer();
       setRecording(false);
-      setCaptureError(error instanceof DOMException && error.name === "NotAllowedError" ? "Microphone permission was denied. Enable it in your browser settings and retry." : error instanceof DOMException && error.name === "NotReadableError" ? "Your microphone is busy in another app or browser tab. Release it, then retry." : "Microphone capture could not be started.");
+      setCaptureError(error instanceof DOMException && error.name === "NotAllowedError" ? `[Diagnostics] browser: ${currentBrowser} | error: Microphone permission was denied. Enable it in your browser settings and retry.` : error instanceof DOMException && error.name === "NotReadableError" ? `[Diagnostics] browser: ${currentBrowser} | error: Your microphone is busy in another app or browser tab. Release it, then retry.` : `[Diagnostics] browser: ${currentBrowser} | error: Microphone capture could not be started.`);
     }
   };
 
   const stopRecording = () => {
     if (recorderRef.current?.state !== "recording") return;
-    flushSync(() => {
-      setCaptureInfo("Recording stopped • preparing immediate secure submission.");
-      setProcessingHint("Recording stopped • packaging secure clip for immediate Sarvam submission.");
-    });
+    try {
+      if (typeof recorderRef.current.requestData === "function") {
+        recorderRef.current.requestData();
+      }
+    } catch {
+      // Ignore if recorder state is transitional
+    }
     recorderRef.current.stop();
   };
 

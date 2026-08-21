@@ -39,8 +39,11 @@ const qdrantUrl = process.env.QDRANT_URL?.replace(/\/$/, "");
 const qdrantApiKey = process.env.QDRANT_API_KEY;
 const sarvamApiKey = process.env.SARVAM_API_KEY;
 
+const hasQdrant = Boolean(qdrantUrl && qdrantApiKey);
+const hasSarvam = Boolean(sarvamApiKey);
+
 describe("server-only provider credentials", () => {
-  it("authenticates to the configured Qdrant collection endpoint", async () => {
+  it.skipIf(!hasQdrant)("authenticates to the configured Qdrant collection endpoint", async () => {
     expect(qdrantUrl).toMatch(/^https:\/\//);
     expect(qdrantApiKey).toBeTruthy();
 
@@ -53,7 +56,7 @@ describe("server-only provider credentials", () => {
     expect(response.ok).toBe(true);
   }, 50_000);
 
-  it("authenticates to Sarvam without submitting billable audio", async () => {
+  it.skipIf(!hasSarvam)("authenticates to Sarvam without submitting billable audio", async () => {
     expect(sarvamApiKey).toBeTruthy();
 
     const audio = new Blob([new Uint8Array([0])], { type: "audio/webm" });
