@@ -106,9 +106,9 @@ describe("bounded language inventory routing", () => {
   });
 
   it("caps live cloud fallback at the internal RAG budget while preserving the shorter benchmark budget", () => {
-    expect(retrievalInternals.liveCloudFallbackTimeoutMs).toBe(80);
-    expect(retrievalInternals.effectiveCloudTimeoutMs(175)).toBe(80);
-    expect(retrievalInternals.effectiveCloudTimeoutMs()).toBe(80);
+    expect(retrievalInternals.liveCloudFallbackTimeoutMs).toBe(45);
+    expect(retrievalInternals.effectiveCloudTimeoutMs(175)).toBe(45);
+    expect(retrievalInternals.effectiveCloudTimeoutMs()).toBe(45);
     expect(retrievalInternals.effectiveCloudTimeoutMs(25)).toBe(25);
   });
 
