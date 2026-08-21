@@ -74,7 +74,7 @@ export const appRouter = router({
       const startedAt = performance.now();
       const hit = typedResponseCache.get(input.transcript, input.languageCode);
       const run = hit
-        ? withDelivery({ ...hit.run, requestId: randomUUID() }, elapsed(startedAt), "HIT", hit.ageMs)
+        ? withDelivery({ ...hit.run, requestId: randomUUID(), latency: { ...hit.run.latency, ragMs: elapsed(startedAt) } }, elapsed(startedAt), "HIT", hit.ageMs)
         : withDelivery(await runPostTranscriptionHarness(input), elapsed(startedAt), "MISS");
 
       if (!hit) typedResponseCache.set(input.transcript, input.languageCode, run);
