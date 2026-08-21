@@ -172,3 +172,4 @@
 - [x] Add a separate microphone/STT end-to-end evaluation, rerun the live 40-case matrix, and report observed results. The runner is implemented and records the honest no-audio-fixtures limitation until real recordings are supplied.
 - [x] Perform a final audit of the corrected Tamil retrieval, expanded multilingual prompt bank, live 40-case result, regression/build state, and the recorded-audio STT evaluator limitation.
 - [x] Perform a final requirement-by-requirement readiness verification of SUNO’s updated retrieval, guardrails, provider health, evaluation evidence, visible behavior, and microphone/STT coverage boundary.
+- [x] Run a one-time 60-case live text evaluation loop across unique five-language grounded prompts, citations, routing, unsafe/out-of-context refusals, and latency; report observed outcomes.

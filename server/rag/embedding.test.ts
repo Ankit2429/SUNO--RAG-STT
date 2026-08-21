@@ -20,4 +20,16 @@ describe("zero-cost multilingual embedding", () => {
     expect(lexicalTerms("निगम किस कानून द्वारा शासित होता है?")).toEqual(["निगम", "किस", "कानून", "द्वारा", "शासित", "होता", "है"]);
     expect(lexicalTerms("corporation—law: evidence!")).toEqual(["corporation", "law", "evidence"]);
   });
+
+  it("adds the audited Tamil integrity stem for a possessive-form source-backed question", () => {
+    expect(lexicalTerms("நேர்மையின் பொருள் என்ன?")).toEqual(["நேர்மையின்", "நேர்மை", "பொருள்"]);
+  });
+
+  it("adds only source-attested equivalents for the repaired Hindi, Kannada, and Marathi paraphrases", () => {
+    expect(lexicalTerms("मालवाहक जहाज़ के निचले भाग को क्या कहते हैं?")).toEqual(expect.arrayContaining(["जहाज़", "जहाज", "निचले", "नीचे", "भाग", "खंड"]));
+    expect(lexicalTerms("ಕಾರ್ಪೊರೇಷನ್ ಯಾವ ಕಾನೂನುಗಳ ಮೂಲಕ ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ?")).toEqual(expect.arrayContaining(["ಕಾರ್ಪೊರೇಷನ್", "ಕಂಪನಿ", "ಕಾನೂನುಗಳ", "ಕಾನೂನು", "ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ", "ಆಡಳಿತ"]));
+    expect(lexicalTerms("मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?")).toEqual(expect.arrayContaining(["तळाच्या", "खालच्या", "भागाला", "विभाग"]));
+    expect(lexicalTerms("मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?")).not.toContain("काय");
+    expect(lexicalTerms("मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?")).not.toContain("म्हणतात");
+  });
 });

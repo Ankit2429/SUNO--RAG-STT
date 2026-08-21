@@ -93,7 +93,11 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
       const lexicalHits = terms.length ? cachedLexicalScore(chunk.id, terms) : 0;
       const lexical = terms.length ? lexicalHits / terms.length : 0;
       const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));
-      return { chunk, score: dense + lexical, lexicalHits };
+      // Exact source-bearing terms are intentionally weighted ahead of Unicode
+      // n-gram similarity. This prevents a same-script passage with incidental
+      // character overlap from displacing a passage that carries several audited
+      // query concepts, while preserving the dense signal as a tie-breaker.
+      return { chunk, score: dense + lexicalHits * 0.4, lexicalHits };
     })
     .filter(item => item.score > 0.1)
     .sort((left, right) => right.score - left.score)

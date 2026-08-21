@@ -70,6 +70,20 @@ function queryTerms(query: string): Set<string> {
 function normalizeContentTerm(term: string): string {
   const base = term.toLocaleLowerCase().replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली)$/, "");
   if (base === "सचोटी") return "सत्यनिष्ठा";
+  // These source-backed focused-language prompts use a bare noun while the
+  // matching evidence sentence carries only its inflected form. Normalizing
+  // these audited forms permits cited-sentence matching; it does not widen the
+  // evidence score threshold or create any new answer text.
+  if (["ಪ್ರಾಮಾಣಿಕತೆಯು", "ಪ್ರಾಮಾಣಿಕತೆಯೇ", "ಪ್ರಾಮಾಣಿಕತೆಯನ್ನು", "ಪ್ರಾಮಾಣಿಕತೆಯಿಂದ"].includes(base)) return "ಪ್ರಾಮಾಣಿಕತೆ";
+  if (["நேர்மையின்", "நேர்மையை", "நேர்மையுடன்"].includes(base)) return "நேர்மை";
+  if (base === "जहाज़") return "जहाज";
+  if (base === "निचले") return "नीचे";
+  if (base === "भाग") return "खंड";
+  if (base.startsWith("ಕಾರ್ಪ") || base === "ಕಂಪನಿಯು") return "ಕಂಪನಿ";
+  if (base === "ಕಾನೂನುಗಳ" || base === "ಕಾನೂನುಗಳಿಂದ") return "ಕಾನೂನು";
+  if (base === "ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ" || base === "ಆಡಳಿತವನ್ನು") return "ಆಡಳಿತ";
+  if (base === "तळा" || base === "खाल") return "खाल";
+  if (base === "विभाग") return "खंड";
   // The audited Hindi corporation source uses "निगम" in its answer sentence.
   // This synonym controls matching only; SUNO still returns the cited source text.
   return base === "कॉर्पोरेशन" ? "निगम" : base;

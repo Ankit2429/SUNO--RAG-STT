@@ -86,6 +86,76 @@ const marathiMoralEvidence: EvidenceChunk = {
   overlap: 0,
 };
 
+const kannadaIntegrityEvidence: EvidenceChunk = {
+  id: "integrity-kn-1",
+  text: "ಪ್ರಾಮಾಣಿಕತೆಯು ನಡವಳಿಕೆಯ ಬಗ್ಗೆ; ಪ್ರಾಮಾಣಿಕತೆಯು ವಾಸ್ತವಗಳಿಗೆ ಬದ್ಧತೆಯ ಬಗ್ಗೆ.",
+  language: "kn",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "integrity-kn-parent",
+  queryId: "205107",
+  queryType: "DESCRIPTION",
+  ordinal: 0,
+  selected: true,
+  overlap: 0,
+};
+
+const tamilIntegrityEvidence: EvidenceChunk = {
+  id: "integrity-ta-1",
+  text: "நேர்மை என்பது நடத்தையைப் பற்றியது; நேர்மை என்பது உண்மைகளைப் பின்பற்றுவதைப் பற்றியது.",
+  language: "ta",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "integrity-ta-parent",
+  queryId: "205107",
+  queryType: "DESCRIPTION",
+  ordinal: 0,
+  selected: true,
+  overlap: 0,
+};
+
+const hindiBilgeEvidence: EvidenceChunk = {
+  id: "bilge-hi-1",
+  text: "बिल्ज - नीचे और जहाज के किनारे के बीच एक घुमावदार खंड; जिसमें सारा पानी निकलता है।",
+  language: "hi",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "bilge-hi-parent",
+  queryId: "55665",
+  queryType: "DESCRIPTION",
+  ordinal: 1,
+  selected: true,
+  overlap: 0,
+};
+
+const kannadaCorporationLawEvidence: EvidenceChunk = {
+  id: "corporation-law-kn-1",
+  text: "ನಂತರ ಆ ಕಂಪನಿಯು ಆ ರಾಜ್ಯದಲ್ಲಿನ ಸಂಯೋಜನೆಯ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತವನ್ನು ನಡೆಸುತ್ತದೆ.",
+  language: "kn",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "corporation-law-kn-parent",
+  queryId: "1102432",
+  queryType: "DESCRIPTION",
+  ordinal: 0,
+  selected: true,
+  overlap: 0,
+};
+
+const marathiBilgeEvidence: EvidenceChunk = {
+  id: "bilge-mr-1",
+  text: "बिल्ज - खालच्या आणि बाजूच्या बाजूंमधील वक्राकार विभाग; ज्यामध्ये सर्व पाणी वाहते.",
+  language: "mr",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "bilge-mr-parent",
+  queryId: "55665",
+  queryType: "DESCRIPTION",
+  ordinal: 1,
+  selected: true,
+  overlap: 0,
+};
+
 describe("evidence grounding", () => {
   it("refuses evidence that shares only a Hindi question particle with the query", () => {
     const answer = verifyAndSynthesize("कॉर्पोरेशन क्या है?", [ringwormEvidence], new Map([[ringwormEvidence.id, 0.8]]));
@@ -150,6 +220,39 @@ describe("evidence grounding", () => {
     expect(answer.status).toBe("GROUNDED");
     expect(answer.evidenceIds).toEqual([kannadaCorporationEvidence.id]);
     expect(answer.answer).toBe("ಕಂಪನಿಯು ಅದು ಸಂಯೋಜಿತವಾಗಿರುವ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ.");
+  });
+
+  it("grounds a short Kannada integrity definition through its cited inflected source form", () => {
+    const answer = verifyAndSynthesize("ಪ್ರಾಮಾಣಿಕತೆ ಎಂದರೇನು?", [kannadaIntegrityEvidence], new Map([[kannadaIntegrityEvidence.id, 0.9]]));
+
+    expect(answer.status).toBe("GROUNDED");
+    expect(answer.evidenceIds).toEqual([kannadaIntegrityEvidence.id]);
+    expect(answer.answer).toContain("ಪ್ರಾಮಾಣಿಕತೆಯು ನಡವಳಿಕೆಯ ಬಗ್ಗೆ");
+  });
+
+  it("grounds a Tamil possessive integrity question through its cited root-form evidence", () => {
+    const answer = verifyAndSynthesize("நேர்மையின் பொருள் என்ன?", [tamilIntegrityEvidence], new Map([[tamilIntegrityEvidence.id, 0.9]]));
+
+    expect(answer.status).toBe("GROUNDED");
+    expect(answer.evidenceIds).toEqual([tamilIntegrityEvidence.id]);
+    expect(answer.answer).toContain("நேர்மை என்பது நடத்தையைப் பற்றியது");
+  });
+
+  it("grounds repaired Hindi and Marathi cargo-ship paraphrases through their bilge definition evidence", () => {
+    const hindiAnswer = verifyAndSynthesize("मालवाहक जहाज़ के निचले भाग को क्या कहते हैं?", [hindiBilgeEvidence], new Map([[hindiBilgeEvidence.id, 0.9]]));
+    const marathiAnswer = verifyAndSynthesize("मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?", [marathiBilgeEvidence], new Map([[marathiBilgeEvidence.id, 0.9]]));
+
+    expect(hindiAnswer).toMatchObject({ status: "GROUNDED", evidenceIds: [hindiBilgeEvidence.id] });
+    expect(hindiAnswer.answer).toContain("बिल्ज");
+    expect(marathiAnswer).toMatchObject({ status: "GROUNDED", evidenceIds: [marathiBilgeEvidence.id] });
+    expect(marathiAnswer.answer).toContain("बिल्ज");
+  });
+
+  it("grounds a Kannada corporation-law paraphrase through its cited source wording", () => {
+    const answer = verifyAndSynthesize("ಕಾರ್ಪೊರೇಷನ್ ಯಾವ ಕಾನೂನುಗಳ ಮೂಲಕ ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ?", [kannadaCorporationLawEvidence], new Map([[kannadaCorporationLawEvidence.id, 0.9]]));
+
+    expect(answer).toMatchObject({ status: "GROUNDED", evidenceIds: [kannadaCorporationLawEvidence.id] });
+    expect(answer.answer).toContain("ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ");
   });
 
   it.each([

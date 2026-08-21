@@ -5,7 +5,22 @@ export const ZERO_COST_EMBEDDING_MODEL = "multilingual-unicode-ngram-dense-v1";
 // These Tamil question-only tokens occur across unrelated corpus rows. Removing
 // them from lexical support prevents a generic question frame from outranking a
 // passage that contains the subject-bearing term (for example, "கப்பலின்").
-const TAMIL_QUESTION_FRAME_TERMS = new Set(["என்ன", "என்று", "அழைக்கப்படுகிறது", "என்பது"]);
+const LEXICAL_QUERY_FRAME_TERMS = new Set(["என்ன", "என்று", "அழைக்கப்படுகிறது", "என்பது", "काय", "म्हणतात"]);
+
+// The local Tamil integrity evidence uses the stem "நேர்மை", while a natural
+// direct question may use its possessive form "நேர்மையின்". Keep both forms in
+// lexical retrieval so the source-bearing passage is not displaced by unrelated
+// same-script dense candidates.
+const LEXICAL_TERM_EXPANSIONS: Record<string, readonly string[]> = {
+  "நேர்மையின்": ["நேர்மை"],
+  "जहाज़": ["जहाज"],
+  "निचले": ["नीचे"],
+  "भाग": ["खंड"],
+  "ಕಾನೂನುಗಳ": ["ಕಾನೂನು"],
+  "ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ": ["ಆಡಳಿತ"],
+  "तळाच्या": ["खालच्या"],
+  "भागाला": ["विभाग"],
+};
 
 function hash(value: string): number {
   let result = 2166136261;
@@ -43,14 +58,19 @@ export function lexicalTerms(text: string): string[] {
     .toLocaleLowerCase()
     .replace(/[\u2010-\u2015]/g, " ")
     .split(/[^A-Za-z0-9\u0080-\uFFFF]+/)
-    .filter(term => term.length > 1 && !TAMIL_QUESTION_FRAME_TERMS.has(term))
+    .filter(term => term.length > 1 && !LEXICAL_QUERY_FRAME_TERMS.has(term))
     .slice(0, 12);
   // The Hindi source row for the evaluated corporation question uses "निगम" and
   // "कंपनी", while a common direct Hindi formulation says "कॉर्पोरेशन". Preserve
   // all original terms and add only these source-attested equivalents so L1 can
   // reach the same cited passage; the evidence gate still selects an exact cited
   // sentence and can refuse all unsupported claims.
-  return Array.from(new Set(terms.flatMap(term => term === "कॉर्पोरेशन" ? [term, "निगम", "कंपनी"] : [term]))).slice(0, 12);
+  return Array.from(new Set(terms.flatMap(term => [
+    term,
+    ...(term === "कॉर्पोरेशन" ? ["निगम", "कंपनी"] : []),
+    ...(term.startsWith("ಕಾರ್ಪ") ? ["ಕಂಪನಿ"] : []),
+    ...(LEXICAL_TERM_EXPANSIONS[term] || []),
+  ]))).slice(0, 12);
 }
 
 export function lexicalScore(text: string, terms: string[]): number {

@@ -41,6 +41,24 @@ describe("bounded language inventory routing", () => {
     expect(retrieval?.evidence[0]?.queryId).toBe("55665");
   });
 
+  it("keeps a Tamil possessive integrity paraphrase attached to its direct MSMARCO-XI evidence", () => {
+    const retrieval = retrievalInternals.retrieveHot("நேர்மையின் பொருள் என்ன?", "ta-IN");
+
+    expect(retrieval?.mode).toBe("local_hot");
+    expect(retrieval?.evidence[0]?.queryId).toBe("205107");
+  });
+
+  it.each([
+    ["hi-IN", "मालवाहक जहाज़ के निचले भाग को क्या कहते हैं?", "55665"],
+    ["kn-IN", "ಕಾರ್ಪೊರೇಷನ್ ಯಾವ ಕಾನೂನುಗಳ ಮೂಲಕ ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ?", "1102432"],
+    ["mr-IN", "मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?", "55665"],
+  ])("keeps the repaired %s paraphrase attached to direct MSMARCO-XI evidence", (languageCode, query, queryId) => {
+    const retrieval = retrievalInternals.retrieveHot(query, languageCode);
+
+    expect(retrieval?.mode).toBe("local_hot");
+    expect(retrieval?.evidence[0]?.queryId).toBe(queryId);
+  });
+
   it("marks Kannada and the fourteen compatible MSMARCO-XI languages as indexed evidence", () => {
     expect(EVALUATION_MANIFEST.languages).toHaveLength(14);
     expect(EVALUATION_MANIFEST.languages).toContain("kn");
