@@ -34,6 +34,13 @@ describe("bounded language inventory routing", () => {
     expect(retrieval?.evidence.some(chunk => chunk.queryId === "1102432")).toBe(true);
   });
 
+  it("keeps a Tamil cargo-ship definition attached to its direct MSMARCO-XI evidence", () => {
+    const retrieval = retrievalInternals.retrieveHot("சரக்குக் கப்பலின் கீழ்ப்பகுதி என்ன என்று அழைக்கப்படுகிறது?", "ta-IN");
+
+    expect(retrieval?.mode).toBe("local_hot");
+    expect(retrieval?.evidence[0]?.queryId).toBe("55665");
+  });
+
   it("marks Kannada and the fourteen compatible MSMARCO-XI languages as indexed evidence", () => {
     expect(EVALUATION_MANIFEST.languages).toHaveLength(14);
     expect(EVALUATION_MANIFEST.languages).toContain("kn");

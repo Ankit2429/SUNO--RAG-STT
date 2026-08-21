@@ -108,10 +108,9 @@ type FocusedBenchmarkFixture = {
 type BenchmarkHarnessRunner = (input: { transcript: string; languageCode: FocusedLanguageCode; script: string }) => Promise<RAGRun>;
 
 /**
- * Five real MSMARCO query themes from the bounded evaluation corpus. Each fixture is
- * reused evenly to produce a statistically useful 200-request latency sample per
- * focused language; the report exposes that reuse rather than claiming 1,000 unique
- * questions. English retains the original MS MARCO formulation from the source rows.
+ * Ten source-backed prompts per focused language. Each set uses five bounded
+ * MSMARCO-XI query themes plus a distinct paraphrase for each theme; reports expose
+ * fixture reuse rather than claiming that repeated latency runs are all unique.
  */
 const FOCUSED_LANGUAGE_FIXTURES: readonly FocusedBenchmarkFixture[] = [
   { id: "hi-1102432", query: "कॉर्पोरेशन क्या है?", languageCode: "hi-IN", sourceQueryId: "1102432" },
@@ -119,30 +118,55 @@ const FOCUSED_LANGUAGE_FIXTURES: readonly FocusedBenchmarkFixture[] = [
   { id: "hi-90836", query: "पोटेशियम में कम खाद्य पदार्थों का चार्ट।", languageCode: "hi-IN", sourceQueryId: "90836" },
   { id: "hi-55665", query: "मालवाहक जहाज़ के नीचे की तरफ क्या होता है?", languageCode: "hi-IN", sourceQueryId: "55665" },
   { id: "hi-205107", query: "ईमानदारी या सत्यनिष्ठा की परिभाषा क्या है?", languageCode: "hi-IN", sourceQueryId: "205107" },
+  { id: "hi-1102432-alt", query: "कॉर्पोरेशन किन कानूनों के तहत काम करता है?", languageCode: "hi-IN", sourceQueryId: "1102432" },
+  { id: "hi-1102431-alt", query: "रेचल कार्सन ने द ऑब्लिगेशन टू एंड्योर लिखने का कारण क्या बताया?", languageCode: "hi-IN", sourceQueryId: "1102431" },
+  { id: "hi-90836-alt", query: "कम पोटेशियम वाले खाद्य पदार्थों की सूची दिखाएँ।", languageCode: "hi-IN", sourceQueryId: "90836" },
+  { id: "hi-55665-alt", query: "मालवाहक जहाज़ के निचले भाग को क्या कहते हैं?", languageCode: "hi-IN", sourceQueryId: "55665" },
+  { id: "hi-205107-alt", query: "ईमानदारी का मतलब क्या होता है?", languageCode: "hi-IN", sourceQueryId: "205107" },
 
   { id: "kn-1102432", query: "ಕಂಪನಿಯು ಯಾವ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತ ನಡೆಸುತ್ತದೆ?", languageCode: "kn-IN", sourceQueryId: "1102432" },
   { id: "kn-1102431", query: "ರೇಚಲ್ ಕಾರ್ಸನ್ ದಿ ಒಬ್ಲಿಗೇಶನ್ ಟು ಎಂಡ್ಯೂರ್ ಏಕೆ ಬರೆದರು?", languageCode: "kn-IN", sourceQueryId: "1102431" },
   { id: "kn-90836", query: "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಮ್ ಇರುವ ಆಹಾರಗಳ ಪಟ್ಟಿ ಏನು?", languageCode: "kn-IN", sourceQueryId: "90836" },
   { id: "kn-55665", query: "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗವನ್ನು ಏನೆಂದು ಕರೆಯುತ್ತಾರೆ?", languageCode: "kn-IN", sourceQueryId: "55665" },
   { id: "kn-205107", query: "ಪ್ರಾಮಾಣಿಕತೆ ಅಥವಾ ಸತ್ಯನಿಷ್ಠೆಯ ವ್ಯಾಖ್ಯಾನ ಏನು?", languageCode: "kn-IN", sourceQueryId: "205107" },
+  { id: "kn-1102432-alt", query: "ಕಾರ್ಪೊರೇಷನ್ ಯಾವ ಕಾನೂನುಗಳ ಮೂಲಕ ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ?", languageCode: "kn-IN", sourceQueryId: "1102432" },
+  { id: "kn-1102431-alt", query: "ರೇಚಲ್ ಕಾರ್ಸನ್ ಆ ಲೇಖನವನ್ನು ಬರೆದ ಕಾರಣ ಏನು?", languageCode: "kn-IN", sourceQueryId: "1102431" },
+  { id: "kn-90836-alt", query: "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಮ್ ಇರುವ ಆಹಾರಗಳ ಚಾರ್ಟ್ ಕೊಡಿ.", languageCode: "kn-IN", sourceQueryId: "90836" },
+  { id: "kn-55665-alt", query: "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗದ ಹೆಸರು ಏನು?", languageCode: "kn-IN", sourceQueryId: "55665" },
+  { id: "kn-205107-alt", query: "ಪ್ರಾಮಾಣಿಕತೆ ಎಂದರೇನು?", languageCode: "kn-IN", sourceQueryId: "205107" },
 
   { id: "en-1102432", query: "What is a corporation?", languageCode: "en-IN", sourceQueryId: "1102432" },
   { id: "en-1102431", query: "Why did Rachel Carson write The Obligation to Endure?", languageCode: "en-IN", sourceQueryId: "1102431" },
   { id: "en-90836", query: "Chart of foods low in potassium.", languageCode: "en-IN", sourceQueryId: "90836" },
   { id: "en-55665", query: "What is the lower side of a cargo ship called?", languageCode: "en-IN", sourceQueryId: "55665" },
   { id: "en-205107", query: "What is the definition of honesty or integrity?", languageCode: "en-IN", sourceQueryId: "205107" },
+  { id: "en-1102432-alt", query: "Which laws govern a corporation?", languageCode: "en-IN", sourceQueryId: "1102432" },
+  { id: "en-1102431-alt", query: "What reason did Rachel Carson give for writing The Obligation to Endure?", languageCode: "en-IN", sourceQueryId: "1102431" },
+  { id: "en-90836-alt", query: "Show foods that are low in potassium.", languageCode: "en-IN", sourceQueryId: "90836" },
+  { id: "en-55665-alt", query: "What do you call the bottom section of a cargo ship?", languageCode: "en-IN", sourceQueryId: "55665" },
+  { id: "en-205107-alt", query: "What does integrity mean?", languageCode: "en-IN", sourceQueryId: "205107" },
 
   { id: "ta-1102432", query: "ஒரு நிறுவனம் என்பது என்ன?", languageCode: "ta-IN", sourceQueryId: "1102432" },
   { id: "ta-1102431", query: "ரேச்சல் கார்சன் ஏன் தி ஆப்ளிகேஷன் டு என்டியர் எழுதினார்?", languageCode: "ta-IN", sourceQueryId: "1102431" },
   { id: "ta-90836", query: "பொட்டாசியம் குறைவுள்ள உணவுகளுக்கான வரைபடம்.", languageCode: "ta-IN", sourceQueryId: "90836" },
   { id: "ta-55665", query: "சரக்குக் கப்பலின் கீழ்ப்பகுதி என்ன என்று அழைக்கப்படுகிறது?", languageCode: "ta-IN", sourceQueryId: "55665" },
   { id: "ta-205107", query: "நேர்மை அல்லது ஒருமைப்பாட்டின் வரையறை என்ன?", languageCode: "ta-IN", sourceQueryId: "205107" },
+  { id: "ta-1102432-alt", query: "ஒரு நிறுவனம் எந்த சட்டங்களால் கட்டுப்படுத்தப்படுகிறது?", languageCode: "ta-IN", sourceQueryId: "1102432" },
+  { id: "ta-1102431-alt", query: "ரேச்சல் கார்சன் அந்தக் கட்டுரையை எழுதிய காரணம் என்ன?", languageCode: "ta-IN", sourceQueryId: "1102431" },
+  { id: "ta-90836-alt", query: "பொட்டாசியம் குறைவான உணவுகளின் பட்டியல் தரவும்.", languageCode: "ta-IN", sourceQueryId: "90836" },
+  { id: "ta-55665-alt", query: "சரக்குக் கப்பலின் அடிப்பகுதி எது?", languageCode: "ta-IN", sourceQueryId: "55665" },
+  { id: "ta-205107-alt", query: "நேர்மையின் பொருள் என்ன?", languageCode: "ta-IN", sourceQueryId: "205107" },
 
   { id: "mr-1102432", query: "कॉर्पोरेशन म्हणजे काय?", languageCode: "mr-IN", sourceQueryId: "1102432" },
   { id: "mr-1102431", query: "रेचल कार्सनने द ऑब्लिगेशन टू एंड्युअर का लिहिले?", languageCode: "mr-IN", sourceQueryId: "1102431" },
   { id: "mr-90836", query: "पोटॅशियमचे प्रमाण कमी असलेल्या खाद्यपदार्थांचा तक्ता.", languageCode: "mr-IN", sourceQueryId: "90836" },
   { id: "mr-55665", query: "मालवाहू जहाजाच्या खालच्या बाजूला काय म्हणतात?", languageCode: "mr-IN", sourceQueryId: "55665" },
   { id: "mr-205107", query: "प्रामाणिकपणा किंवा सचोटीची व्याख्या काय आहे?", languageCode: "mr-IN", sourceQueryId: "205107" },
+  { id: "mr-1102432-alt", query: "कॉर्पोरेशन कोणत्या कायद्यांद्वारे चालते?", languageCode: "mr-IN", sourceQueryId: "1102432" },
+  { id: "mr-1102431-alt", query: "रेचल कार्सनने तो लेख लिहिण्याचे कारण काय होते?", languageCode: "mr-IN", sourceQueryId: "1102431" },
+  { id: "mr-90836-alt", query: "कमी पोटॅशियम असलेल्या खाद्यपदार्थांची यादी द्या.", languageCode: "mr-IN", sourceQueryId: "90836" },
+  { id: "mr-55665-alt", query: "मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?", languageCode: "mr-IN", sourceQueryId: "55665" },
+  { id: "mr-205107-alt", query: "प्रामाणिकपणाचा अर्थ काय आहे?", languageCode: "mr-IN", sourceQueryId: "205107" },
 ];
 
 const FOCUSED_LANGUAGE_CODES: readonly FocusedLanguageCode[] = ["hi-IN", "kn-IN", "en-IN", "ta-IN", "mr-IN"];
@@ -170,8 +194,9 @@ export async function runFiveLanguageBenchmark(options: {
 
   const runner = options.runner ?? runPostTranscriptionHarness;
   const rawTelemetry: LanguageBenchmarkSample[] = [];
-  const repetitions = Math.floor(queriesPerLanguage / 5);
-  const remainder = queriesPerLanguage % 5;
+  const fixtureCount = fixturesFor(FOCUSED_LANGUAGE_CODES[0]).length;
+  const repetitions = Math.floor(queriesPerLanguage / fixtureCount);
+  const remainder = queriesPerLanguage % fixtureCount;
   let sequence = 0;
 
   for (let repetition = 0; repetition < repetitions + (remainder ? 1 : 0); repetition += 1) {
@@ -215,10 +240,10 @@ export async function runFiveLanguageBenchmark(options: {
   return {
     queriesPerLanguage,
     totalQueries: rawTelemetry.length,
-    fixtureReusePerLanguage: Math.floor(queriesPerLanguage / 5),
+    fixtureReusePerLanguage: Math.floor(queriesPerLanguage / fixtureCount),
     postTranscriptionTargetMs: 200,
     evaluatedAt: new Date().toISOString(),
-    scope: "Post-transcription RAG only. Reuses five real MSMARCO-XI query themes per focused language in an even interleaved schedule; Sarvam STT, microphone capture, browser upload, and network transfer are excluded.",
+    scope: "Post-transcription RAG only. Uses ten source-backed prompts per focused language—five bounded MSMARCO-XI query themes plus one paraphrase per theme—in an even interleaved schedule; Sarvam STT, microphone capture, browser upload, and network transfer are excluded.",
     combined: summarizeLatency(rawTelemetry.map(sample => sample.ragMs), combinedStatusCounts.ERROR),
     combinedStatusCounts,
     languages,

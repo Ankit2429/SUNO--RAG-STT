@@ -2,6 +2,11 @@ export const DENSE_VECTOR_SIZE = 384;
 export const DENSE_VECTOR_NAME = "dense_vector";
 export const ZERO_COST_EMBEDDING_MODEL = "multilingual-unicode-ngram-dense-v1";
 
+// These Tamil question-only tokens occur across unrelated corpus rows. Removing
+// them from lexical support prevents a generic question frame from outranking a
+// passage that contains the subject-bearing term (for example, "கப்பலின்").
+const TAMIL_QUESTION_FRAME_TERMS = new Set(["என்ன", "என்று", "அழைக்கப்படுகிறது", "என்பது"]);
+
 function hash(value: string): number {
   let result = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -38,7 +43,7 @@ export function lexicalTerms(text: string): string[] {
     .toLocaleLowerCase()
     .replace(/[\u2010-\u2015]/g, " ")
     .split(/[^A-Za-z0-9\u0080-\uFFFF]+/)
-    .filter(term => term.length > 1)
+    .filter(term => term.length > 1 && !TAMIL_QUESTION_FRAME_TERMS.has(term))
     .slice(0, 12);
   // The Hindi source row for the evaluated corporation question uses "निगम" and
   // "कंपनी", while a common direct Hindi formulation says "कॉर्पोरेशन". Preserve

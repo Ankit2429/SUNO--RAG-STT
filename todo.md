@@ -167,3 +167,7 @@
 - [x] Commit and push the completed Render environment-audit record to the configured GitHub `main` branch.
 - [x] Run a one-time 40-case live evaluation loop across grounded retrieval, five-language routing, refusals, injection/unsafe guardrails, citations, and observed latency; report actual outcomes without changing application logic.
 - [x] Replace all active user-facing SvaraProof refusal branding with SUNO, add or update regression coverage, and verify the corrected state without altering retrieval or guardrail logic.
+- [x] Reproduce and correct the Tamil grounded-case evidence-selection mismatch without weakening source-grounding or refusal boundaries.
+- [x] Expand the evaluation bank with more unique, source-backed grounded prompts for Hindi, Kannada, English, Tamil, and Marathi.
+- [x] Add a separate microphone/STT end-to-end evaluation, rerun the live 40-case matrix, and report observed results. The runner is implemented and records the honest no-audio-fixtures limitation until real recordings are supplied.
+- [x] Perform a final audit of the corrected Tamil retrieval, expanded multilingual prompt bank, live 40-case result, regression/build state, and the recorded-audio STT evaluator limitation.
