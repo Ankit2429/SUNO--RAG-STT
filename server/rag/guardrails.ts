@@ -87,11 +87,12 @@ function normalizeContentTerm(term: string): string {
 }
 
 function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number } | null {
+  const normalizedQueryTerms = new Set(Array.from(terms).map(normalizeContentTerm));
   const sentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).filter(Boolean);
   const ranked = sentences
     .map(sentence => {
-      const sentenceTerms = new Set(sentence.toLocaleLowerCase().split(/[^\w\u0900-\u0D7F]+/).map(normalizeContentTerm).filter(Boolean));
-      return { sentence, score: Array.from(terms).filter(term => sentenceTerms.has(term)).length };
+      const sentenceTerms = new Set(sentence.toLocaleLowerCase().split(/[^\p{L}\p{M}\p{N}]+/u).map(normalizeContentTerm).filter(Boolean));
+      return { sentence, score: Array.from(normalizedQueryTerms).filter(term => sentenceTerms.has(term)).length };
     })
     .sort((a, b) => b.score - a.score);
   const top = ranked[0];
@@ -174,7 +175,7 @@ function focusedSourceFaithfulAnswer(query: string, languageCode: string | undef
 
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
   const terms = queryTerms(query);
-  const minRequiredMatches = terms.size >= 3 ? 2 : 1;
+  const minRequiredMatches = terms.size >= 4 ? 2 : 1;
 
   const supported = evidence
     .map(chunk => ({ chunk, match: evidenceSentence(chunk, terms), score: scores.get(chunk.id) ?? 0 }))
@@ -204,3 +205,8 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
     refusalReason: null,
   };
 }
+
+export const guardrailsInternals = {
+  evidenceSentence,
+  queryTerms,
+};

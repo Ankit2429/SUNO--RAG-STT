@@ -84,7 +84,7 @@ export function lexicalTerms(text: string): string[] {
     .normalize("NFKC")
     .toLocaleLowerCase()
     .replace(/[\u2010-\u2015]/g, " ")
-    .split(/[^A-Za-z0-9\u0080-\uFFFF]+/)
+    .split(/[^\p{L}\p{M}\p{N}]+/u)
     .filter(term => term.length > 1 && !LEXICAL_QUERY_FRAME_TERMS.has(term))
     .slice(0, 12);
 
