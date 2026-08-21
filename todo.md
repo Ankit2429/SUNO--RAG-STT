@@ -143,3 +143,6 @@
 - [x] Replace all SUNO visual colors with only Iron #CDD2D7, Canary #E6FF50, and Shark #28282D, including backgrounds, controls, status signals, evidence, and animation accents.
 - [x] Re-map semantic states for accessible Shark-on-Iron and Shark-on-Canary contrast without introducing any fourth visual color.
 - [x] Verify color exclusivity, responsive composition, functional regressions, and the final Iron-Canary-Shark interface before checkpointing.
+- [x] Audit all visible application, metadata, browser, managed-project, and accessibility references for legacy SvaraProof branding.
+- [x] Replace every remaining visible legacy name with SUNO and align the managed project title with the product identity.
+- [x] Validate the rebrand through metadata checks, regressions, and visual review before checkpointing.
