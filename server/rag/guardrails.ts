@@ -73,15 +73,14 @@ function normalizeContentTerm(term: string): string {
   if (["நேர்மையின்", "நேர்மையை", "நேர்மையுடன்"].includes(base)) return "நேர்மை";
   if (base === "जहाज़") return "जहाज";
   if (base === "निचले") return "नीचे";
-  if (base === "भाग") return "खंड";
+  if (base.startsWith("भाग") || base === "विभाग") return "खंड";
   if (base.startsWith("ಕಾರ್ಪ") || base === "ಕಂಪನಿಯು") return "ಕಂಪನಿ";
   if (base === "ಕಾನೂನುಗಳ" || base === "ಕಾನೂನುಗಳಿಂದ") return "ಕಾನೂನು";
   if (base === "ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ" || base === "ಆಡಳಿತವನ್ನು") return "ಆಡಳಿತ";
   if (base === "ಪೊಟ್ಯಾಸಿಯಂ") return "ಪೊಟ್ಯಾಸಿಯಮ್";
   if (base === "ಆಹಾರಕ್ರಮದ") return "ಆಹಾರ";
   if (base === "கார்ப்பரேஷன்") return "நிறுவனம்";
-  if (base === "तळा" || base === "खाल") return "खाल";
-  if (base === "विभाग") return "खंड";
+  if (base.startsWith("तळ") || base === "खाल") return "खाल";
   // The audited Hindi corporation source uses "निगम" in its answer sentence.
   // This synonym controls matching only; SUNO still returns the cited source text.
   return base === "कॉर्पोरेशन" ? "निगम" : base;
@@ -175,7 +174,7 @@ function focusedSourceFaithfulAnswer(query: string, languageCode: string | undef
 
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
   const terms = queryTerms(query);
-  const minRequiredMatches = 1;
+  const minRequiredMatches = terms.size >= 3 ? 2 : 1;
 
   const supported = evidence
     .map(chunk => ({ chunk, match: evidenceSentence(chunk, terms), score: scores.get(chunk.id) ?? 0 }))
@@ -184,7 +183,7 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
 
   const uniqueParents = new Set(supported.map(item => item.chunk.parentId));
   const top = supported[0];
-  if (!top || top.score < 0.28 || top.match.termMatches < minRequiredMatches || !uniqueParents.size) {
+  if (!top || top.score < 0.20 || top.match.termMatches < minRequiredMatches || !uniqueParents.size) {
     return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
   }
 

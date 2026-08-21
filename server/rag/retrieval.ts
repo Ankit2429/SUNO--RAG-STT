@@ -101,7 +101,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   const terms = meaningfulLexicalTerms(query);
   if (!terms.length) return null; // Require non-stop-word query terms for L1 lookup
   const queryVector = embedText(query);
-  const minRequiredHits = 1;
+  const minRequiredHits = terms.length >= 3 ? 2 : 1;
 
   const ranked = scoped
     .map(chunk => {
