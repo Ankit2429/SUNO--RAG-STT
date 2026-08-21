@@ -20,7 +20,7 @@ const FOCUSED_ENGLISH_COMPANIONS = new Map(
 );
 // The optional cloud tier must not consume the sub-100 ms internal RAG budget.
 // L1 remains preferred; an L2 overrun fails closed rather than delaying a reply.
-const LIVE_CLOUD_FALLBACK_TIMEOUT_MS = 45;
+const LIVE_CLOUD_FALLBACK_TIMEOUT_MS = 35;
 // Index metadata is informational and must not inherit the live answer-path deadline.
 // Qdrant cold starts can exceed two seconds while the collection remains healthy.
 const INDEX_HEALTH_TIMEOUT_MS = 8_000;
@@ -74,7 +74,8 @@ function reciprocalRankFuse(groups: QdrantPoint[][]): Map<string, number> {
   const scores = new Map<string, number>();
   groups.forEach(group => group.forEach((point, index) => {
     const id = String(point.id);
-    scores.set(id, (scores.get(id) || 0) + 60 / (60 + index + 1));
+    const rank = index + 1;
+    scores.set(id, (scores.get(id) || 0) + 1 / (60 + rank));
   }));
   return scores;
 }
@@ -83,15 +84,32 @@ function cosine(left: number[], right: number[]): number {
   return left.reduce((sum, value, index) => sum + value * (right[index] || 0), 0);
 }
 
-function cachedLexicalScore(chunkId: string, terms: string[]): number {
+interface PreprocessedTerm {
+  norm: string;
+  stem: string;
+}
+
+function preprocessTerms(terms: string[]): PreprocessedTerm[] {
+  return terms.map(term => {
+    const norm = normalizeDigits(term.normalize("NFKC").toLocaleLowerCase());
+    const stripped = norm.replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां|ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ಲ್ಲಿ|களின்|க்கான|களை|உடன்|இருந்து|இல்|க்கு|ஐ|ஆல்|இன்|கள்|யின்)$/u, "");
+    const stem = stripped.length >= 2 ? stripped : "";
+    return { norm, stem };
+  });
+}
+
+function scoreChunkLexical(chunkId: string, prepTerms: PreprocessedTerm[]): number {
   const normalized = HOT_NORMALIZED_TEXT.get(chunkId) || "";
-  return terms.reduce((score, term) => {
-    const normT = normalizeDigits(term.normalize("NFKC").toLocaleLowerCase());
-    if (normalized.includes(normT)) return score + 1;
-    const stem = normT.replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां|ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ಲ್ಲಿ|களின்|க்கான|களை|உடன்|இருந்து|இல்|க்கு|ஐ|ஆல்|இன்|கள்|யின்)$/u, "");
-    if (stem.length >= 2 && normalized.includes(stem)) return score + 1;
-    return score;
-  }, 0);
+  let score = 0;
+  for (let i = 0; i < prepTerms.length; i++) {
+    const { norm, stem } = prepTerms[i];
+    if (normalized.includes(norm)) {
+      score += 1;
+    } else if (stem && normalized.includes(stem)) {
+      score += 1;
+    }
+  }
+  return score;
 }
 
 function effectiveCloudTimeoutMs(requested?: number): number {
@@ -109,12 +127,13 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   if (!scoped.length) return null;
   const terms = meaningfulLexicalTerms(query);
   if (!terms.length) return null;
+  const prepTerms = preprocessTerms(terms);
   const queryVector = embedText(query);
   const minRequiredHits = 1;
 
   const ranked = scoped
     .map(chunk => {
-      const lexicalHits = cachedLexicalScore(chunk.id, terms);
+      const lexicalHits = scoreChunkLexical(chunk.id, prepTerms);
       const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));
       const score = dense + lexicalHits * 0.5;
       return { chunk, score, lexicalHits };
