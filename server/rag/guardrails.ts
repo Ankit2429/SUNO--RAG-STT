@@ -63,6 +63,7 @@ function queryTerms(query: string): Set<string> {
  * new answer or introduces an uncited synonym into the returned text.
  */
 function normalizeContentTerm(term: string): string {
+  if (term.toLocaleLowerCase() === "சூரியன்") return "சூரியன்";
   let base = term.toLocaleLowerCase()
     .replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां)$/u, "")
     .replace(/(?:ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ನ|ಲ್ಲಿ)$/u, "")
