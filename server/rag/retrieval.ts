@@ -20,7 +20,7 @@ const FOCUSED_ENGLISH_COMPANIONS = new Map(
 );
 // The optional cloud tier must not consume the sub-100 ms internal RAG budget.
 // L1 remains preferred; an L2 overrun fails closed rather than delaying a reply.
-const LIVE_CLOUD_FALLBACK_TIMEOUT_MS = 80;
+const LIVE_CLOUD_FALLBACK_TIMEOUT_MS = 45;
 // Index metadata is informational and must not inherit the live answer-path deadline.
 // Qdrant cold starts can exceed two seconds while the collection remains healthy.
 const INDEX_HEALTH_TIMEOUT_MS = 8_000;
@@ -95,7 +95,7 @@ function cachedLexicalScore(chunkId: string, terms: string[]): number {
 }
 
 function effectiveCloudTimeoutMs(requested?: number): number {
-  return Math.max(25, Math.min(requested ?? LIVE_CLOUD_FALLBACK_TIMEOUT_MS, LIVE_CLOUD_FALLBACK_TIMEOUT_MS));
+  return Math.max(15, Math.min(requested ?? LIVE_CLOUD_FALLBACK_TIMEOUT_MS, LIVE_CLOUD_FALLBACK_TIMEOUT_MS));
 }
 
 function retrieveHot(query: string, language: string): RetrievalResult | null {
