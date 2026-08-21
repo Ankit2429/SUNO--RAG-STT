@@ -171,3 +171,4 @@
 - [x] Expand the evaluation bank with more unique, source-backed grounded prompts for Hindi, Kannada, English, Tamil, and Marathi.
 - [x] Add a separate microphone/STT end-to-end evaluation, rerun the live 40-case matrix, and report observed results. The runner is implemented and records the honest no-audio-fixtures limitation until real recordings are supplied.
 - [x] Perform a final audit of the corrected Tamil retrieval, expanded multilingual prompt bank, live 40-case result, regression/build state, and the recorded-audio STT evaluator limitation.
+- [x] Perform a final requirement-by-requirement readiness verification of SUNO’s updated retrieval, guardrails, provider health, evaluation evidence, visible behavior, and microphone/STT coverage boundary.
