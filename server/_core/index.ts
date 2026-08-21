@@ -31,6 +31,10 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  // Preserve reusable HTTP connections for consecutive voice/text evidence
+  // requests; retrieval itself is already bounded independently.
+  server.keepAliveTimeout = 65_000;
+  server.headersTimeout = 66_000;
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));

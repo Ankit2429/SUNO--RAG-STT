@@ -175,3 +175,4 @@
 - [x] Run a one-time 60-case live text evaluation loop across unique five-language grounded prompts, citations, routing, unsafe/out-of-context refusals, and latency; report observed outcomes.
 - [x] Audit semantic fidelity of every live grounded answer against its cited MSMARCO-XI evidence, repair only confirmed answer–evidence mismatches, and revalidate the strict matrix.
 - [x] Profile the reported public text-query latency, reduce controllable path overhead toward a verified sub-100-ms target without weakening source grounding or refusals, and preserve fresh benchmark evidence.
+- [x] Measure repeated live response-latency spikes, isolate cold-start/network/retrieval causes, and stabilize the controllable path without weakening grounded answers or refusals.

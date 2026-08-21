@@ -11,30 +11,42 @@ const mutationSpies = vi.hoisted(() => ({
   benchmark: vi.fn(),
   askOptions: undefined as { onSuccess?: (run: RAGRun) => void } | undefined,
   benchmarkOptions: undefined as { onSuccess?: (report: BenchmarkReport) => void } | undefined,
+  indexStatusOptions: undefined as { enabled?: boolean; staleTime?: number; refetchOnWindowFocus?: boolean } | undefined,
 }));
 
 vi.mock("@/lib/trpc", () => ({
   trpc: {
     voiceRag: {
       indexStatus: {
-        useQuery: () => ({
-          data: {
-            manifest: {
-              languages: ["hi", "kn", "ta", "mr"],
-              rowCounts: { hi: 1, kn: 1, ta: 1, mr: 1 },
-              datasetRevision: "test-revision",
-              indexVersion: "test-index",
-              buildTimestamp: "2026-08-18T00:00:00.000Z",
+        useQuery: (_input: unknown, options: { enabled?: boolean; staleTime?: number; refetchOnWindowFocus?: boolean }) => {
+          mutationSpies.indexStatusOptions = options;
+          return {
+            data: {
+              manifest: {
+                languages: ["hi", "kn", "ta", "mr"],
+                rowCounts: { hi: 1, kn: 1, ta: 1, mr: 1 },
+                datasetRevision: "test-revision",
+                indexVersion: "test-index",
+                buildTimestamp: "2026-08-18T00:00:00.000Z",
+              },
+              health: "READY",
+              points: 4,
+              collection: "test-collection",
+              mode: "L1_LOCAL",
             },
-            health: "READY",
-            points: 4,
-            collection: "test-collection",
-            mode: "L1_LOCAL",
-          },
-        }),
+          };
+        },
       },
       ask: { useMutation: (options: { onSuccess?: (run: RAGRun) => void }) => { mutationSpies.askOptions = options; return { mutate: mutationSpies.ask, isPending: false }; } },
-      askBrowserTranscript: { useMutation: () => ({ mutate: mutationSpies.askBrowserTranscript, isPending: false }) },
+      askBrowserTranscript: {
+        useMutation: (options: { onMutate?: (input: { transcript: string; languageCode: string; script: string }) => void }) => ({
+          mutate: (input: { transcript: string; languageCode: string; script: string }) => {
+            options.onMutate?.(input);
+            mutationSpies.askBrowserTranscript(input);
+          },
+          isPending: false,
+        }),
+      },
       benchmark: { useMutation: (options: { onSuccess?: (report: BenchmarkReport) => void }) => { mutationSpies.benchmarkOptions = options; return { mutate: mutationSpies.benchmark, isPending: false }; } },
     },
   },
@@ -53,6 +65,7 @@ describe("Home typed-question submission", () => {
     mutationSpies.benchmark.mockReset();
     mutationSpies.askOptions = undefined;
     mutationSpies.benchmarkOptions = undefined;
+    mutationSpies.indexStatusOptions = undefined;
   });
 
   it("submits automatic Hindi typed input to the actual browser-transcript mutation without client-only fields", async () => {
@@ -69,6 +82,17 @@ describe("Home typed-question submission", () => {
       script: "typed-input",
     });
     expect(Object.keys(mutationSpies.askBrowserTranscript.mock.calls[0][0]).sort()).toEqual(["languageCode", "script", "transcript"]);
+  });
+
+  it("shows the typed evidence-processing state before the asynchronous route returns", async () => {
+    const user = userEvent.setup();
+    render(<Home />);
+
+    await user.type(screen.getByLabelText("Type a question for the evidence harness"), "What is a corporation?");
+    await user.click(screen.getByRole("button", { name: "CHECK TEXT" }));
+
+    expect(screen.getAllByText("Typed question received • matching against bounded MSMARCO-XI evidence.").length).toBeGreaterThan(0);
+    expect(screen.getByTestId("answer-reveal-panel")).toBeTruthy();
   });
 
   it("offers a one-click Marathi override after low-confidence automatic detection", async () => {
@@ -130,6 +154,15 @@ describe("Home typed-question submission", () => {
     expect(controlRail.className).toContain("sm:flex-row");
     expect(screen.getByRole("button", { name: "START RECORDING" })).toBeTruthy();
     expect(screen.getByLabelText("Type a question for the evidence harness")).toBeTruthy();
+  });
+
+  it("keeps the informational remote index-status probe off the active query path until evaluator details are opened", async () => {
+    const user = userEvent.setup();
+    render(<Home />);
+
+    expect(mutationSpies.indexStatusOptions).toMatchObject({ enabled: false, refetchOnWindowFocus: false, staleTime: 60_000 });
+    await user.click(screen.getByText("EVALUATOR DETAILS"));
+    expect(mutationSpies.indexStatusOptions).toMatchObject({ enabled: true, refetchOnWindowFocus: false, staleTime: 60_000 });
   });
 
   it("keeps the answer reveal fully hidden until a typed or voice run begins", () => {

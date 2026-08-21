@@ -40,6 +40,8 @@ const chunkStyles: Record<string, string> = {
   query_linked_evaluation: "bg-[#EEE5D6]",
 };
 
+const FOCUSED_INDEXED_LANGUAGE_CODES = ["hi", "kn", "en", "ta", "mr"];
+
 function toBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -91,6 +93,7 @@ export default function Home() {
   const [run, setRun] = useState<RAGRun | null>(null);
   const [traceOpen, setTraceOpen] = useState(false);
   const [benchmarkReport, setBenchmarkReport] = useState<BenchmarkState | null>(null);
+  const [indexStatusEnabled, setIndexStatusEnabled] = useState(false);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
@@ -102,7 +105,7 @@ export default function Home() {
   const discardRecordingRef = useRef(false);
   const speechDetectedRef = useRef(false);
   const silenceStartedAtRef = useRef<number | null>(null);
-  const revealResponsePanel = (delay = 64) => {
+  const revealResponsePanel = (delay = 0) => {
     window.setTimeout(() => {
       const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
       const responsePanel = responsePanelRef.current;
@@ -111,7 +114,13 @@ export default function Home() {
       }
     }, delay);
   };
-  const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, { refetchOnWindowFocus: false });
+  // Index metadata performs a remote health probe. It is informational, not
+  // required to answer a question, so defer it beyond the first interaction.
+  const { data: indexStatus } = trpc.voiceRag.indexStatus.useQuery(undefined, {
+    enabled: indexStatusEnabled,
+    refetchOnWindowFocus: false,
+    staleTime: 60_000,
+  });
   const ask = trpc.voiceRag.ask.useMutation({
     onMutate: () => {
       setProcessingHint(current => current?.startsWith("Secure clip sent") ? current : "Secure clip sent • Sarvam is transcribing your speech. This external step can take a few seconds.");
@@ -156,7 +165,9 @@ export default function Home() {
     const distance = Math.abs(index - 15) / 16;
     return Math.max(8, (1 - distance) * 46 * (0.34 + level * 0.9));
   }), [level]);
-  const indexedLanguageCodes = Array.from(new Set([...(indexStatus?.manifest?.languages || []), "en"]));
+  const indexedLanguageCodes = indexStatus?.manifest?.languages?.length
+    ? Array.from(new Set([...indexStatus.manifest.languages, "en"]))
+    : FOCUSED_INDEXED_LANGUAGE_CODES;
   const activeLatencyBudget = run ? buildInternalLatencyBudget(run, benchmarkReport?.postTranscriptionTargetMs || 200) : null;
   const outputProgress = resolveVoiceOutputProgress(processingHint, awaitingResponse);
   const shouldShowAnswerPanel = Boolean(run || outputProgress);
@@ -339,7 +350,11 @@ export default function Home() {
       : typedRequest.languageSource === "unresolved"
         ? "language script unresolved"
         : typedRequest.input.languageCode;
-    setCaptureInfo(`Typed question submitted • ${routingDetail} • same evidence harness.`);
+    flushSync(() => {
+      setCaptureInfo(`Typed question submitted • ${routingDetail} • same evidence harness.`);
+      setProcessingHint("Typed question received • matching against bounded MSMARCO-XI evidence.");
+    });
+    revealResponsePanel();
     askBrowserTranscript.mutate(typedRequest.input);
   };
 
@@ -408,7 +423,7 @@ export default function Home() {
           </aside>}
         </section>
 
-        <details open={traceOpen} onToggle={event => setTraceOpen(event.currentTarget.open)} data-testid="evaluator-details" className="suno-details group mx-auto mt-14 max-w-2xl border-y-2 border-[#1B1815] py-4">
+        <details open={traceOpen} onToggle={event => { const open = event.currentTarget.open; setTraceOpen(open); if (open) setIndexStatusEnabled(true); }} data-testid="evaluator-details" className="suno-details group mx-auto mt-14 max-w-2xl border-y-2 border-[#1B1815] py-4">
           <summary className="suno-detail-summary brutal-button flex cursor-pointer list-none items-center justify-between gap-4 py-1"><span><span className="mono text-[9px] font-bold tracking-[0.14em] text-[#625A4F]">EVALUATOR DETAILS</span><span className="mt-1 block text-sm font-bold">Evidence, guardrails, benchmarks, and index health</span></span><span className="mono text-[10px] transition-transform duration-200 group-open:rotate-45">+</span></summary>
           <div className="mt-5 border-t border-[#1B1815] pt-5">
             <div className="grid gap-3 sm:grid-cols-2"><article className="border border-[#1B1815] bg-[#FFFDF7] p-3"><div className="mono text-[9px] font-bold tracking-[0.12em]">INTERNAL RAG / 5,000 IN-DOMAIN</div><p className="mt-2 text-sm font-bold">P50 / P70 / P100: 0.19 / 0.22 / 1.02 ms</p><p className="mt-2 text-xs leading-relaxed text-[#625A4F]">Includes normalization, routing, retrieval, evidence verification, answer assembly, and structured return. Sarvam STT is excluded.</p></article><article className="border border-[#1B1815] bg-[#FFFDF7] p-3"><div className="mono text-[9px] font-bold tracking-[0.12em]">VOICE / 200 BROWSER REQUESTS</div><p className="mt-2 text-sm font-bold">P50 / P70 / P100: 1,520.60 / 1,707.00 / 4,413.80 ms</p><p className="mt-2 text-xs leading-relaxed text-[#625A4F]">English, Kannada, Hindi, Marathi. Includes browser request, Sarvam STT, harness, and returned response; excludes speaking and recording time.</p></article></div>
