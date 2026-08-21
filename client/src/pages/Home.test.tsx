@@ -148,23 +148,20 @@ describe("Home typed-question submission", () => {
     expect(screen.getByLabelText("Type a question for the evidence harness").getAttribute("value")).toBe("What is a corporation?");
   });
 
-  it("offers focused and audit views plus a clear control for efficient evaluator interaction", async () => {
+  it("places language routing below the prompt rail, removes display modes, and retains the clear control", async () => {
     const user = userEvent.setup();
     render(<Home />);
 
-    const details = screen.getByTestId("evaluator-details") as HTMLDetailsElement;
-    expect(screen.getByRole("button", { name: "FOCUS" }).getAttribute("aria-pressed")).toBe("true");
-    await user.click(screen.getByRole("button", { name: "AUDIT" }));
-    expect(details.open).toBe(true);
-    expect(screen.getByRole("button", { name: "AUDIT" }).getAttribute("aria-pressed")).toBe("true");
+    const controlRail = screen.getByTestId("voice-text-actions");
+    const languagePicker = screen.getByTestId("voice-language-picker");
+    expect(controlRail.compareDocumentPosition(languagePicker) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "FOCUS" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "AUDIT" })).toBeNull();
 
     const question = screen.getByLabelText("Type a question for the evidence harness");
     await user.type(question, "What is a corporation?");
     await user.click(screen.getByRole("button", { name: "Clear typed question" }));
     expect(question.getAttribute("value")).toBe("");
-
-    await user.click(screen.getByRole("button", { name: "FOCUS" }));
-    expect(details.open).toBe(false);
   });
 
   it("keeps latency evidence behind the evaluator-details disclosure and renders the full warm percentile set after an audit", async () => {

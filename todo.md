@@ -154,3 +154,6 @@
 - [x] Add or update regression coverage for the new interactions, verify desktop/mobile usability, and checkpoint the completed visual upgrade.
 - [x] Make the external Qdrant and Sarvam credential smoke tests resilient to transient network connection timeouts without masking genuine authentication or API failures.
 - [x] Re-run repeated full validation cycles and record the distinction between internal test reliability and external provider reachability.
+- [x] Restore SUNO’s original cream #F7F1E6, black #1B1815, and safety-orange #EE5B2B visual system across all active surfaces and motion accents.
+- [x] Remove the Display / Focus / Audit controls and move the voice-language selection below the primary microphone-and-text prompt rail.
+- [x] Update affected interaction coverage, validate responsive layout and full regressions, and checkpoint the restored SUNO interface.
