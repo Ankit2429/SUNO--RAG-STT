@@ -13,6 +13,11 @@ const EMBEDDING_MODEL = process.env.QDRANT_EMBEDDING_MODEL || ZERO_COST_EMBEDDIN
 const INDEXED_LANGUAGE_CODES = new Set(EVALUATION_MANIFEST.languages);
 const HOT_VECTORS = new Map(HOT_CORPUS.map(chunk => [chunk.id, embedText(chunk.text)]));
 const HOT_NORMALIZED_TEXT = new Map(HOT_CORPUS.map(chunk => [chunk.id, chunk.text.normalize("NFKC").toLocaleLowerCase()]));
+const FOCUSED_ENGLISH_COMPANIONS = new Map(
+  HOT_CORPUS
+    .filter(chunk => chunk.id.startsWith("en-companion-"))
+    .map(chunk => [chunk.queryId, chunk]),
+);
 // Index metadata is informational and must not inherit the live answer-path deadline.
 // Qdrant cold starts can exceed two seconds while the collection remains healthy.
 const INDEX_HEALTH_TIMEOUT_MS = 8_000;
@@ -112,11 +117,30 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   return { evidence: supported.map(item => item.chunk), scores: new Map(supported.map(item => [item.chunk.id, item.score])), mode: "local_hot" };
 }
 
+/**
+ * When a focused multilingual passage has satisfied the existing retrieval gate,
+ * expose its aligned English source companion alongside it. The companion is
+ * never independently sufficient: guardrails may use it only after selecting a
+ * scored source passage with the same MSMARCO-XI query ID. This makes a precise,
+ * source-faithful translation possible when a machine-translated sibling passage
+ * is noisy, without expanding retrieval scope or lowering evidence thresholds.
+ */
+function attachFocusedCompanions(result: RetrievalResult): RetrievalResult {
+  const existingIds = new Set(result.evidence.map(chunk => chunk.id));
+  const companions: EvidenceChunk[] = [];
+  for (const queryId of Array.from(new Set(result.evidence.map(chunk => chunk.queryId)))) {
+    const companion = FOCUSED_ENGLISH_COMPANIONS.get(queryId);
+    if (companion && !existingIds.has(companion.id)) companions.push(companion);
+  }
+  if (!companions.length) return result;
+  return { ...result, evidence: [...result.evidence, ...companions] };
+}
+
 export const retrievalInternals = { retrieveHot, indexHealthTimeoutMs: INDEX_HEALTH_TIMEOUT_MS };
 
 export async function hybridRetrieve(query: string, language: string, options: { allowCloudFallback?: boolean; cloudTimeoutMs?: number } = {}): Promise<RetrievalResult> {
   const hot = retrieveHot(query, language);
-  if (hot) return hot;
+  if (hot) return attachFocusedCompanions(hot);
   const requestedLanguage = language?.split("-")[0];
   if (requestedLanguage && requestedLanguage !== "unknown" && !INDEXED_LANGUAGE_CODES.has(requestedLanguage)) {
     // The bounded evaluation collection has no evidence in this locale. Returning
@@ -163,7 +187,7 @@ export async function hybridRetrieve(query: string, language: string, options: {
       return true;
     })
     .slice(0, 6);
-  return { evidence, scores, mode: "cloud" };
+  return attachFocusedCompanions({ evidence, scores, mode: "cloud" });
 }
 
 export async function getIndexCapability() {

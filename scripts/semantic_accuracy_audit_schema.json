@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "semanticFaithful": { "type": "boolean" },
+    "directlyAnswersQuestion": { "type": "boolean" },
+    "allMaterialClaimsSupported": { "type": "boolean" },
+    "verdict": { "type": "string", "enum": ["PASS", "FAIL"] },
+    "confidence": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW"] },
+    "reason": { "type": "string" }
+  },
+  "required": [
+    "semanticFaithful",
+    "directlyAnswersQuestion",
+    "allMaterialClaimsSupported",
+    "verdict",
+    "confidence",
+    "reason"
+  ],
+  "additionalProperties": false
+}

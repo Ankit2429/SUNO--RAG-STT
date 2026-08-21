@@ -173,3 +173,4 @@
 - [x] Perform a final audit of the corrected Tamil retrieval, expanded multilingual prompt bank, live 40-case result, regression/build state, and the recorded-audio STT evaluator limitation.
 - [x] Perform a final requirement-by-requirement readiness verification of SUNO’s updated retrieval, guardrails, provider health, evaluation evidence, visible behavior, and microphone/STT coverage boundary.
 - [x] Run a one-time 60-case live text evaluation loop across unique five-language grounded prompts, citations, routing, unsafe/out-of-context refusals, and latency; report observed outcomes.
+- [x] Audit semantic fidelity of every live grounded answer against its cited MSMARCO-XI evidence, repair only confirmed answer–evidence mismatches, and revalidate the strict matrix.

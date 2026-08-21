@@ -59,6 +59,14 @@ describe("bounded language inventory routing", () => {
     expect(retrieval?.evidence[0]?.queryId).toBe(queryId);
   });
 
+  it("adds the aligned companion only after source-linked Hindi evidence passes local retrieval", async () => {
+    const retrieval = await hybridRetrieve("कॉर्पोरेशन किन कानूनों के तहत काम करता है?", "hi-IN");
+
+    expect(retrieval.mode).toBe("local_hot");
+    expect(retrieval.evidence.some(chunk => chunk.queryId === "1102432" && chunk.language === "hi")).toBe(true);
+    expect(retrieval.evidence.some(chunk => chunk.id === "en-companion-1102432")).toBe(true);
+  });
+
   it("marks Kannada and the fourteen compatible MSMARCO-XI languages as indexed evidence", () => {
     expect(EVALUATION_MANIFEST.languages).toHaveLength(14);
     expect(EVALUATION_MANIFEST.languages).toContain("kn");
@@ -76,7 +84,7 @@ describe("bounded language inventory routing", () => {
 
     expect(retrieval.mode).toBe("local_hot");
     expect(retrieval.evidence.length).toBeGreaterThan(0);
-    expect(retrieval.evidence.every(chunk => chunk.language === languageCode.split("-")[0])).toBe(true);
+    expect(retrieval.evidence.every(chunk => chunk.language === languageCode.split("-")[0] || chunk.id.startsWith("en-companion-"))).toBe(true);
   });
 
   it("does not fast-return unrelated Kannada L1 candidates for a question with no local lexical support", async () => {

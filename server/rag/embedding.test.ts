@@ -28,6 +28,8 @@ describe("zero-cost multilingual embedding", () => {
   it("adds only source-attested equivalents for the repaired Hindi, Kannada, and Marathi paraphrases", () => {
     expect(lexicalTerms("मालवाहक जहाज़ के निचले भाग को क्या कहते हैं?")).toEqual(expect.arrayContaining(["जहाज़", "जहाज", "निचले", "नीचे", "भाग", "खंड"]));
     expect(lexicalTerms("ಕಾರ್ಪೊರೇಷನ್ ಯಾವ ಕಾನೂನುಗಳ ಮೂಲಕ ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ?")).toEqual(expect.arrayContaining(["ಕಾರ್ಪೊರೇಷನ್", "ಕಂಪನಿ", "ಕಾನೂನುಗಳ", "ಕಾನೂನು", "ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ", "ಆಡಳಿತ"]));
+    expect(lexicalTerms("ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರಕ್ರಮದ ಚಾರ್ಟ್‌ನಲ್ಲಿ ಯಾವ ಮಾಹಿತಿ ಇರುತ್ತದೆ?")).toEqual(expect.arrayContaining(["ಪೊಟ್ಯಾಸಿಯಂ", "ಪೊಟ್ಯಾಸಿಯಮ್", "ಆಹಾರಕ್ರಮದ", "ಆಹಾರ"]));
+    expect(lexicalTerms("ஒரு கார்ப்பரேஷன் என்பது என்ன?")).toEqual(expect.arrayContaining(["கார்ப்பரேஷன்", "நிறுவனம்"]));
     expect(lexicalTerms("मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?")).toEqual(expect.arrayContaining(["तळाच्या", "खालच्या", "भागाला", "विभाग"]));
     expect(lexicalTerms("मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?")).not.toContain("काय");
     expect(lexicalTerms("मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?")).not.toContain("म्हणतात");

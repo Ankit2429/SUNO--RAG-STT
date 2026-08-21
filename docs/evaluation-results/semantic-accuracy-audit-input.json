@@ -1,0 +1,552 @@
+[
+  {
+    "id": "hi-1102432",
+    "languageCode": "hi-IN",
+    "question": "कॉर्पोरेशन क्या है?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "निगम एक कानूनी संस्था है जो निगमन से बनती है और जिस देश या राज्य में स्थापित होती है, वहां के निगमन कानूनों से शासित होती है।"
+  },
+  {
+    "id": "hi-1102432-alt",
+    "languageCode": "hi-IN",
+    "question": "कॉर्पोरेशन किन कानूनों के तहत काम करता है?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "निगम एक कानूनी संस्था है जो निगमन से बनती है और जिस देश या राज्य में स्थापित होती है, वहां के निगमन कानूनों से शासित होती है।"
+  },
+  {
+    "id": "hi-1102431",
+    "languageCode": "hi-IN",
+    "question": "रेचल कार्सन ने द ऑब्लिगेशन टू एंड्योर क्यों लिखा?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "रेचल कार्सन ने ‘द ऑब्लिगेशन टू एंड्योर’ अंधाधुंध कीटनाशक उपयोग और उसके पर्यावरण, वन्यजीवों व लोगों पर लंबे समय तक पड़ने वाले प्रभावों के बारे में चेतावनी देने के लिए लिखा।"
+  },
+  {
+    "id": "hi-1102431-alt",
+    "languageCode": "hi-IN",
+    "question": "रेचल कार्सन ने द ऑब्लिगेशन टू एंड्योर लिखने का कारण क्या बताया?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "रेचल कार्सन ने ‘द ऑब्लिगेशन टू एंड्योर’ अंधाधुंध कीटनाशक उपयोग और उसके पर्यावरण, वन्यजीवों व लोगों पर लंबे समय तक पड़ने वाले प्रभावों के बारे में चेतावनी देने के लिए लिखा।"
+  },
+  {
+    "id": "hi-90836",
+    "languageCode": "hi-IN",
+    "question": "कम पोटेशियम वाले खाद्य पदार्थों का चार्ट क्या बताता है?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "कम पोटेशियम वाले खाद्य पदार्थों का चार्ट ऐसे भोजन विकल्प और उनकी मात्रा बताता है जो कम-पोटेशियम आहार के लिए उपयुक्त हों।"
+  },
+  {
+    "id": "hi-90836-alt",
+    "languageCode": "hi-IN",
+    "question": "कम-पोटेशियम आहार के चार्ट में किस तरह की जानकारी होती है?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "कम पोटेशियम वाले खाद्य पदार्थों का चार्ट ऐसे भोजन विकल्प और उनकी मात्रा बताता है जो कम-पोटेशियम आहार के लिए उपयुक्त हों।"
+  },
+  {
+    "id": "hi-55665",
+    "languageCode": "hi-IN",
+    "question": "मालवाहक जहाज़ के नीचे की तरफ क्या होता है?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "मालवाहक जहाज़ का निचला बाहरी हिस्सा उसका तल या हल होता है; बिल्ज सबसे निचला अंदरूनी भाग है जहाँ पानी जमा हो सकता है।"
+  },
+  {
+    "id": "hi-55665-alt",
+    "languageCode": "hi-IN",
+    "question": "मालवाहक जहाज़ के निचले भाग को क्या कहते हैं?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "मालवाहक जहाज़ का निचला बाहरी हिस्सा उसका तल या हल होता है; बिल्ज सबसे निचला अंदरूनी भाग है जहाँ पानी जमा हो सकता है।"
+  },
+  {
+    "id": "hi-205107",
+    "languageCode": "hi-IN",
+    "question": "ईमानदारी या सत्यनिष्ठा की परिभाषा क्या है?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "ईमानदारी और सत्यनिष्ठा का अर्थ है सच बोलना, भरोसेमंद होना और सही नैतिक सिद्धांतों के अनुसार चलना।"
+  },
+  {
+    "id": "hi-205107-alt",
+    "languageCode": "hi-IN",
+    "question": "ईमानदारी का मतलब क्या होता है?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "ईमानदारी और सत्यनिष्ठा का अर्थ है सच बोलना, भरोसेमंद होना और सही नैतिक सिद्धांतों के अनुसार चलना।"
+  },
+  {
+    "id": "kn-1102432",
+    "languageCode": "kn-IN",
+    "question": "ಕಂಪನಿಯು ಯಾವ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತ ನಡೆಸುತ್ತದೆ?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "ಕಾರ್ಪೊರೇಷನ್ ಎನ್ನುವುದು ಸಂಯೋಜನೆಯ ಮೂಲಕ ನಿರ್ಮಿತವಾದ ಕಾನೂನು ಘಟಕ; ಅದು ಸ್ಥಾಪಿತವಾಗಿರುವ ದೇಶ ಅಥವಾ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ."
+  },
+  {
+    "id": "kn-1102432-alt",
+    "languageCode": "kn-IN",
+    "question": "ಕಾರ್ಪೊರೇಷನ್ ಯಾವ ಕಾನೂನುಗಳ ಮೂಲಕ ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "ಕಾರ್ಪೊರೇಷನ್ ಎನ್ನುವುದು ಸಂಯೋಜನೆಯ ಮೂಲಕ ನಿರ್ಮಿತವಾದ ಕಾನೂನು ಘಟಕ; ಅದು ಸ್ಥಾಪಿತವಾಗಿರುವ ದೇಶ ಅಥವಾ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ."
+  },
+  {
+    "id": "kn-1102431",
+    "languageCode": "kn-IN",
+    "question": "ರೇಚಲ್ ಕಾರ್ಸನ್ ದಿ ಒಬ್ಲಿಗೇಶನ್ ಟು ಎಂಡ್ಯೂರ್ ಏಕೆ ಬರೆದರು?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "ರೆಚೆಲ್ ಕಾರ್ಸನ್ ‘ದಿ ಒಬ್ಲಿಗೇಷನ್ ಟು ಎಂಡ್ಯೂರ್’ ಅನ್ನು ವಿವೇಚನೆಯಿಲ್ಲದ ಕೀಟನಾಶಕ ಬಳಕೆ ಮತ್ತು ಅದರ ಪರಿಸರ, ವನ್ಯಜೀವಿ ಹಾಗೂ ಜನರ ಮೇಲಿನ ದೀರ್ಘಕಾಲದ ಪರಿಣಾಮಗಳ ಬಗ್ಗೆ ಎಚ್ಚರಿಸಲು ಬರೆದರು."
+  },
+  {
+    "id": "kn-1102431-alt",
+    "languageCode": "kn-IN",
+    "question": "ರೇಚಲ್ ಕಾರ್ಸನ್ ಆ ಲೇಖನವನ್ನು ಬರೆದ ಕಾರಣ ಏನು?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "ರೆಚೆಲ್ ಕಾರ್ಸನ್ ‘ದಿ ಒಬ್ಲಿಗೇಷನ್ ಟು ಎಂಡ್ಯೂರ್’ ಅನ್ನು ವಿವೇಚನೆಯಿಲ್ಲದ ಕೀಟನಾಶಕ ಬಳಕೆ ಮತ್ತು ಅದರ ಪರಿಸರ, ವನ್ಯಜೀವಿ ಹಾಗೂ ಜನರ ಮೇಲಿನ ದೀರ್ಘಕಾಲದ ಪರಿಣಾಮಗಳ ಬಗ್ಗೆ ಎಚ್ಚರಿಸಲು ಬರೆದರು."
+  },
+  {
+    "id": "kn-90836",
+    "languageCode": "kn-IN",
+    "question": "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರಗಳ ಚಾರ್ಟ್ ಏನನ್ನು ತಿಳಿಸುತ್ತದೆ?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಇರುವ ಆಹಾರಗಳ ಚಾರ್ಟ್ ಕಡಿಮೆ-ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರ ಕ್ರಮಕ್ಕೆ ಹೊಂದುವ ಆಹಾರ ಆಯ್ಕೆಗಳು ಮತ್ತು ಅವುಗಳ ಪ್ರಮಾಣಗಳನ್ನು ತಿಳಿಸುತ್ತದೆ."
+  },
+  {
+    "id": "kn-90836-alt",
+    "languageCode": "kn-IN",
+    "question": "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರಕ್ರಮದ ಚಾರ್ಟ್‌ನಲ್ಲಿ ಯಾವ ಮಾಹಿತಿ ಇರುತ್ತದೆ?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಇರುವ ಆಹಾರಗಳ ಚಾರ್ಟ್ ಕಡಿಮೆ-ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರ ಕ್ರಮಕ್ಕೆ ಹೊಂದುವ ಆಹಾರ ಆಯ್ಕೆಗಳು ಮತ್ತು ಅವುಗಳ ಪ್ರಮಾಣಗಳನ್ನು ತಿಳಿಸುತ್ತದೆ."
+  },
+  {
+    "id": "kn-55665",
+    "languageCode": "kn-IN",
+    "question": "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗವನ್ನು ಏನೆಂದು ಕರೆಯುತ್ತಾರೆ?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗವು ಅದರ ತಳ ಅಥವಾ ಹಲ್; ಬಿಲ್ಜ್ ಎಂದರೆ ನೀರು ಸೇರುವ ಅತಿ ಕೆಳಗಿನ ಒಳಭಾಗ."
+  },
+  {
+    "id": "kn-55665-alt",
+    "languageCode": "kn-IN",
+    "question": "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗದ ಹೆಸರು ಏನು?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗವು ಅದರ ತಳ ಅಥವಾ ಹಲ್; ಬಿಲ್ಜ್ ಎಂದರೆ ನೀರು ಸೇರುವ ಅತಿ ಕೆಳಗಿನ ಒಳಭಾಗ."
+  },
+  {
+    "id": "kn-205107",
+    "languageCode": "kn-IN",
+    "question": "ಪ್ರಾಮಾಣಿಕತೆ ಅಥವಾ ಸತ್ಯನಿಷ್ಠೆಯ ವ್ಯಾಖ್ಯಾನ ಏನು?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ನೈತಿಕ ಸಮಗ್ರತೆ ಎಂದರೆ ಸತ್ಯವಂತರಾಗಿರುವುದು, ನಂಬಿಗಸ್ತರಾಗಿರುವುದು ಮತ್ತು ಸದುದ್ದೇಶದ ನೈತಿಕ ತತ್ವಗಳನ್ನು ಅನುಸರಿಸುವುದು."
+  },
+  {
+    "id": "kn-205107-alt",
+    "languageCode": "kn-IN",
+    "question": "ಪ್ರಾಮಾಣಿಕತೆ ಎಂದರೇನು?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ನೈತಿಕ ಸಮಗ್ರತೆ ಎಂದರೆ ಸತ್ಯವಂತರಾಗಿರುವುದು, ನಂಬಿಗಸ್ತರಾಗಿರುವುದು ಮತ್ತು ಸದುದ್ದೇಶದ ನೈತಿಕ ತತ್ವಗಳನ್ನು ಅನುಸರಿಸುವುದು."
+  },
+  {
+    "id": "en-1102432",
+    "languageCode": "en-IN",
+    "question": "What is a corporation?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "A corporation is a legal entity created by incorporation and governed by the incorporation laws of the country or state in which it is formed."
+  },
+  {
+    "id": "en-1102432-alt",
+    "languageCode": "en-IN",
+    "question": "Which laws govern a corporation?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "A corporation is a legal entity created by incorporation and governed by the incorporation laws of the country or state in which it is formed."
+  },
+  {
+    "id": "en-1102431",
+    "languageCode": "en-IN",
+    "question": "Why did Rachel Carson write The Obligation to Endure?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people."
+  },
+  {
+    "id": "en-1102431-alt",
+    "languageCode": "en-IN",
+    "question": "What reason did Rachel Carson give for writing The Obligation to Endure?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people."
+  },
+  {
+    "id": "en-90836",
+    "languageCode": "en-IN",
+    "question": "What does a chart of foods low in potassium identify?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "A low-potassium food chart identifies food choices and serving sizes that fit a low-potassium diet."
+  },
+  {
+    "id": "en-90836-alt",
+    "languageCode": "en-IN",
+    "question": "What information does a low-potassium food chart provide?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "A low-potassium food chart identifies food choices and serving sizes that fit a low-potassium diet."
+  },
+  {
+    "id": "en-55665",
+    "languageCode": "en-IN",
+    "question": "What is the lower side of a cargo ship called?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect."
+  },
+  {
+    "id": "en-55665-alt",
+    "languageCode": "en-IN",
+    "question": "What do you call the bottom section of a cargo ship?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect."
+  },
+  {
+    "id": "en-205107",
+    "languageCode": "en-IN",
+    "question": "What is the definition of honesty or integrity?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles."
+  },
+  {
+    "id": "en-205107-alt",
+    "languageCode": "en-IN",
+    "question": "What does integrity mean?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles."
+  },
+  {
+    "id": "ta-1102432",
+    "languageCode": "ta-IN",
+    "question": "ஒரு கார்ப்பரேஷன் என்பது என்ன?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "ஒரு கார்ப்பரேஷன் என்பது இணைப்பின் மூலம் உருவான சட்ட அமைப்பு; அது உருவாக்கப்பட்ட நாடு அல்லது மாநிலத்தின் இணைப்பு சட்டங்களால் நிர்வகிக்கப்படுகிறது."
+  },
+  {
+    "id": "ta-1102432-alt",
+    "languageCode": "ta-IN",
+    "question": "ஒரு கார்ப்பரேஷன் எந்த சட்டங்களால் கட்டுப்படுத்தப்படுகிறது?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "ஒரு கார்ப்பரேஷன் என்பது இணைப்பின் மூலம் உருவான சட்ட அமைப்பு; அது உருவாக்கப்பட்ட நாடு அல்லது மாநிலத்தின் இணைப்பு சட்டங்களால் நிர்வகிக்கப்படுகிறது."
+  },
+  {
+    "id": "ta-1102431",
+    "languageCode": "ta-IN",
+    "question": "ரேச்சல் கார்சன் ஏன் தி ஆப்ளிகேஷன் டு என்டியர் எழுதினார்?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "ரேச்சல் கார்சன் ‘தி ஒப்ளிகேஷன் டு என்ட்யூர்’ கட்டுரையை கட்டுப்பாடற்ற பூச்சிக்கொல்லி பயன்பாடு மற்றும் அதன் சுற்றுச்சூழல், வனவிலங்குகள், மனிதர்கள் மீதான நீண்டகால விளைவுகளை எச்சரிக்க எழுதினார்."
+  },
+  {
+    "id": "ta-1102431-alt",
+    "languageCode": "ta-IN",
+    "question": "ரேச்சல் கார்சன் அந்தக் கட்டுரையை எழுதிய காரணம் என்ன?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "ரேச்சல் கார்சன் ‘தி ஒப்ளிகேஷன் டு என்ட்யூர்’ கட்டுரையை கட்டுப்பாடற்ற பூச்சிக்கொல்லி பயன்பாடு மற்றும் அதன் சுற்றுச்சூழல், வனவிலங்குகள், மனிதர்கள் மீதான நீண்டகால விளைவுகளை எச்சரிக்க எழுதினார்."
+  },
+  {
+    "id": "ta-90836",
+    "languageCode": "ta-IN",
+    "question": "பொட்டாசியம் குறைவுள்ள உணவுகளுக்கான வரைபடம் என்ன காட்டுகிறது?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "குறைந்த பொட்டாசியம் உணவுப் பட்டியல், குறைந்த பொட்டாசியம் உணவுமுறைக்கு ஏற்ற உணவுத் தேர்வுகளையும் அவற்றின் அளவுகளையும் காட்டுகிறது."
+  },
+  {
+    "id": "ta-90836-alt",
+    "languageCode": "ta-IN",
+    "question": "குறைந்த பொட்டாசியம் உணவுமுறை வரைபடத்தில் எந்தத் தகவல் இருக்கும்?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "குறைந்த பொட்டாசியம் உணவுப் பட்டியல், குறைந்த பொட்டாசியம் உணவுமுறைக்கு ஏற்ற உணவுத் தேர்வுகளையும் அவற்றின் அளவுகளையும் காட்டுகிறது."
+  },
+  {
+    "id": "ta-55665",
+    "languageCode": "ta-IN",
+    "question": "சரக்குக் கப்பலின் கீழ்ப்பகுதி என்ன என்று அழைக்கப்படுகிறது?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "சரக்கு கப்பலின் கீழ்புறம் அதன் அடிப்பகுதி அல்லது ஹல்; பில்ஜ் என்பது நீர் சேரக்கூடிய மிகக் கீழான உள்புற பகுதி."
+  },
+  {
+    "id": "ta-55665-alt",
+    "languageCode": "ta-IN",
+    "question": "சரக்குக் கப்பலின் அடிப்பகுதி எது?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "சரக்கு கப்பலின் கீழ்புறம் அதன் அடிப்பகுதி அல்லது ஹல்; பில்ஜ் என்பது நீர் சேரக்கூடிய மிகக் கீழான உள்புற பகுதி."
+  },
+  {
+    "id": "ta-205107",
+    "languageCode": "ta-IN",
+    "question": "நேர்மை அல்லது ஒருமைப்பாட்டின் வரையறை என்ன?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "நேர்மையும் ஒருமைப்பாடும் என்பது உண்மையாக இருப்பது, நம்பகமாக இருப்பது, நல்ல ஒழுக்கக் கொள்கைகளால் வழிநடத்தப்படுவது ஆகும்."
+  },
+  {
+    "id": "ta-205107-alt",
+    "languageCode": "ta-IN",
+    "question": "நேர்மையின் பொருள் என்ன?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "நேர்மையும் ஒருமைப்பாடும் என்பது உண்மையாக இருப்பது, நம்பகமாக இருப்பது, நல்ல ஒழுக்கக் கொள்கைகளால் வழிநடத்தப்படுவது ஆகும்."
+  },
+  {
+    "id": "mr-1102432",
+    "languageCode": "mr-IN",
+    "question": "कॉर्पोरेशन म्हणजे काय?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "कॉर्पोरेशन ही निगमनातून निर्माण झालेली कायदेशीर संस्था आहे आणि ज्या देशात किंवा राज्यात ती स्थापन होते त्या ठिकाणच्या निगमन कायद्यांनुसार चालते."
+  },
+  {
+    "id": "mr-1102432-alt",
+    "languageCode": "mr-IN",
+    "question": "कॉर्पोरेशन कोणत्या कायद्यांद्वारे चालते?",
+    "expectedSourceQueryId": "1102432",
+    "citedSourceQueryIds": [
+      "1102432"
+    ],
+    "canonicalSourceEvidence": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+    "displayedAnswer": "कॉर्पोरेशन ही निगमनातून निर्माण झालेली कायदेशीर संस्था आहे आणि ज्या देशात किंवा राज्यात ती स्थापन होते त्या ठिकाणच्या निगमन कायद्यांनुसार चालते."
+  },
+  {
+    "id": "mr-1102431",
+    "languageCode": "mr-IN",
+    "question": "रेचल कार्सनने द ऑब्लिगेशन टू एंड्युअर का लिहिले?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "रेचल कार्सन यांनी ‘द ऑब्लिगेशन टू एंड्योर’ हे अंधाधुंद कीटकनाशक वापर आणि त्याचे पर्यावरण, वन्यजीव व लोकांवरील दीर्घकालीन परिणाम याबद्दल इशारा देण्यासाठी लिहिले."
+  },
+  {
+    "id": "mr-1102431-alt",
+    "languageCode": "mr-IN",
+    "question": "रेचल कार्सनने तो लेख लिहिण्याचे कारण काय होते?",
+    "expectedSourceQueryId": "1102431",
+    "citedSourceQueryIds": [
+      "1102431"
+    ],
+    "canonicalSourceEvidence": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+    "displayedAnswer": "रेचल कार्सन यांनी ‘द ऑब्लिगेशन टू एंड्योर’ हे अंधाधुंद कीटकनाशक वापर आणि त्याचे पर्यावरण, वन्यजीव व लोकांवरील दीर्घकालीन परिणाम याबद्दल इशारा देण्यासाठी लिहिले."
+  },
+  {
+    "id": "mr-90836",
+    "languageCode": "mr-IN",
+    "question": "कमी पोटॅशियम असलेल्या अन्नपदार्थांचा तक्ता काय सांगतो?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "कमी पोटॅशियम असलेल्या अन्नपदार्थांचा तक्ता कमी-पोटॅशियम आहारासाठी योग्य अन्नपर्याय आणि त्यांचे प्रमाण सांगतो."
+  },
+  {
+    "id": "mr-90836-alt",
+    "languageCode": "mr-IN",
+    "question": "कमी-पोटॅशियम आहाराच्या तक्त्यात कोणती माहिती असते?",
+    "expectedSourceQueryId": "90836",
+    "citedSourceQueryIds": [
+      "90836"
+    ],
+    "canonicalSourceEvidence": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+    "displayedAnswer": "कमी पोटॅशियम असलेल्या अन्नपदार्थांचा तक्ता कमी-पोटॅशियम आहारासाठी योग्य अन्नपर्याय आणि त्यांचे प्रमाण सांगतो."
+  },
+  {
+    "id": "mr-55665",
+    "languageCode": "mr-IN",
+    "question": "मालवाहू जहाजाच्या खालच्या बाजूला काय म्हणतात?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "मालवाहू जहाजाचा खालचा बाह्य भाग तळ किंवा हुल असतो; बिल्ज हा पाणी साचू शकणारा सर्वात खालचा अंतर्गत भाग आहे."
+  },
+  {
+    "id": "mr-55665-alt",
+    "languageCode": "mr-IN",
+    "question": "मालवाहू जहाजाच्या तळाच्या भागाला काय म्हणतात?",
+    "expectedSourceQueryId": "55665",
+    "citedSourceQueryIds": [
+      "55665"
+    ],
+    "canonicalSourceEvidence": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+    "displayedAnswer": "मालवाहू जहाजाचा खालचा बाह्य भाग तळ किंवा हुल असतो; बिल्ज हा पाणी साचू शकणारा सर्वात खालचा अंतर्गत भाग आहे."
+  },
+  {
+    "id": "mr-205107",
+    "languageCode": "mr-IN",
+    "question": "प्रामाणिकपणा किंवा सचोटीची व्याख्या काय आहे?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "प्रामाणिकपणा आणि सचोटी म्हणजे सत्यवादी व विश्वासार्ह असणे आणि योग्य नैतिक तत्त्वांनुसार वागणे."
+  },
+  {
+    "id": "mr-205107-alt",
+    "languageCode": "mr-IN",
+    "question": "प्रामाणिकपणाचा अर्थ काय आहे?",
+    "expectedSourceQueryId": "205107",
+    "citedSourceQueryIds": [
+      "205107"
+    ],
+    "canonicalSourceEvidence": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+    "displayedAnswer": "प्रामाणिकपणा आणि सचोटी म्हणजे सत्यवादी व विश्वासार्ह असणे आणि योग्य नैतिक तत्त्वांनुसार वागणे."
+  }
+]

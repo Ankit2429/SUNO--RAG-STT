@@ -142,6 +142,20 @@ const kannadaCorporationLawEvidence: EvidenceChunk = {
   overlap: 0,
 };
 
+const englishCorporationCompanion: EvidenceChunk = {
+  id: "en-companion-1102432",
+  text: "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or state in which it is formed.",
+  language: "en",
+  source: "ai4bharat/MSMARCO-XI",
+  strategy: "paragraph_section",
+  parentId: "1102432-en",
+  queryId: "1102432",
+  queryType: "DESCRIPTION",
+  ordinal: 0,
+  selected: false,
+  overlap: 0,
+};
+
 const marathiBilgeEvidence: EvidenceChunk = {
   id: "bilge-mr-1",
   text: "बिल्ज - खालच्या आणि बाजूच्या बाजूंमधील वक्राकार विभाग; ज्यामध्ये सर्व पाणी वाहते.",
@@ -253,6 +267,55 @@ describe("evidence grounding", () => {
 
     expect(answer).toMatchObject({ status: "GROUNDED", evidenceIds: [kannadaCorporationLawEvidence.id] });
     expect(answer.answer).toContain("ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ");
+  });
+
+  it("returns a reviewed Hindi translation only after a scored source passage and its aligned companion are both present", () => {
+    const focusedCorporationEvidence = { ...corporationEvidence, id: "corporation-focused-hi-1", queryId: "1102432" };
+    const answer = verifyAndSynthesize(
+      "कॉर्पोरेशन किन कानूनों के तहत काम करता है?",
+      [focusedCorporationEvidence, englishCorporationCompanion],
+      new Map([[focusedCorporationEvidence.id, 0.9]]),
+      "hi-IN",
+    );
+
+    expect(answer).toMatchObject({ status: "GROUNDED", evidenceIds: [englishCorporationCompanion.id], confidenceBand: "HIGH" });
+    expect(answer.answer).toContain("देश या राज्य");
+  });
+
+  it("does not use a focused translation when the scored source passage is absent", () => {
+    const answer = verifyAndSynthesize(
+      "कॉर्पोरेशन किन कानूनों के तहत काम करता है?",
+      [englishCorporationCompanion],
+      new Map(),
+      "hi-IN",
+    );
+
+    expect(answer.status).toBe("REFUSED");
+  });
+
+  it("refuses to fabricate a low-potassium food list when the source only describes a chart", () => {
+    const potassiumEvidence: EvidenceChunk = {
+      ...englishCorporationCompanion,
+      id: "potassium-focused-90836",
+      text: "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+      queryId: "90836",
+      parentId: "90836-en",
+      ordinal: 1,
+    };
+    const potassiumCompanion: EvidenceChunk = {
+      ...potassiumEvidence,
+      id: "en-companion-90836",
+      ordinal: 0,
+    };
+    const answer = verifyAndSynthesize(
+      "Show foods that are low in potassium.",
+      [potassiumEvidence, potassiumCompanion],
+      new Map([[potassiumEvidence.id, 0.9]]),
+      "en-IN",
+    );
+
+    expect(answer).toMatchObject({ status: "REFUSED", evidenceIds: [], confidenceBand: "NONE" });
+    expect(answer.refusalReason).toContain("does not enumerate individual foods");
   });
 
   it.each([

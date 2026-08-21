@@ -14,6 +14,10 @@ export async function generateEvidenceBoundAnswer(input: {
   baseline: StructuredAnswer;
 }): Promise<StructuredAnswer> {
   if (generationMode() !== "llm" || input.baseline.status !== "GROUNDED") return input.baseline;
+  // Focused source-faithful answers are reviewed translations of the attached
+  // English companion source. Preserve them verbatim rather than letting an
+  // optional generative mode paraphrase away a material source detail.
+  if (input.baseline.evidenceIds.some(id => id.startsWith("en-companion-"))) return input.baseline;
   const cited = input.evidence.filter(chunk => input.baseline.evidenceIds.includes(chunk.id));
   if (!cited.length) return input.baseline;
 

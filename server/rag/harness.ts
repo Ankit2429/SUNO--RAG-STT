@@ -72,7 +72,7 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   const rerankStart = now();
   trace(events, "rerank", rerankStart, "OK", "Parent-level deduplication and evidence-first reranking applied.");
   const evidenceStart = now();
-  const baseline = verifyAndSynthesize(query, retrieval.evidence, retrieval.scores);
+  const baseline = verifyAndSynthesize(query, retrieval.evidence, retrieval.scores, input.languageCode);
   trace(events, "evidence_gate", evidenceStart, baseline.status === "GROUNDED" ? "OK" : "REFUSED", baseline.status === "GROUNDED" ? "Evidence sufficiency threshold passed." : baseline.refusalReason || "Evidence rejected.");
   const generationStart = now();
   const candidate = await generateEvidenceBoundAnswer({ query, evidence: retrieval.evidence, baseline });
