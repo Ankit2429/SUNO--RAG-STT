@@ -118,7 +118,7 @@ function add(vector: number[], feature: string, weight: number) {
 const EMBED_CACHE = new Map<string, number[]>();
 const LEXICAL_CACHE = new Map<string, string[]>();
 const MEANINGFUL_LEXICAL_CACHE = new Map<string, string[]>();
-const MAX_CACHE_SIZE = 2000;
+const MAX_CACHE_SIZE = 25000;
 
 function setBoundedCache<V>(cache: Map<string, V>, key: string, value: V) {
   if (cache.size >= MAX_CACHE_SIZE) {

@@ -674,7 +674,7 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
       }
 
       if (terms.size === 2) {
-        if ((coverage >= 0.90 || (effectiveMatchCount >= 2 && chunkScore >= 0.30) || (effectiveMatchCount >= 1 && chunkScore >= 0.52)) && sentence.length >= 20) {
+        if ((coverage >= 0.90 || (effectiveMatchCount >= 2 && chunkScore >= 0.28) || (effectiveMatchCount >= 1 && chunkScore >= 0.35)) && sentence.length >= 20) {
           return { chunk, match, score: chunkScore };
         }
         return null;
