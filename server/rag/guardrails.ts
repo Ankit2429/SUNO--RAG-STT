@@ -341,15 +341,15 @@ const CORE_DOMAIN_KEYWORDS = new Set([
 
 const GENERIC_CONTAINER_TERMS = new Set([
   // English / Stems
-  "solar", "energy", "system", "water", "food", "research", "treatment", "service", "customer", "school", "education", "student", "output", "hours", "team", "teams", "list", "show", "give", "help", "section", "article", "cost_attribute", "cost", "price", "rate", "average", "difference", "meaning", "definition",
+  "solar", "energy", "system", "water", "food", "research", "treatment", "service", "customer", "school", "education", "student", "output", "hours", "team", "teams", "list", "show", "give", "help", "section", "article", "cost_attribute", "cost", "price", "rate", "average", "difference", "meaning", "definition", "example", "examples", "process", "method", "ways", "type", "types", "time", "number", "level", "state", "use", "used",
   // Hindi
-  "सौर", "ऊर्जा", "प्रणाली", "पानी", "आहार", "भोजन", "शोध", "अध्ययन", "उपचार", "सेवा", "स्कूल", "शिक्षा", "छात्र", "देश", "यादी", "सूची", "घंटे", "लागत", "खर्च", "मूल्य",
+  "सौर", "ऊर्जा", "प्रणाली", "पानी", "आहार", "भोजन", "शोध", "अध्ययन", "उपचार", "सेवा", "स्कूल", "शिक्षा", "छात्र", "देश", "यादी", "सूची", "घंटे", "लागत", "खर्च", "मूल्य", "उदाहरण", "प्रकार", "तरीका", "संख्या", "समय", "उपयोग",
   // Kannada
-  "ನೀರು", "ಸಂಶೋಧನೆ", "ಶಿಕ್ಷಣ", "ಶಾಲೆ", "ವಿದ್ಯಾರ್ಥಿ", "ಸೇವೆ", "ತಂಡಗಳು", "ಪಟ್ಟಿ", "ಮಾಹಿತಿ", "ಬೆಲೆ",
+  "ನೀರು", "ಸಂಶೋಧನೆ", "ಶಿಕ್ಷಣ", "ಶಾಲೆ", "ವಿದ್ಯಾರ್ಥಿ", "ಸೇವೆ", "ತಂಡಗಳು", "ಪಟ್ಟಿ", "ಮಾಹಿತಿ", "ಬೆಲೆ", "ಉದಾಹರಣೆ", "ಸಮಯ",
   // Tamil
-  "உணவு", "நீர்", "ஆராய்ச்சி", "கல்வி", "பள்ளி", "மாணவர்", "சேவை", "அணிகள்", "பட்டியல்", "தகவல்", "விலை",
+  "உணவு", "நீர்", "ஆராய்ச்சி", "கல்வி", "பள்ளி", "மாணவர்", "சேவை", "அணிகள்", "பட்டியல்", "தகவல்", "விலை", "எடுத்துக்காட்டு", "நேரம்",
   // Marathi
-  "अन्न", "पाणी", "अभ्यास", "शिक्षण", "ಶಾळा", "सेवा", "संघ", "यादी", "खर्च", "किंमत"
+  "अन्न", "पाणी", "अभ्यास", "शिक्षण", "ಶಾळा", "सेवा", "संघ", "यादी", "खर्च", "किंमत", "उदाहरण", "वेळ"
 ]);
 
 const MUTUALLY_EXCLUSIVE_CONCEPTS: Array<Set<string>> = [
@@ -658,20 +658,20 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
       }
 
       if (terms.size === 1) {
-        if (effectiveMatchCount >= 1 && chunkScore >= 0.22 && sentence.length >= 20) {
+        if (effectiveMatchCount >= 1 && chunkScore >= 0.28 && sentence.length >= 20) {
           return { chunk, match, score: chunkScore };
         }
         return null;
       }
 
       if (terms.size === 2) {
-        if ((coverage >= 0.90 || effectiveMatchCount >= 2 || (effectiveMatchCount >= 1 && chunkScore >= 0.52)) && sentence.length >= 20) {
+        if ((coverage >= 0.90 || (effectiveMatchCount >= 2 && chunkScore >= 0.35) || (effectiveMatchCount >= 1 && chunkScore >= 0.58)) && sentence.length >= 20) {
           return { chunk, match, score: chunkScore };
         }
         return null;
       }
 
-      if ((coverage >= 0.60 || (effectiveMatchCount >= 2 && chunkScore >= 0.40)) && sentence.length >= 20) {
+      if ((coverage >= 0.65 || (effectiveMatchCount >= 3 && chunkScore >= 0.40) || (effectiveMatchCount >= 2 && chunkScore >= 0.55)) && sentence.length >= 20) {
         return { chunk, match, score: chunkScore };
       }
 
