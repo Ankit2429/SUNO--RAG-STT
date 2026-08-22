@@ -4,7 +4,7 @@ export const ZERO_COST_EMBEDDING_MODEL = "multilingual-unicode-ngram-dense-v1";
 
 export const LEXICAL_QUERY_FRAME_TERMS = new Set([
   // English
-  "what", "how", "why", "who", "which", "where", "when", "many", "much", "mean", "means", "meaning", "define", "definition", "purpose",
+  "what", "how", "why", "who", "whom", "whose", "which", "where", "when", "many", "much", "mean", "means", "meaning", "define", "definition", "purpose", "belong", "belongs",
   // Hindi
   "क्या", "कहते", "हैं", "मतलब", "अर्थ", "परिभाषा",
   // Tamil
@@ -19,7 +19,8 @@ export const LEXICAL_QUERY_FRAME_TERMS = new Set([
 
 export const STOP_WORDS = new Set([
   // English
-  "what", "is", "are", "was", "were", "the", "a", "an", "in", "on", "at", "of", "to", "for", "with", "and", "or", "by", "from", "how", "why", "who", "where", "when", "which", "can", "does", "do", "did", "tell", "give", "me", "about", "called", "known", "as", "between", "many", "much", "more", "most", "some", "any", "this", "that", "these", "those", "have", "has", "had", "will", "would", "should", "could", "been", "being", "their", "there", "they", "them", "other", "into", "than", "then", "just", "also", "only", "its", "it", "low", "make", "do", "how", "state", "country", "city", "first", "main", "major", "type", "role", "importance", "difference", "history", "report", "details", "information", "according",
+  "what", "is", "are", "was", "were", "the", "a", "an", "in", "on", "at", "of", "to", "for", "with", "and", "or", "by", "from", "how", "why", "who", "whom", "whose", "where", "when", "which", "can", "does", "do", "did", "tell", "give", "me", "about", "called", "known", "as", "between", "many", "much", "more", "most", "some", "any", "this", "that", "these", "those", "have", "has", "had", "will", "would", "should", "could", "been", "being", "their", "there", "they", "them", "other", "into", "than", "then", "just", "also", "only", "its", "it", "low", "make", "do", "how", "belong", "belongs", "state", "country", "city", "first", "main", "major", "type", "role", "importance", "difference", "history", "report", "details", "information", "according",
+
 
   // Hindi
   "क्या", "है", "हैं", "होता", "होती", "होते", "होना", "होने", "का", "की", "के", "में", "से", "को", "पर", "और", "या", "तथा", "गया", "गए", "गई", "था", "थी", "थे", "किस", "कौन", "कहाँ", "कहा", "कैसे", "कितने", "कितनी", "कितना", "केसरी", "लिए", "द्वारा", "बारे", "इन", "उन", "वह", "यह", "वे", "ये", "जाता", "जाती", "जाते", "रहता", "रहती", "रहते", "साथ", "तक", "अपने", "अपनी", "अपना", "कम", "करें", "किया", "करना", "करने", "कर", "लो", "देना", "देने", "दिए", "काम", "करती", "करता", "करते", "रहा", "रही", "रहे", "तरह", "कहा", "विवरण", "जानकारी", "राज्य", "देश", "शहर", "नगर", "प्रथम", "पहला", "पहली", "पहले", "प्रमुख", "अंतर", "महत्व", "भूमिका", "निष्कर्ष", "चेतावनी", "प्रभाव", "प्रकार", "ने", "ही", "भी", "तो", "वाला", "वाले", "वाली",

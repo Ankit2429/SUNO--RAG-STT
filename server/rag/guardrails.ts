@@ -413,8 +413,10 @@ const NAVIGATIONAL_PATTERNS = [
   /^\d+\s*[\)\.\:\s]/,
   /^Question\s+\d+\s*:/i,
   /\b(?:home\s*\/\s*\w+|products\s*\/|\w+\s*\/\s*\w+\s*\/\s*\w+)\b/i,
-  /\b(?:when\s+you|such\s+as|including|e\.g\.)\s*:/i
+  /\b(?:\(\d+\s*marks?\)|exam\s*questions?|revision\s*questions?|module\s*\d+)\b/i,
+  /\b(?:when\s+you|click\s+to|select\s+one)\s*:/i
 ];
+
 
 
 
@@ -477,10 +479,11 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
   }
 
   // Who / Person / Owner
-  if (/\b(?:who|person|founder|creator|inventor|author|director|president|scientist|owner|ownership)\b/i.test(qLower)) {
-    const hasPersonIndicator = /\b(?:born|he|she|his|her|author|founder|creator|inventor|director|president|scientist|doctor|engineer|owner|ownership|officer|manager|person|people|individual|team|discovered\s+by|written\s+by|founded\s+by|led\s+by|owned\s+by|sold\s+to|named)\b/i.test(sLower) || /\b(?:द्वारा|व्यक्ति|लेखक|निदेशक|वैज्ञानिक|खोजकर्ता|প্রতিষ্ঠাতা|मालिक)\b/i.test(sLower);
+  if (/\b(?:who|whom|whose|person|founder|creator|inventor|author|director|president|scientist|owner|ownership|belong|belongs)\b/i.test(qLower)) {
+    const hasPersonIndicator = /\b(?:born|he|she|his|her|author|founder|creator|inventor|director|president|scientist|doctor|engineer|owner|ownership|officer|manager|person|people|individual|team|discovered\s+by|written\s+by|founded\s+by|led\s+by|owned\s+by|sold\s+to|bought|belong|belongs|named)\b/i.test(sLower) || /\b(?:द्वारा|व्यक्ति|लेखक|निदेशक|वैज्ञानिक|खोजकर्ता|প্রতিষ্ঠাতা|मालिक)\b/i.test(sLower);
     if (!hasPersonIndicator) return false;
   }
+
 
 
   // Origin / History / Coined / Started
