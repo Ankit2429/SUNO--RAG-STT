@@ -538,6 +538,12 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
     if (!hasStepIndicator) return false;
   }
 
+  // Modal / Possibility / Cause-Effect ("can X cause Y", "does X lead to Y", "can you X")
+  if (/^(?:can|could|does|do|will|would|is\s+it\s+possible)\b/i.test(qLower) || /\b(?:क्या\s+.*हो\s+सकता|क्या\s+.*सकते)\b/u.test(query)) {
+    const hasModalOrEffectIndicator = /\b(?:can|could|may|might|will|would|able|allows|causes?|caused|leads?|leading|results?|resulting|triggers?|produces?|prevent|prevents|possible|safe|safely|freeze|frozen|suspended|cure|treated)\b/i.test(sLower) || /\b(?:सकता|सकती|सकते|संभव|कारण|मदद|रोक|उपचार)\b/u.test(sentence);
+    if (!hasModalOrEffectIndicator) return false;
+  }
+
   return true;
 }
 
