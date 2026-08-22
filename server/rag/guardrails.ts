@@ -140,6 +140,13 @@ function normalizeContentTerm(term: string): string {
   if (base.startsWith("एनएचएल") || base.startsWith("ಎನ್ಹೆಚ್ಎಲ್") || base.startsWith("என்ஹெச்எல்") || base.startsWith("nhl")) return "nhl";
   if (base.startsWith("प्लेऑफ") || base.startsWith("ಪ್ಲೇಆಫ್") || base.startsWith("பிளேஆஃப்") || base.startsWith("playoff")) return "playoffs";
 
+  // US State abbreviations
+  if (base === "ga" || base.startsWith("georgia") || base.startsWith("जॉर्जिया") || base.startsWith("ಜಾರ್ಜಿಯಾ") || base.startsWith("ஜார்ஜியா")) return "georgia";
+  if (base === "ca" || base.startsWith("california") || base.startsWith("कैलिफोर्निया") || base.startsWith("ಕ್ಯಾಲಿಫೋರ್ನಿಯಾ")) return "california";
+  if (base === "fl" || base.startsWith("florida") || base.startsWith("फ्लोरिडा") || base.startsWith("ಫ್ಲೋರಿಡಾ")) return "florida";
+  if (base === "tx" || base.startsWith("texas") || base.startsWith("टेक्सास") || base.startsWith("ಟೆಕ್ಸಾಸ್")) return "texas";
+
+
   // Specific entity / procedure / object concepts
   if (base.startsWith("ইমপ্লাণ্ট") || base.startsWith("ইমপ্লান্ট") || base.startsWith("इम्प्लांट") || base.startsWith("ಇಂಪ್ಲಾಂಟ್") || base.startsWith("இம்ப்ளான்ட்") || base.startsWith("implant")) return "implant";
   if (base.startsWith("মুকুট") || base.startsWith("क्राउन") || base.startsWith("ಕ್ರೌನ್") || base.startsWith("கிரீடம்") || base.startsWith("crown")) return "crown";
@@ -205,8 +212,9 @@ function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence:
   );
   if (!normalizedQueryTerms.size) return null;
 
-  const sentences = chunk.text.split(/(?<=[.!?।॥؟:])\s+/).filter(Boolean);
+  const sentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).filter(Boolean);
   const ranked = sentences
+
 
     .map(sentence => {
       const normalizedSentence = normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase());
@@ -403,18 +411,22 @@ const NAVIGATIONAL_PATTERNS = [
   /\b(?:search\s+for\s+the\s+[a-z\s]+\s+by\s+its\s+streets)\b/i,
   /^(?:see|read|check\s+out|here\s+are|learn\s+more|find\s+out|explore|view)\b/i,
   /^\d+\s*[\)\.\:\s]/,
-  /\b(?:home\s*\/\s*\w+|products\s*\/|\w+\s*\/\s*\w+\s*\/\s*\w+)\b/i
+  /^Question\s+\d+\s*:/i,
+  /\b(?:home\s*\/\s*\w+|products\s*\/|\w+\s*\/\s*\w+\s*\/\s*\w+)\b/i,
+  /\b(?:when\s+you|such\s+as|including|e\.g\.)\s*:/i
 ];
+
 
 
 function isNonDeclarativeOrEcho(sentence: string): boolean {
   const trimmed = sentence.trim();
   if (trimmed.length < 25 || trimmed.split(/\s+/).length < 5) return true;
-  if (trimmed.endsWith("?") || trimmed.endsWith(":") || trimmed.endsWith(";")) return true;
+  if (trimmed.endsWith("?") || trimmed.endsWith(";")) return true;
   if (INTERROGATIVE_START_PATTERNS.some(p => p.test(trimmed))) return true;
   if (NAVIGATIONAL_PATTERNS.some(p => p.test(trimmed))) return true;
   return false;
 }
+
 
 function checkTargetAttributeRequirement(query: string, sentence: string): boolean {
   const qLower = query.toLocaleLowerCase();
@@ -438,9 +450,9 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
     if (!hasCostIndicator) return false;
   }
 
-  // Count / Quantity / Age / Distance / Speed / Height / Dimension
+  // Count / Quantity / Age / Distance / Speed / Height / Dimension / Duration
   if (/\b(?:how\s+many|how\s+old|distance|speed|how\s+long|how\s+far|how\s+high|how\s+tall|height|depth)\b/i.test(qLower)) {
-    const hasNumericQuantity = /\b\d+(?:\.\d+)?\s*(?:years?|months?|days?|hours?|mins?|miles?|km|kilometers?|meters?|feet|inches|in\.|ft\.|mph|kmph|percent|%|lbs?|kg|grams?|cm|mm)\b/i.test(sLower) || /\b(?:साल|वर्ष|दिन|महीने|किलोमीटर|मीटर|मील|प्रतिशत)\b/i.test(sLower);
+    const hasNumericQuantity = /\b(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|twenty|thirty|forty|fifty|hundred|thousand|several|few)\s*(?:years?|months?|weeks?|days?|hours?|mins?|minutes?|seconds?|miles?|km|kilometers?|meters?|feet|inches|in\.|ft\.|mph|kmph|percent|%|lbs?|kg|grams?|cm|mm)\b/i.test(sLower) || /\b(?:साल|वर्ष|दिन|महीने|किलोमीटर|मीटर|मील|प्रतिशत)\b/i.test(sLower);
     if (!hasNumericQuantity) return false;
   }
 
@@ -460,15 +472,16 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
 
   // Causes / Why
   if (/\b(?:why|causes?|reason|why\s+do|how\s+come)\b/i.test(qLower)) {
-    const hasCausalIndicator = /\b(?:because|due\s+to|caused\s+by|causes?|leading\s+to|results?\s+in|reasons?|as\s+a\s+result|triggers?|allows|helps?|helps\s+to)\b/i.test(sLower) || /\b(?:क्योंकि|कारण|वजह|परिणामस्वरूप|मदद)\b/i.test(sLower);
+    const hasCausalIndicator = /\b(?:because|due\s+to|caused\s+by|causes?|leading\s+to|results?\s+in|reasons?|as\s+a\s+result|triggers?|allows|helps?|helps\s+to|so|keeps?|protects?|prevents?|enables?|thought\s+that|in\s+order\s+to|to\s+[a-z]+)\b/i.test(sLower) || /\b(?:क्योंकि|कारण|वजह|परिणामस्वरूप|मदद)\b/i.test(sLower);
     if (!hasCausalIndicator) return false;
   }
 
-  // Who / Person
-  if (/\b(?:who|person|founder|creator|inventor|author|director|president|scientist)\b/i.test(qLower)) {
-    const hasPersonIndicator = /\b(?:born|he|she|his|her|author|founder|creator|inventor|director|president|scientist|doctor|engineer|person|people|individual|team|discovered\s+by|written\s+by|founded\s+by|led\s+by|named)\b/i.test(sLower) || /\b(?:द्वारा|व्यक्ति|लेखक|निदेशक|वैज्ञानिक|खोजकर्ता|প্রতিষ্ঠাতা)\b/i.test(sLower);
+  // Who / Person / Owner
+  if (/\b(?:who|person|founder|creator|inventor|author|director|president|scientist|owner|ownership)\b/i.test(qLower)) {
+    const hasPersonIndicator = /\b(?:born|he|she|his|her|author|founder|creator|inventor|director|president|scientist|doctor|engineer|owner|ownership|officer|manager|person|people|individual|team|discovered\s+by|written\s+by|founded\s+by|led\s+by|owned\s+by|sold\s+to|named)\b/i.test(sLower) || /\b(?:द्वारा|व्यक्ति|लेखक|निदेशक|वैज्ञानिक|खोजकर्ता|প্রতিষ্ঠাতা|मालिक)\b/i.test(sLower);
     if (!hasPersonIndicator) return false;
   }
+
 
   // Origin / History / Coined / Started
   if (/\b(?:originate|origin|derived|coined|come\s+from|started|history|invented)\b/i.test(qLower)) {
@@ -585,18 +598,20 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       }
 
       if (terms.size === 2) {
-        if ((coverage >= 0.90 || effectiveMatchCount >= 2 || (effectiveMatchCount >= 1 && chunkScore >= 0.48)) && sentence.length >= 20) {
+        if ((coverage >= 0.90 || effectiveMatchCount >= 2 || (effectiveMatchCount >= 1 && chunkScore >= 0.52)) && sentence.length >= 20) {
           return { chunk, match, score: chunkScore };
         }
         return null;
       }
 
       // terms.size >= 3
-      if ((coverage >= 0.50 || (effectiveMatchCount >= 2 && chunkScore >= 0.32) || (effectiveMatchCount >= 1 && chunkScore >= 0.45)) && sentence.length >= 20) {
+      if ((coverage >= 0.60 || (effectiveMatchCount >= 2 && chunkScore >= 0.40)) && sentence.length >= 20) {
         return { chunk, match, score: chunkScore };
       }
 
       return null;
+
+
 
 
 

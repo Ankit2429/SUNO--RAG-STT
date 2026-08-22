@@ -4,16 +4,18 @@ export const ZERO_COST_EMBEDDING_MODEL = "multilingual-unicode-ngram-dense-v1";
 
 export const LEXICAL_QUERY_FRAME_TERMS = new Set([
   // English
-  "what", "how", "why", "who", "which", "where", "many", "much",
+  "what", "how", "why", "who", "which", "where", "when", "many", "much", "mean", "means", "meaning", "define", "definition", "purpose",
   // Hindi
-  "क्या", "कहते", "हैं",
+  "क्या", "कहते", "हैं", "मतलब", "अर्थ", "परिभाषा",
   // Tamil
   "என்ன", "என்பது",
   // Marathi
-  "काय", "म्हणतात",
+  "काय", "म्हणतात", "अर्थ",
   // Kannada
-  "ಯಾವ", "ಮೂಲಕ", "ಇರುತ್ತದೆ",
+  "ಯಾವ", "ಮೂಲಕ", "ಇರುತ್ತದೆ", "ಅರ್ಥ",
 ]);
+
+
 
 export const STOP_WORDS = new Set([
   // English
