@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="100%" height="100%" style="background:#090d16; font-family:'Inter', system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+    
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgGlow)" />
+  
+  <!-- Subtle Grid Lines -->
+  <g stroke="#1e293b" stroke-width="1" opacity="0.4">
+    <line x1="0" y1="150" x2="1600" y2="150" />
+    <line x1="0" y1="300" x2="1600" y2="300" />
+    <line x1="0" y1="450" x2="1600" y2="450" />
+    <line x1="0" y1="600" x2="1600" y2="600" />
+    <line x1="0" y1="750" x2="1600" y2="750" />
+    <line x1="320" y1="0" x2="320" y2="900" />
+    <line x1="640" y1="0" x2="640" y2="900" />
+    <line x1="960" y1="0" x2="960" y2="900" />
+    <line x1="1280" y1="0" x2="1280" y2="900" />
+  </g>
+
+  <!-- Title Header -->
+  <g transform="translate(60, 50)">
+    <text x="0" y="30" fill="#f8fafc" font-size="30" font-weight="800" letter-spacing="-0.5">SUNO — Multilingual Voice RAG-STT Architecture</text>
+    <text x="0" y="60" fill="#94a3b8" font-size="16">End-to-end low-latency conversational pipeline across 12+ Indic languages (Sub-150ms P100 Engine)</text>
+    <rect x="1200" y="10" width="280" height="40" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1" />
+    <text x="1340" y="35" fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle">LATENCY P100 &lt; 150ms</text>
+  </g>
+
+  <!-- STAGE 1: Client & Capture -->
+  <g transform="translate(60, 160)">
+    <!-- Container -->
+    <rect width="270" height="660" rx="16" fill="#0f172a" stroke="#38bdf8" stroke-width="2" opacity="0.9" />
+    <rect x="0" y="0" width="270" height="50" rx="16" fill="#38bdf8" fill-opacity="0.1" />
+    <text x="20" y="32" fill="#38bdf8" font-size="16" font-weight="700">1. Client Capture Layer</text>
+
+    <!-- Card 1: Audio -->
+    <g transform="translate(15, 70)">
+      <rect width="240" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">🎤 WebAudio Stream</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• 16kHz PCM / WAV chunks</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• VAD Voice Activity Detector</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• Client Audio Recovery Buffer</text>
+    </g>
+
+    <!-- Card 2: Typed Input -->
+    <g transform="translate(15, 200)">
+      <rect width="240" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">⌨️ Typed Indic Input</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• Auto Script Normalization</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Devanagari / Latin translit</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• Multilingual Script Router</text>
+    </g>
+
+    <!-- Card 3: Dispatcher -->
+    <g transform="translate(15, 330)">
+      <rect width="240" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">⚡ Client Controller</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• TanStack Query Mutation</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Transient Audio Retry Gate</text>
+      <text x="15" y="95" fill="#38bdf8" font-size="12" font-weight="600">Zero Audio Chunk Drops</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <g stroke="#38bdf8" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M 330 350 L 370 350" />
+    <polygon points="370,345 380,350 370,355" fill="#38bdf8" />
+  </g>
+
+  <!-- STAGE 2: STT Engine -->
+  <g transform="translate(380, 160)">
+    <rect width="260" height="660" rx="16" fill="#0f172a" stroke="#c084fc" stroke-width="2" opacity="0.9" />
+    <rect x="0" y="0" width="260" height="50" rx="16" fill="#c084fc" fill-opacity="0.1" />
+    <text x="20" y="32" fill="#c084fc" font-size="16" font-weight="700">2. Indic STT Layer</text>
+
+    <!-- Sarvam Card -->
+    <g transform="translate(15, 70)">
+      <rect width="230" height="160" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">🎙️ Sarvam AI Engine</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• Hindi (hi-IN)</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Kannada (kn-IN)</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• Tamil (ta-IN) &amp; Marathi</text>
+      <text x="15" y="115" fill="#94a3b8" font-size="12">• 12+ Indic Languages</text>
+      <text x="15" y="140" fill="#c084fc" font-size="12" font-weight="600">Circuit Breaker Protected</text>
+    </g>
+
+    <!-- Normalizer Card -->
+    <g transform="translate(15, 250)">
+      <rect width="230" height="150" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">🔤 Text Normalizer</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• Unicode NFKC Standard</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Indic Digit to ASCII Map</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• Zero-width char removal</text>
+      <text x="15" y="125" fill="#34d399" font-size="12" font-weight="600">Clean Unified Stream</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <g stroke="#c084fc" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M 640 350 L 680 350" />
+    <polygon points="680,345 690,350 680,355" fill="#c084fc" />
+  </g>
+
+  <!-- STAGE 3: Multilingual Retrieval Engine -->
+  <g transform="translate(690, 160)">
+    <rect width="270" height="660" rx="16" fill="#0f172a" stroke="#34d399" stroke-width="2" opacity="0.9" />
+    <rect x="0" y="0" width="270" height="50" rx="16" fill="#34d399" fill-opacity="0.1" />
+    <text x="20" y="32" fill="#34d399" font-size="16" font-weight="700">3. Retrieval Engine (&lt;5ms)</text>
+
+    <!-- Embedder Card -->
+    <g transform="translate(15, 70)">
+      <rect width="240" height="150" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">🧠 Unicode Dense Embedder</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• 384-dim Fast N-gram Hash</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Cross-lingual Phonetic Map</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• 25,000-Entry Memory Cache</text>
+      <text x="15" y="125" fill="#34d399" font-size="12" font-weight="700">P95: 3.66 ms</text>
+    </g>
+
+    <!-- Corpus Card -->
+    <g transform="translate(15, 240)">
+      <rect width="240" height="160" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">📚 MSMARCO-XI Corpus</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• 821,000+ Unique Passages</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Isolated Candidate FAISS Index</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• Lexical + Indic Inverted Index</text>
+      <text x="15" y="130" fill="#38bdf8" font-size="12" font-weight="600">Recall@5: 84.0%</text>
+    </g>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <g stroke="#34d399" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M 960 350 L 1000 350" />
+    <polygon points="1000,345 1010,350 1000,355" fill="#34d399" />
+  </g>
+
+  <!-- STAGE 4: Three-State Evidence Gate -->
+  <g transform="translate(1010, 160)">
+    <rect width="270" height="660" rx="16" fill="#0f172a" stroke="#fbbf24" stroke-width="2" opacity="0.9" />
+    <rect x="0" y="0" width="270" height="50" rx="16" fill="#fbbf24" fill-opacity="0.1" />
+    <text x="20" y="32" fill="#fbbf24" font-size="16" font-weight="700">4. Three-State Evidence Gate</text>
+
+    <!-- Modality Card -->
+    <g transform="translate(15, 70)">
+      <rect width="240" height="210" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="13" font-weight="600">🛡️ Proposition Modality Gates</text>
+      <text x="15" y="50" fill="#94a3b8" font-size="11">• 💰 Pricing / Cost Currency Check</text>
+      <text x="15" y="70" fill="#94a3b8" font-size="11">• ⭐ Rating / Superlative Alignment</text>
+      <text x="15" y="90" fill="#94a3b8" font-size="11">• 🏷️ Naming Copula Assertion</text>
+      <text x="15" y="110" fill="#94a3b8" font-size="11">• 📋 Procedural / Action Predicates</text>
+      <text x="15" y="130" fill="#94a3b8" font-size="11">• 🚫 Mutually Exclusive Entity Block</text>
+      <text x="15" y="150" fill="#94a3b8" font-size="11">• 🧩 Multi-Intent Decomposer</text>
+      <text x="15" y="185" fill="#fbbf24" font-size="12" font-weight="700">P95: 10.86 ms</text>
+    </g>
+
+    <!-- 3 States -->
+    <g transform="translate(15, 300)">
+      <rect width="240" height="190" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="13" font-weight="600">🚦 Decision Classifier</text>
+      <rect x="15" y="40" width="210" height="35" rx="6" fill="#059669" fill-opacity="0.2" stroke="#34d399" />
+      <text x="25" y="62" fill="#34d399" font-size="11" font-weight="700">1. SUPPORTED (Full Answer)</text>
+
+      <rect x="15" y="85" width="210" height="35" rx="6" fill="#d97706" fill-opacity="0.2" stroke="#fbbf24" />
+      <text x="25" y="107" fill="#fbbf24" font-size="11" font-weight="700">2. PARTIAL (Supported + Gap)</text>
+
+      <rect x="15" y="130" width="210" height="35" rx="6" fill="#e11d48" fill-opacity="0.2" stroke="#fb7185" />
+      <text x="25" y="152" fill="#fb7185" font-size="11" font-weight="700">3. UNSUPPORTED (Refused)</text>
+    </g>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <g stroke="#fbbf24" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M 1280 350 L 1320 350" />
+    <polygon points="1320,345 1330,350 1320,355" fill="#fbbf24" />
+  </g>
+
+  <!-- STAGE 5: Generation & Citations -->
+  <g transform="translate(1330, 160)">
+    <rect width="230" height="660" rx="16" fill="#0f172a" stroke="#38bdf8" stroke-width="2" opacity="0.9" />
+    <rect x="0" y="0" width="230" height="50" rx="16" fill="#38bdf8" fill-opacity="0.1" />
+    <text x="20" y="32" fill="#38bdf8" font-size="16" font-weight="700">5. Output &amp; Citations</text>
+
+    <g transform="translate(15, 70)">
+      <rect width="200" height="150" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">🎯 Grounded Synthesis</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• Source-Faithful Polish</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Exact Chunk Citations</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• Confidence Badging</text>
+      <text x="15" y="125" fill="#34d399" font-size="12" font-weight="700">FR: 6.0% (Official)</text>
+    </g>
+
+    <g transform="translate(15, 240)">
+      <rect width="200" height="160" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="15" y="30" fill="#f8fafc" font-size="14" font-weight="600">📊 Frontend UI</text>
+      <text x="15" y="55" fill="#94a3b8" font-size="12">• Live Audio Playback</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="12">• Step Latency Breakdown</text>
+      <text x="15" y="95" fill="#94a3b8" font-size="12">• Citation Provenance Card</text>
+      <text x="15" y="130" fill="#38bdf8" font-size="12" font-weight="700">P100: 138.00 ms</text>
+    </g>
+  </g>
+</svg>
