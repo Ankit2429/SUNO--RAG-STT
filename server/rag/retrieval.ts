@@ -129,7 +129,8 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   if (requestedLanguage && requestedLanguage !== "unknown" && !INDEXED_LANGUAGE_CODES.has(requestedLanguage)) {
     return null;
   }
-  const scoped = !requestedLanguage || requestedLanguage === "unknown" || requestedLanguage === "en"
+  const isLatinQuery = /^[A-Za-z0-9\s.,?!'"\-:;]+$/.test(query);
+  const scoped = isLatinQuery || !requestedLanguage || requestedLanguage === "unknown" || requestedLanguage === "en"
     ? HOT_CORPUS
     : (HOT_BY_LANGUAGE.get(requestedLanguage) || HOT_CORPUS);
   if (!scoped.length) return null;
@@ -146,7 +147,7 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
       const score = dense + lexicalHits * 0.5;
       return { chunk, score, lexicalHits };
     })
-    .filter(item => item.lexicalHits >= minRequiredHits && item.score >= 0.35)
+    .filter(item => (item.lexicalHits >= minRequiredHits || item.score >= 0.45) && item.score >= 0.35)
     .sort((left, right) => right.score - left.score)
     .slice(0, 6);
 
