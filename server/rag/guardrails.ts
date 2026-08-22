@@ -767,14 +767,22 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
     }
 
-    // Deduplicate sentences preserving order
-    const uniqueSentences: string[] = [];
+    // Deduplicate sentences preserving order and superset completeness
+    const rawSentences: string[] = [];
     const usedChunkIds = new Set<string>();
     for (const s of supportedDims) {
-      if (!uniqueSentences.includes(s.match.sentence)) {
-        uniqueSentences.push(s.match.sentence);
-      }
+      rawSentences.push(s.match.sentence);
       usedChunkIds.add(s.match.chunk.id);
+    }
+    const uniqueSentences: string[] = [];
+    for (const sent of rawSentences) {
+      if (uniqueSentences.some(u => u.includes(sent))) continue;
+      const subIdx = uniqueSentences.findIndex(u => sent.includes(u));
+      if (subIdx >= 0) {
+        uniqueSentences[subIdx] = sent;
+      } else {
+        uniqueSentences.push(sent);
+      }
     }
 
     const unsupportedDims = dimensionResults.filter(r => r.match === null);
