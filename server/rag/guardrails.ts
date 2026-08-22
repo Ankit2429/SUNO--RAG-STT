@@ -364,6 +364,9 @@ const CORE_DOMAIN_KEYWORDS = new Set([
 const GENERIC_CONTAINER_TERMS = new Set([
   // English / Stems
   "solar", "energy", "system", "water", "food", "research", "treatment", "service", "customer", "school", "education", "student", "output", "hours", "team", "teams", "list", "show", "give", "help", "section", "article", "cost_attribute", "cost", "price", "rate", "average", "difference", "meaning", "definition", "example", "examples", "process", "method", "ways", "type", "types", "time", "number", "level", "state", "use", "used",
+  // Generic request verbs and pronouns: matches on these alone never evidence
+  // the requested proposition ("where can you find X" matched only by "find").
+  "find", "locate", "search", "look", "know", "see", "get", "come", "go", "you", "your", "people", "thing", "things",
   // Hindi
   "सौर", "ऊर्जा", "प्रणाली", "पानी", "आहार", "भोजन", "शोध", "अध्ययन", "उपचार", "सेवा", "स्कूल", "शिक्षा", "छात्र", "देश", "यादी", "सूची", "घंटे", "लागत", "खर्च", "मूल्य", "उदाहरण", "प्रकार", "तरीका", "संख्या", "समय", "उपयोग",
   // Kannada
@@ -433,12 +436,51 @@ const NAVIGATIONAL_PATTERNS = [
   /\b(?:list\s+of\s+[a-z\s]+\s+by\s+(?:size|degree|rank|alphabet))\b/i,
   /\b(?:search\s+for\s+the\s+[a-z\s]+\s+by\s+its\s+streets)\b/i,
   /^(?:see|read|check\s+out|here\s+are|learn\s+more|find\s+out|explore|view)\b/i,
+  /^(?:be\s+prepared|get\s+the|visit\s+our|contact\s+us|call\s+(?:now|us)|sign\s+up|follow\s+us|download|try\s+our|browse|watch\s+(?:our|this)|shop\s+(?:now|today))\b/i,
   /^\d+\s*[\)\.\:\s]/,
   /^Question\s+\d+\s*:/i,
   /\b(?:home\s*\/\s*\w+|products\s*\/|\w+\s*\/\s*\w+\s*\/\s*\w+)\b/i,
   /\b(?:\(\d+\s*marks?\)|exam\s*questions?|revision\s*questions?|module\s*\d+)\b/i,
   /\b(?:when\s+you|click\s+to|select\s+one)\s*:/i
 ];
+
+/**
+ * Non-propositional fragments: text that repeats query vocabulary (or echoes a
+ * document outline / table header / call-to-action) while carrying no answer
+ * proposition. These routinely win naive term-overlap contests, so they are
+ * rejected structurally rather than through score thresholds.
+ */
+function isRepetitiveListingSentence(sentence: string): boolean {
+  const segments = sentence.split(";").map(s => s.trim()).filter(Boolean);
+  if (segments.length < 3) return false;
+  const heads = new Map<string, number>();
+  for (const segment of segments) {
+    const word = /[\p{L}\p{M}\p{N}]+/u.exec(segment)?.[0];
+    if (!word) continue;
+    const key = normalizeDigits(word.normalize("NFKC").toLocaleLowerCase()).slice(0, 6);
+    heads.set(key, (heads.get(key) || 0) + 1);
+  }
+  let maxRepeat = 0;
+  for (const count of heads.values()) maxRepeat = Math.max(maxRepeat, count);
+  return maxRepeat >= 3;
+}
+
+function isNonPropositionalFragment(sentence: string): boolean {
+  // Numbered outline echo, e.g. "Civil War Strategy and Tactics. 1  THE STRATEGY OF THE CIVIL WAR."
+  // or "... headache. 3  General Information: Other Possible Causes."
+  if (/\.\s*\d{1,2}\s+[A-Z][A-Z\s\-']{4,}/.test(sentence)) return true;
+  if (/\.\s*\d{1,2}\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s*:/.test(sentence)) return true;
+  // Title-dash prefix followed by a keyword-stuffed comma list ("Earache headache nausea - Causes for ...").
+  if (/^[A-Z][A-Za-z\s&]{2,50}[-–—]\s/.test(sentence) && (sentence.match(/,/g) || []).length >= 4) return true;
+  // Section-header echo: keyword-stuffed title dash into a section label
+  // ("Symptom Checklist - Causes of ...") that states no proposition itself.
+  if (/^[^,.;!?]{3,60}\s[-–—]\s\s*(?:causes?|symptoms?|signs?|treatments?|remedies?|types?|examples?|benefits?|side\s+effects?|preventions?)\b/i.test(sentence)) return true;
+  // Repetitive multilingual table-of-conversions header rows.
+  if (isRepetitiveListingSentence(sentence)) return true;
+  // Trailing imperative call-to-action in focused Indic scripts ("... देखें.", "... जानें।").
+  if (/(?:देखें|देखिए|जानें|जानिए|पढ़ें|क्लिक\s+करें|सब्सक्राइब\s+करें)\s*[.!।]?\s*$/u.test(sentence.trim())) return true;
+  return false;
+}
 
 
 
@@ -454,9 +496,76 @@ function isNonDeclarativeOrEcho(sentence: string): boolean {
 }
 
 
+/**
+ * Causal/modal proposition support: for "can X cause Y" / "why do X ..." the
+ * evidence sentence must mention every requested participant (cause subject
+ * and named effect). A sentence that discusses only one side cannot support
+ * the requested causal claim.
+ */
+function causalEntityCompletenessViolation(qLower: string, sLower: string): boolean {
+  const q = qLower.trim().replace(/[?.!]+$/, "");
+  const subjects: string[] = [];
+  const modalCause = /\b(?:can|could|does|do|will)\s+(.+?)\s+(?:causes?|caused|leads?\s+to|led\s+to|results?\s+in|resulted\s+in|triggers?|triggered|gives?|creates?)\b(.*)$/.exec(q);
+  if (modalCause) {
+    subjects.push(modalCause[1]);
+    const effect = modalCause[2].trim();
+    if (effect) subjects.push(effect);
+  } else {
+    const whyClause = /^why\s+(?:do|does|did|is|are|were|was)\s+(.+)$/.exec(q);
+    if (whyClause) subjects.push(whyClause[1]);
+  }
+  if (!subjects.length) return false;
+  const collectStems = (text: string): Set<string> => {
+    const stems = new Set<string>();
+    for (const word of text.split(/[^\p{L}\p{M}\p{N}]+/u)) {
+      if (word.length >= 4 && !STOP_WORDS.has(word)) stems.add(word.slice(0, 5));
+    }
+    return stems;
+  };
+  const sentenceStems = collectStems(sLower);
+  return subjects.some(subject => {
+    const subjectStems = collectStems(subject);
+    if (!subjectStems.size) return false;
+    for (const stem of subjectStems) {
+      if (sentenceStems.has(stem)) return false;
+    }
+    return true;
+  });
+}
+
 function checkTargetAttributeRequirement(query: string, sentence: string): boolean {
   const qLower = query.toLocaleLowerCase();
   const sLower = sentence.toLocaleLowerCase();
+
+  // Identifier attributes (zip/postal/pin codes) are digit strings; a passage
+  // that never states one cannot answer the request.
+  if (/\b(?:zip\s*code|zipcode|postal\s*code|pin\s*code|ज़िप\s*कोड|पिन\s*कोड)\b/i.test(qLower) && !/\d{4,}/.test(sLower)) {
+    return false;
+  }
+
+  // Present-tense requests ("today", "currently") conflict with passages that
+  // anchor an explicit historical record.
+  if (/\b(?:today|right\s+now|current(?:ly)?|at\s+present)\b/i.test(qLower)) {
+    const year = /\b(1[6-9]\d\d|20[0-2]\d)\b/.exec(sLower);
+    if (year && /\b(?:ever|recorded|history|historic|century)\b|\bin\s+(?:1[6-9]\d\d|20[0-2]\d)\b/.test(sLower)) {
+      return false;
+    }
+  }
+
+  // Superlative requests ("the lowest X") must be answered with a superlative
+  // statement or a concrete value, not a generic relation.
+  const superlative = /\b(lowest|highest|greatest|fastest|largest|smallest|longest|shortest|strongest|biggest|oldest|newest)\b/i.exec(qLower);
+  if (superlative) {
+    const stem = superlative[1].toLocaleLowerCase().replace(/est$/, "");
+    const hasSuperlative = new RegExp(`\\b\\w*${stem}(?:est|st)?\\b`).test(sLower) || /\b(?:most|least|maximum|minimum|peak|record)\b/i.test(sLower);
+    if (!hasSuperlative && !/\d/.test(sLower)) return false;
+  }
+
+  // Process/manufacturing requests require process vocabulary in evidence.
+  if (/\b(?:processing|manufacturing|production|synthesis|refining)\b/i.test(qLower)) {
+    const hasProcessIndicator = /\b(?:processe?s?|processe[sd]|produced?|manufactured?|synthesi[sz]ed?|refined?|converted|formed|molded|moulded|extruded|treated|method|procedure|steps?)\b/i.test(sLower);
+    if (!hasProcessIndicator) return false;
+  }
 
   // Phone / Contact number
   if (/\b(?:phone|telephone|contact\s+number|cell\s+phone|mobile)\b/i.test(qLower) || /\b(?:फोन|नंबर|दूरभाष|सम्पर्क|संपर्क\s+नंबर)\b/i.test(qLower)) {
@@ -511,9 +620,18 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
   }
 
   // Count / Quantity / Age / Distance / Speed / Height / Dimension / Duration
-  if (/\b(?:how\s+many|how\s+old|distance|speed|how\s+long|how\s+far|how\s+high|how\s+tall|height|depth)\b/i.test(qLower) || /\b(?:कितने|कितनी|कितना|दूरी|गति|ऊंचाई|आयु|उम्र)\b/i.test(qLower)) {
-    const hasNumericQuantity = /\b(?:\d+(?:-\d+)?(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|twenty|thirty|forty|fifty|hundred|thousand|several|few)\s*(?:years?|months?|weeks?|days?|hours?|mins?|minutes?|seconds?|miles?|km|kilometers?|meters?|feet|inches|in\.|ft\.|mph|kmph|percent|%|lbs?|kg|grams?|cm|mm)\b/i.test(sLower) || /\b(?:\d+\s*(?:साल|वर्ष|दिन|महीने|किलोमीटर|मीटर|मील|प्रतिशत))\b/i.test(sLower);
+  const durationQuery = /\b(?:how\s+much\s+(?:time|longer)|time\s+(?:it\s+)?takes?|कितना\s+समय|कितने\s+दिन)\b/i.test(qLower);
+  if (/\b(?:how\s+many|how\s+old|how\s+fast|distance|speed|how\s+long|how\s+far|how\s+high|how\s+tall|height|depth)\b/i.test(qLower) || durationQuery || /\b(?:कितने|कितनी|कितना|दूरी|गति|ऊंचाई|आयु|उम्र)\b/i.test(qLower)) {
+    const hasNumericQuantity = /\b(?:\d+(?:-\d+)?(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|twenty|thirty|forty|fifty|hundred|thousand|several|few)\s*(?:years?|months?|weeks?|days?|hours?|mins?|minutes?|seconds?|miles?|km|kilometers?|meters?|feet|inches|in\.|ft\.|mph|kmph|percent|%|lbs?|kg|grams?|cm|mm)\b/i.test(sLower) || /\b(?:\d+\s*(?:साल|वर्ष|दिन|महीने|किलोमीटर|मीटर|मील|प्रतिशत))\b/i.test(sLower)
+      // Duration answers may state the span in words ("about half an hour").
+      || (durationQuery && /\b(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|half|an\s+hour|a\s+day|a\s+week|a\s+month|a\s+year)\b/i.test(sLower));
     if (!hasNumericQuantity) return false;
+  }
+
+  // Temperature / Pressure readings are numeric by nature.
+  if (/\b(?:temperature|तापमान)\b|\b(?:pressure|दबाव)\b|\bdegrees?\b/i.test(qLower)) {
+    const hasReading = /\d|°|degree|freezing|below\s+zero/i.test(sLower);
+    if (!hasReading) return false;
   }
 
   // Known for / Respected for / Famous for
@@ -554,10 +672,24 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
     if (!hasTimeIndicator) return false;
   }
 
-  // How-to / Procedure
-  if (/\b(?:how\s+to|steps\s+to|instructions?\s+for|ways?\s+to)\b/i.test(qLower) || /\b(?:कैसे\s+[^\s]+\s+करें|तरीका|उपाय)\b/i.test(qLower)) {
-    const hasStepIndicator = /\b(?:to\s+[a-z]+|step|use|using|apply|first|then|after|before|by\s+[a-z]+ing|make\s+sure|should|must|can\s+be|recommended|method|process|procedure|train|teach|educate|conduct|provide|start|ensure)\b/i.test(sLower) || /\b(?:तरीका|प्रक्रिया|कदम|उपयोग|करें|सिखा|प्रशिक्षित|प्रदान)\b/i.test(sLower);
+  // How-to / Procedure. Spoken and typed variants often drop the infinitive
+  // ("how build up blood platelets"), so the trigger also accepts bare
+  // action verbs. A sentence whose only procedural hint is a "by VERB-ing"
+  // aside describes a fact, not the requested procedure.
+  const howToTrigger = /\b(?:how\s+to|steps\s+to|instructions?\s+for|ways?\s+to)\b/i.test(qLower)
+    || /\b(?:कैसे\s+[^\s]+\s+करें|तरीका|उपाय)\b/i.test(qLower)
+    || /\bhow\s+(?:do\s+i|do\s+you|can\s+(?:i|you)|to\s+)?(?:build|make|get|grow|increase|raise|boost|lower|reduce|fix|cure|treat|prevent|avoid|check)\b/i.test(qLower);
+  if (howToTrigger) {
+    const stepCore = sLower.replace(/\bby\s+[a-z]+ing\b[^.,;]*/g, " ");
+    const hasStepIndicator = /\b(?:to\s+[a-z]+|step|use|using|apply|first|then|after|before|make\s+sure|should|must|can\s+be|recommended|method|process|procedure|train|teach|educate|conduct|provide|start|ensure)\b/i.test(stepCore) || /\b(?:तरीका|प्रक्रिया|कदम|उपयोग|करें|सिखा|प्रशिक्षित|प्रदान)\b/i.test(sLower);
     if (!hasStepIndicator) return false;
+  }
+
+  // Causal / modal requests ("can X cause Y", "why do X ...") must be answered
+  // with evidence that mentions what was asked about, both cause subject and
+  // requested effect when named.
+  if (causalEntityCompletenessViolation(qLower, sLower)) {
+    return false;
   }
 
   // Modal / Possibility / Cause-Effect ("can X cause Y", "does X lead to Y", "can you X")
@@ -634,6 +766,7 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
 
       const sentence = match.sentence;
       if (isNonDeclarativeOrEcho(sentence)) return null;
+      if (isNonPropositionalFragment(sentence)) return null;
       if (!checkTargetAttributeRequirement(query, sentence)) return null;
       if (conversionDirectionMismatch(query, sentence)) return null;
       if (BOILERPLATE_PATTERNS.some(p => p.test(sentence))) return null;
@@ -714,7 +847,7 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
 
       return null;
     })
-    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item))
+    .filter((item): item is NonNullable<typeof item> => Boolean(item))
     .sort((a, b) => b.match.termMatches - a.match.termMatches || b.score - a.score);
 
   const uniqueParents = new Set(supported.map(item => item.chunk.parentId));
@@ -749,8 +882,8 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
 
     for (const dim of dimensions) {
       const dimEval = evaluateSingleIntent(dim.text, evidence, scores, languageCode);
-      if (dimEval.supported.length > 0 && dimEval.result.status === "GROUNDED") {
-        const best = dimEval.supported[0];
+      const best = dimEval.supported[0];
+      if (best && dimEval.result.status === "GROUNDED") {
         dimensionResults.push({
           dimension: dim,
           match: { chunk: best.chunk, sentence: dimEval.result.answer, score: best.score }

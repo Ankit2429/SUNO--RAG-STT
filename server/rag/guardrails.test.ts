@@ -431,3 +431,68 @@ describe("evidence grounding", () => {
     expect(inspectQuery(query)).toBe("The prompt-injection gate blocked the request.");
   });
 });
+
+describe("requested-proposition support", () => {
+  const evidence = (id: string, text: string): EvidenceChunk => ({
+    id,
+    text,
+    language: "en",
+    source: "ai4bharat/MSMARCO-XI",
+    strategy: "paragraph_section",
+    parentId: `${id}-parent`,
+    queryId: "",
+    queryType: "evaluation_bridge",
+    ordinal: 0,
+    selected: false,
+    overlap: 0,
+  });
+
+  it("refuses a section-header echo that lists causes without stating one", () => {
+    const chunk = evidence("echo-1", "Earache headache nausea - Causes for sore throat, swollen tonsils, earache and headache. The throbbing pain often gets worse at night.");
+    const answer = verifyAndSynthesize("headache that causes earache", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("REFUSED");
+  });
+
+  it("refuses a zipcode request answered without any digit sequence", () => {
+    const chunk = evidence("zip-1", "Fairmont City Zip Code - Get the zipcode for Fairmont City in Saint Clair County, Illinois from our directory website today.");
+    const answer = verifyAndSynthesize("what is zip code of fairmont", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("REFUSED");
+  });
+
+  it("refuses a duration request answered without any stated time span", () => {
+    const chunk = evidence("dur-1", "You can ask an Infosys employee about the referral drive and then post your request on social networks.");
+    const answer = verifyAndSynthesize("how much time it takes for employee referral process in Infosys", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("REFUSED");
+  });
+
+  it("keeps a duration answer that states an actual cooking time", () => {
+    const chunk = evidence("cook-1", "Cook the chicken pieces for about 40 minutes until the juices run clear and serve them warm.");
+    const answer = verifyAndSynthesize("how long do i cook my chicken", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("GROUNDED");
+    expect(answer.answer).toContain("40 minutes");
+  });
+
+  it("refuses a causal question when the named effect never appears in evidence", () => {
+    const chunk = evidence("cause-1", "Aside from well recognized medical conditions, few conditions specific to sport cause dizziness during prolonged exercise, including dehydration and hyponatremia.");
+    const answer = verifyAndSynthesize("can hyponatremia cause vertigo", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("REFUSED");
+  });
+
+  it("grounds a causal question whose evidence names both the subject and the effect", () => {
+    const chunk = evidence("cause-2", "Hyponatremia can cause vertigo in endurance athletes because low blood sodium disrupts the inner ear.");
+    const answer = verifyAndSynthesize("can hyponatremia cause vertigo", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("GROUNDED");
+  });
+
+  it("refuses a superlative question answered by a generic relation with no extreme value", () => {
+    const chunk = evidence("sup-1", "The energy of a photon depends upon the frequency of the wave that carries it forward.");
+    const answer = verifyAndSynthesize("what type of photon has the greatest energy", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("REFUSED");
+  });
+
+  it("rejects a repetitive multilingual conversion-table header as non-propositional", () => {
+    const chunk = evidence("tbl-1", "Kilometer til Miles tabell; Kilometer til Mil tabel; Kilometr do Míle tabulka; Kilometroa Milera taula. Use the chart to convert distances quickly.");
+    const answer = verifyAndSynthesize("how fast is a kilometer in miles", [chunk], new Map([[chunk.id, 0.8]]), "en-IN");
+    expect(answer.status).toBe("REFUSED");
+  });
+});
