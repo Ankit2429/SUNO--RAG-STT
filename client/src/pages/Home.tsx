@@ -365,18 +365,15 @@ export default function Home() {
     setCaptureError(null);
     setCaptureInfo(null);
     setRun(null);
-    if (languageCode === AUTO_DETECT_LANGUAGE) {
-      setCaptureError("Browser-native recognition cannot provide Sarvam confidence. Choose a language override, or use the primary Sarvam microphone route with automatic detection.");
-      return;
-    }
+    const effectiveLanguage = languageCode === AUTO_DETECT_LANGUAGE ? "en-IN" : languageCode;
     const Recognition = browserRecognitionConstructor();
     if (!Recognition) {
       setCaptureError("This browser does not provide native speech recognition. Use the Sarvam microphone route in a current supported browser.");
       return;
     }
     const recognition = new Recognition();
-    configureBrowserFallback(recognition, languageCode, {
-      onTranscript: transcript => { setBrowserListening(false); setCaptureInfo(`Browser-native transcript received • ${languageCode}`); askBrowserTranscript.mutate({ transcript, languageCode, script: "browser-native" }); },
+    configureBrowserFallback(recognition, effectiveLanguage, {
+      onTranscript: transcript => { setBrowserListening(false); setCaptureInfo(`Browser-native transcript received • ${effectiveLanguage}`); askBrowserTranscript.mutate({ transcript, languageCode: effectiveLanguage, script: "browser-native" }); },
       onError: message => { setBrowserListening(false); recognitionRef.current = null; setCaptureError(message); },
       onListeningChange: listening => { setBrowserListening(listening); if (!listening) recognitionRef.current = null; },
     });
@@ -419,24 +416,34 @@ export default function Home() {
   const selectedEvidence = run?.evidence.filter(evidence => evidence.selected) || [];
   const runHasLookupTimeout = Boolean(run?.trace.some(event => /timeout|timed out/i.test(event.detail)));
   const runHasIndexDegradation = Boolean(run?.trace.some(event => /qdrant|index/i.test(event.detail) && /unavailable|missing|empty|error|degraded/i.test(event.detail)));
+  const runIsEmptyAudio = Boolean(run?.transcriptionError && /empty transcript|no speech/i.test(run.transcriptionError));
+  const runIsSttTimeout = Boolean(run?.transcriptionError && /timed out|timeout/i.test(run.transcriptionError));
   const runIsSttFailure = run?.answer.status === "ERROR" && /speech-to-text|transcription/i.test(run.answer.answer + " " + (run.answer.refusalReason || ""));
   const runStateLabel = runIsSttFailure
     ? "STT UNAVAILABLE"
-    : runHasLookupTimeout
-      ? "SOURCE LOOKUP TIMED OUT"
-      : runHasIndexDegradation
-        ? "INDEX DEGRADED"
-        : run?.answer.status === "REFUSED"
-          ? "EVIDENCE BOUNDARY"
-          : run?.answer.status === "ERROR"
-            ? "PIPELINE STOPPED"
-            : "EVIDENCE VERIFIED";
+    : runIsEmptyAudio
+      ? "NO SPEECH DETECTED"
+      : runIsSttTimeout
+        ? "STT TIMED OUT"
+        : runHasLookupTimeout
+          ? "SOURCE LOOKUP TIMED OUT"
+          : runHasIndexDegradation
+            ? "INDEX DEGRADED"
+            : run?.answer.status === "REFUSED"
+              ? "EVIDENCE BOUNDARY"
+              : run?.answer.status === "ERROR"
+                ? "PIPELINE STOPPED"
+                : "EVIDENCE VERIFIED";
   const runStateExplanation = runIsSttFailure
     ? "Sarvam transcription stopped after bounded retries. Retrieval was not run and no answer was generated. Record again, use browser fallback, or type the question."
-    : runHasLookupTimeout
-      ? "The bounded source lookup did not return evidence in time. SUNO withheld an answer rather than guessing."
-      : runHasIndexDegradation
-        ? "The index reported a degraded capability. SUNO will answer only when the remaining evidence path directly supports it."
+    : runIsEmptyAudio
+      ? "No clear speech was heard in the recording. Speak clearly into your microphone for at least 1-2 seconds, or use browser fallback or typed input."
+      : runIsSttTimeout
+        ? "The transcription service timed out. Please record your question again or use the typed question box."
+        : runHasLookupTimeout
+          ? "The bounded source lookup did not return evidence in time. SUNO withheld an answer rather than guessing."
+          : runHasIndexDegradation
+            ? "The index reported a degraded capability. SUNO will answer only when the remaining evidence path directly supports it."
         : run?.answer.status === "REFUSED"
           ? "The transcription completed, but the evidence gate withheld an unsupported answer."
           : run?.answer.status === "ERROR"
