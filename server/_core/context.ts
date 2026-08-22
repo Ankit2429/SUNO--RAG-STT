@@ -13,11 +13,16 @@ export async function createContext(
 ): Promise<TrpcContext> {
   let user: User | null = null;
 
-  try {
-    user = await sdk.authenticateRequest(opts.req);
-  } catch (error) {
-    // Authentication is optional for public procedures.
-    user = null;
+  const hasCookie = Boolean(opts.req.headers.cookie);
+  const hasAuthHeader = typeof opts.req.headers.authorization === "string" && opts.req.headers.authorization.startsWith("Bearer ");
+
+  if (hasCookie || hasAuthHeader) {
+    try {
+      user = await sdk.authenticateRequest(opts.req);
+    } catch (error) {
+      // Authentication is optional for public procedures.
+      user = null;
+    }
   }
 
   return {
