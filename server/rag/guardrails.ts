@@ -423,6 +423,7 @@ const NAVIGATIONAL_PATTERNS = [
 function isNonDeclarativeOrEcho(sentence: string): boolean {
   const trimmed = sentence.trim();
   if (trimmed.length < 25 || trimmed.split(/\s+/).length < 5) return true;
+  if (/^(?:में|पर|से|के\s+लिए|at|in|on|for|from|with|by)\s+[^\.\!\?।॥]{1,30}$/i.test(trimmed)) return true;
   if (trimmed.endsWith("?") || trimmed.endsWith(";")) return true;
   if (INTERROGATIVE_START_PATTERNS.some(p => p.test(trimmed))) return true;
   if (NAVIGATIONAL_PATTERNS.some(p => p.test(trimmed))) return true;
@@ -434,10 +435,17 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
   const qLower = query.toLocaleLowerCase();
   const sLower = sentence.toLocaleLowerCase();
 
+  // Phone / Contact number
+  if (/\b(?:phone|telephone|contact\s+number|cell\s+phone|mobile)\b/i.test(qLower) || /\b(?:फोन|नंबर|दूरभाष|सम्पर्क|संपर्क\s+नंबर)\b/i.test(qLower)) {
+    const hasPhoneIndicator = /\b(?:\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\b\d{7,12}\b|call|phone|telephone|contact|toll\s*free)\b/i.test(sLower) || /\b(?:फोन|दूरभाष|कॉल|संपर्क)\b/i.test(sLower);
+    if (!hasPhoneIndicator) return false;
+  }
+
   // Definition queries should not be conditional "If..." or "When..." clauses
   if (/\b(?:what\s+is|what\s+are|define|meaning\s+of)\b/i.test(qLower) && /^(?:if|when)\s+/i.test(sentence.trim())) {
     return false;
   }
+
 
 
   // Address / Location
