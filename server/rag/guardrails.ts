@@ -213,42 +213,64 @@ function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence:
   );
   if (!normalizedQueryTerms.size) return null;
 
-  const sentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).filter(Boolean);
-  const ranked = sentences
+  const rawSentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).map(s => s.trim()).filter(Boolean);
+  if (!rawSentences.length) return null;
 
+  const candidateUnits: { text: string; isWindow: boolean }[] = [];
+  for (let i = 0; i < rawSentences.length; i += 1) {
+    candidateUnits.push({ text: rawSentences[i], isWindow: false });
+    if (i < rawSentences.length - 1) {
+      const pair = `${rawSentences[i]} ${rawSentences[i + 1]}`;
+      if (pair.length <= 320) {
+        candidateUnits.push({ text: pair, isWindow: true });
+      }
+    }
+  }
 
-    .map(sentence => {
-      const normalizedSentence = normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase());
-      const sentenceTerms = new Set(
-        normalizedSentence
-          .split(/[^\p{L}\p{M}\p{N}]+/u)
-          .map(normalizeContentTerm)
-          .filter(term => term && term.length >= 2)
-      );
-      const matches = Array.from(normalizedQueryTerms).filter(term => sentenceTerms.has(term));
-      // Position-weighted ranking: answers front-load the question's key
-      // terms ("To find the area of a triangle, ..."), while incidental
-      // mentions bury them mid-narrative. Ties on raw match count are broken
-      // by how early the matched terms appear, then by boilerplate penalties.
-      let positionScore = 0;
-      for (const term of matches) {
-        const at = normalizedSentence.indexOf(term);
-        if (at >= 0 && normalizedSentence.length > 0) {
-          positionScore += Math.max(0, 1 - at / normalizedSentence.length);
-        }
+  const ranked = candidateUnits.map(({ text: sentence, isWindow }) => {
+    const normalizedSentence = normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase());
+    const sentenceTerms = new Set(
+      normalizedSentence
+        .split(/[^\p{L}\p{M}\p{N}]+/u)
+        .map(normalizeContentTerm)
+        .filter(term => term && term.length >= 2)
+    );
+    const matches = Array.from(normalizedQueryTerms).filter(term => sentenceTerms.has(term));
+    let positionScore = 0;
+    for (const term of matches) {
+      const at = normalizedSentence.indexOf(term);
+      if (at >= 0 && normalizedSentence.length > 0) {
+        positionScore += Math.max(0, 1 - at / normalizedSentence.length);
       }
-      let penalty = headingFragmentPenalty(sentence);
-      if (sentence.trim().endsWith("?") || INTERROGATIVE_START_PATTERNS.some(p => p.test(sentence.trim()))) {
-        penalty += 3.0;
+    }
+
+    let penalty = headingFragmentPenalty(sentence);
+    if (sentence.trim().endsWith("?") || INTERROGATIVE_START_PATTERNS.some(p => p.test(sentence.trim()))) {
+      penalty += 3.0;
+    }
+    for (const pattern of BOILERPLATE_PATTERNS) {
+      if (pattern.test(sentence)) {
+        penalty += 1.5;
+        break;
       }
-      for (const pattern of BOILERPLATE_PATTERNS) {
-        if (pattern.test(sentence)) {
-          penalty += 1.5;
-          break;
-        }
-      }
-      return { sentence, score: matches.length, rank: positionScore - penalty };
-    });
+    }
+
+    // Pronoun incompleteness penalty if a single sentence begins with an unresolved pronoun
+    if (!isWindow && /^(?:it|they|this|these|he|she|यह|वह|ಅದು|ಇದು|ಇವರು|ಇವು|இது|இவர்)\s+(?:is|are|was|were|means|refers|has|have|can|होता|होती|है|आहे|ಆಗಿದೆ|ಆಗಿದ್ದಾರೆ|ஆகும்)/i.test(sentence)) {
+      penalty += 0.8;
+    }
+
+    // Completeness bonus for definitional or causal predicates
+    let completenessBonus = 0;
+    if (/\b(?:is a|is an|are|means|defined as|refers to|known as|named for|announced|because|causes|results in|due to|होता है|कहते हैं|कहा जाता है|अर्थात|म्हणतात|ಎಂದರೆ|ಆಗಿದೆ|ಎನ್ನಲಾಗುತ್ತದೆ|ஆகும்|காரணமாக)\b/i.test(sentence)) {
+      completenessBonus += 0.6;
+    }
+
+    const baseScore = matches.length;
+    const rank = positionScore + completenessBonus - penalty - (isWindow ? 0.2 : 0);
+    return { sentence, score: baseScore, rank };
+  });
+
   const top = ranked.filter(r => r.score > 0).sort((a, b) => b.score - a.score || b.rank - a.rank)[0];
 
   return top?.score ? { sentence: top.sentence.trim(), termMatches: top.score, rank: top.rank } : null;
