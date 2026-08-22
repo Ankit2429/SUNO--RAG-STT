@@ -167,7 +167,7 @@ function normalizeContentTerm(term: string): string {
   return base;
 }
 
-function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number; rank: number } | null {
+function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number } | null {
   const normalizedQueryTerms = new Set(
     Array.from(terms)
       .map(normalizeContentTerm)
@@ -176,126 +176,24 @@ function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence:
   if (!normalizedQueryTerms.size) return null;
 
   const sentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).filter(Boolean);
-  let best: { sentence: string; termMatches: number; rank: number } | null = null;
-  for (const sentence of sentences) {
-    const trimmed = sentence.trim();
-    if (!trimmed) continue;
-    const sentenceTerms = new Set(
-      normalizeDigits(trimmed.normalize("NFKC").toLocaleLowerCase())
-        .split(/[^\p{L}\p{M}\p{N}]+/u)
-        .map(normalizeContentTerm)
-        .filter(term => term && term.length >= 2)
-    );
-    const matches = Array.from(normalizedQueryTerms).filter(term => sentenceTerms.has(term));
-    const termMatches = matches.length;
-    if (!termMatches) continue;
-    const rank = termMatches + answerabilityRank(trimmed, normalizedQueryTerms);
-    if (!best || rank > best.rank) best = { sentence: trimmed, termMatches, rank };
-  }
-  return best;
+  const ranked = sentences
+    .map(sentence => {
+      const sentenceTerms = new Set(
+        normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase())
+          .split(/[^\p{L}\p{M}\p{N}]+/u)
+          .map(normalizeContentTerm)
+          .filter(term => term && term.length >= 2)
+      );
+      const matches = Array.from(normalizedQueryTerms).filter(term => sentenceTerms.has(term));
+      return { sentence, score: matches.length };
+    })
+    .sort((a, b) => b.score - a.score);
+  const top = ranked[0];
+  return top?.score ? { sentence: top.sentence.trim(), termMatches: top.score } : null;
 }
-
-/**
- * General, query-agnostic answer-sentence quality adjustment. Rewards
- * sentences that actually bear an answer (numbers for quantity/time questions,
- * definitional copulas for definition questions, causal markers for why
- * questions) and penalizes sentences that structurally cannot be an answer:
- * question echoes, dictionary/citation/navigation boilerplate, and bare
- * heading fragments. Purely structural -- no topic or benchmark knowledge.
- */
-function answerabilityRank(sentence: string, queryTerms: Set<string>): number {
-  const lower = sentence.toLocaleLowerCase();
-  let rank = 0;
-
-  // --- Penalties: sentences that cannot answer -------------------------
-  const words = lower.split(/\s+/).filter(Boolean);
-  if (/[\u0964\u0965?]\s*$/.test(sentence.trim()) || sentence.trim().endsWith("?") || sentence.trim().endsWith("।")) {
-    rank -= 3; // interrogative (or bare quiz-question) sentence
-  }
-  if (words.length && /^(what|who|whom|whose|which|when|where|why|how|is|are|was|were|do|does|did|can|could|should|would|tell)\b/.test(lower)) {
-    rank -= 1.5; // opens as a question frame even without a trailing mark
-  }
-
-  // Near-echo: sentence barely adds information beyond the query itself.
-  const contentWords = words.filter(word => /[a-z\u0900-\u097f]/i.test(word));
-  if (contentWords.length) {
-    const overlap = contentWords.filter(word => queryTerms.has(normalizeContentTerm(word.replace(/[^\p{L}\p{M}\p{N}]+/gu, "")))).length;
-    if (overlap / contentWords.length > 0.72 && contentWords.length <= queryTerms.size + 3) {
-      rank -= 2.5; // restates the question instead of answering it
-    }
-  }
-
-  // Dictionary / citation / navigation boilerplate.
-  if (/(©|copyright|\ball rights reserved\b|privacy policy|terms of service|dictionary\b|pronunciation|thesaurus|scrabble|redirected from|comments on \d|read more|sign in|subscribe|newsletter|^related|click here|share (this|to)|tweet|email this|print this|isbn|\bdoi:\s)/i.test(sentence)) {
-    rank -= 2.5;
-  }
-  // Navigation pipe chains ("| Meaning, pronunciation, translations ...").
-  const pipeSegments = sentence.split("|");
-  if (pipeSegments.length >= 3) {
-    rank -= 2; // looks like a site-navigation chain, not prose
-  }
-
-  // Heading / fragment shapes.
-  if (sentence.trim().length < 26) rank -= 1.5;
-  // Truncated mid-predicate: ends on a function word or comma -- the chunk
-  // boundary cut the sentence before it could say anything.
-  if (/\b(and|or|the|a|an|of|to|in|for|with|by|from|on|at|is|are|was|were|that|which|who)\s*[.,;]?\s*$/i.test(sentence.trim()) || /,\s*$/.test(sentence.trim())) {
-    rank -= 1.5;
-  }
-  if (/^[A-Z][A-Za-z0-9,'&:\u2019-]*(\s+[A-Z][A-Za-z0-9,'&:\u2019-]*)*$/.test(sentence.trim()) && !/\d/.test(sentence)) {
-    rank -= 1; // Title Case Heading With No Digits
-  }
-
-  // --- Bonuses: answer-bearing structure -------------------------------
-  const wantsNumeric = /(how (long|many|much|old|far|fast)|what (year|time|age|temperature)|when\b|cost|price|salary|population|number|rate|average|percentage)/i.test(sentence) ||
-    Array.from(queryTerms).some(term => /(cost|price|salary|population|number|rate|average)/.test(term));
-  if (wantsNumeric && /\d/.test(sentence)) rank += 2;
-  if (wantsNumeric && /(\d+(?:[.,]\d+)?\s*(%|dollars?|\$|cents?|years?|months?|weeks?|days?|hours?|minutes?|grams?|kg|kilograms?|miles?|kilometers?|km|mph|km\/h)|[12]\d{3})/i.test(sentence)) rank += 1;
-
-  if (/\b(is|are|was|were|refers to|means|defined as|is called|are called|known as)\b/i.test(sentence)) {
-    rank += 1.5; // definitional / copula construction carries an answer
-    if (Array.from(queryTerms).some(term => lower.includes(term))) rank += 0.5;
-  }
-  if (/\b(because|since|due to|so that|in order to|caused by)\b/i.test(sentence)) rank += 1; // causal answer
-  if (/[.]["']?\s*$/.test(sentence.trim())) rank += 0.5; // complete declarative
-  if (sentence.trim().length >= 40 && sentence.trim().length <= 240) rank += 0.5;
-
-  // Subject early: queried concept appears in the first part of the sentence.
-  const headPosition = (() => {
-    const lowered = normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase());
-    for (const term of queryTerms) {
-      const index = lowered.indexOf(term);
-      if (index >= 0) return index;
-    }
-    return Number.MAX_SAFE_INTEGER;
-  })();
-  if (headPosition < sentence.length * 0.4) rank += 0.5;
-
-  return rank;
-}
-
-/** Query frame words that carry no topic of their own. */
-const QUERY_FRAME_TERMS = new Set([
-  "define", "definition", "definitions", "meaning", "means", "mean", "called", "call",
-  "name", "named", "known", "spelled", "spelling", "term", "word", "type", "kind", "purpose", "use", "used",
-]);
 
 function polishEvidenceSentence(sentence: string): string {
-  let polished = sentence.trim();
-  // Leading answer/label artifacts commonly glued onto forum and Q&A text.
-  // Only the label itself is removed -- never the sentence that follows it.
-  polished = polished.replace(/^(?:best answer\s*:|quick answer\s*:|answer\s*[:\-])\s*/i, "");
-  polished = polished.replace(/^\d{1,2}\s+(?:comments?|replies|answers?)\s+on\s+/i, "");
-  // Leading list markers ("1  More Expensive Upkeep - ...").
-  polished = polished.replace(/^\d{1,2}\s+(?=[A-Z])/, "");
-  // Navigation pipe chains: keep the prose before the nav tail when it stands alone.
-  const pipeParts = polished.split("|");
-  if (pipeParts.length >= 3 && pipeParts[0].trim().length >= 25) {
-    polished = pipeParts[0].trim();
-  }
-  // Trailing chunk-boundary ellipsis artifacts.
-  polished = polished.replace(/\s*(\.\.\.|…|_\s*)+$/u, "").trim();
-  const standalone = polished.replace(/^\s*(?:फिर|नंतर|ನಂತರ|பிறகு)\s+/, "").trim();
+  const standalone = sentence.replace(/^\s*(?:फिर|नंतर|ನಂತರ|பிறகு)\s+/, "").trim();
   if (/^ಆ ಕಂಪನಿಯು ಆ ರಾಜ್ಯದಲ್ಲಿನ ಸಂಯೋಜನೆಯ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತವನ್ನು ನಡೆಸುತ್ತದೆ[.]?$/.test(standalone)) {
     return "ಕಂಪನಿಯು ಅದು ಸಂಯೋಜಿತವಾಗಿರುವ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ.";
   }
@@ -478,17 +376,8 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
         const normSingle = normalizeContentTerm(singleTerm);
         const isGeneric = GENERIC_CONTAINER_TERMS.has(singleTerm) || GENERIC_CONTAINER_TERMS.has(normSingle);
 
-        // Sole-topic relaxation: when everything the query names besides the
-        // matched term is question framing ("define X", "what is X called")
-        // or an abbreviation of at most two characters, the matched specific
-        // term IS the whole topic -- a declarative sentence about it grounds
-        // the answer without needing an entry in any curated domain list.
-        const otherTerms = Array.from(terms).filter(term => term !== singleTerm && term !== normSingle);
-        const soleTopicQuery =
-          !isGeneric &&
-          otherTerms.every(term => term.length <= 2 || QUERY_FRAME_TERMS.has(term) || QUERY_FRAME_TERMS.has(normalizeContentTerm(term)));
-        const declarativeSentence = match.sentence.length >= 25 && !match.sentence.includes("?");
-        if (isGeneric || (!hasDomainAnchor && !(soleTopicQuery && declarativeSentence))) {
+        // Requirement 3: One strong domain-specific term may be accepted only when semantic evidence strongly agrees
+        if (isGeneric || !hasDomainAnchor) {
           return null; // Reject generic or non-domain term match
         }
       }
@@ -505,14 +394,8 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       const chunkScore = scores.get(chunk.id) ?? 0;
       return { chunk, match, score: chunkScore };
     })
-    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number; rank: number }; score: number } => Boolean(item))
-    .sort((a, b) =>
-      // Fail-closed first: a chunk below the evidence-sufficiency floor must
-      // never become the citation source merely by stylistic ranking.
-      Number(b.score >= 0.2) - Number(a.score >= 0.2) ||
-      (b.match.termMatches + b.match.rank) - (a.match.termMatches + a.match.rank) ||
-      b.score - a.score
-    );
+    .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item))
+    .sort((a, b) => b.match.termMatches - a.match.termMatches || b.score - a.score);
 
   const uniqueParents = new Set(supported.map(item => item.chunk.parentId));
   const top = supported[0];
