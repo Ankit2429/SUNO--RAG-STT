@@ -1,0 +1,9 @@
+{
+  "service_name": "suno-rag",
+  "base_url": "http://127.0.0.1:3000",
+  "ask_endpoint": "/api/trpc/voiceRag.askBrowserTranscript",
+  "warmup_endpoint": "/api/trpc/voiceRag.warmup",
+  "health_endpoint": "/api/trpc/voiceRag.indexStatus",
+  "embedding_dim": 384,
+  "model_label": "suno-extractive-v1"
+}

@@ -1,0 +1,2306 @@
+{
+  "answerable": [
+    {
+      "query": "what is providing customer service",
+      "is_answerable": true,
+      "best_ce": 10.272,
+      "mean_ce": 3.863,
+      "median_ce": 5.243,
+      "gap_best_mean": 6.41,
+      "best_faiss": 0.9041,
+      "all_ce": [
+        9.569,
+        10.272,
+        5.243,
+        5.226,
+        -10.996
+      ],
+      "all_faiss": [
+        0.9135,
+        0.9041,
+        0.8791,
+        0.8735,
+        0.8715
+      ]
+    },
+    {
+      "query": "when was power rangers released in europe",
+      "is_answerable": true,
+      "best_ce": 8.984,
+      "mean_ce": 5.882,
+      "median_ce": 4.695,
+      "gap_best_mean": 3.102,
+      "best_faiss": 0.8733,
+      "all_ce": [
+        8.984,
+        8.868,
+        4.695,
+        4.026,
+        2.836
+      ],
+      "all_faiss": [
+        0.8733,
+        0.8689,
+        0.832,
+        0.8265,
+        0.8184
+      ]
+    },
+    {
+      "query": "what is the purpose of the passive-interface command?",
+      "is_answerable": true,
+      "best_ce": 9.418,
+      "mean_ce": 7.882,
+      "median_ce": 8.593,
+      "gap_best_mean": 1.536,
+      "best_faiss": 0.9245,
+      "all_ce": [
+        9.418,
+        8.795,
+        7.65,
+        8.593,
+        4.954
+      ],
+      "all_faiss": [
+        0.9245,
+        0.8961,
+        0.8956,
+        0.8843,
+        0.8707
+      ]
+    },
+    {
+      "query": "what is megatron called",
+      "is_answerable": true,
+      "best_ce": 5.719,
+      "mean_ce": 5.257,
+      "median_ce": 5.463,
+      "gap_best_mean": 0.462,
+      "best_faiss": 0.8825,
+      "all_ce": [
+        5.719,
+        5.525,
+        5.463,
+        4.134,
+        5.442
+      ],
+      "all_faiss": [
+        0.8825,
+        0.8807,
+        0.8708,
+        0.867,
+        0.8521
+      ]
+    },
+    {
+      "query": "what is the definition of symmetrical distribution",
+      "is_answerable": true,
+      "best_ce": 9.226,
+      "mean_ce": 4.003,
+      "median_ce": 2.352,
+      "gap_best_mean": 5.222,
+      "best_faiss": 0.9195,
+      "all_ce": [
+        9.226,
+        1.089,
+        1.644,
+        5.707,
+        2.352
+      ],
+      "all_faiss": [
+        0.9195,
+        0.9032,
+        0.8803,
+        0.8774,
+        0.8735
+      ]
+    },
+    {
+      "query": "how long for stitches to be removed",
+      "is_answerable": true,
+      "best_ce": 9.888,
+      "mean_ce": 7.044,
+      "median_ce": 6.496,
+      "gap_best_mean": 2.844,
+      "best_faiss": 0.9286,
+      "all_ce": [
+        9.888,
+        8.356,
+        6.496,
+        5.81,
+        4.67
+      ],
+      "all_faiss": [
+        0.9286,
+        0.9235,
+        0.9211,
+        0.915,
+        0.9144
+      ]
+    },
+    {
+      "query": "what is the role as a writer in society",
+      "is_answerable": true,
+      "best_ce": 10.147,
+      "mean_ce": 9.486,
+      "median_ce": 9.822,
+      "gap_best_mean": 0.661,
+      "best_faiss": 0.9091,
+      "all_ce": [
+        9.822,
+        10.147,
+        9.939,
+        8.877,
+        8.647
+      ],
+      "all_faiss": [
+        0.9129,
+        0.9091,
+        0.9009,
+        0.9008,
+        0.8997
+      ]
+    },
+    {
+      "query": "when was hangzhou established",
+      "is_answerable": true,
+      "best_ce": 8.96,
+      "mean_ce": 3.591,
+      "median_ce": 8.047,
+      "gap_best_mean": 5.369,
+      "best_faiss": 0.873,
+      "all_ce": [
+        8.047,
+        8.96,
+        8.402,
+        -10.923,
+        3.47
+      ],
+      "all_faiss": [
+        0.8826,
+        0.873,
+        0.8467,
+        0.8253,
+        0.825
+      ]
+    },
+    {
+      "query": "how long do fly eggs live",
+      "is_answerable": true,
+      "best_ce": 8.24,
+      "mean_ce": 4.04,
+      "median_ce": 2.999,
+      "gap_best_mean": 4.2,
+      "best_faiss": 0.9263,
+      "all_ce": [
+        8.24,
+        5.263,
+        1.701,
+        1.998,
+        2.999
+      ],
+      "all_faiss": [
+        0.9263,
+        0.9081,
+        0.9004,
+        0.8988,
+        0.8976
+      ]
+    },
+    {
+      "query": "compatibility definition",
+      "is_answerable": true,
+      "best_ce": 9.734,
+      "mean_ce": 6.963,
+      "median_ce": 6.057,
+      "gap_best_mean": 2.771,
+      "best_faiss": 0.9295,
+      "all_ce": [
+        9.47,
+        9.734,
+        6.057,
+        5.64,
+        3.914
+      ],
+      "all_faiss": [
+        0.9344,
+        0.9295,
+        0.8817,
+        0.878,
+        0.8691
+      ]
+    },
+    {
+      "query": "usf admissions office phone number",
+      "is_answerable": true,
+      "best_ce": 11.01,
+      "mean_ce": 3.432,
+      "median_ce": 4.471,
+      "gap_best_mean": 7.578,
+      "best_faiss": 0.9386,
+      "all_ce": [
+        11.01,
+        2.058,
+        -8.798,
+        8.419,
+        4.471
+      ],
+      "all_faiss": [
+        0.9386,
+        0.9193,
+        0.9099,
+        0.8994,
+        0.8897
+      ]
+    },
+    {
+      "query": "do dolphins have the smell sense",
+      "is_answerable": true,
+      "best_ce": 7.38,
+      "mean_ce": 1.344,
+      "median_ce": 0.06,
+      "gap_best_mean": 6.036,
+      "best_faiss": 0.9107,
+      "all_ce": [
+        7.38,
+        2.778,
+        -0.709,
+        -2.791,
+        0.06
+      ],
+      "all_faiss": [
+        0.9107,
+        0.8801,
+        0.8681,
+        0.8648,
+        0.8556
+      ]
+    },
+    {
+      "query": "what is not present when fermentation is used",
+      "is_answerable": true,
+      "best_ce": 2.712,
+      "mean_ce": -1.031,
+      "median_ce": -1.666,
+      "gap_best_mean": 3.743,
+      "best_faiss": 0.8729,
+      "all_ce": [
+        -0.688,
+        -1.694,
+        2.712,
+        -3.817,
+        -1.666
+      ],
+      "all_faiss": [
+        0.8842,
+        0.8735,
+        0.8729,
+        0.8727,
+        0.8719
+      ]
+    },
+    {
+      "query": "what is the size and weight of a whitetail deer",
+      "is_answerable": true,
+      "best_ce": 8.922,
+      "mean_ce": 1.866,
+      "median_ce": -0.423,
+      "gap_best_mean": 7.056,
+      "best_faiss": 0.9127,
+      "all_ce": [
+        8.922,
+        7.8,
+        -0.477,
+        -0.423,
+        -6.492
+      ],
+      "all_faiss": [
+        0.9127,
+        0.9095,
+        0.874,
+        0.8543,
+        0.8519
+      ]
+    },
+    {
+      "query": "how fast is a kilometer in miles",
+      "is_answerable": true,
+      "best_ce": 7.506,
+      "mean_ce": 2.817,
+      "median_ce": 5.918,
+      "gap_best_mean": 4.69,
+      "best_faiss": 0.8968,
+      "all_ce": [
+        5.918,
+        6.488,
+        5.229,
+        7.506,
+        -11.059
+      ],
+      "all_faiss": [
+        0.915,
+        0.9087,
+        0.9081,
+        0.8968,
+        0.8835
+      ]
+    },
+    {
+      "query": "what is the name of a turtles lower shell",
+      "is_answerable": true,
+      "best_ce": 7.163,
+      "mean_ce": 2.656,
+      "median_ce": 3.003,
+      "gap_best_mean": 4.508,
+      "best_faiss": 0.8877,
+      "all_ce": [
+        7.163,
+        3.003,
+        1.041,
+        3.931,
+        -1.86
+      ],
+      "all_faiss": [
+        0.8877,
+        0.8841,
+        0.8755,
+        0.8719,
+        0.8615
+      ]
+    },
+    {
+      "query": "what is myrtus",
+      "is_answerable": true,
+      "best_ce": 10.611,
+      "mean_ce": 6.798,
+      "median_ce": 6.885,
+      "gap_best_mean": 3.813,
+      "best_faiss": 0.9063,
+      "all_ce": [
+        10.611,
+        8.206,
+        6.885,
+        6.293,
+        1.997
+      ],
+      "all_faiss": [
+        0.9063,
+        0.8829,
+        0.8629,
+        0.8536,
+        0.8532
+      ]
+    },
+    {
+      "query": "gas dryers running cost",
+      "is_answerable": true,
+      "best_ce": 9.012,
+      "mean_ce": 3.531,
+      "median_ce": 2.009,
+      "gap_best_mean": 5.481,
+      "best_faiss": 0.9195,
+      "all_ce": [
+        9.012,
+        2.009,
+        3.956,
+        1.836,
+        0.843
+      ],
+      "all_faiss": [
+        0.9195,
+        0.8983,
+        0.8961,
+        0.888,
+        0.8851
+      ]
+    },
+    {
+      "query": "foods to firm up stool",
+      "is_answerable": true,
+      "best_ce": 7.967,
+      "mean_ce": 6.826,
+      "median_ce": 7.0,
+      "gap_best_mean": 1.141,
+      "best_faiss": 0.9238,
+      "all_ce": [
+        7.967,
+        7.0,
+        7.644,
+        6.892,
+        4.628
+      ],
+      "all_faiss": [
+        0.9238,
+        0.9221,
+        0.9086,
+        0.8996,
+        0.8946
+      ]
+    },
+    {
+      "query": "why did laozi say that idea",
+      "is_answerable": true,
+      "best_ce": 6.831,
+      "mean_ce": 4.231,
+      "median_ce": 3.63,
+      "gap_best_mean": 2.601,
+      "best_faiss": 0.8743,
+      "all_ce": [
+        5.677,
+        6.831,
+        2.566,
+        3.63,
+        2.449
+      ],
+      "all_faiss": [
+        0.8898,
+        0.8743,
+        0.8619,
+        0.8603,
+        0.8554
+      ]
+    },
+    {
+      "query": "what types of actions are controlled by smooth muscles",
+      "is_answerable": true,
+      "best_ce": 6.766,
+      "mean_ce": 3.749,
+      "median_ce": 4.431,
+      "gap_best_mean": 3.017,
+      "best_faiss": 0.9235,
+      "all_ce": [
+        6.766,
+        6.203,
+        4.431,
+        0.85,
+        0.493
+      ],
+      "all_faiss": [
+        0.9235,
+        0.9038,
+        0.9009,
+        0.8896,
+        0.882
+      ]
+    },
+    {
+      "query": "what is peekaboo",
+      "is_answerable": true,
+      "best_ce": 10.535,
+      "mean_ce": 4.058,
+      "median_ce": 8.83,
+      "gap_best_mean": 6.477,
+      "best_faiss": 0.8972,
+      "all_ce": [
+        10.49,
+        10.535,
+        8.83,
+        1.221,
+        -10.787
+      ],
+      "all_faiss": [
+        0.8992,
+        0.8972,
+        0.861,
+        0.8255,
+        0.8119
+      ]
+    },
+    {
+      "query": "how to find the surface area of a triangle",
+      "is_answerable": true,
+      "best_ce": 6.293,
+      "mean_ce": 0.447,
+      "median_ce": -0.984,
+      "gap_best_mean": 5.846,
+      "best_faiss": 0.8947,
+      "all_ce": [
+        0.792,
+        6.293,
+        -2.227,
+        -1.641,
+        -0.984
+      ],
+      "all_faiss": [
+        0.8965,
+        0.8947,
+        0.8832,
+        0.8785,
+        0.878
+      ]
+    },
+    {
+      "query": "what is behavioral event interviewing method",
+      "is_answerable": true,
+      "best_ce": 10.513,
+      "mean_ce": 8.957,
+      "median_ce": 8.514,
+      "gap_best_mean": 1.557,
+      "best_faiss": 0.9323,
+      "all_ce": [
+        10.513,
+        10.413,
+        8.514,
+        8.097,
+        7.247
+      ],
+      "all_faiss": [
+        0.9323,
+        0.9318,
+        0.9304,
+        0.9252,
+        0.9249
+      ]
+    },
+    {
+      "query": "what is chrome mean",
+      "is_answerable": true,
+      "best_ce": 9.127,
+      "mean_ce": 6.859,
+      "median_ce": 6.721,
+      "gap_best_mean": 2.268,
+      "best_faiss": 0.9106,
+      "all_ce": [
+        9.127,
+        6.6,
+        6.788,
+        6.721,
+        5.058
+      ],
+      "all_faiss": [
+        0.9106,
+        0.907,
+        0.905,
+        0.9049,
+        0.903
+      ]
+    },
+    {
+      "query": "who owns the w hotel",
+      "is_answerable": true,
+      "best_ce": 9.972,
+      "mean_ce": 3.84,
+      "median_ce": 5.664,
+      "gap_best_mean": 6.132,
+      "best_faiss": 0.9044,
+      "all_ce": [
+        9.972,
+        5.664,
+        9.023,
+        5.342,
+        -10.801
+      ],
+      "all_faiss": [
+        0.9044,
+        0.8865,
+        0.8819,
+        0.8617,
+        0.8599
+      ]
+    },
+    {
+      "query": "when was star trek the voyage released",
+      "is_answerable": true,
+      "best_ce": 8.424,
+      "mean_ce": 3.37,
+      "median_ce": 1.559,
+      "gap_best_mean": 5.054,
+      "best_faiss": 0.8538,
+      "all_ce": [
+        8.424,
+        5.474,
+        0.939,
+        1.559,
+        0.453
+      ],
+      "all_faiss": [
+        0.8538,
+        0.8402,
+        0.8303,
+        0.828,
+        0.8268
+      ]
+    },
+    {
+      "query": "what type of corn is feed corn",
+      "is_answerable": true,
+      "best_ce": 6.189,
+      "mean_ce": 2.26,
+      "median_ce": 1.223,
+      "gap_best_mean": 3.93,
+      "best_faiss": 0.8899,
+      "all_ce": [
+        6.189,
+        0.667,
+        1.223,
+        2.262,
+        0.957
+      ],
+      "all_faiss": [
+        0.8899,
+        0.8718,
+        0.8657,
+        0.8655,
+        0.8651
+      ]
+    },
+    {
+      "query": "how old would dean martin be",
+      "is_answerable": true,
+      "best_ce": 6.57,
+      "mean_ce": 3.799,
+      "median_ce": 5.443,
+      "gap_best_mean": 2.771,
+      "best_faiss": 0.8805,
+      "all_ce": [
+        6.57,
+        5.586,
+        -0.85,
+        5.443,
+        2.246
+      ],
+      "all_faiss": [
+        0.8805,
+        0.8792,
+        0.864,
+        0.864,
+        0.8597
+      ]
+    },
+    {
+      "query": "what is peninsula clean energy",
+      "is_answerable": true,
+      "best_ce": 11.063,
+      "mean_ce": 10.26,
+      "median_ce": 10.141,
+      "gap_best_mean": 0.803,
+      "best_faiss": 0.9099,
+      "all_ce": [
+        9.872,
+        9.842,
+        10.141,
+        10.383,
+        11.063
+      ],
+      "all_faiss": [
+        0.9203,
+        0.9168,
+        0.9148,
+        0.9131,
+        0.9099
+      ]
+    },
+    {
+      "query": "how long before a collection agency reports to the credit bureau",
+      "is_answerable": true,
+      "best_ce": 8.927,
+      "mean_ce": 3.343,
+      "median_ce": 6.481,
+      "gap_best_mean": 5.584,
+      "best_faiss": 0.9334,
+      "all_ce": [
+        8.927,
+        7.975,
+        6.481,
+        -11.146,
+        4.479
+      ],
+      "all_faiss": [
+        0.9334,
+        0.9249,
+        0.9098,
+        0.901,
+        0.8976
+      ]
+    },
+    {
+      "query": "cytopathology definition",
+      "is_answerable": true,
+      "best_ce": 10.822,
+      "mean_ce": 7.524,
+      "median_ce": 7.71,
+      "gap_best_mean": 3.298,
+      "best_faiss": 0.9467,
+      "all_ce": [
+        10.822,
+        10.13,
+        7.71,
+        7.347,
+        1.611
+      ],
+      "all_faiss": [
+        0.9467,
+        0.9381,
+        0.9253,
+        0.922,
+        0.8933
+      ]
+    },
+    {
+      "query": "where is americus ga",
+      "is_answerable": true,
+      "best_ce": 10.97,
+      "mean_ce": 6.419,
+      "median_ce": 5.854,
+      "gap_best_mean": 4.55,
+      "best_faiss": 0.9081,
+      "all_ce": [
+        10.97,
+        6.921,
+        5.854,
+        3.569,
+        4.783
+      ],
+      "all_faiss": [
+        0.9081,
+        0.8512,
+        0.8473,
+        0.8457,
+        0.8325
+      ]
+    },
+    {
+      "query": "what's the population of guatemala",
+      "is_answerable": true,
+      "best_ce": 8.963,
+      "mean_ce": 5.888,
+      "median_ce": 4.81,
+      "gap_best_mean": 3.075,
+      "best_faiss": 0.8906,
+      "all_ce": [
+        8.136,
+        8.963,
+        3.536,
+        3.996,
+        4.81
+      ],
+      "all_faiss": [
+        0.8966,
+        0.8906,
+        0.876,
+        0.8732,
+        0.872
+      ]
+    },
+    {
+      "query": "can thinning vocal cords cause hoarseness",
+      "is_answerable": true,
+      "best_ce": 4.295,
+      "mean_ce": 3.929,
+      "median_ce": 4.148,
+      "gap_best_mean": 0.366,
+      "best_faiss": 0.9068,
+      "all_ce": [
+        4.225,
+        3.641,
+        4.148,
+        3.336,
+        4.295
+      ],
+      "all_faiss": [
+        0.9236,
+        0.9163,
+        0.9133,
+        0.9079,
+        0.9068
+      ]
+    },
+    {
+      "query": "why are the epidermal layers coated in a waxy cuticle",
+      "is_answerable": true,
+      "best_ce": 7.324,
+      "mean_ce": 4.119,
+      "median_ce": 4.306,
+      "gap_best_mean": 3.205,
+      "best_faiss": 0.9161,
+      "all_ce": [
+        5.627,
+        7.324,
+        1.697,
+        1.642,
+        4.306
+      ],
+      "all_faiss": [
+        0.9436,
+        0.9161,
+        0.8972,
+        0.8949,
+        0.8915
+      ]
+    },
+    {
+      "query": "cost of an average wedding cake",
+      "is_answerable": true,
+      "best_ce": 9.409,
+      "mean_ce": 8.432,
+      "median_ce": 8.408,
+      "gap_best_mean": 0.977,
+      "best_faiss": 0.9229,
+      "all_ce": [
+        7.37,
+        8.408,
+        8.07,
+        9.409,
+        8.903
+      ],
+      "all_faiss": [
+        0.9366,
+        0.9317,
+        0.9247,
+        0.9229,
+        0.9209
+      ]
+    },
+    {
+      "query": "define hoofed",
+      "is_answerable": true,
+      "best_ce": 9.798,
+      "mean_ce": 4.598,
+      "median_ce": 3.72,
+      "gap_best_mean": 5.2,
+      "best_faiss": 0.9249,
+      "all_ce": [
+        9.798,
+        3.72,
+        4.208,
+        2.79,
+        2.475
+      ],
+      "all_faiss": [
+        0.9249,
+        0.8735,
+        0.8593,
+        0.8448,
+        0.8401
+      ]
+    },
+    {
+      "query": "how long do you have to keep paperwork",
+      "is_answerable": true,
+      "best_ce": 6.234,
+      "mean_ce": 0.503,
+      "median_ce": 0.256,
+      "gap_best_mean": 5.731,
+      "best_faiss": 0.9048,
+      "all_ce": [
+        2.44,
+        6.234,
+        0.256,
+        -3.213,
+        -3.202
+      ],
+      "all_faiss": [
+        0.9057,
+        0.9048,
+        0.892,
+        0.8907,
+        0.8862
+      ]
+    },
+    {
+      "query": "what medication treat insulin resistance",
+      "is_answerable": true,
+      "best_ce": 9.329,
+      "mean_ce": 2.888,
+      "median_ce": 1.418,
+      "gap_best_mean": 6.441,
+      "best_faiss": 0.9331,
+      "all_ce": [
+        9.329,
+        4.816,
+        -1.274,
+        0.152,
+        1.418
+      ],
+      "all_faiss": [
+        0.9331,
+        0.9042,
+        0.8928,
+        0.8924,
+        0.8888
+      ]
+    },
+    {
+      "query": "what makes marsala wine special",
+      "is_answerable": true,
+      "best_ce": 4.333,
+      "mean_ce": 2.94,
+      "median_ce": 3.437,
+      "gap_best_mean": 1.393,
+      "best_faiss": 0.8983,
+      "all_ce": [
+        4.333,
+        3.437,
+        2.642,
+        3.624,
+        0.663
+      ],
+      "all_faiss": [
+        0.8983,
+        0.8947,
+        0.8934,
+        0.883,
+        0.8797
+      ]
+    },
+    {
+      "query": "definition of heirs and assigns",
+      "is_answerable": true,
+      "best_ce": 10.02,
+      "mean_ce": 8.083,
+      "median_ce": 8.655,
+      "gap_best_mean": 1.937,
+      "best_faiss": 0.9554,
+      "all_ce": [
+        10.02,
+        8.655,
+        7.356,
+        9.29,
+        5.093
+      ],
+      "all_faiss": [
+        0.9554,
+        0.935,
+        0.9315,
+        0.9125,
+        0.8867
+      ]
+    },
+    {
+      "query": "what is the atoms and molecules full of",
+      "is_answerable": true,
+      "best_ce": 4.689,
+      "mean_ce": 2.723,
+      "median_ce": 2.132,
+      "gap_best_mean": 1.966,
+      "best_faiss": 0.9043,
+      "all_ce": [
+        0.785,
+        4.689,
+        4.532,
+        1.476,
+        2.132
+      ],
+      "all_faiss": [
+        0.9053,
+        0.9043,
+        0.901,
+        0.9001,
+        0.8969
+      ]
+    },
+    {
+      "query": "what is the daily minimum protein requirement",
+      "is_answerable": true,
+      "best_ce": 7.09,
+      "mean_ce": 1.438,
+      "median_ce": -0.503,
+      "gap_best_mean": 5.652,
+      "best_faiss": 0.9082,
+      "all_ce": [
+        7.09,
+        -1.308,
+        -0.503,
+        -2.514,
+        4.426
+      ],
+      "all_faiss": [
+        0.9082,
+        0.8995,
+        0.8986,
+        0.8974,
+        0.8953
+      ]
+    },
+    {
+      "query": "effexor for menopause symptoms",
+      "is_answerable": true,
+      "best_ce": 7.611,
+      "mean_ce": 5.453,
+      "median_ce": 6.925,
+      "gap_best_mean": 2.158,
+      "best_faiss": 0.9302,
+      "all_ce": [
+        6.935,
+        6.925,
+        7.611,
+        6.571,
+        -0.779
+      ],
+      "all_faiss": [
+        0.9444,
+        0.941,
+        0.9302,
+        0.9227,
+        0.8953
+      ]
+    },
+    {
+      "query": "hostel barcelona",
+      "is_answerable": true,
+      "best_ce": 9.6,
+      "mean_ce": 8.99,
+      "median_ce": 8.844,
+      "gap_best_mean": 0.61,
+      "best_faiss": 0.9002,
+      "all_ce": [
+        8.721,
+        9.6,
+        8.844,
+        9.6,
+        8.185
+      ],
+      "all_faiss": [
+        0.9077,
+        0.9002,
+        0.8951,
+        0.8947,
+        0.8933
+      ]
+    },
+    {
+      "query": "what was william l hawkins: an imaginative geography about",
+      "is_answerable": true,
+      "best_ce": 8.692,
+      "mean_ce": 8.152,
+      "median_ce": 8.092,
+      "gap_best_mean": 0.54,
+      "best_faiss": 0.89,
+      "all_ce": [
+        7.851,
+        8.124,
+        8.002,
+        8.692,
+        8.092
+      ],
+      "all_faiss": [
+        0.9,
+        0.8961,
+        0.8906,
+        0.89,
+        0.8889
+      ]
+    },
+    {
+      "query": "what is the transpiration stream",
+      "is_answerable": true,
+      "best_ce": 8.595,
+      "mean_ce": 6.607,
+      "median_ce": 8.509,
+      "gap_best_mean": 1.988,
+      "best_faiss": 0.9046,
+      "all_ce": [
+        8.595,
+        8.525,
+        8.509,
+        3.67,
+        3.735
+      ],
+      "all_faiss": [
+        0.9046,
+        0.9027,
+        0.8995,
+        0.8994,
+        0.8951
+      ]
+    },
+    {
+      "query": "what is the salary of a purchasing specialist for tesla?",
+      "is_answerable": true,
+      "best_ce": 10.473,
+      "mean_ce": 4.427,
+      "median_ce": 8.516,
+      "gap_best_mean": 6.046,
+      "best_faiss": 0.957,
+      "all_ce": [
+        10.473,
+        8.57,
+        8.516,
+        5.791,
+        -11.214
+      ],
+      "all_faiss": [
+        0.957,
+        0.9391,
+        0.9256,
+        0.912,
+        0.8878
+      ]
+    },
+    {
+      "query": "which plants live in the sonoran desert?",
+      "is_answerable": true,
+      "best_ce": 9.535,
+      "mean_ce": 5.464,
+      "median_ce": 5.591,
+      "gap_best_mean": 4.072,
+      "best_faiss": 0.9141,
+      "all_ce": [
+        9.535,
+        5.591,
+        1.457,
+        6.6,
+        4.135
+      ],
+      "all_faiss": [
+        0.9141,
+        0.9068,
+        0.8652,
+        0.8645,
+        0.8588
+      ]
+    }
+  ],
+  "unanswerable": [
+    {
+      "query": "difference from phycol and psychiatrist",
+      "is_answerable": false,
+      "best_ce": 3.019,
+      "mean_ce": -3.141,
+      "median_ce": -1.965,
+      "gap_best_mean": 6.16,
+      "best_faiss": 0.8651,
+      "all_ce": [
+        3.019,
+        -1.612,
+        -1.965,
+        -3.72,
+        -11.426
+      ],
+      "all_faiss": [
+        0.8651,
+        0.8534,
+        0.8419,
+        0.8397,
+        0.8386
+      ]
+    },
+    {
+      "query": "how to do citations in an essay",
+      "is_answerable": false,
+      "best_ce": 7.959,
+      "mean_ce": 1.506,
+      "median_ce": 4.277,
+      "gap_best_mean": 6.452,
+      "best_faiss": 0.9061,
+      "all_ce": [
+        6.118,
+        7.959,
+        4.277,
+        -6.369,
+        -4.453
+      ],
+      "all_faiss": [
+        0.9064,
+        0.9061,
+        0.897,
+        0.8944,
+        0.8944
+      ]
+    },
+    {
+      "query": "who is the person that created transformers",
+      "is_answerable": false,
+      "best_ce": 4.622,
+      "mean_ce": 1.967,
+      "median_ce": 3.576,
+      "gap_best_mean": 2.655,
+      "best_faiss": 0.8404,
+      "all_ce": [
+        3.576,
+        2.986,
+        4.622,
+        3.738,
+        -5.088
+      ],
+      "all_faiss": [
+        0.8509,
+        0.8428,
+        0.8404,
+        0.8353,
+        0.8336
+      ]
+    },
+    {
+      "query": "can hyponatremia cause vertigo",
+      "is_answerable": false,
+      "best_ce": 2.301,
+      "mean_ce": -1.592,
+      "median_ce": 0.008,
+      "gap_best_mean": 3.893,
+      "best_faiss": 0.8792,
+      "all_ce": [
+        0.977,
+        2.301,
+        -2.219,
+        -9.027,
+        0.008
+      ],
+      "all_faiss": [
+        0.8906,
+        0.8792,
+        0.8641,
+        0.8638,
+        0.8537
+      ]
+    },
+    {
+      "query": "erie insurance corporate address",
+      "is_answerable": false,
+      "best_ce": 5.314,
+      "mean_ce": 3.967,
+      "median_ce": 4.002,
+      "gap_best_mean": 1.347,
+      "best_faiss": 0.8677,
+      "all_ce": [
+        5.13,
+        2.798,
+        4.002,
+        2.59,
+        5.314
+      ],
+      "all_faiss": [
+        0.906,
+        0.8791,
+        0.8786,
+        0.8747,
+        0.8677
+      ]
+    },
+    {
+      "query": "what is tlr development",
+      "is_answerable": false,
+      "best_ce": 6.338,
+      "mean_ce": 3.873,
+      "median_ce": 4.383,
+      "gap_best_mean": 2.465,
+      "best_faiss": 0.8609,
+      "all_ce": [
+        6.338,
+        4.149,
+        4.383,
+        5.449,
+        -0.954
+      ],
+      "all_faiss": [
+        0.8609,
+        0.8607,
+        0.8596,
+        0.8547,
+        0.8534
+      ]
+    },
+    {
+      "query": "tail wagging the dog originate",
+      "is_answerable": false,
+      "best_ce": 7.119,
+      "mean_ce": 5.39,
+      "median_ce": 5.455,
+      "gap_best_mean": 1.729,
+      "best_faiss": 0.9065,
+      "all_ce": [
+        7.119,
+        6.308,
+        5.455,
+        3.692,
+        4.374
+      ],
+      "all_faiss": [
+        0.9065,
+        0.8923,
+        0.8884,
+        0.875,
+        0.8691
+      ]
+    },
+    {
+      "query": "calculate distance deceleration",
+      "is_answerable": false,
+      "best_ce": 6.859,
+      "mean_ce": 0.741,
+      "median_ce": 2.869,
+      "gap_best_mean": 6.117,
+      "best_faiss": 0.8922,
+      "all_ce": [
+        6.859,
+        -2.222,
+        -7.378,
+        2.869,
+        3.579
+      ],
+      "all_faiss": [
+        0.8922,
+        0.8902,
+        0.8837,
+        0.8774,
+        0.8714
+      ]
+    },
+    {
+      "query": "how to cook fried chicken legs",
+      "is_answerable": false,
+      "best_ce": 6.255,
+      "mean_ce": 2.863,
+      "median_ce": 2.692,
+      "gap_best_mean": 3.393,
+      "best_faiss": 0.8958,
+      "all_ce": [
+        5.929,
+        6.255,
+        2.692,
+        -1.048,
+        0.487
+      ],
+      "all_faiss": [
+        0.8961,
+        0.8958,
+        0.889,
+        0.8866,
+        0.8866
+      ]
+    },
+    {
+      "query": "what majors are clemson university known for",
+      "is_answerable": false,
+      "best_ce": 8.521,
+      "mean_ce": 5.942,
+      "median_ce": 6.183,
+      "gap_best_mean": 2.579,
+      "best_faiss": 0.8894,
+      "all_ce": [
+        8.521,
+        5.797,
+        6.183,
+        6.887,
+        2.323
+      ],
+      "all_faiss": [
+        0.8894,
+        0.8888,
+        0.8822,
+        0.8759,
+        0.8587
+      ]
+    },
+    {
+      "query": "bleaching is an outcome of ocean acidification that directly affects _____.",
+      "is_answerable": false,
+      "best_ce": 1.279,
+      "mean_ce": -0.346,
+      "median_ce": -0.524,
+      "gap_best_mean": 1.625,
+      "best_faiss": 0.878,
+      "all_ce": [
+        -1.004,
+        1.279,
+        -0.524,
+        1.024,
+        -2.507
+      ],
+      "all_faiss": [
+        0.8798,
+        0.878,
+        0.8745,
+        0.8712,
+        0.8665
+      ]
+    },
+    {
+      "query": "cite a movie mla",
+      "is_answerable": false,
+      "best_ce": 8.65,
+      "mean_ce": 8.396,
+      "median_ce": 8.524,
+      "gap_best_mean": 0.255,
+      "best_faiss": 0.9216,
+      "all_ce": [
+        8.524,
+        8.65,
+        8.628,
+        8.114,
+        8.062
+      ],
+      "all_faiss": [
+        0.9242,
+        0.9216,
+        0.9212,
+        0.9081,
+        0.9076
+      ]
+    },
+    {
+      "query": "headache that causes earache",
+      "is_answerable": false,
+      "best_ce": 5.37,
+      "mean_ce": 3.218,
+      "median_ce": 3.14,
+      "gap_best_mean": 2.152,
+      "best_faiss": 0.9074,
+      "all_ce": [
+        3.14,
+        5.37,
+        2.3,
+        5.181,
+        0.098
+      ],
+      "all_faiss": [
+        0.9186,
+        0.9074,
+        0.9068,
+        0.9025,
+        0.9015
+      ]
+    },
+    {
+      "query": "what is elastomer processing?",
+      "is_answerable": false,
+      "best_ce": 4.42,
+      "mean_ce": 1.247,
+      "median_ce": 0.578,
+      "gap_best_mean": 3.173,
+      "best_faiss": 0.863,
+      "all_ce": [
+        0.843,
+        4.42,
+        0.143,
+        0.578,
+        0.252
+      ],
+      "all_faiss": [
+        0.8687,
+        0.863,
+        0.8548,
+        0.8537,
+        0.8528
+      ]
+    },
+    {
+      "query": "why adaptive sports help people with disabilities",
+      "is_answerable": false,
+      "best_ce": 6.685,
+      "mean_ce": 4.128,
+      "median_ce": 5.289,
+      "gap_best_mean": 2.557,
+      "best_faiss": 0.8937,
+      "all_ce": [
+        6.685,
+        5.336,
+        5.289,
+        0.043,
+        3.288
+      ],
+      "all_faiss": [
+        0.8937,
+        0.8885,
+        0.8759,
+        0.8739,
+        0.8721
+      ]
+    },
+    {
+      "query": "what is the primary function",
+      "is_answerable": false,
+      "best_ce": 6.566,
+      "mean_ce": 1.906,
+      "median_ce": 4.795,
+      "gap_best_mean": 4.66,
+      "best_faiss": 0.8686,
+      "all_ce": [
+        3.853,
+        6.566,
+        4.795,
+        5.3,
+        -10.983
+      ],
+      "all_faiss": [
+        0.8811,
+        0.8686,
+        0.8655,
+        0.8626,
+        0.8447
+      ]
+    },
+    {
+      "query": "who is authorized to wear the armed forces reserve army ribbon",
+      "is_answerable": false,
+      "best_ce": 7.995,
+      "mean_ce": 2.019,
+      "median_ce": 4.963,
+      "gap_best_mean": 5.976,
+      "best_faiss": 0.908,
+      "all_ce": [
+        7.995,
+        5.488,
+        -10.959,
+        4.963,
+        2.609
+      ],
+      "all_faiss": [
+        0.908,
+        0.8811,
+        0.867,
+        0.866,
+        0.849
+      ]
+    },
+    {
+      "query": "how long do i cook my chicken and vegetable sheet pan",
+      "is_answerable": false,
+      "best_ce": 5.824,
+      "mean_ce": -0.589,
+      "median_ce": -2.35,
+      "gap_best_mean": 6.413,
+      "best_faiss": 0.9199,
+      "all_ce": [
+        5.824,
+        -0.685,
+        -2.35,
+        -2.604,
+        -3.129
+      ],
+      "all_faiss": [
+        0.9199,
+        0.9071,
+        0.9001,
+        0.8992,
+        0.8991
+      ]
+    },
+    {
+      "query": "what is zip code of fairmont mis",
+      "is_answerable": false,
+      "best_ce": 7.669,
+      "mean_ce": 5.89,
+      "median_ce": 5.451,
+      "gap_best_mean": 1.779,
+      "best_faiss": 0.8897,
+      "all_ce": [
+        7.669,
+        6.535,
+        5.451,
+        5.352,
+        4.444
+      ],
+      "all_faiss": [
+        0.8897,
+        0.8797,
+        0.8748,
+        0.8683,
+        0.868
+      ]
+    },
+    {
+      "query": "what kind of turbochargers are used by alexander dennis?",
+      "is_answerable": false,
+      "best_ce": 4.396,
+      "mean_ce": 0.963,
+      "median_ce": 0.329,
+      "gap_best_mean": 3.433,
+      "best_faiss": 0.8529,
+      "all_ce": [
+        0.329,
+        0.362,
+        -0.008,
+        4.396,
+        -0.266
+      ],
+      "all_faiss": [
+        0.862,
+        0.8543,
+        0.8531,
+        0.8529,
+        0.8486
+      ]
+    },
+    {
+      "query": "how to clean new steel for painting with acrylic latex",
+      "is_answerable": false,
+      "best_ce": 5.149,
+      "mean_ce": 1.567,
+      "median_ce": 1.762,
+      "gap_best_mean": 3.582,
+      "best_faiss": 0.8704,
+      "all_ce": [
+        5.149,
+        1.762,
+        2.041,
+        1.451,
+        -2.567
+      ],
+      "all_faiss": [
+        0.8704,
+        0.8675,
+        0.8672,
+        0.8667,
+        0.865
+      ]
+    },
+    {
+      "query": "what was the purpose of the new deal quizlet",
+      "is_answerable": false,
+      "best_ce": 4.595,
+      "mean_ce": -0.27,
+      "median_ce": 1.005,
+      "gap_best_mean": 4.864,
+      "best_faiss": 0.8883,
+      "all_ce": [
+        4.595,
+        1.005,
+        2.322,
+        -6.054,
+        -3.216
+      ],
+      "all_faiss": [
+        0.8883,
+        0.8669,
+        0.8561,
+        0.8495,
+        0.8494
+      ]
+    },
+    {
+      "query": "what is the penalty for an individual who falsifies an entry in a logbook",
+      "is_answerable": false,
+      "best_ce": 4.947,
+      "mean_ce": 2.168,
+      "median_ce": 2.113,
+      "gap_best_mean": 2.779,
+      "best_faiss": 0.8956,
+      "all_ce": [
+        4.891,
+        4.947,
+        1.217,
+        -2.328,
+        2.113
+      ],
+      "all_faiss": [
+        0.8998,
+        0.8956,
+        0.8769,
+        0.873,
+        0.8646
+      ]
+    },
+    {
+      "query": "how build up blood platelets",
+      "is_answerable": false,
+      "best_ce": -0.104,
+      "mean_ce": -2.189,
+      "median_ce": -2.06,
+      "gap_best_mean": 2.085,
+      "best_faiss": 0.8919,
+      "all_ce": [
+        -0.104,
+        -4.549,
+        -1.725,
+        -2.506,
+        -2.06
+      ],
+      "all_faiss": [
+        0.8919,
+        0.8916,
+        0.8876,
+        0.8868,
+        0.8839
+      ]
+    },
+    {
+      "query": "carnival cruise how many day to move up",
+      "is_answerable": false,
+      "best_ce": 5.116,
+      "mean_ce": 1.882,
+      "median_ce": 4.046,
+      "gap_best_mean": 3.234,
+      "best_faiss": 0.8864,
+      "all_ce": [
+        5.116,
+        4.046,
+        4.263,
+        -1.978,
+        -2.036
+      ],
+      "all_faiss": [
+        0.8864,
+        0.8844,
+        0.883,
+        0.8643,
+        0.8542
+      ]
+    },
+    {
+      "query": "where can you find aurora",
+      "is_answerable": false,
+      "best_ce": 6.006,
+      "mean_ce": 3.147,
+      "median_ce": 3.525,
+      "gap_best_mean": 2.859,
+      "best_faiss": 0.8649,
+      "all_ce": [
+        3.547,
+        6.006,
+        2.651,
+        0.008,
+        3.525
+      ],
+      "all_faiss": [
+        0.8798,
+        0.8649,
+        0.8559,
+        0.852,
+        0.8448
+      ]
+    },
+    {
+      "query": "where do you measure waist measurement for men",
+      "is_answerable": false,
+      "best_ce": 7.606,
+      "mean_ce": 6.5,
+      "median_ce": 6.414,
+      "gap_best_mean": 1.106,
+      "best_faiss": 0.8981,
+      "all_ce": [
+        7.606,
+        6.414,
+        5.912,
+        6.705,
+        5.862
+      ],
+      "all_faiss": [
+        0.8981,
+        0.896,
+        0.8939,
+        0.8874,
+        0.8804
+      ]
+    },
+    {
+      "query": "what is the lowest temperature in celsius today",
+      "is_answerable": false,
+      "best_ce": 6.366,
+      "mean_ce": 0.997,
+      "median_ce": 0.986,
+      "gap_best_mean": 5.37,
+      "best_faiss": 0.9109,
+      "all_ce": [
+        6.366,
+        -0.587,
+        1.201,
+        -2.984,
+        0.986
+      ],
+      "all_faiss": [
+        0.9109,
+        0.888,
+        0.8847,
+        0.8778,
+        0.8746
+      ]
+    },
+    {
+      "query": "how did adolescent suicide prevention start",
+      "is_answerable": false,
+      "best_ce": 4.149,
+      "mean_ce": -1.658,
+      "median_ce": -2.446,
+      "gap_best_mean": 5.808,
+      "best_faiss": 0.8993,
+      "all_ce": [
+        3.879,
+        4.149,
+        -2.446,
+        -11.052,
+        -2.822
+      ],
+      "all_faiss": [
+        0.9002,
+        0.8993,
+        0.8522,
+        0.8513,
+        0.8479
+      ]
+    },
+    {
+      "query": "how to relieve a burn",
+      "is_answerable": false,
+      "best_ce": 8.544,
+      "mean_ce": 8.006,
+      "median_ce": 8.324,
+      "gap_best_mean": 0.538,
+      "best_faiss": 0.9059,
+      "all_ce": [
+        8.324,
+        6.441,
+        8.544,
+        8.493,
+        8.228
+      ],
+      "all_faiss": [
+        0.9109,
+        0.9064,
+        0.9059,
+        0.9059,
+        0.9059
+      ]
+    },
+    {
+      "query": "hiw many lines is a terrabyte of data",
+      "is_answerable": false,
+      "best_ce": -10.482,
+      "mean_ce": -10.66,
+      "median_ce": -10.698,
+      "gap_best_mean": 0.178,
+      "best_faiss": 0.8583,
+      "all_ce": [
+        -10.748,
+        -10.813,
+        -10.698,
+        -10.482,
+        -10.561
+      ],
+      "all_faiss": [
+        0.8646,
+        0.8644,
+        0.8639,
+        0.8583,
+        0.8567
+      ]
+    },
+    {
+      "query": "what was benjamin harrison respected for",
+      "is_answerable": false,
+      "best_ce": 6.596,
+      "mean_ce": 4.776,
+      "median_ce": 5.181,
+      "gap_best_mean": 1.821,
+      "best_faiss": 0.8617,
+      "all_ce": [
+        5.181,
+        5.206,
+        6.596,
+        3.745,
+        3.15
+      ],
+      "all_faiss": [
+        0.8721,
+        0.8659,
+        0.8617,
+        0.8614,
+        0.8588
+      ]
+    },
+    {
+      "query": "how to defrost banana bread",
+      "is_answerable": false,
+      "best_ce": 5.459,
+      "mean_ce": 0.827,
+      "median_ce": 0.045,
+      "gap_best_mean": 4.632,
+      "best_faiss": 0.9025,
+      "all_ce": [
+        5.459,
+        0.045,
+        0.967,
+        -0.717,
+        -1.618
+      ],
+      "all_faiss": [
+        0.9025,
+        0.8959,
+        0.8899,
+        0.8758,
+        0.8696
+      ]
+    },
+    {
+      "query": "what is the example of cloud computing",
+      "is_answerable": false,
+      "best_ce": 8.124,
+      "mean_ce": 5.07,
+      "median_ce": 6.096,
+      "gap_best_mean": 3.054,
+      "best_faiss": 0.8788,
+      "all_ce": [
+        6.237,
+        6.096,
+        8.124,
+        2.514,
+        2.379
+      ],
+      "all_faiss": [
+        0.9002,
+        0.8928,
+        0.8788,
+        0.8742,
+        0.8685
+      ]
+    },
+    {
+      "query": "how high to hang art above sofa",
+      "is_answerable": false,
+      "best_ce": 8.612,
+      "mean_ce": 6.681,
+      "median_ce": 7.823,
+      "gap_best_mean": 1.931,
+      "best_faiss": 0.9371,
+      "all_ce": [
+        8.612,
+        5.747,
+        8.246,
+        7.823,
+        2.979
+      ],
+      "all_faiss": [
+        0.9371,
+        0.9259,
+        0.9252,
+        0.9219,
+        0.9181
+      ]
+    },
+    {
+      "query": "average american assets",
+      "is_answerable": false,
+      "best_ce": 5.416,
+      "mean_ce": -3.81,
+      "median_ce": -2.585,
+      "gap_best_mean": 9.225,
+      "best_faiss": 0.8993,
+      "all_ce": [
+        5.416,
+        -10.886,
+        -0.136,
+        -2.585,
+        -10.857
+      ],
+      "all_faiss": [
+        0.8993,
+        0.8809,
+        0.8699,
+        0.8639,
+        0.858
+      ]
+    },
+    {
+      "query": "easiest way to correct a slice",
+      "is_answerable": false,
+      "best_ce": 0.032,
+      "mean_ce": -1.17,
+      "median_ce": -0.808,
+      "gap_best_mean": 1.202,
+      "best_faiss": 0.8536,
+      "all_ce": [
+        -0.808,
+        -0.934,
+        -0.653,
+        -3.485,
+        0.032
+      ],
+      "all_faiss": [
+        0.8778,
+        0.8579,
+        0.857,
+        0.856,
+        0.8536
+      ]
+    },
+    {
+      "query": "weather in gilbert arizona in summer",
+      "is_answerable": false,
+      "best_ce": 8.113,
+      "mean_ce": 2.182,
+      "median_ce": 4.442,
+      "gap_best_mean": 5.93,
+      "best_faiss": 0.8962,
+      "all_ce": [
+        8.113,
+        5.317,
+        4.442,
+        -10.852,
+        3.892
+      ],
+      "all_faiss": [
+        0.8962,
+        0.8663,
+        0.8625,
+        0.8471,
+        0.8432
+      ]
+    },
+    {
+      "query": "what is french name for mom",
+      "is_answerable": false,
+      "best_ce": 3.983,
+      "mean_ce": -0.896,
+      "median_ce": -3.128,
+      "gap_best_mean": 4.879,
+      "best_faiss": 0.8897,
+      "all_ce": [
+        3.983,
+        1.179,
+        -3.128,
+        -3.255,
+        -3.258
+      ],
+      "all_faiss": [
+        0.8897,
+        0.8827,
+        0.8697,
+        0.8619,
+        0.8617
+      ]
+    },
+    {
+      "query": "how long to wait until pot plants ready to smoke",
+      "is_answerable": false,
+      "best_ce": 3.201,
+      "mean_ce": 1.582,
+      "median_ce": 0.852,
+      "gap_best_mean": 1.619,
+      "best_faiss": 0.8934,
+      "all_ce": [
+        3.201,
+        0.654,
+        3.178,
+        0.852,
+        0.024
+      ],
+      "all_faiss": [
+        0.8934,
+        0.8847,
+        0.8833,
+        0.8766,
+        0.8754
+      ]
+    },
+    {
+      "query": "what is dsc for handheld gps vhf",
+      "is_answerable": false,
+      "best_ce": 8.473,
+      "mean_ce": 5.132,
+      "median_ce": 6.975,
+      "gap_best_mean": 3.341,
+      "best_faiss": 0.8981,
+      "all_ce": [
+        8.473,
+        6.975,
+        7.206,
+        2.224,
+        0.782
+      ],
+      "all_faiss": [
+        0.8981,
+        0.8937,
+        0.8924,
+        0.859,
+        0.8564
+      ]
+    },
+    {
+      "query": "what type of association is formed by bacteria with many other organisms, including humans?",
+      "is_answerable": false,
+      "best_ce": 2.678,
+      "mean_ce": -1.589,
+      "median_ce": -1.697,
+      "gap_best_mean": 4.267,
+      "best_faiss": 0.8729,
+      "all_ce": [
+        -0.645,
+        2.678,
+        -1.697,
+        -3.302,
+        -4.979
+      ],
+      "all_faiss": [
+        0.8762,
+        0.8729,
+        0.8698,
+        0.8694,
+        0.8647
+      ]
+    },
+    {
+      "query": "what is the weather on the first week of may in northwest arkansas",
+      "is_answerable": false,
+      "best_ce": 0.064,
+      "mean_ce": -4.801,
+      "median_ce": -3.686,
+      "gap_best_mean": 4.865,
+      "best_faiss": 0.8325,
+      "all_ce": [
+        0.064,
+        -3.04,
+        -6.519,
+        -10.824,
+        -3.686
+      ],
+      "all_faiss": [
+        0.8325,
+        0.8135,
+        0.8075,
+        0.8036,
+        0.8033
+      ]
+    },
+    {
+      "query": "how much time it takes for employee referral process in Infosys",
+      "is_answerable": false,
+      "best_ce": 5.353,
+      "mean_ce": 1.807,
+      "median_ce": 3.547,
+      "gap_best_mean": 3.545,
+      "best_faiss": 0.9128,
+      "all_ce": [
+        4.249,
+        3.547,
+        5.353,
+        0.006,
+        -4.119
+      ],
+      "all_faiss": [
+        0.9199,
+        0.9139,
+        0.9128,
+        0.8947,
+        0.8776
+      ]
+    },
+    {
+      "query": "what type of toxin does epsom salt release from your body while bathing",
+      "is_answerable": false,
+      "best_ce": 5.693,
+      "mean_ce": 3.219,
+      "median_ce": 3.942,
+      "gap_best_mean": 2.475,
+      "best_faiss": 0.9287,
+      "all_ce": [
+        5.693,
+        4.447,
+        3.942,
+        0.375,
+        1.635
+      ],
+      "all_faiss": [
+        0.9287,
+        0.9224,
+        0.908,
+        0.9012,
+        0.9011
+      ]
+    },
+    {
+      "query": "care of patient during surgery with boil excision",
+      "is_answerable": false,
+      "best_ce": -1.305,
+      "mean_ce": -4.463,
+      "median_ce": -4.992,
+      "gap_best_mean": 3.158,
+      "best_faiss": 0.8579,
+      "all_ce": [
+        -1.305,
+        -5.812,
+        -4.858,
+        -5.346,
+        -4.992
+      ],
+      "all_faiss": [
+        0.8579,
+        0.8414,
+        0.8411,
+        0.8389,
+        0.8345
+      ]
+    },
+    {
+      "query": "what was the north's initial strategy in the civil war?",
+      "is_answerable": false,
+      "best_ce": 4.476,
+      "mean_ce": 2.694,
+      "median_ce": 2.808,
+      "gap_best_mean": 1.782,
+      "best_faiss": 0.8695,
+      "all_ce": [
+        3.3,
+        2.016,
+        2.808,
+        4.476,
+        0.872
+      ],
+      "all_faiss": [
+        0.8994,
+        0.8737,
+        0.8703,
+        0.8695,
+        0.8516
+      ]
+    },
+    {
+      "query": "how is natural gas energy safer?",
+      "is_answerable": false,
+      "best_ce": 3.001,
+      "mean_ce": 1.921,
+      "median_ce": 2.497,
+      "gap_best_mean": 1.08,
+      "best_faiss": 0.8911,
+      "all_ce": [
+        3.001,
+        1.961,
+        2.534,
+        -0.389,
+        2.497
+      ],
+      "all_faiss": [
+        0.8911,
+        0.8899,
+        0.8856,
+        0.8833,
+        0.877
+      ]
+    },
+    {
+      "query": "what type of photon has the greatest energy",
+      "is_answerable": false,
+      "best_ce": 8.99,
+      "mean_ce": 7.128,
+      "median_ce": 8.113,
+      "gap_best_mean": 1.862,
+      "best_faiss": 0.9208,
+      "all_ce": [
+        8.113,
+        8.99,
+        7.92,
+        8.279,
+        2.335
+      ],
+      "all_faiss": [
+        0.9237,
+        0.9208,
+        0.9115,
+        0.8964,
+        0.8928
+      ]
+    },
+    {
+      "query": "how do size of an organisation affect legal issues",
+      "is_answerable": false,
+      "best_ce": -1.897,
+      "mean_ce": -4.625,
+      "median_ce": -5.299,
+      "gap_best_mean": 2.728,
+      "best_faiss": 0.8595,
+      "all_ce": [
+        -3.25,
+        -1.897,
+        -5.299,
+        -5.654,
+        -7.025
+      ],
+      "all_faiss": [
+        0.8701,
+        0.8595,
+        0.8471,
+        0.8455,
+        0.8419
+      ]
+    }
+  ]
+}

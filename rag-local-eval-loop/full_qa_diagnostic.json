@@ -1,0 +1,5302 @@
+[
+  {
+    "idx": 0,
+    "query": "what is providing customer service",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.272,
+    "best_sent_ce": 10.436,
+    "ce_all_scores": [
+      9.569,
+      10.272,
+      5.243,
+      5.226,
+      -10.996
+    ],
+    "qa_diff_best": 12.4139,
+    "qa_answer_best": "providing and delivering professional, helpful, high quality service and assistance before, during, ",
+    "qa_answer_score_best": 10.4524,
+    "qa_no_answer_best": -1.9616,
+    "qa_diff_any": 12.4139,
+    "qa_answer_any": "providing and delivering professional, helpful, high quality service and assistance before, during, ",
+    "retrieval_ms": 35.06,
+    "ce_ms": 172.17,
+    "sent_ce_ms": 53.18,
+    "qa_best_ms": 92.56,
+    "qa_all_ms": 310.23,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.5722,
+        "answer": "professional, helpful, high quality service and...",
+        "latency_ms": 37.96
+      },
+      {
+        "score_diff": 12.4139,
+        "answer": "providing and delivering professional, helpful, high quality",
+        "latency_ms": 92.56
+      },
+      {
+        "score_diff": 9.3447,
+        "answer": "you need to know what you ' re selling, inside and out",
+        "latency_ms": 59.66
+      },
+      {
+        "score_diff": 8.1266,
+        "answer": "exceptional customer service is essential for customer satis",
+        "latency_ms": 51.58
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 68.36
+      }
+    ]
+  },
+  {
+    "idx": 1,
+    "query": "difference from phycol and psychiatrist",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 3.019,
+    "best_sent_ce": 0.41,
+    "ce_all_scores": [
+      3.019,
+      -1.612,
+      -1.965,
+      -3.72,
+      -11.426
+    ],
+    "qa_diff_best": 2.1469,
+    "qa_answer_best": "be aware of the difference between being a psychologist and a psychiatrist",
+    "qa_answer_score_best": 7.7121,
+    "qa_no_answer_best": 5.5652,
+    "qa_diff_any": 3.654,
+    "qa_answer_any": "psychologists do not have medical degrees",
+    "retrieval_ms": 26.09,
+    "ce_ms": 161.29,
+    "sent_ce_ms": 59.77,
+    "qa_best_ms": 76.39,
+    "qa_all_ms": 330.49,
+    "qa_per_passage": [
+      {
+        "score_diff": 2.1469,
+        "answer": "be aware of the difference between being a psychologist and ",
+        "latency_ms": 76.39
+      },
+      {
+        "score_diff": 3.654,
+        "answer": "psychologists do not have medical degrees",
+        "latency_ms": 76.72
+      },
+      {
+        "score_diff": 2.8697,
+        "answer": "a psychiatrist has even more rigorous demands ; becoming one",
+        "latency_ms": 67.31
+      },
+      {
+        "score_diff": 2.6792,
+        "answer": "a therapist, on the other hand, can often get by with a mast",
+        "latency_ms": 69.62
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 40.32
+      }
+    ]
+  },
+  {
+    "idx": 2,
+    "query": "when was power rangers released in europe",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 8.984,
+    "best_sent_ce": 9.172,
+    "ce_all_scores": [
+      8.984,
+      8.868,
+      4.695,
+      4.026,
+      2.836
+    ],
+    "qa_diff_best": 13.5482,
+    "qa_answer_best": "2nd november",
+    "qa_answer_score_best": 12.4117,
+    "qa_no_answer_best": -1.1366,
+    "qa_diff_any": 13.5482,
+    "qa_answer_any": "2nd november",
+    "retrieval_ms": 26.52,
+    "ce_ms": 147.82,
+    "sent_ce_ms": 40.24,
+    "qa_best_ms": 65.72,
+    "qa_all_ms": 311.01,
+    "qa_per_passage": [
+      {
+        "score_diff": 13.5482,
+        "answer": "2nd november",
+        "latency_ms": 65.72
+      },
+      {
+        "score_diff": 12.5275,
+        "answer": "2nd november",
+        "latency_ms": 74.01
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 61.23
+      },
+      {
+        "score_diff": 7.6687,
+        "answer": "european release ] by amy jo johnson",
+        "latency_ms": 51.7
+      },
+      {
+        "score_diff": 2.8976,
+        "answer": "this steelbook\u00ae edition",
+        "latency_ms": 58.23
+      }
+    ]
+  },
+  {
+    "idx": 3,
+    "query": "what is the purpose of the passive-interface command?",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.418,
+    "best_sent_ce": 6.57,
+    "ce_all_scores": [
+      9.418,
+      8.795,
+      7.65,
+      8.593,
+      4.954
+    ],
+    "qa_diff_best": 5.4266,
+    "qa_answer_best": "allows a routing protocol to forward updates out an interface that is missing its ip address",
+    "qa_answer_score_best": 9.7937,
+    "qa_no_answer_best": 4.3671,
+    "qa_diff_any": 15.452,
+    "qa_answer_any": "to control the advertisement of routing information",
+    "retrieval_ms": 29.15,
+    "ce_ms": 139.1,
+    "sent_ce_ms": 89.02,
+    "qa_best_ms": 67.3,
+    "qa_all_ms": 294.75,
+    "qa_per_passage": [
+      {
+        "score_diff": 5.4266,
+        "answer": "allows a routing protocol to forward updates out an interfac",
+        "latency_ms": 67.3
+      },
+      {
+        "score_diff": 15.452,
+        "answer": "to control the advertisement of routing information",
+        "latency_ms": 47.4
+      },
+      {
+        "score_diff": 12.0741,
+        "answer": "stops both outgoing and incoming routing updates",
+        "latency_ms": 65.28
+      },
+      {
+        "score_diff": 15.3158,
+        "answer": "control the advertisement of routing information",
+        "latency_ms": 47.33
+      },
+      {
+        "score_diff": 2.8079,
+        "answer": "the router cannot form neighbor adjacencies on the interface",
+        "latency_ms": 67.29
+      }
+    ]
+  },
+  {
+    "idx": 4,
+    "query": "what is megatron called",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 5.719,
+    "best_sent_ce": 5.576,
+    "ce_all_scores": [
+      5.719,
+      5.525,
+      5.463,
+      4.134,
+      5.442
+    ],
+    "qa_diff_best": 14.6104,
+    "qa_answer_best": "the founder of the decepticon uprising",
+    "qa_answer_score_best": 11.182,
+    "qa_no_answer_best": -3.4283,
+    "qa_diff_any": 14.6104,
+    "qa_answer_any": "the founder of the decepticon uprising",
+    "retrieval_ms": 24.77,
+    "ce_ms": 152.59,
+    "sent_ce_ms": 38.82,
+    "qa_best_ms": 59.51,
+    "qa_all_ms": 314.39,
+    "qa_per_passage": [
+      {
+        "score_diff": 14.6104,
+        "answer": "the founder of the decepticon uprising",
+        "latency_ms": 59.51
+      },
+      {
+        "score_diff": 11.9532,
+        "answer": "calvin johnson",
+        "latency_ms": 46.57
+      },
+      {
+        "score_diff": 2.3489,
+        "answer": "detroit lions coaches and fans",
+        "latency_ms": 59.13
+      },
+      {
+        "score_diff": 6.0466,
+        "answer": "he",
+        "latency_ms": 76.74
+      },
+      {
+        "score_diff": 13.3022,
+        "answer": "the leader of the decepticons",
+        "latency_ms": 72.33
+      }
+    ]
+  },
+  {
+    "idx": 5,
+    "query": "what is the definition of symmetrical distribution",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.226,
+    "best_sent_ce": 9.04,
+    "ce_all_scores": [
+      9.226,
+      1.089,
+      1.644,
+      5.707,
+      2.352
+    ],
+    "qa_diff_best": 10.2518,
+    "qa_answer_best": "a distribution that is equal above and below the mean",
+    "qa_answer_score_best": 12.9715,
+    "qa_no_answer_best": 2.7198,
+    "qa_diff_any": 10.2518,
+    "qa_answer_any": "a distribution that is equal above and below the mean",
+    "retrieval_ms": 26.64,
+    "ce_ms": 122.52,
+    "sent_ce_ms": 30.92,
+    "qa_best_ms": 38.08,
+    "qa_all_ms": 229.32,
+    "qa_per_passage": [
+      {
+        "score_diff": 10.2518,
+        "answer": "a distribution that is equal above and below the mean",
+        "latency_ms": 38.08
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 43.1
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 43.83
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 43.16
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 61.02
+      }
+    ]
+  },
+  {
+    "idx": 6,
+    "query": "how to do citations in an essay",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 7.959,
+    "best_sent_ce": 2.474,
+    "ce_all_scores": [
+      6.118,
+      7.959,
+      4.277,
+      -6.369,
+      -4.453
+    ],
+    "qa_diff_best": 4.7191,
+    "qa_answer_best": "in - text citations. in - text citations must be used in the following situations : 1. when a direct",
+    "qa_answer_score_best": 9.6527,
+    "qa_no_answer_best": 4.9337,
+    "qa_diff_any": 7.8748,
+    "qa_answer_any": "using citation to reference your source",
+    "retrieval_ms": 24.93,
+    "ce_ms": 166.12,
+    "sent_ce_ms": 72.46,
+    "qa_best_ms": 75.07,
+    "qa_all_ms": 349.9,
+    "qa_per_passage": [
+      {
+        "score_diff": 7.0184,
+        "answer": "you include information in two places : in the body of your ",
+        "latency_ms": 72.24
+      },
+      {
+        "score_diff": 4.7191,
+        "answer": "in - text citations. in - text citations must be used in the",
+        "latency_ms": 75.07
+      },
+      {
+        "score_diff": 7.8748,
+        "answer": "using citation to reference your source",
+        "latency_ms": 74.53
+      },
+      {
+        "score_diff": 2.2252,
+        "answer": "2 cite your source. 3 usually, when you use a quotation, it ",
+        "latency_ms": 48.03
+      },
+      {
+        "score_diff": 2.9156,
+        "answer": "1 cite your source. 2 usually, when you use a quotation, it ",
+        "latency_ms": 79.92
+      }
+    ]
+  },
+  {
+    "idx": 7,
+    "query": "how long for stitches to be removed",
+    "is_answerable": true,
+    "gold_retrieved": false,
+    "best_ce_score": 9.888,
+    "best_sent_ce": 10.314,
+    "ce_all_scores": [
+      9.888,
+      8.356,
+      6.496,
+      5.81,
+      4.67
+    ],
+    "qa_diff_best": 9.9913,
+    "qa_answer_best": "approximately 14 days",
+    "qa_answer_score_best": 11.4802,
+    "qa_no_answer_best": 1.4889,
+    "qa_diff_any": 13.6408,
+    "qa_answer_any": "after 3 days",
+    "retrieval_ms": 26.48,
+    "ce_ms": 149.24,
+    "sent_ce_ms": 70.33,
+    "qa_best_ms": 72.94,
+    "qa_all_ms": 298.72,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.9913,
+        "answer": "approximately 14 days",
+        "latency_ms": 72.94
+      },
+      {
+        "score_diff": 6.5775,
+        "answer": "stitches should stay in at least 5 days",
+        "latency_ms": 62.13
+      },
+      {
+        "score_diff": 11.4897,
+        "answer": "after 3 days",
+        "latency_ms": 52.74
+      },
+      {
+        "score_diff": 13.6408,
+        "answer": "after 3 days",
+        "latency_ms": 52.63
+      },
+      {
+        "score_diff": 9.2758,
+        "answer": "1 keep the area dry for the first 48 hours",
+        "latency_ms": 58.17
+      }
+    ]
+  },
+  {
+    "idx": 8,
+    "query": "who is the person that created transformers",
+    "is_answerable": false,
+    "gold_retrieved": true,
+    "best_ce_score": 4.622,
+    "best_sent_ce": 3.786,
+    "ce_all_scores": [
+      3.576,
+      2.986,
+      4.622,
+      3.738,
+      -5.088
+    ],
+    "qa_diff_best": 8.7064,
+    "qa_answer_best": "hasbro",
+    "qa_answer_score_best": 12.201,
+    "qa_no_answer_best": 3.4946,
+    "qa_diff_any": 9.9818,
+    "qa_answer_any": "megatron is the founder of the decepticon uprising",
+    "retrieval_ms": 25.79,
+    "ce_ms": 152.43,
+    "sent_ce_ms": 58.75,
+    "qa_best_ms": 71.37,
+    "qa_all_ms": 302.26,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.909,
+        "answer": "the covenant of primus",
+        "latency_ms": 55.52
+      },
+      {
+        "score_diff": 9.9818,
+        "answer": "megatron is the founder of the decepticon uprising",
+        "latency_ms": 58.16
+      },
+      {
+        "score_diff": 8.7064,
+        "answer": "hasbro",
+        "latency_ms": 71.37
+      },
+      {
+        "score_diff": 8.0554,
+        "answer": "optimus prime was the last born of the original thirteen tra",
+        "latency_ms": 62.37
+      },
+      {
+        "score_diff": 5.4624,
+        "answer": "2 prima - the first matrix - bearer and first transformer bo",
+        "latency_ms": 54.73
+      }
+    ]
+  },
+  {
+    "idx": 9,
+    "query": "what is the role as a writer in society",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.147,
+    "best_sent_ce": 10.147,
+    "ce_all_scores": [
+      9.822,
+      10.147,
+      9.939,
+      8.877,
+      8.647
+    ],
+    "qa_diff_best": 9.6565,
+    "qa_answer_best": "a vital and necessary check on the values and cultural norms that encrust groups and falsely empower",
+    "qa_answer_score_best": 9.8711,
+    "qa_no_answer_best": 0.2145,
+    "qa_diff_any": 14.5513,
+    "qa_answer_any": "one of a questioning dissent",
+    "retrieval_ms": 28.26,
+    "ce_ms": 142.97,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 47.62,
+    "qa_all_ms": 318.27,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.737,
+        "answer": "one of a questioning dissent",
+        "latency_ms": 72.02
+      },
+      {
+        "score_diff": 9.6565,
+        "answer": "a vital and necessary check on the values and cultural norms",
+        "latency_ms": 47.62
+      },
+      {
+        "score_diff": 14.5513,
+        "answer": "one of a questioning dissent",
+        "latency_ms": 63.47
+      },
+      {
+        "score_diff": 10.1673,
+        "answer": "the \u2018 writer \u2019 s \u2019 role is vital to society in many ways",
+        "latency_ms": 66.85
+      },
+      {
+        "score_diff": 9.1733,
+        "answer": "the \u2018 writer \u2019 s \u2019 role is vital to society in many ways",
+        "latency_ms": 68.2
+      }
+    ]
+  },
+  {
+    "idx": 10,
+    "query": "can hyponatremia cause vertigo",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 2.301,
+    "best_sent_ce": -1.105,
+    "ce_all_scores": [
+      0.977,
+      2.301,
+      -2.219,
+      -9.027,
+      0.008
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 6.9499,
+    "qa_no_answer_best": 6.9499,
+    "qa_diff_any": 3.1436,
+    "qa_answer_any": "hyponatremia",
+    "retrieval_ms": 27.92,
+    "ce_ms": 179.1,
+    "sent_ce_ms": 54.28,
+    "qa_best_ms": 67.58,
+    "qa_all_ms": 332.56,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 55.06
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 67.58
+      },
+      {
+        "score_diff": 2.8412,
+        "answer": "life - threatening shortage of sodium in the blood stream",
+        "latency_ms": 85.78
+      },
+      {
+        "score_diff": 2.1558,
+        "answer": "if this process is acute, vertigo, nausea and vomiting may r",
+        "latency_ms": 63.98
+      },
+      {
+        "score_diff": 3.1436,
+        "answer": "hyponatremia",
+        "latency_ms": 60.03
+      }
+    ]
+  },
+  {
+    "idx": 11,
+    "query": "when was hangzhou established",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 8.96,
+    "best_sent_ce": 8.96,
+    "ce_all_scores": [
+      8.047,
+      8.96,
+      8.402,
+      -10.923,
+      3.47
+    ],
+    "qa_diff_best": 14.3305,
+    "qa_answer_best": "12th century",
+    "qa_answer_score_best": 12.5959,
+    "qa_no_answer_best": -1.7346,
+    "qa_diff_any": 17.5979,
+    "qa_answer_any": "12th century",
+    "retrieval_ms": 30.5,
+    "ce_ms": 236.19,
+    "sent_ce_ms": 0.02,
+    "qa_best_ms": 33.48,
+    "qa_all_ms": 322.83,
+    "qa_per_passage": [
+      {
+        "score_diff": 17.5979,
+        "answer": "12th century",
+        "latency_ms": 51.93
+      },
+      {
+        "score_diff": 14.3305,
+        "answer": "12th century",
+        "latency_ms": 33.48
+      },
+      {
+        "score_diff": 16.3148,
+        "answer": "october 1994",
+        "latency_ms": 61.7
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 102.2
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 73.39
+      }
+    ]
+  },
+  {
+    "idx": 12,
+    "query": "how long do fly eggs live",
+    "is_answerable": true,
+    "gold_retrieved": false,
+    "best_ce_score": 8.24,
+    "best_sent_ce": 5.334,
+    "ce_all_scores": [
+      8.24,
+      5.263,
+      1.701,
+      1.998,
+      2.999
+    ],
+    "qa_diff_best": 16.4109,
+    "qa_answer_best": "adult flies live between 15 and 30 days",
+    "qa_answer_score_best": 12.8638,
+    "qa_no_answer_best": -3.5472,
+    "qa_diff_any": 16.4109,
+    "qa_answer_any": "adult flies live between 15 and 30 days",
+    "retrieval_ms": 24.69,
+    "ce_ms": 151.62,
+    "sent_ce_ms": 54.82,
+    "qa_best_ms": 68.81,
+    "qa_all_ms": 369.8,
+    "qa_per_passage": [
+      {
+        "score_diff": 16.4109,
+        "answer": "adult flies live between 15 and 30 days",
+        "latency_ms": 68.81
+      },
+      {
+        "score_diff": 4.1306,
+        "answer": "40 to 50 days",
+        "latency_ms": 79.63
+      },
+      {
+        "score_diff": 9.9893,
+        "answer": "life cycle fruit fly. the fruit fly \u2019 s life cycle begins wh",
+        "latency_ms": 70.84
+      },
+      {
+        "score_diff": 11.5442,
+        "answer": "flies often lay eggs inside garbage and recycling cans and o",
+        "latency_ms": 73.34
+      },
+      {
+        "score_diff": 13.136,
+        "answer": "flies lay eggs in batches of 150 or more, producing several ",
+        "latency_ms": 77.05
+      }
+    ]
+  },
+  {
+    "idx": 13,
+    "query": "compatibility definition",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.734,
+    "best_sent_ce": 9.734,
+    "ce_all_scores": [
+      9.47,
+      9.734,
+      6.057,
+      5.64,
+      3.914
+    ],
+    "qa_diff_best": 0.8093,
+    "qa_answer_best": "the ability of machines, especially computers, or computer programs to work successfully with other ",
+    "qa_answer_score_best": 5.9317,
+    "qa_no_answer_best": 5.1224,
+    "qa_diff_any": 7.7435,
+    "qa_answer_any": "mildred and i are very compatible",
+    "retrieval_ms": 23.64,
+    "ce_ms": 144.95,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 41.76,
+    "qa_all_ms": 235.42,
+    "qa_per_passage": [
+      {
+        "score_diff": 7.561,
+        "answer": "the ability of machines, especially computers, or computer p",
+        "latency_ms": 36.33
+      },
+      {
+        "score_diff": 0.8093,
+        "answer": "the ability of machines, especially computers, or computer p",
+        "latency_ms": 41.76
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 35.72
+      },
+      {
+        "score_diff": 1.1791,
+        "answer": "cambridge business english dictionary",
+        "latency_ms": 43.55
+      },
+      {
+        "score_diff": 7.7435,
+        "answer": "mildred and i are very compatible",
+        "latency_ms": 77.94
+      }
+    ]
+  },
+  {
+    "idx": 14,
+    "query": "usf admissions office phone number",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 11.01,
+    "best_sent_ce": 11.006,
+    "ce_all_scores": [
+      11.01,
+      2.058,
+      -8.798,
+      8.419,
+      4.471
+    ],
+    "qa_diff_best": 9.5431,
+    "qa_answer_best": "813 - 974 - 3350",
+    "qa_answer_score_best": 10.6476,
+    "qa_no_answer_best": 1.1045,
+    "qa_diff_any": 9.5431,
+    "qa_answer_any": "813 - 974 - 3350",
+    "retrieval_ms": 27.55,
+    "ce_ms": 445.5,
+    "sent_ce_ms": 59.44,
+    "qa_best_ms": 88.37,
+    "qa_all_ms": 509.95,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.5431,
+        "answer": "813 - 974 - 3350",
+        "latency_ms": 88.37
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 40.82
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 171.13
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 102.89
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 106.59
+      }
+    ]
+  },
+  {
+    "idx": 15,
+    "query": "do dolphins have the smell sense",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 7.38,
+    "best_sent_ce": 2.924,
+    "ce_all_scores": [
+      7.38,
+      2.778,
+      -0.709,
+      -2.791,
+      0.06
+    ],
+    "qa_diff_best": 7.8468,
+    "qa_answer_best": "the whales ' sense of smell was revealed when scientists dissected their bodies and found olfactory ",
+    "qa_answer_score_best": 11.61,
+    "qa_no_answer_best": 3.7632,
+    "qa_diff_any": 8.2698,
+    "qa_answer_any": "whether or not these marine mammals rely on smell to locate food is unknown, however it may make sen",
+    "retrieval_ms": 48.09,
+    "ce_ms": 140.6,
+    "sent_ce_ms": 71.38,
+    "qa_best_ms": 114.4,
+    "qa_all_ms": 355.02,
+    "qa_per_passage": [
+      {
+        "score_diff": 7.8468,
+        "answer": "the whales ' sense of smell was revealed when scientists dis",
+        "latency_ms": 114.4
+      },
+      {
+        "score_diff": 2.3803,
+        "answer": "bow",
+        "latency_ms": 66.29
+      },
+      {
+        "score_diff": 5.2556,
+        "answer": "they are actually able to smell krill and may use this to lo",
+        "latency_ms": 57.3
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 59.01
+      },
+      {
+        "score_diff": 8.2698,
+        "answer": "whether or not these marine mammals rely on smell to locate ",
+        "latency_ms": 57.88
+      }
+    ]
+  },
+  {
+    "idx": 16,
+    "query": "what is not present when fermentation is used",
+    "is_answerable": true,
+    "gold_retrieved": false,
+    "best_ce_score": 2.712,
+    "best_sent_ce": 0.27,
+    "ce_all_scores": [
+      -0.688,
+      -1.694,
+      2.712,
+      -3.817,
+      -1.666
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 11.4737,
+    "qa_no_answer_best": 11.4737,
+    "qa_diff_any": 4.8934,
+    "qa_answer_any": "atp",
+    "retrieval_ms": 28.45,
+    "ce_ms": 142.71,
+    "sent_ce_ms": 59.19,
+    "qa_best_ms": 69.65,
+    "qa_all_ms": 312.03,
+    "qa_per_passage": [
+      {
+        "score_diff": 3.1302,
+        "answer": "atp without oxygen",
+        "latency_ms": 70.25
+      },
+      {
+        "score_diff": 4.8934,
+        "answer": "atp",
+        "latency_ms": 65.77
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 69.65
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 57.46
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 48.79
+      }
+    ]
+  },
+  {
+    "idx": 17,
+    "query": "what is the size and weight of a whitetail deer",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 8.922,
+    "best_sent_ce": 7.639,
+    "ce_all_scores": [
+      8.922,
+      7.8,
+      -0.477,
+      -0.423,
+      -6.492
+    ],
+    "qa_diff_best": 11.6081,
+    "qa_answer_best": "a typical adult female whitetail deer is usually around 100 lbs.",
+    "qa_answer_score_best": 11.3621,
+    "qa_no_answer_best": -0.246,
+    "qa_diff_any": 11.6081,
+    "qa_answer_any": "a typical adult female whitetail deer is usually around 100 lbs.",
+    "retrieval_ms": 28.54,
+    "ce_ms": 160.31,
+    "sent_ce_ms": 64.16,
+    "qa_best_ms": 75.4,
+    "qa_all_ms": 313.57,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.6081,
+        "answer": "a typical adult female whitetail deer is usually around 100 ",
+        "latency_ms": 75.4
+      },
+      {
+        "score_diff": 6.5282,
+        "answer": "213 5 / 8",
+        "latency_ms": 69.07
+      },
+      {
+        "score_diff": 3.478,
+        "answer": "the white - tailed deer has two seasonal coats",
+        "latency_ms": 62.87
+      },
+      {
+        "score_diff": 1.1093,
+        "answer": "there",
+        "latency_ms": 57.44
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 48.68
+      }
+    ]
+  },
+  {
+    "idx": 18,
+    "query": "how fast is a kilometer in miles",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 7.506,
+    "best_sent_ce": 6.808,
+    "ce_all_scores": [
+      5.918,
+      6.488,
+      5.229,
+      7.506,
+      -11.059
+    ],
+    "qa_diff_best": 15.3088,
+    "qa_answer_best": "11 minutes per mile or 7 minutes per kilometer",
+    "qa_answer_score_best": 11.7082,
+    "qa_no_answer_best": -3.6006,
+    "qa_diff_any": 15.416,
+    "qa_answer_any": "one kilometer is equal to 0. 6214 miles",
+    "retrieval_ms": 24.18,
+    "ce_ms": 388.89,
+    "sent_ce_ms": 65.95,
+    "qa_best_ms": 74.24,
+    "qa_all_ms": 451.6,
+    "qa_per_passage": [
+      {
+        "score_diff": 15.416,
+        "answer": "one kilometer is equal to 0. 6214 miles",
+        "latency_ms": 59.75
+      },
+      {
+        "score_diff": 10.3298,
+        "answer": "0. 62137 miles per hour",
+        "latency_ms": 78.01
+      },
+      {
+        "score_diff": 11.9606,
+        "answer": "1 kilometer ( km ) is equal to 0. 621371192 miles",
+        "latency_ms": 75.7
+      },
+      {
+        "score_diff": 15.3088,
+        "answer": "11 minutes per mile or 7 minutes per kilometer",
+        "latency_ms": 74.24
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 163.78
+      }
+    ]
+  },
+  {
+    "idx": 19,
+    "query": "erie insurance corporate address",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.314,
+    "best_sent_ce": 4.039,
+    "ce_all_scores": [
+      5.13,
+      2.798,
+      4.002,
+      2.59,
+      5.314
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 9.3913,
+    "qa_no_answer_best": 9.3913,
+    "qa_diff_any": 9.8977,
+    "qa_answer_any": "erie insurance is an american multi - line insurance company, offering auto, home, commercial and li",
+    "retrieval_ms": 26.38,
+    "ce_ms": 108.36,
+    "sent_ce_ms": 45.07,
+    "qa_best_ms": 55.55,
+    "qa_all_ms": 256.31,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 48.25
+      },
+      {
+        "score_diff": 7.4795,
+        "answer": "erie insurance group was founded as the erie insurance excha",
+        "latency_ms": 44.17
+      },
+      {
+        "score_diff": 9.8977,
+        "answer": "erie insurance is an american multi - line insurance company",
+        "latency_ms": 54.39
+      },
+      {
+        "score_diff": 5.5281,
+        "answer": "the company has continued to grow and is now licensed in 12 ",
+        "latency_ms": 53.84
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 55.55
+      }
+    ]
+  },
+  {
+    "idx": 20,
+    "query": "what is tlr development",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.338,
+    "best_sent_ce": 6.35,
+    "ce_all_scores": [
+      6.338,
+      4.149,
+      4.383,
+      5.449,
+      -0.954
+    ],
+    "qa_diff_best": 0.7126,
+    "qa_answer_best": "the",
+    "qa_answer_score_best": 3.3827,
+    "qa_no_answer_best": 2.6701,
+    "qa_diff_any": 13.3237,
+    "qa_answer_any": "recent developments in the tlr field highlight the importance of these molecules to human health and",
+    "retrieval_ms": 24.93,
+    "ce_ms": 126.63,
+    "sent_ce_ms": 36.15,
+    "qa_best_ms": 62.21,
+    "qa_all_ms": 290.24,
+    "qa_per_passage": [
+      {
+        "score_diff": 0.7126,
+        "answer": "the",
+        "latency_ms": 62.21
+      },
+      {
+        "score_diff": 8.9573,
+        "answer": "other areas in the body are also growing and maturing",
+        "latency_ms": 59.36
+      },
+      {
+        "score_diff": 13.3237,
+        "answer": "recent developments in the tlr field highlight the importanc",
+        "latency_ms": 50.07
+      },
+      {
+        "score_diff": 10.1244,
+        "answer": "online time and leave reporting program for lwtech employees",
+        "latency_ms": 61.46
+      },
+      {
+        "score_diff": -1.115,
+        "answer": "an",
+        "latency_ms": 57.02
+      }
+    ]
+  },
+  {
+    "idx": 21,
+    "query": "tail wagging the dog originate",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 7.119,
+    "best_sent_ce": 5.589,
+    "ce_all_scores": [
+      7.119,
+      6.308,
+      5.455,
+      3.692,
+      4.374
+    ],
+    "qa_diff_best": 12.7852,
+    "qa_answer_best": "situation in which an apparently insignificant or powerless entity controls the larger system of whi",
+    "qa_answer_score_best": 11.7553,
+    "qa_no_answer_best": -1.0299,
+    "qa_diff_any": 12.7852,
+    "qa_answer_any": "situation in which an apparently insignificant or powerless entity controls the larger system of whi",
+    "retrieval_ms": 26.32,
+    "ce_ms": 169.1,
+    "sent_ce_ms": 57.6,
+    "qa_best_ms": 70.2,
+    "qa_all_ms": 327.23,
+    "qa_per_passage": [
+      {
+        "score_diff": 12.7852,
+        "answer": "situation in which an apparently insignificant or powerless ",
+        "latency_ms": 70.2
+      },
+      {
+        "score_diff": 9.8315,
+        "answer": "because a dog is smarter than its tail",
+        "latency_ms": 76.73
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 77.92
+      },
+      {
+        "score_diff": 8.2578,
+        "answer": "when suppliers finance buying groups",
+        "latency_ms": 46.62
+      },
+      {
+        "score_diff": 8.7439,
+        "answer": "when suppliers finance buying groups",
+        "latency_ms": 55.63
+      }
+    ]
+  },
+  {
+    "idx": 22,
+    "query": "what is the name of a turtles lower shell",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 7.163,
+    "best_sent_ce": 5.639,
+    "ce_all_scores": [
+      7.163,
+      3.003,
+      1.041,
+      3.931,
+      -1.86
+    ],
+    "qa_diff_best": 7.9583,
+    "qa_answer_best": "plastron",
+    "qa_answer_score_best": 13.4615,
+    "qa_no_answer_best": 5.5031,
+    "qa_diff_any": 7.9583,
+    "qa_answer_any": "plastron",
+    "retrieval_ms": 28.29,
+    "ce_ms": 160.67,
+    "sent_ce_ms": 62.26,
+    "qa_best_ms": 77.77,
+    "qa_all_ms": 328.26,
+    "qa_per_passage": [
+      {
+        "score_diff": 7.9583,
+        "answer": "plastron",
+        "latency_ms": 77.77
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 69.8
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.6
+      },
+      {
+        "score_diff": 1.2785,
+        "answer": "lower shell is normally yellow with a rich mottling of brown",
+        "latency_ms": 59.5
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 48.47
+      }
+    ]
+  },
+  {
+    "idx": 23,
+    "query": "calculate distance deceleration",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.859,
+    "best_sent_ce": 6.859,
+    "ce_all_scores": [
+      6.859,
+      -2.222,
+      -7.378,
+      2.869,
+      3.579
+    ],
+    "qa_diff_best": 3.8006,
+    "qa_answer_best": "constant acceleration",
+    "qa_answer_score_best": 9.4666,
+    "qa_no_answer_best": 5.666,
+    "qa_diff_any": 4.5672,
+    "qa_answer_any": "deceleration without skidding",
+    "retrieval_ms": 26.06,
+    "ce_ms": 144.93,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 69.95,
+    "qa_all_ms": 264.08,
+    "qa_per_passage": [
+      {
+        "score_diff": 3.8006,
+        "answer": "constant acceleration",
+        "latency_ms": 69.95
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 43.42
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 55.7
+      },
+      {
+        "score_diff": 4.5672,
+        "answer": "deceleration without skidding",
+        "latency_ms": 43.96
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 50.94
+      }
+    ]
+  },
+  {
+    "idx": 24,
+    "query": "what is myrtus",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.611,
+    "best_sent_ce": 10.611,
+    "ce_all_scores": [
+      10.611,
+      8.206,
+      6.885,
+      6.293,
+      1.997
+    ],
+    "qa_diff_best": 7.4152,
+    "qa_answer_best": "a genus of chiefly south american shrubs",
+    "qa_answer_score_best": 10.2891,
+    "qa_no_answer_best": 2.8739,
+    "qa_diff_any": 13.8943,
+    "qa_answer_any": "common myrtle common myrtle",
+    "retrieval_ms": 24.49,
+    "ce_ms": 135.2,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 40.33,
+    "qa_all_ms": 259.96,
+    "qa_per_passage": [
+      {
+        "score_diff": 7.4152,
+        "answer": "a genus of chiefly south american shrubs",
+        "latency_ms": 40.33
+      },
+      {
+        "score_diff": 7.6161,
+        "answer": "myrtus communis",
+        "latency_ms": 55.69
+      },
+      {
+        "score_diff": 5.725,
+        "answer": "evergreen shrubs or small trees with aromatic, leathery leav",
+        "latency_ms": 48.59
+      },
+      {
+        "score_diff": 5.2521,
+        "answer": "there are approximately 100 species of myrtus, distributed p",
+        "latency_ms": 65.06
+      },
+      {
+        "score_diff": 13.8943,
+        "answer": "common myrtle common myrtle",
+        "latency_ms": 50.14
+      }
+    ]
+  },
+  {
+    "idx": 25,
+    "query": "how to cook fried chicken legs",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.255,
+    "best_sent_ce": -0.212,
+    "ce_all_scores": [
+      5.929,
+      6.255,
+      2.692,
+      -1.048,
+      0.487
+    ],
+    "qa_diff_best": 9.0136,
+    "qa_answer_best": "4 fry the chicken, uncovered, for 25 to 30 minutes or until juices run clear",
+    "qa_answer_score_best": 9.5969,
+    "qa_no_answer_best": 0.5832,
+    "qa_diff_any": 9.505,
+    "qa_answer_any": "fry the chicken in the oil until brown and crisp",
+    "retrieval_ms": 25.44,
+    "ce_ms": 147.9,
+    "sent_ce_ms": 54.17,
+    "qa_best_ms": 68.73,
+    "qa_all_ms": 332.99,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.1955,
+        "answer": "4 fry the chicken, uncovered, for 25 to 30 minutes or until ",
+        "latency_ms": 65.17
+      },
+      {
+        "score_diff": 9.0136,
+        "answer": "4 fry the chicken, uncovered, for 25 to 30 minutes or until ",
+        "latency_ms": 68.73
+      },
+      {
+        "score_diff": 3.8723,
+        "answer": "4 cook chicken in oil",
+        "latency_ms": 70.81
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 74.11
+      },
+      {
+        "score_diff": 9.505,
+        "answer": "fry the chicken in the oil until brown and crisp",
+        "latency_ms": 54.05
+      }
+    ]
+  },
+  {
+    "idx": 26,
+    "query": "what majors are clemson university known for",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.521,
+    "best_sent_ce": 6.366,
+    "ce_all_scores": [
+      8.521,
+      5.797,
+      6.183,
+      6.887,
+      2.323
+    ],
+    "qa_diff_best": 8.6241,
+    "qa_answer_best": "discover the majors and programs offered by clemson university and the types of degrees awarded",
+    "qa_answer_score_best": 11.5483,
+    "qa_no_answer_best": 2.9242,
+    "qa_diff_any": 13.7862,
+    "qa_answer_any": "clemson students are known for their loyalty and hospitality",
+    "retrieval_ms": 28.0,
+    "ce_ms": 111.74,
+    "sent_ce_ms": 26.51,
+    "qa_best_ms": 39.4,
+    "qa_all_ms": 226.3,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.6241,
+        "answer": "discover the majors and programs offered by clemson universi",
+        "latency_ms": 39.4
+      },
+      {
+        "score_diff": -0.1534,
+        "answer": "see",
+        "latency_ms": 32.67
+      },
+      {
+        "score_diff": 13.7862,
+        "answer": "clemson students are known for their loyalty and hospitality",
+        "latency_ms": 47.01
+      },
+      {
+        "score_diff": 5.7523,
+        "answer": "land",
+        "latency_ms": 49.63
+      },
+      {
+        "score_diff": 4.9517,
+        "answer": "it",
+        "latency_ms": 57.49
+      }
+    ]
+  },
+  {
+    "idx": 27,
+    "query": "bleaching is an outcome of ocean acidification that directly affects _____.",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 1.279,
+    "best_sent_ce": 1.7,
+    "ce_all_scores": [
+      -1.004,
+      1.279,
+      -0.524,
+      1.024,
+      -2.507
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 9.0422,
+    "qa_no_answer_best": 9.0423,
+    "qa_diff_any": -0.0,
+    "qa_answer_any": "",
+    "retrieval_ms": 31.15,
+    "ce_ms": 129.83,
+    "sent_ce_ms": 45.49,
+    "qa_best_ms": 59.94,
+    "qa_all_ms": 294.73,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 63.6
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 59.94
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 63.35
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 54.57
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 53.16
+      }
+    ]
+  },
+  {
+    "idx": 28,
+    "query": "gas dryers running cost",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.012,
+    "best_sent_ce": 9.362,
+    "ce_all_scores": [
+      9.012,
+      2.009,
+      3.956,
+      1.836,
+      0.843
+    ],
+    "qa_diff_best": 9.5052,
+    "qa_answer_best": "anywhere from about $ 350 to $ 1, 600",
+    "qa_answer_score_best": 10.4712,
+    "qa_no_answer_best": 0.966,
+    "qa_diff_any": 9.5052,
+    "qa_answer_any": "anywhere from about $ 350 to $ 1, 600",
+    "retrieval_ms": 23.84,
+    "ce_ms": 156.6,
+    "sent_ce_ms": 63.44,
+    "qa_best_ms": 76.87,
+    "qa_all_ms": 318.19,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.5052,
+        "answer": "anywhere from about $ 350 to $ 1, 600",
+        "latency_ms": 76.87
+      },
+      {
+        "score_diff": 0.9887,
+        "answer": "gas dryers use electricity to run the motor but gas to dry t",
+        "latency_ms": 73.46
+      },
+      {
+        "score_diff": 5.7905,
+        "answer": "the gas costs roughly $. 11 for an hour",
+        "latency_ms": 45.91
+      },
+      {
+        "score_diff": 7.713,
+        "answer": "gas dryers use about 15 - 25 gallons of propane per year",
+        "latency_ms": 53.91
+      },
+      {
+        "score_diff": 1.2637,
+        "answer": "most dryers consume about 5000 watts ( 5 kilowatts ) of ener",
+        "latency_ms": 67.94
+      }
+    ]
+  },
+  {
+    "idx": 29,
+    "query": "foods to firm up stool",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 7.967,
+    "best_sent_ce": 0.941,
+    "ce_all_scores": [
+      7.967,
+      7.0,
+      7.644,
+      6.892,
+      4.628
+    ],
+    "qa_diff_best": 8.163,
+    "qa_answer_best": "this helps to bind bowel contents together",
+    "qa_answer_score_best": 9.1342,
+    "qa_no_answer_best": 0.9712,
+    "qa_diff_any": 10.2281,
+    "qa_answer_any": "feed foods that firm up stool",
+    "retrieval_ms": 24.19,
+    "ce_ms": 135.84,
+    "sent_ce_ms": 38.45,
+    "qa_best_ms": 57.37,
+    "qa_all_ms": 312.44,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.163,
+        "answer": "this helps to bind bowel contents together",
+        "latency_ms": 57.37
+      },
+      {
+        "score_diff": 10.2281,
+        "answer": "feed foods that firm up stool",
+        "latency_ms": 68.43
+      },
+      {
+        "score_diff": 3.8395,
+        "answer": "avoid foods that are high in fat or highly seasoned, dairy p",
+        "latency_ms": 58.72
+      },
+      {
+        "score_diff": 3.9288,
+        "answer": "people with diarrhea",
+        "latency_ms": 59.98
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 67.82
+      }
+    ]
+  },
+  {
+    "idx": 30,
+    "query": "why did laozi say that idea",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 6.831,
+    "best_sent_ce": 5.857,
+    "ce_all_scores": [
+      5.677,
+      6.831,
+      2.566,
+      3.63,
+      2.449
+    ],
+    "qa_diff_best": 1.4902,
+    "qa_answer_best": "he",
+    "qa_answer_score_best": 3.4048,
+    "qa_no_answer_best": 1.9147,
+    "qa_diff_any": 9.1335,
+    "qa_answer_any": "laozi was a native of quren",
+    "retrieval_ms": 26.89,
+    "ce_ms": 157.83,
+    "sent_ce_ms": 60.2,
+    "qa_best_ms": 72.46,
+    "qa_all_ms": 310.99,
+    "qa_per_passage": [
+      {
+        "score_diff": 5.609,
+        "answer": "communism and legalism were a little off with there ideas to",
+        "latency_ms": 42.36
+      },
+      {
+        "score_diff": 1.4902,
+        "answer": "he",
+        "latency_ms": 72.46
+      },
+      {
+        "score_diff": 4.9724,
+        "answer": "the dao",
+        "latency_ms": 67.15
+      },
+      {
+        "score_diff": 0.9915,
+        "answer": "he was a gentleman recluse whose doctrine consisted in nonac",
+        "latency_ms": 70.4
+      },
+      {
+        "score_diff": 9.1335,
+        "answer": "laozi was a native of quren",
+        "latency_ms": 58.51
+      }
+    ]
+  },
+  {
+    "idx": 31,
+    "query": "cite a movie mla",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.65,
+    "best_sent_ce": 8.429,
+    "ce_all_scores": [
+      8.524,
+      8.65,
+      8.628,
+      8.114,
+      8.062
+    ],
+    "qa_diff_best": 7.5249,
+    "qa_answer_best": "the title of the film, the director ' s name, the studio and the release year are required",
+    "qa_answer_score_best": 9.5701,
+    "qa_no_answer_best": 2.0452,
+    "qa_diff_any": 7.5249,
+    "qa_answer_any": "the title of the film, the director ' s name, the studio and the release year are required",
+    "retrieval_ms": 25.97,
+    "ce_ms": 125.02,
+    "sent_ce_ms": 30.2,
+    "qa_best_ms": 46.35,
+    "qa_all_ms": 270.68,
+    "qa_per_passage": [
+      {
+        "score_diff": 6.0774,
+        "answer": "the title of the film, the director ' s name, the studio and",
+        "latency_ms": 48.24
+      },
+      {
+        "score_diff": 7.5249,
+        "answer": "the title of the film, the director ' s name, the studio and",
+        "latency_ms": 46.35
+      },
+      {
+        "score_diff": 6.8452,
+        "answer": "the title of the film, the director ' s name, the studio and",
+        "latency_ms": 47.65
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 64.3
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 64.04
+      }
+    ]
+  },
+  {
+    "idx": 32,
+    "query": "what types of actions are controlled by smooth muscles",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 6.766,
+    "best_sent_ce": 6.611,
+    "ce_all_scores": [
+      6.766,
+      6.203,
+      4.431,
+      0.85,
+      0.493
+    ],
+    "qa_diff_best": 2.6344,
+    "qa_answer_best": "what type of actions",
+    "qa_answer_score_best": 5.041,
+    "qa_no_answer_best": 2.4066,
+    "qa_diff_any": 10.8108,
+    "qa_answer_any": "involuntary reactions",
+    "retrieval_ms": 27.25,
+    "ce_ms": 161.86,
+    "sent_ce_ms": 26.49,
+    "qa_best_ms": 39.94,
+    "qa_all_ms": 317.82,
+    "qa_per_passage": [
+      {
+        "score_diff": 2.6344,
+        "answer": "what type of actions",
+        "latency_ms": 39.94
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 74.59
+      },
+      {
+        "score_diff": 10.8108,
+        "answer": "involuntary reactions",
+        "latency_ms": 59.28
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 64.46
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 79.45
+      }
+    ]
+  },
+  {
+    "idx": 33,
+    "query": "headache that causes earache",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.37,
+    "best_sent_ce": -0.817,
+    "ce_all_scores": [
+      3.14,
+      5.37,
+      2.3,
+      5.181,
+      0.098
+    ],
+    "qa_diff_best": 8.2539,
+    "qa_answer_best": "medications causing earache",
+    "qa_answer_score_best": 9.1872,
+    "qa_no_answer_best": 0.9333,
+    "qa_diff_any": 8.2539,
+    "qa_answer_any": "medications causing earache",
+    "retrieval_ms": 25.84,
+    "ce_ms": 157.5,
+    "sent_ce_ms": 39.51,
+    "qa_best_ms": 46.86,
+    "qa_all_ms": 298.91,
+    "qa_per_passage": [
+      {
+        "score_diff": 5.4725,
+        "answer": "cervicogenic headache",
+        "latency_ms": 45.6
+      },
+      {
+        "score_diff": 8.2539,
+        "answer": "medications causing earache",
+        "latency_ms": 46.86
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 63.69
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 69.83
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.81
+      }
+    ]
+  },
+  {
+    "idx": 34,
+    "query": "what is peekaboo",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.535,
+    "best_sent_ce": 8.915,
+    "ce_all_scores": [
+      10.49,
+      10.535,
+      8.83,
+      1.221,
+      -10.787
+    ],
+    "qa_diff_best": 10.9218,
+    "qa_answer_best": "a game played by or with very young children",
+    "qa_answer_score_best": 11.0791,
+    "qa_no_answer_best": 0.1574,
+    "qa_diff_any": 12.4879,
+    "qa_answer_any": "it is a cross between the pekingese and the poodle",
+    "retrieval_ms": 24.27,
+    "ce_ms": 278.46,
+    "sent_ce_ms": 36.6,
+    "qa_best_ms": 51.38,
+    "qa_all_ms": 343.69,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.3445,
+        "answer": "a game played by or with very young children",
+        "latency_ms": 64.06
+      },
+      {
+        "score_diff": 10.9218,
+        "answer": "a game played by or with very young children",
+        "latency_ms": 51.38
+      },
+      {
+        "score_diff": 6.6083,
+        "answer": "a game played by or with very young children",
+        "latency_ms": 48.31
+      },
+      {
+        "score_diff": 12.4879,
+        "answer": "it is a cross between the pekingese and the poodle",
+        "latency_ms": 60.77
+      },
+      {
+        "score_diff": 0.027,
+        "answer": "\u092a\u0940\u0915\u093e\u092c! \" \u0915\u0939\u093e \u091c\u093e\u0924\u093e \u0939 \u0964 \u0905\u0927\u093f\u0915 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0915 \u0932\u093f\u090f \u0926\u0916 \u0964",
+        "latency_ms": 119.01
+      }
+    ]
+  },
+  {
+    "idx": 35,
+    "query": "what is elastomer processing?",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 4.42,
+    "best_sent_ce": 4.947,
+    "ce_all_scores": [
+      0.843,
+      4.42,
+      0.143,
+      0.578,
+      0.252
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 9.4626,
+    "qa_no_answer_best": 9.4626,
+    "qa_diff_any": 1.2482,
+    "qa_answer_any": "thermosets",
+    "retrieval_ms": 25.81,
+    "ce_ms": 167.36,
+    "sent_ce_ms": 61.97,
+    "qa_best_ms": 71.11,
+    "qa_all_ms": 343.58,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 81.09
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 71.11
+      },
+      {
+        "score_diff": 1.2482,
+        "answer": "thermosets",
+        "latency_ms": 65.63
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 64.54
+      },
+      {
+        "score_diff": 0.3641,
+        "answer": "thermoplastic elastomers ( tpe ), sometimes referred to as t",
+        "latency_ms": 61.09
+      }
+    ]
+  },
+  {
+    "idx": 36,
+    "query": "why adaptive sports help people with disabilities",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.685,
+    "best_sent_ce": 2.063,
+    "ce_all_scores": [
+      6.685,
+      5.336,
+      5.289,
+      0.043,
+      3.288
+    ],
+    "qa_diff_best": 4.7003,
+    "qa_answer_best": "any person with any disability can participate in their sport of choice",
+    "qa_answer_score_best": 8.4331,
+    "qa_no_answer_best": 3.7328,
+    "qa_diff_any": 6.7541,
+    "qa_answer_any": "both provide wonderful opportunities for athletes with disabilities",
+    "retrieval_ms": 26.65,
+    "ce_ms": 140.46,
+    "sent_ce_ms": 55.94,
+    "qa_best_ms": 66.95,
+    "qa_all_ms": 250.51,
+    "qa_per_passage": [
+      {
+        "score_diff": 4.7003,
+        "answer": "any person with any disability can participate in their spor",
+        "latency_ms": 66.95
+      },
+      {
+        "score_diff": 6.3322,
+        "answer": "the importance of exercise for physical health, and the uniq",
+        "latency_ms": 54.11
+      },
+      {
+        "score_diff": 6.7541,
+        "answer": "both provide wonderful opportunities for athletes with disab",
+        "latency_ms": 44.5
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 38.71
+      },
+      {
+        "score_diff": 4.0994,
+        "answer": "there weren ' t many adaptive equipment options for disabled",
+        "latency_ms": 46.13
+      }
+    ]
+  },
+  {
+    "idx": 37,
+    "query": "what is the primary function",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.566,
+    "best_sent_ce": 5.348,
+    "ce_all_scores": [
+      3.853,
+      6.566,
+      4.795,
+      5.3,
+      -10.983
+    ],
+    "qa_diff_best": 10.1989,
+    "qa_answer_best": "to pass substances back and forth between",
+    "qa_answer_score_best": 11.0303,
+    "qa_no_answer_best": 0.8315,
+    "qa_diff_any": 11.0459,
+    "qa_answer_any": "the primary function of erythrocytes, more commonly known as red blood cells, is to transport oxygen",
+    "retrieval_ms": 24.38,
+    "ce_ms": 171.2,
+    "sent_ce_ms": 32.33,
+    "qa_best_ms": 47.54,
+    "qa_all_ms": 293.44,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.6603,
+        "answer": "the main function is called at program startup after initial",
+        "latency_ms": 49.14
+      },
+      {
+        "score_diff": 10.1989,
+        "answer": "to pass substances back and forth between",
+        "latency_ms": 47.54
+      },
+      {
+        "score_diff": 7.0731,
+        "answer": "the primary function of erythrocytes, more commonly known as",
+        "latency_ms": 46.79
+      },
+      {
+        "score_diff": 11.0459,
+        "answer": "the primary function of erythrocytes, more commonly known as",
+        "latency_ms": 64.37
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 85.48
+      }
+    ]
+  },
+  {
+    "idx": 38,
+    "query": "who is authorized to wear the armed forces reserve army ribbon",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 7.995,
+    "best_sent_ce": 6.726,
+    "ce_all_scores": [
+      7.995,
+      5.488,
+      -10.959,
+      4.963,
+      2.609
+    ],
+    "qa_diff_best": 0.2837,
+    "qa_answer_best": "only one armed forces reserve medal ( afrm ) is authorized for wear. ( 2 ) not entitled to ' m devic",
+    "qa_answer_score_best": 8.5923,
+    "qa_no_answer_best": 8.3085,
+    "qa_diff_any": 0.2837,
+    "qa_answer_any": "only one armed forces reserve medal ( afrm ) is authorized for wear. ( 2 ) not entitled to ' m devic",
+    "retrieval_ms": 29.39,
+    "ce_ms": 293.57,
+    "sent_ce_ms": 52.45,
+    "qa_best_ms": 62.57,
+    "qa_all_ms": 371.55,
+    "qa_per_passage": [
+      {
+        "score_diff": 0.2837,
+        "answer": "only one armed forces reserve medal ( afrm ) is authorized f",
+        "latency_ms": 62.57
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 66.2
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 128.14
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 51.42
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 63.09
+      }
+    ]
+  },
+  {
+    "idx": 39,
+    "query": "how to find the surface area of a triangle",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 6.293,
+    "best_sent_ce": 7.615,
+    "ce_all_scores": [
+      0.792,
+      6.293,
+      -2.227,
+      -1.641,
+      -0.984
+    ],
+    "qa_diff_best": 1.999,
+    "qa_answer_best": "to find the area of a triangle, multiply the base by the height, and then divide by 2",
+    "qa_answer_score_best": 11.0469,
+    "qa_no_answer_best": 9.0478,
+    "qa_diff_any": 1.999,
+    "qa_answer_any": "to find the area of a triangle, multiply the base by the height, and then divide by 2",
+    "retrieval_ms": 28.36,
+    "ce_ms": 167.49,
+    "sent_ce_ms": 67.46,
+    "qa_best_ms": 78.25,
+    "qa_all_ms": 278.63,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 54.87
+      },
+      {
+        "score_diff": 1.999,
+        "answer": "to find the area of a triangle, multiply the base by the hei",
+        "latency_ms": 78.25
+      },
+      {
+        "score_diff": -2.8673,
+        "answer": "use",
+        "latency_ms": 47.68
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 42.86
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 54.86
+      }
+    ]
+  },
+  {
+    "idx": 40,
+    "query": "what is behavioral event interviewing method",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.513,
+    "best_sent_ce": 10.556,
+    "ce_all_scores": [
+      10.513,
+      10.413,
+      8.514,
+      8.097,
+      7.247
+    ],
+    "qa_diff_best": 11.7814,
+    "qa_answer_best": "a technique that asks the candidate to describe a situation or an experience they had in a previous ",
+    "qa_answer_score_best": 10.801,
+    "qa_no_answer_best": -0.9804,
+    "qa_diff_any": 13.2304,
+    "qa_answer_any": "to evaluate candidates for any open position",
+    "retrieval_ms": 27.22,
+    "ce_ms": 115.75,
+    "sent_ce_ms": 29.43,
+    "qa_best_ms": 39.93,
+    "qa_all_ms": 252.6,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.7814,
+        "answer": "a technique that asks the candidate to describe a situation ",
+        "latency_ms": 39.93
+      },
+      {
+        "score_diff": 12.8777,
+        "answer": "a technique that asks the candidate to describe a. situation",
+        "latency_ms": 52.16
+      },
+      {
+        "score_diff": 3.8068,
+        "answer": "critical incident method",
+        "latency_ms": 47.68
+      },
+      {
+        "score_diff": 8.5285,
+        "answer": "bei",
+        "latency_ms": 52.19
+      },
+      {
+        "score_diff": 13.2304,
+        "answer": "to evaluate candidates for any open position",
+        "latency_ms": 60.54
+      }
+    ]
+  },
+  {
+    "idx": 41,
+    "query": "what is chrome mean",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.127,
+    "best_sent_ce": 7.929,
+    "ce_all_scores": [
+      9.127,
+      6.6,
+      6.788,
+      6.721,
+      5.058
+    ],
+    "qa_diff_best": 9.1786,
+    "qa_answer_best": "chrome used as a noun is very rare",
+    "qa_answer_score_best": 11.6155,
+    "qa_no_answer_best": 2.437,
+    "qa_diff_any": 9.6085,
+    "qa_answer_any": "fast, simple, and secure web browser",
+    "retrieval_ms": 23.99,
+    "ce_ms": 148.14,
+    "sent_ce_ms": 67.4,
+    "qa_best_ms": 73.66,
+    "qa_all_ms": 292.68,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.1786,
+        "answer": "chrome used as a noun is very rare",
+        "latency_ms": 73.66
+      },
+      {
+        "score_diff": 9.1113,
+        "answer": "the slang word / phrase / acronym chrome means.... online sl",
+        "latency_ms": 52.93
+      },
+      {
+        "score_diff": 5.2624,
+        "answer": "the chrome operating system ( chrome os ) is an operating sy",
+        "latency_ms": 65.45
+      },
+      {
+        "score_diff": 9.6085,
+        "answer": "fast, simple, and secure web browser",
+        "latency_ms": 58.81
+      },
+      {
+        "score_diff": -1.7715,
+        "answer": "information",
+        "latency_ms": 41.71
+      }
+    ]
+  },
+  {
+    "idx": 42,
+    "query": "how long do i cook my chicken and vegetable sheet pan",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.824,
+    "best_sent_ce": 2.15,
+    "ce_all_scores": [
+      5.824,
+      -0.685,
+      -2.35,
+      -2.604,
+      -3.129
+    ],
+    "qa_diff_best": 4.3987,
+    "qa_answer_best": "roast in oven for 20 minutes",
+    "qa_answer_score_best": 9.3992,
+    "qa_no_answer_best": 5.0005,
+    "qa_diff_any": 5.3819,
+    "qa_answer_any": "1 minute",
+    "retrieval_ms": 29.0,
+    "ce_ms": 163.9,
+    "sent_ce_ms": 56.25,
+    "qa_best_ms": 65.82,
+    "qa_all_ms": 342.61,
+    "qa_per_passage": [
+      {
+        "score_diff": 4.3987,
+        "answer": "roast in oven for 20 minutes",
+        "latency_ms": 65.82
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 78.51
+      },
+      {
+        "score_diff": 5.3819,
+        "answer": "1 minute",
+        "latency_ms": 43.85
+      },
+      {
+        "score_diff": 3.3401,
+        "answer": "15 minutes",
+        "latency_ms": 74.1
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 80.22
+      }
+    ]
+  },
+  {
+    "idx": 43,
+    "query": "what is zip code of fairmont mis",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 7.669,
+    "best_sent_ce": 8.232,
+    "ce_all_scores": [
+      7.669,
+      6.535,
+      5.451,
+      5.352,
+      4.444
+    ],
+    "qa_diff_best": 15.326,
+    "qa_answer_best": "26554, 26555",
+    "qa_answer_score_best": 12.9784,
+    "qa_no_answer_best": -2.3475,
+    "qa_diff_any": 15.326,
+    "qa_answer_any": "26554, 26555",
+    "retrieval_ms": 26.94,
+    "ce_ms": 177.35,
+    "sent_ce_ms": 94.26,
+    "qa_best_ms": 81.68,
+    "qa_all_ms": 284.47,
+    "qa_per_passage": [
+      {
+        "score_diff": 15.326,
+        "answer": "26554, 26555",
+        "latency_ms": 81.68
+      },
+      {
+        "score_diff": 6.2115,
+        "answer": "304",
+        "latency_ms": 51.24
+      },
+      {
+        "score_diff": 11.5198,
+        "answer": "fairmont city zip code ( il )",
+        "latency_ms": 57.11
+      },
+      {
+        "score_diff": 8.4114,
+        "answer": "the zipcode for fairmont city",
+        "latency_ms": 56.67
+      },
+      {
+        "score_diff": 5.2498,
+        "answer": "fairmont city zip code",
+        "latency_ms": 37.65
+      }
+    ]
+  },
+  {
+    "idx": 44,
+    "query": "what kind of turbochargers are used by alexander dennis?",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 4.396,
+    "best_sent_ce": 1.042,
+    "ce_all_scores": [
+      0.329,
+      0.362,
+      -0.008,
+      4.396,
+      -0.266
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 10.4888,
+    "qa_no_answer_best": 10.4888,
+    "qa_diff_any": 3.1081,
+    "qa_answer_any": "all - iron",
+    "retrieval_ms": 28.99,
+    "ce_ms": 157.95,
+    "sent_ce_ms": 38.46,
+    "qa_best_ms": 64.31,
+    "qa_all_ms": 337.11,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 71.29
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 67.7
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 77.77
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 64.31
+      },
+      {
+        "score_diff": 3.1081,
+        "answer": "all - iron",
+        "latency_ms": 55.91
+      }
+    ]
+  },
+  {
+    "idx": 45,
+    "query": "how to clean new steel for painting with acrylic latex",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.149,
+    "best_sent_ce": -0.358,
+    "ce_all_scores": [
+      5.149,
+      1.762,
+      2.041,
+      1.451,
+      -2.567
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 10.1856,
+    "qa_no_answer_best": 10.1856,
+    "qa_diff_any": -0.0,
+    "qa_answer_any": "",
+    "retrieval_ms": 28.82,
+    "ce_ms": 188.5,
+    "sent_ce_ms": 78.23,
+    "qa_best_ms": 76.38,
+    "qa_all_ms": 392.61,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 76.38
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 83.75
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 84.95
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 77.65
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 69.74
+      }
+    ]
+  },
+  {
+    "idx": 46,
+    "query": "who owns the w hotel",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.972,
+    "best_sent_ce": 9.493,
+    "ce_all_scores": [
+      9.972,
+      5.664,
+      9.023,
+      5.342,
+      -10.801
+    ],
+    "qa_diff_best": 14.3256,
+    "qa_answer_best": "ross owns the new york - based related cos",
+    "qa_answer_score_best": 11.0311,
+    "qa_no_answer_best": -3.2945,
+    "qa_diff_any": 14.3256,
+    "qa_answer_any": "ross owns the new york - based related cos",
+    "retrieval_ms": 26.02,
+    "ce_ms": 383.93,
+    "sent_ce_ms": 63.02,
+    "qa_best_ms": 74.91,
+    "qa_all_ms": 416.1,
+    "qa_per_passage": [
+      {
+        "score_diff": 14.3256,
+        "answer": "ross owns the new york - based related cos",
+        "latency_ms": 74.91
+      },
+      {
+        "score_diff": 6.8292,
+        "answer": "starwood ' s luxury boutique hotel brand",
+        "latency_ms": 59.75
+      },
+      {
+        "score_diff": 11.1732,
+        "answer": "maryland firm now owns both local w hotels ( crain ' s ) \u2014 a",
+        "latency_ms": 76.25
+      },
+      {
+        "score_diff": 4.0412,
+        "answer": "a conversion of the old doral inn hotel at 541 lexington ave",
+        "latency_ms": 49.59
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 155.45
+      }
+    ]
+  },
+  {
+    "idx": 47,
+    "query": "what was the purpose of the new deal quizlet",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 4.595,
+    "best_sent_ce": 3.396,
+    "ce_all_scores": [
+      4.595,
+      1.005,
+      2.322,
+      -6.054,
+      -3.216
+    ],
+    "qa_diff_best": 11.2224,
+    "qa_answer_best": "construct the foundations of the federal welfare system",
+    "qa_answer_score_best": 11.7115,
+    "qa_no_answer_best": 0.489,
+    "qa_diff_any": 11.2224,
+    "qa_answer_any": "construct the foundations of the federal welfare system",
+    "retrieval_ms": 28.04,
+    "ce_ms": 133.13,
+    "sent_ce_ms": 56.56,
+    "qa_best_ms": 62.64,
+    "qa_all_ms": 298.16,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.2224,
+        "answer": "construct the foundations of the federal welfare system",
+        "latency_ms": 62.64
+      },
+      {
+        "score_diff": 4.6342,
+        "answer": "congress approved legislation that gave the president powers",
+        "latency_ms": 45.35
+      },
+      {
+        "score_diff": 6.8317,
+        "answer": "to eliminate cut - throat competition",
+        "latency_ms": 72.62
+      },
+      {
+        "score_diff": 2.6438,
+        "answer": "new deal program",
+        "latency_ms": 69.4
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 48.04
+      }
+    ]
+  },
+  {
+    "idx": 48,
+    "query": "when was star trek the voyage released",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 8.424,
+    "best_sent_ce": 1.465,
+    "ce_all_scores": [
+      8.424,
+      5.474,
+      0.939,
+      1.559,
+      0.453
+    ],
+    "qa_diff_best": 11.3507,
+    "qa_answer_best": "november 26, 1986",
+    "qa_answer_score_best": 10.6944,
+    "qa_no_answer_best": -0.6563,
+    "qa_diff_any": 11.3507,
+    "qa_answer_any": "november 26, 1986",
+    "retrieval_ms": 27.95,
+    "ce_ms": 171.48,
+    "sent_ce_ms": 45.55,
+    "qa_best_ms": 60.36,
+    "qa_all_ms": 251.48,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.3507,
+        "answer": "november 26, 1986",
+        "latency_ms": 60.36
+      },
+      {
+        "score_diff": 7.8187,
+        "answer": "1986",
+        "latency_ms": 38.79
+      },
+      {
+        "score_diff": 1.81,
+        "answer": "remastered",
+        "latency_ms": 38.45
+      },
+      {
+        "score_diff": 4.0925,
+        "answer": "6 : 12",
+        "latency_ms": 34.43
+      },
+      {
+        "score_diff": 2.8982,
+        "answer": "star trek iv : the voyage home",
+        "latency_ms": 79.33
+      }
+    ]
+  },
+  {
+    "idx": 49,
+    "query": "what is the penalty for an individual who falsifies an entry in a logbook",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 4.947,
+    "best_sent_ce": 5.177,
+    "ce_all_scores": [
+      4.891,
+      4.947,
+      1.217,
+      -2.328,
+      2.113
+    ],
+    "qa_diff_best": 8.743,
+    "qa_answer_best": "felony",
+    "qa_answer_score_best": 12.1414,
+    "qa_no_answer_best": 3.3984,
+    "qa_diff_any": 8.743,
+    "qa_answer_any": "felony",
+    "retrieval_ms": 30.89,
+    "ce_ms": 150.78,
+    "sent_ce_ms": 51.44,
+    "qa_best_ms": 73.9,
+    "qa_all_ms": 323.04,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.3701,
+        "answer": "felony",
+        "latency_ms": 57.67
+      },
+      {
+        "score_diff": 8.743,
+        "answer": "felony",
+        "latency_ms": 73.9
+      },
+      {
+        "score_diff": 2.9739,
+        "answer": "fined not more than $ 250, 000",
+        "latency_ms": 66.12
+      },
+      {
+        "score_diff": 5.1642,
+        "answer": "criminal offense",
+        "latency_ms": 73.56
+      },
+      {
+        "score_diff": 6.8465,
+        "answer": "fined not more than $ 250, 000",
+        "latency_ms": 51.67
+      }
+    ]
+  },
+  {
+    "idx": 50,
+    "query": "what type of corn is feed corn",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 6.189,
+    "best_sent_ce": 3.562,
+    "ce_all_scores": [
+      6.189,
+      0.667,
+      1.223,
+      2.262,
+      0.957
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 10.0057,
+    "qa_no_answer_best": 10.0058,
+    "qa_diff_any": 8.3176,
+    "qa_answer_any": "dent corn is used as livestock feed",
+    "retrieval_ms": 24.61,
+    "ce_ms": 155.1,
+    "sent_ce_ms": 52.41,
+    "qa_best_ms": 67.5,
+    "qa_all_ms": 291.27,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 67.5
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.46
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 50.16
+      },
+      {
+        "score_diff": 0.0775,
+        "answer": "dent corn has a \u201c mealy \u201d texture, not \u201c milly \u201d. 2 that \u2019 s",
+        "latency_ms": 50.38
+      },
+      {
+        "score_diff": 8.3176,
+        "answer": "dent corn is used as livestock feed",
+        "latency_ms": 50.64
+      }
+    ]
+  },
+  {
+    "idx": 51,
+    "query": "how build up blood platelets",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": -0.104,
+    "best_sent_ce": -1.144,
+    "ce_all_scores": [
+      -0.104,
+      -4.549,
+      -1.725,
+      -2.506,
+      -2.06
+    ],
+    "qa_diff_best": 9.0301,
+    "qa_answer_best": "to increase your platelet count, you need to increase your intake of vitamin c",
+    "qa_answer_score_best": 11.1175,
+    "qa_no_answer_best": 2.0874,
+    "qa_diff_any": 9.0301,
+    "qa_answer_any": "to increase your platelet count, you need to increase your intake of vitamin c",
+    "retrieval_ms": 24.66,
+    "ce_ms": 165.93,
+    "sent_ce_ms": 29.22,
+    "qa_best_ms": 46.53,
+    "qa_all_ms": 306.52,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.0301,
+        "answer": "to increase your platelet count, you need to increase your i",
+        "latency_ms": 46.53
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 41.18
+      },
+      {
+        "score_diff": 4.4191,
+        "answer": "the smear is used to examine platelets for size, shape, qual",
+        "latency_ms": 79.68
+      },
+      {
+        "score_diff": -4.431,
+        "answer": "the",
+        "latency_ms": 79.29
+      },
+      {
+        "score_diff": 8.0071,
+        "answer": "even patients without symptoms can respond to treatment, sho",
+        "latency_ms": 59.71
+      }
+    ]
+  },
+  {
+    "idx": 52,
+    "query": "how old would dean martin be",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 6.57,
+    "best_sent_ce": -1.193,
+    "ce_all_scores": [
+      6.57,
+      5.586,
+      -0.85,
+      5.443,
+      2.246
+    ],
+    "qa_diff_best": 18.8669,
+    "qa_answer_best": "78",
+    "qa_answer_score_best": 12.2899,
+    "qa_no_answer_best": -6.5769,
+    "qa_diff_any": 18.8669,
+    "qa_answer_any": "78",
+    "retrieval_ms": 26.57,
+    "ce_ms": 147.8,
+    "sent_ce_ms": 40.03,
+    "qa_best_ms": 57.53,
+    "qa_all_ms": 269.93,
+    "qa_per_passage": [
+      {
+        "score_diff": 18.8669,
+        "answer": "78",
+        "latency_ms": 57.53
+      },
+      {
+        "score_diff": 13.041,
+        "answer": "five years old",
+        "latency_ms": 72.73
+      },
+      {
+        "score_diff": 9.8654,
+        "answer": "two sons and four daughters",
+        "latency_ms": 58.38
+      },
+      {
+        "score_diff": 12.2721,
+        "answer": "85 years old as of june 2016",
+        "latency_ms": 33.51
+      },
+      {
+        "score_diff": 9.3566,
+        "answer": "three children",
+        "latency_ms": 47.68
+      }
+    ]
+  },
+  {
+    "idx": 53,
+    "query": "carnival cruise how many day to move up",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.116,
+    "best_sent_ce": 5.595,
+    "ce_all_scores": [
+      5.116,
+      4.046,
+      4.263,
+      -1.978,
+      -2.036
+    ],
+    "qa_diff_best": 8.5857,
+    "qa_answer_best": "6 - 7 day cruise",
+    "qa_answer_score_best": 10.5912,
+    "qa_no_answer_best": 2.0055,
+    "qa_diff_any": 8.5857,
+    "qa_answer_any": "6 - 7 day cruise",
+    "retrieval_ms": 27.43,
+    "ce_ms": 160.85,
+    "sent_ce_ms": 49.2,
+    "qa_best_ms": 67.41,
+    "qa_all_ms": 353.59,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.5857,
+        "answer": "6 - 7 day cruise",
+        "latency_ms": 67.41
+      },
+      {
+        "score_diff": 8.1604,
+        "answer": "6 - 7 day cruise and one on 3 - 5 day cruises",
+        "latency_ms": 70.52
+      },
+      {
+        "score_diff": 6.4353,
+        "answer": "carnival has two formal nights on a 6 - 7 day cruise and one",
+        "latency_ms": 79.03
+      },
+      {
+        "score_diff": 5.9691,
+        "answer": "from 14 days prior to sailing to the day of your cruise",
+        "latency_ms": 69.27
+      },
+      {
+        "score_diff": 4.3451,
+        "answer": "7 - day cruise",
+        "latency_ms": 67.25
+      }
+    ]
+  },
+  {
+    "idx": 54,
+    "query": "what is peninsula clean energy",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 11.063,
+    "best_sent_ce": 10.855,
+    "ce_all_scores": [
+      9.872,
+      9.842,
+      10.141,
+      10.383,
+      11.063
+    ],
+    "qa_diff_best": 13.7479,
+    "qa_answer_best": "a community choice energy ( cce ) program",
+    "qa_answer_score_best": 10.6374,
+    "qa_no_answer_best": -3.1105,
+    "qa_diff_any": 14.4329,
+    "qa_answer_any": "delivering cleaner, greener electricity at lower rates",
+    "retrieval_ms": 24.97,
+    "ce_ms": 132.38,
+    "sent_ce_ms": 30.66,
+    "qa_best_ms": 50.26,
+    "qa_all_ms": 272.37,
+    "qa_per_passage": [
+      {
+        "score_diff": 10.7951,
+        "answer": "peninsula clean energy peninsula clean energy, or pce, is sa",
+        "latency_ms": 61.64
+      },
+      {
+        "score_diff": 14.4329,
+        "answer": "delivering cleaner, greener electricity at lower rates",
+        "latency_ms": 49.92
+      },
+      {
+        "score_diff": 13.2056,
+        "answer": "san mateo county \u2019 s official electricity provider",
+        "latency_ms": 52.59
+      },
+      {
+        "score_diff": 10.2635,
+        "answer": "a community choice energy",
+        "latency_ms": 57.86
+      },
+      {
+        "score_diff": 13.7479,
+        "answer": "a community choice energy ( cce ) program",
+        "latency_ms": 50.26
+      }
+    ]
+  },
+  {
+    "idx": 55,
+    "query": "where can you find aurora",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.006,
+    "best_sent_ce": 4.898,
+    "ce_all_scores": [
+      3.547,
+      6.006,
+      2.651,
+      0.008,
+      3.525
+    ],
+    "qa_diff_best": 12.5925,
+    "qa_answer_best": "find your way to the top of the \u201c omg hill \u201d at the birch brook nordic ski club",
+    "qa_answer_score_best": 10.6892,
+    "qa_no_answer_best": -1.9033,
+    "qa_diff_any": 12.5925,
+    "qa_answer_any": "find your way to the top of the \u201c omg hill \u201d at the birch brook nordic ski club",
+    "retrieval_ms": 25.32,
+    "ce_ms": 118.36,
+    "sent_ce_ms": 37.35,
+    "qa_best_ms": 56.31,
+    "qa_all_ms": 265.97,
+    "qa_per_passage": [
+      {
+        "score_diff": 2.4869,
+        "answer": "most",
+        "latency_ms": 47.02
+      },
+      {
+        "score_diff": 12.5925,
+        "answer": "find your way to the top of the \u201c omg hill \u201d at the birch br",
+        "latency_ms": 56.31
+      },
+      {
+        "score_diff": 6.7437,
+        "answer": "the",
+        "latency_ms": 59.26
+      },
+      {
+        "score_diff": 5.2964,
+        "answer": "comments",
+        "latency_ms": 46.55
+      },
+      {
+        "score_diff": 5.2773,
+        "answer": "to see the northern lights in the lower parts of southern ca",
+        "latency_ms": 56.7
+      }
+    ]
+  },
+  {
+    "idx": 56,
+    "query": "where do you measure waist measurement for men",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 7.606,
+    "best_sent_ce": 6.569,
+    "ce_all_scores": [
+      7.606,
+      6.414,
+      5.912,
+      6.705,
+      5.862
+    ],
+    "qa_diff_best": 6.4786,
+    "qa_answer_best": "measure your waist just after you breathe out",
+    "qa_answer_score_best": 10.6126,
+    "qa_no_answer_best": 4.134,
+    "qa_diff_any": 8.1067,
+    "qa_answer_any": "measure for men \u2019 s accessories : belts",
+    "retrieval_ms": 28.44,
+    "ce_ms": 195.44,
+    "sent_ce_ms": 75.93,
+    "qa_best_ms": 75.41,
+    "qa_all_ms": 321.86,
+    "qa_per_passage": [
+      {
+        "score_diff": 6.4786,
+        "answer": "measure your waist just after you breathe out",
+        "latency_ms": 75.41
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.94
+      },
+      {
+        "score_diff": 8.1067,
+        "answer": "measure for men \u2019 s accessories : belts",
+        "latency_ms": 59.55
+      },
+      {
+        "score_diff": 0.1558,
+        "answer": "how to measure waist, hips, chest, and more. 1 chest : measu",
+        "latency_ms": 71.03
+      },
+      {
+        "score_diff": 2.7836,
+        "answer": "1 locate your upper hip bone. 2 place a tape measure around ",
+        "latency_ms": 42.8
+      }
+    ]
+  },
+  {
+    "idx": 57,
+    "query": "how long before a collection agency reports to the credit bureau",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 8.927,
+    "best_sent_ce": 7.924,
+    "ce_all_scores": [
+      8.927,
+      7.975,
+      6.481,
+      -11.146,
+      4.479
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 10.7374,
+    "qa_no_answer_best": 10.7374,
+    "qa_diff_any": 6.2342,
+    "qa_answer_any": "anytime that collection angency has activity on your account",
+    "retrieval_ms": 26.73,
+    "ce_ms": 299.95,
+    "sent_ce_ms": 64.63,
+    "qa_best_ms": 72.22,
+    "qa_all_ms": 375.68,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.22
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 59.26
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 60.49
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 132.32
+      },
+      {
+        "score_diff": 6.2342,
+        "answer": "anytime that collection angency has activity on your account",
+        "latency_ms": 51.25
+      }
+    ]
+  },
+  {
+    "idx": 58,
+    "query": "what is the lowest temperature in celsius today",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.366,
+    "best_sent_ce": 4.796,
+    "ce_all_scores": [
+      6.366,
+      -0.587,
+      1.201,
+      -2.984,
+      0.986
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 10.079,
+    "qa_no_answer_best": 10.079,
+    "qa_diff_any": 5.932,
+    "qa_answer_any": "vostok, antarctica",
+    "retrieval_ms": 27.09,
+    "ce_ms": 170.82,
+    "sent_ce_ms": 38.47,
+    "qa_best_ms": 63.41,
+    "qa_all_ms": 315.88,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 63.41
+      },
+      {
+        "score_diff": 1.8966,
+        "answer": "the third lowest temperature ever recorded in the uk was clo",
+        "latency_ms": 80.93
+      },
+      {
+        "score_diff": 5.932,
+        "answer": "vostok, antarctica",
+        "latency_ms": 64.68
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 58.67
+      },
+      {
+        "score_diff": 2.0276,
+        "answer": "absolute zero",
+        "latency_ms": 48.06
+      }
+    ]
+  },
+  {
+    "idx": 59,
+    "query": "cytopathology definition",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.822,
+    "best_sent_ce": 10.822,
+    "ce_all_scores": [
+      10.822,
+      10.13,
+      7.71,
+      7.347,
+      1.611
+    ],
+    "qa_diff_best": -0.0001,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 6.1556,
+    "qa_no_answer_best": 6.1557,
+    "qa_diff_any": 5.4027,
+    "qa_answer_any": "a cytopathology report or cytology report describes findings that suggest whether or not cells of in",
+    "retrieval_ms": 23.81,
+    "ce_ms": 123.06,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 47.83,
+    "qa_all_ms": 274.91,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 47.83
+      },
+      {
+        "score_diff": 3.9896,
+        "answer": "cytopathology",
+        "latency_ms": 55.45
+      },
+      {
+        "score_diff": 5.4027,
+        "answer": "a cytopathology report or cytology report describes findings",
+        "latency_ms": 61.71
+      },
+      {
+        "score_diff": 4.0609,
+        "answer": "a cytopathology report or cytology report describes findings",
+        "latency_ms": 53.01
+      },
+      {
+        "score_diff": 0.5481,
+        "answer": "cytology can be done as a screening test or a diagnostic tes",
+        "latency_ms": 56.8
+      }
+    ]
+  },
+  {
+    "idx": 60,
+    "query": "how did adolescent suicide prevention start",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 4.149,
+    "best_sent_ce": 2.721,
+    "ce_all_scores": [
+      3.879,
+      4.149,
+      -2.446,
+      -11.052,
+      -2.822
+    ],
+    "qa_diff_best": 10.6173,
+    "qa_answer_best": "the society for the prevention of teen suicide was founded in 2005 by two friends who lost teenaged ",
+    "qa_answer_score_best": 9.2347,
+    "qa_no_answer_best": -1.3827,
+    "qa_diff_any": 10.9277,
+    "qa_answer_any": "suicide is the third - leading cause of death for 15 - to 24 - year - olds, according to the centers",
+    "retrieval_ms": 27.21,
+    "ce_ms": 263.6,
+    "sent_ce_ms": 28.66,
+    "qa_best_ms": 51.83,
+    "qa_all_ms": 313.86,
+    "qa_per_passage": [
+      {
+        "score_diff": 4.3213,
+        "answer": "the",
+        "latency_ms": 49.89
+      },
+      {
+        "score_diff": 10.6173,
+        "answer": "the society for the prevention of teen suicide was founded i",
+        "latency_ms": 51.83
+      },
+      {
+        "score_diff": 9.4797,
+        "answer": "the rate of suicides and suicide attempts increases greatly ",
+        "latency_ms": 43.84
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 116.81
+      },
+      {
+        "score_diff": 10.9277,
+        "answer": "suicide is the third - leading cause of death for 15 - to 24",
+        "latency_ms": 51.33
+      }
+    ]
+  },
+  {
+    "idx": 61,
+    "query": "where is americus ga",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.97,
+    "best_sent_ce": 10.926,
+    "ce_all_scores": [
+      10.97,
+      6.921,
+      5.854,
+      3.569,
+      4.783
+    ],
+    "qa_diff_best": 14.3907,
+    "qa_answer_best": "americus is a city in sumter county, georgia, united states",
+    "qa_answer_score_best": 10.0675,
+    "qa_no_answer_best": -4.3232,
+    "qa_diff_any": 14.3907,
+    "qa_answer_any": "americus is a city in sumter county, georgia, united states",
+    "retrieval_ms": 25.31,
+    "ce_ms": 139.09,
+    "sent_ce_ms": 61.41,
+    "qa_best_ms": 66.95,
+    "qa_all_ms": 295.41,
+    "qa_per_passage": [
+      {
+        "score_diff": 14.3907,
+        "answer": "americus is a city in sumter county, georgia, united states",
+        "latency_ms": 66.95
+      },
+      {
+        "score_diff": 8.5761,
+        "answer": "nearest city with pop. 50, 000 + : albany, ga",
+        "latency_ms": 68.01
+      },
+      {
+        "score_diff": 11.9203,
+        "answer": "americus, ga real estate : search houses for sale and mls li",
+        "latency_ms": 53.66
+      },
+      {
+        "score_diff": 5.3083,
+        "answer": "americus and sumter county, georgia",
+        "latency_ms": 62.1
+      },
+      {
+        "score_diff": 7.6449,
+        "answer": "americus, georgia",
+        "latency_ms": 44.58
+      }
+    ]
+  },
+  {
+    "idx": 62,
+    "query": "how to relieve a burn",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.544,
+    "best_sent_ce": 6.418,
+    "ce_all_scores": [
+      8.324,
+      6.441,
+      8.544,
+      8.493,
+      8.228
+    ],
+    "qa_diff_best": 8.7457,
+    "qa_answer_best": "1 cool the burn to help soothe the pain. 2 hold the burned area under cool ( not cold ) running wate",
+    "qa_answer_score_best": 9.8395,
+    "qa_no_answer_best": 1.0938,
+    "qa_diff_any": 9.5421,
+    "qa_answer_any": "cool the burn to help soothe the pain",
+    "retrieval_ms": 25.27,
+    "ce_ms": 160.86,
+    "sent_ce_ms": 64.48,
+    "qa_best_ms": 74.98,
+    "qa_all_ms": 373.88,
+    "qa_per_passage": [
+      {
+        "score_diff": 7.6509,
+        "answer": "cool the burn to help soothe the pain",
+        "latency_ms": 75.17
+      },
+      {
+        "score_diff": 1.3171,
+        "answer": "run cool tap water over the burn for 10 to 20 minutes",
+        "latency_ms": 74.36
+      },
+      {
+        "score_diff": 8.7457,
+        "answer": "1 cool the burn to help soothe the pain. 2 hold the burned a",
+        "latency_ms": 74.98
+      },
+      {
+        "score_diff": 6.0975,
+        "answer": "soak the burned area in milk for 15 minutes or so",
+        "latency_ms": 76.68
+      },
+      {
+        "score_diff": 9.5421,
+        "answer": "cool the burn to help soothe the pain",
+        "latency_ms": 72.57
+      }
+    ]
+  },
+  {
+    "idx": 63,
+    "query": "hiw many lines is a terrabyte of data",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": -10.482,
+    "best_sent_ce": -10.482,
+    "ce_all_scores": [
+      -10.748,
+      -10.813,
+      -10.698,
+      -10.482,
+      -10.561
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 11.0109,
+    "qa_no_answer_best": 11.0109,
+    "qa_diff_any": -0.0,
+    "qa_answer_any": "",
+    "retrieval_ms": 27.59,
+    "ce_ms": 129.66,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 54.99,
+    "qa_all_ms": 297.97,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 56.78
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 63.22
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 65.4
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 54.99
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 57.46
+      }
+    ]
+  },
+  {
+    "idx": 64,
+    "query": "what's the population of guatemala",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 8.963,
+    "best_sent_ce": 8.963,
+    "ce_all_scores": [
+      8.136,
+      8.963,
+      3.536,
+      3.996,
+      4.81
+    ],
+    "qa_diff_best": 13.3905,
+    "qa_answer_best": "guatemala population : 14, 373, 472",
+    "qa_answer_score_best": 12.1202,
+    "qa_no_answer_best": -1.2703,
+    "qa_diff_any": 14.8653,
+    "qa_answer_any": "guatemala has a population rich in cultural and linguistic diversity",
+    "retrieval_ms": 26.63,
+    "ce_ms": 147.98,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 71.87,
+    "qa_all_ms": 308.63,
+    "qa_per_passage": [
+      {
+        "score_diff": 14.8653,
+        "answer": "guatemala has a population rich in cultural and linguistic d",
+        "latency_ms": 54.35
+      },
+      {
+        "score_diff": 13.3905,
+        "answer": "guatemala population : 14, 373, 472",
+        "latency_ms": 71.87
+      },
+      {
+        "score_diff": 10.6946,
+        "answer": "the mayans of guatemala are the only indigenous culture that",
+        "latency_ms": 61.67
+      },
+      {
+        "score_diff": 10.5708,
+        "answer": "the mayans of guatemala are the only indigenous culture that",
+        "latency_ms": 64.07
+      },
+      {
+        "score_diff": 14.0085,
+        "answer": "current, historical, and projected population",
+        "latency_ms": 56.57
+      }
+    ]
+  },
+  {
+    "idx": 65,
+    "query": "what was benjamin harrison respected for",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 6.596,
+    "best_sent_ce": 2.888,
+    "ce_all_scores": [
+      5.181,
+      5.206,
+      6.596,
+      3.745,
+      3.15
+    ],
+    "qa_diff_best": 14.2037,
+    "qa_answer_best": "he earned the respect of his men",
+    "qa_answer_score_best": 11.877,
+    "qa_no_answer_best": -2.3267,
+    "qa_diff_any": 14.2037,
+    "qa_answer_any": "he earned the respect of his men",
+    "retrieval_ms": 27.13,
+    "ce_ms": 133.9,
+    "sent_ce_ms": 48.91,
+    "qa_best_ms": 64.1,
+    "qa_all_ms": 285.05,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.838,
+        "answer": "benjamin harrison participated in many civil war reunions an",
+        "latency_ms": 38.87
+      },
+      {
+        "score_diff": 11.6339,
+        "answer": "exhibited values - driven leadership in every chapter of his",
+        "latency_ms": 65.26
+      },
+      {
+        "score_diff": 14.2037,
+        "answer": "he earned the respect of his men",
+        "latency_ms": 64.1
+      },
+      {
+        "score_diff": 9.859,
+        "answer": "benjamin harrison \u2019 s road to the white house",
+        "latency_ms": 50.82
+      },
+      {
+        "score_diff": 10.4166,
+        "answer": "he admonishes the younger harrison to remain steadfast in th",
+        "latency_ms": 65.89
+      }
+    ]
+  },
+  {
+    "idx": 66,
+    "query": "how to defrost banana bread",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.459,
+    "best_sent_ce": 3.476,
+    "ce_all_scores": [
+      5.459,
+      0.045,
+      0.967,
+      -0.717,
+      -1.618
+    ],
+    "qa_diff_best": 1.6854,
+    "qa_answer_best": "thaw frozen banana bread in its packaging at room temperature or in the refrigerator before serving.",
+    "qa_answer_score_best": 9.142,
+    "qa_no_answer_best": 7.4567,
+    "qa_diff_any": 4.6266,
+    "qa_answer_any": "in a mixing bowl, mash the ripe bananas with a fork until smooth",
+    "retrieval_ms": 24.7,
+    "ce_ms": 136.17,
+    "sent_ce_ms": 44.76,
+    "qa_best_ms": 57.74,
+    "qa_all_ms": 325.63,
+    "qa_per_passage": [
+      {
+        "score_diff": 1.6854,
+        "answer": "thaw frozen banana bread in its packaging at room temperatur",
+        "latency_ms": 57.74
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 66.74
+      },
+      {
+        "score_diff": 0.1271,
+        "answer": "remove the banana bread from the pan",
+        "latency_ms": 67.09
+      },
+      {
+        "score_diff": 2.0933,
+        "answer": "freeze your fruit and bake the bread later",
+        "latency_ms": 65.31
+      },
+      {
+        "score_diff": 4.6266,
+        "answer": "in a mixing bowl, mash the ripe bananas with a fork until sm",
+        "latency_ms": 68.64
+      }
+    ]
+  },
+  {
+    "idx": 67,
+    "query": "what is the example of cloud computing",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.124,
+    "best_sent_ce": 4.179,
+    "ce_all_scores": [
+      6.237,
+      6.096,
+      8.124,
+      2.514,
+      2.379
+    ],
+    "qa_diff_best": 6.71,
+    "qa_answer_best": "netflix",
+    "qa_answer_score_best": 10.7007,
+    "qa_no_answer_best": 3.9907,
+    "qa_diff_any": 9.7665,
+    "qa_answer_any": "five examples of computing in the cloud",
+    "retrieval_ms": 25.12,
+    "ce_ms": 137.74,
+    "sent_ce_ms": 47.97,
+    "qa_best_ms": 57.44,
+    "qa_all_ms": 272.78,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.7665,
+        "answer": "five examples of computing in the cloud",
+        "latency_ms": 67.53
+      },
+      {
+        "score_diff": 2.8625,
+        "answer": "computer networks, servers, storage, applications and servic",
+        "latency_ms": 56.57
+      },
+      {
+        "score_diff": 6.71,
+        "answer": "netflix",
+        "latency_ms": 57.44
+      },
+      {
+        "score_diff": 0.6225,
+        "answer": "the source of the term cloud computing is mostly unknown, al",
+        "latency_ms": 46.83
+      },
+      {
+        "score_diff": 6.8741,
+        "answer": "cloud computing enables webmail clients to use cloud storage",
+        "latency_ms": 44.27
+      }
+    ]
+  },
+  {
+    "idx": 68,
+    "query": "how high to hang art above sofa",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.612,
+    "best_sent_ce": 7.992,
+    "ce_all_scores": [
+      8.612,
+      5.747,
+      8.246,
+      7.823,
+      2.979
+    ],
+    "qa_diff_best": 6.108,
+    "qa_answer_best": "recommended height and spacing guidelines for hanging wall art above a sofa are simply suggested ref",
+    "qa_answer_score_best": 9.4668,
+    "qa_no_answer_best": 3.3588,
+    "qa_diff_any": 10.719,
+    "qa_answer_any": "typically, the bottom of a single art piece or grouping should hang about 8 to 10 inches above the b",
+    "retrieval_ms": 24.14,
+    "ce_ms": 127.42,
+    "sent_ce_ms": 39.01,
+    "qa_best_ms": 61.59,
+    "qa_all_ms": 296.37,
+    "qa_per_passage": [
+      {
+        "score_diff": 6.108,
+        "answer": "recommended height and spacing guidelines for hanging wall a",
+        "latency_ms": 61.59
+      },
+      {
+        "score_diff": 3.7988,
+        "answer": "over the sofa",
+        "latency_ms": 65.77
+      },
+      {
+        "score_diff": 10.719,
+        "answer": "typically, the bottom of a single art piece or grouping shou",
+        "latency_ms": 56.27
+      },
+      {
+        "score_diff": 9.4059,
+        "answer": "keep the bottom edge of the frame 6 to 12 inches above the f",
+        "latency_ms": 58.15
+      },
+      {
+        "score_diff": 4.5414,
+        "answer": "over the sofa",
+        "latency_ms": 54.47
+      }
+    ]
+  },
+  {
+    "idx": 69,
+    "query": "can thinning vocal cords cause hoarseness",
+    "is_answerable": true,
+    "gold_retrieved": false,
+    "best_ce_score": 4.295,
+    "best_sent_ce": 4.007,
+    "ce_all_scores": [
+      4.225,
+      3.641,
+      4.148,
+      3.336,
+      4.295
+    ],
+    "qa_diff_best": 3.701,
+    "qa_answer_best": "benign vocal cord nodules",
+    "qa_answer_score_best": 9.0747,
+    "qa_no_answer_best": 5.3738,
+    "qa_diff_any": 8.2618,
+    "qa_answer_any": "when something causes the surface of the vocal cords to become thickened or swollen",
+    "retrieval_ms": 28.4,
+    "ce_ms": 155.76,
+    "sent_ce_ms": 67.72,
+    "qa_best_ms": 76.01,
+    "qa_all_ms": 352.57,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.2618,
+        "answer": "when something causes the surface of the vocal cords to beco",
+        "latency_ms": 74.52
+      },
+      {
+        "score_diff": 5.2741,
+        "answer": "vocal cords can no longer vibrate freely and hoarseness will",
+        "latency_ms": 71.07
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 65.59
+      },
+      {
+        "score_diff": 4.2334,
+        "answer": "common contributors to hoarseness can include : vocal cord p",
+        "latency_ms": 65.27
+      },
+      {
+        "score_diff": 3.701,
+        "answer": "benign vocal cord nodules",
+        "latency_ms": 76.01
+      }
+    ]
+  },
+  {
+    "idx": 70,
+    "query": "why are the epidermal layers coated in a waxy cuticle",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 7.324,
+    "best_sent_ce": 5.554,
+    "ce_all_scores": [
+      5.627,
+      7.324,
+      1.697,
+      1.642,
+      4.306
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 10.8181,
+    "qa_no_answer_best": 10.8182,
+    "qa_diff_any": 6.0151,
+    "qa_answer_any": "root epidermis is not",
+    "retrieval_ms": 30.72,
+    "ce_ms": 169.67,
+    "sent_ce_ms": 57.95,
+    "qa_best_ms": 84.29,
+    "qa_all_ms": 321.23,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 43.79
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 84.29
+      },
+      {
+        "score_diff": 6.0151,
+        "answer": "root epidermis is not",
+        "latency_ms": 51.59
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 80.02
+      },
+      {
+        "score_diff": 2.7487,
+        "answer": "covers the leaves of all plant species",
+        "latency_ms": 61.42
+      }
+    ]
+  },
+  {
+    "idx": 71,
+    "query": "cost of an average wedding cake",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.409,
+    "best_sent_ce": 9.816,
+    "ce_all_scores": [
+      7.37,
+      8.408,
+      8.07,
+      9.409,
+      8.903
+    ],
+    "qa_diff_best": 10.2358,
+    "qa_answer_best": "the national average cost of wedding cakes and desserts will be $ 451 in 2013",
+    "qa_answer_score_best": 10.432,
+    "qa_no_answer_best": 0.1962,
+    "qa_diff_any": 12.172,
+    "qa_answer_any": "wedding cake is usually priced by the slice, and the range is wide \u2014 anywhere from $ 1. 50 to $ 12 a",
+    "retrieval_ms": 26.98,
+    "ce_ms": 178.22,
+    "sent_ce_ms": 72.37,
+    "qa_best_ms": 83.38,
+    "qa_all_ms": 315.34,
+    "qa_per_passage": [
+      {
+        "score_diff": -4.1775,
+        "answer": "$",
+        "latency_ms": 44.85
+      },
+      {
+        "score_diff": 12.172,
+        "answer": "wedding cake is usually priced by the slice, and the range i",
+        "latency_ms": 75.75
+      },
+      {
+        "score_diff": 8.1325,
+        "answer": "the average cupcake can cost $ 375 to $ 525",
+        "latency_ms": 48.74
+      },
+      {
+        "score_diff": 10.2358,
+        "answer": "the national average cost of wedding cakes and desserts will",
+        "latency_ms": 83.38
+      },
+      {
+        "score_diff": 11.4423,
+        "answer": "most spend $ 2. 50 to $ 4 each",
+        "latency_ms": 62.51
+      }
+    ]
+  },
+  {
+    "idx": 72,
+    "query": "average american assets",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.416,
+    "best_sent_ce": 5.133,
+    "ce_all_scores": [
+      5.416,
+      -10.886,
+      -0.136,
+      -2.585,
+      -10.857
+    ],
+    "qa_diff_best": 5.7102,
+    "qa_answer_best": "the per capita wealth of the average american is over $ 220, 000 ( blue line in below graph ). this ",
+    "qa_answer_score_best": 8.5999,
+    "qa_no_answer_best": 2.8897,
+    "qa_diff_any": 9.7854,
+    "qa_answer_any": "over 65 % of american adults have a net worth under $ 100, 000",
+    "retrieval_ms": 22.06,
+    "ce_ms": 315.47,
+    "sent_ce_ms": 36.87,
+    "qa_best_ms": 58.67,
+    "qa_all_ms": 443.48,
+    "qa_per_passage": [
+      {
+        "score_diff": 5.7102,
+        "answer": "the per capita wealth of the average american is over $ 220,",
+        "latency_ms": 58.67
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 120.82
+      },
+      {
+        "score_diff": 9.7854,
+        "answer": "over 65 % of american adults have a net worth under $ 100, 0",
+        "latency_ms": 62.1
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 59.73
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 142.02
+      }
+    ]
+  },
+  {
+    "idx": 73,
+    "query": "easiest way to correct a slice",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 0.032,
+    "best_sent_ce": -0.752,
+    "ce_all_scores": [
+      -0.808,
+      -0.934,
+      -0.653,
+      -3.485,
+      0.032
+    ],
+    "qa_diff_best": 5.8842,
+    "qa_answer_best": "clothes hanger drill",
+    "qa_answer_score_best": 9.359,
+    "qa_no_answer_best": 3.4748,
+    "qa_diff_any": 8.8278,
+    "qa_answer_any": "get rid of your slice",
+    "retrieval_ms": 29.51,
+    "ce_ms": 144.62,
+    "sent_ce_ms": 71.09,
+    "qa_best_ms": 70.15,
+    "qa_all_ms": 321.48,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.538,
+        "answer": "starting at the narrower tip, slice \u00bd - inch slices",
+        "latency_ms": 64.92
+      },
+      {
+        "score_diff": 1.2518,
+        "answer": "1",
+        "latency_ms": 69.27
+      },
+      {
+        "score_diff": 8.8278,
+        "answer": "get rid of your slice",
+        "latency_ms": 48.24
+      },
+      {
+        "score_diff": 8.3152,
+        "answer": "slice steak the right way",
+        "latency_ms": 68.77
+      },
+      {
+        "score_diff": 5.8842,
+        "answer": "clothes hanger drill",
+        "latency_ms": 70.15
+      }
+    ]
+  },
+  {
+    "idx": 74,
+    "query": "weather in gilbert arizona in summer",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.113,
+    "best_sent_ce": 6.406,
+    "ce_all_scores": [
+      8.113,
+      5.317,
+      4.442,
+      -10.852,
+      3.892
+    ],
+    "qa_diff_best": 4.7424,
+    "qa_answer_best": "gilbert, arizona, gets 9 inches of rain per year",
+    "qa_answer_score_best": 6.9151,
+    "qa_no_answer_best": 2.1727,
+    "qa_diff_any": 4.7424,
+    "qa_answer_any": "gilbert, arizona, gets 9 inches of rain per year",
+    "retrieval_ms": 26.97,
+    "ce_ms": 400.44,
+    "sent_ce_ms": 68.94,
+    "qa_best_ms": 74.03,
+    "qa_all_ms": 405.45,
+    "qa_per_passage": [
+      {
+        "score_diff": 4.7424,
+        "answer": "gilbert, arizona, gets 9 inches of rain per year",
+        "latency_ms": 74.03
+      },
+      {
+        "score_diff": 3.8097,
+        "answer": "typical",
+        "latency_ms": 33.72
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 69.54
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 163.35
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 64.69
+      }
+    ]
+  },
+  {
+    "idx": 75,
+    "query": "what is french name for mom",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 3.983,
+    "best_sent_ce": 0.929,
+    "ce_all_scores": [
+      3.983,
+      1.179,
+      -3.128,
+      -3.255,
+      -3.258
+    ],
+    "qa_diff_best": 9.6712,
+    "qa_answer_best": "grand - mere",
+    "qa_answer_score_best": 12.2671,
+    "qa_no_answer_best": 2.596,
+    "qa_diff_any": 9.6712,
+    "qa_answer_any": "grand - mere",
+    "retrieval_ms": 24.59,
+    "ce_ms": 118.65,
+    "sent_ce_ms": 54.29,
+    "qa_best_ms": 58.92,
+    "qa_all_ms": 269.97,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.6712,
+        "answer": "grand - mere",
+        "latency_ms": 58.92
+      },
+      {
+        "score_diff": 7.0983,
+        "answer": "arriere - grand - mere",
+        "latency_ms": 53.5
+      },
+      {
+        "score_diff": 0.0451,
+        "answer": "french grandmothers go by several different names and nickna",
+        "latency_ms": 44.83
+      },
+      {
+        "score_diff": 0.9428,
+        "answer": "learn the french words for grandfather",
+        "latency_ms": 57.63
+      },
+      {
+        "score_diff": 1.4602,
+        "answer": "learn the french words for grandfather",
+        "latency_ms": 54.97
+      }
+    ]
+  },
+  {
+    "idx": 76,
+    "query": "how long to wait until pot plants ready to smoke",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 3.201,
+    "best_sent_ce": -1.334,
+    "ce_all_scores": [
+      3.201,
+      0.654,
+      3.178,
+      0.852,
+      0.024
+    ],
+    "qa_diff_best": 7.0922,
+    "qa_answer_best": "8 weeks - 7 + months",
+    "qa_answer_score_best": 10.7506,
+    "qa_no_answer_best": 3.6584,
+    "qa_diff_any": 9.3662,
+    "qa_answer_any": "2 - 3 weeks",
+    "retrieval_ms": 27.74,
+    "ce_ms": 181.44,
+    "sent_ce_ms": 75.14,
+    "qa_best_ms": 82.1,
+    "qa_all_ms": 407.91,
+    "qa_per_passage": [
+      {
+        "score_diff": 7.0922,
+        "answer": "8 weeks - 7 + months",
+        "latency_ms": 82.1
+      },
+      {
+        "score_diff": 0.7201,
+        "answer": "how long before you can harvest it depends on when you force",
+        "latency_ms": 85.07
+      },
+      {
+        "score_diff": 2.8288,
+        "answer": "it will take a few months",
+        "latency_ms": 80.06
+      },
+      {
+        "score_diff": 1.1491,
+        "answer": "you need to smoke the bud ( flower ) of the female plant. to",
+        "latency_ms": 85.01
+      },
+      {
+        "score_diff": 9.3662,
+        "answer": "2 - 3 weeks",
+        "latency_ms": 75.54
+      }
+    ]
+  },
+  {
+    "idx": 77,
+    "query": "what is dsc for handheld gps vhf",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.473,
+    "best_sent_ce": 8.033,
+    "ce_all_scores": [
+      8.473,
+      6.975,
+      7.206,
+      2.224,
+      0.782
+    ],
+    "qa_diff_best": 14.6385,
+    "qa_answer_best": "digital selective calling ( dsc ), which functions as a sort of vhf - frequency emergency beacon",
+    "qa_answer_score_best": 12.7087,
+    "qa_no_answer_best": -1.9298,
+    "qa_diff_any": 14.6385,
+    "qa_answer_any": "digital selective calling ( dsc ), which functions as a sort of vhf - frequency emergency beacon",
+    "retrieval_ms": 28.95,
+    "ce_ms": 179.93,
+    "sent_ce_ms": 51.11,
+    "qa_best_ms": 71.45,
+    "qa_all_ms": 323.08,
+    "qa_per_passage": [
+      {
+        "score_diff": 14.6385,
+        "answer": "digital selective calling ( dsc ), which functions as a sort",
+        "latency_ms": 71.45
+      },
+      {
+        "score_diff": 5.8264,
+        "answer": "standard horizon hx870e",
+        "latency_ms": 81.96
+      },
+      {
+        "score_diff": 0.9832,
+        "answer": "it",
+        "latency_ms": 51.93
+      },
+      {
+        "score_diff": 0.0,
+        "answer": "",
+        "latency_ms": 62.75
+      },
+      {
+        "score_diff": 2.9521,
+        "answer": "radio has a gps - linked man overboard function",
+        "latency_ms": 54.86
+      }
+    ]
+  },
+  {
+    "idx": 78,
+    "query": "define hoofed",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.798,
+    "best_sent_ce": 4.659,
+    "ce_all_scores": [
+      9.798,
+      3.72,
+      4.208,
+      2.79,
+      2.475
+    ],
+    "qa_diff_best": 1.5347,
+    "qa_answer_best": "hoofed",
+    "qa_answer_score_best": 8.5699,
+    "qa_no_answer_best": 7.0352,
+    "qa_diff_any": 11.188,
+    "qa_answer_any": "the hoof is attached to the underlying soft tissues by lamellae",
+    "retrieval_ms": 21.67,
+    "ce_ms": 121.4,
+    "sent_ce_ms": 24.38,
+    "qa_best_ms": 54.11,
+    "qa_all_ms": 283.13,
+    "qa_per_passage": [
+      {
+        "score_diff": 1.5347,
+        "answer": "hoofed",
+        "latency_ms": 54.11
+      },
+      {
+        "score_diff": 10.3608,
+        "answer": "hoof slough",
+        "latency_ms": 50.22
+      },
+      {
+        "score_diff": 8.4211,
+        "answer": "hoof pick",
+        "latency_ms": 61.8
+      },
+      {
+        "score_diff": 6.4502,
+        "answer": "hoof lameness",
+        "latency_ms": 59.17
+      },
+      {
+        "score_diff": 11.188,
+        "answer": "the hoof is attached to the underlying soft tissues by lamel",
+        "latency_ms": 57.72
+      }
+    ]
+  },
+  {
+    "idx": 79,
+    "query": "how long do you have to keep paperwork",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 6.234,
+    "best_sent_ce": 6.486,
+    "ce_all_scores": [
+      2.44,
+      6.234,
+      0.256,
+      -3.213,
+      -3.202
+    ],
+    "qa_diff_best": 11.5324,
+    "qa_answer_best": "you will want to keep this insurance claim paperwork until at least three years after your policy ha",
+    "qa_answer_score_best": 12.4145,
+    "qa_no_answer_best": 0.8821,
+    "qa_diff_any": 11.5324,
+    "qa_answer_any": "you will want to keep this insurance claim paperwork until at least three years after your policy ha",
+    "retrieval_ms": 26.47,
+    "ce_ms": 159.32,
+    "sent_ce_ms": 30.73,
+    "qa_best_ms": 52.15,
+    "qa_all_ms": 280.05,
+    "qa_per_passage": [
+      {
+        "score_diff": 6.1941,
+        "answer": "how long to keep documents and when it \u2019 s safe to get rid o",
+        "latency_ms": 75.84
+      },
+      {
+        "score_diff": 11.5324,
+        "answer": "you will want to keep this insurance claim paperwork until a",
+        "latency_ms": 52.15
+      },
+      {
+        "score_diff": 4.9828,
+        "answer": "how long you should keep business records",
+        "latency_ms": 52.37
+      },
+      {
+        "score_diff": 5.1539,
+        "answer": "how long",
+        "latency_ms": 67.18
+      },
+      {
+        "score_diff": 5.9909,
+        "answer": "your credit report, both account records will remain on your",
+        "latency_ms": 32.4
+      }
+    ]
+  },
+  {
+    "idx": 80,
+    "query": "what type of association is formed by bacteria with many other organisms, including humans?",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 2.678,
+    "best_sent_ce": 4.401,
+    "ce_all_scores": [
+      -0.645,
+      2.678,
+      -1.697,
+      -3.302,
+      -4.979
+    ],
+    "qa_diff_best": 3.1325,
+    "qa_answer_best": "mutualistic",
+    "qa_answer_score_best": 11.648,
+    "qa_no_answer_best": 8.5155,
+    "qa_diff_any": 12.6895,
+    "qa_answer_any": "mutualistic",
+    "retrieval_ms": 32.39,
+    "ce_ms": 161.63,
+    "sent_ce_ms": 68.05,
+    "qa_best_ms": 79.03,
+    "qa_all_ms": 338.89,
+    "qa_per_passage": [
+      {
+        "score_diff": 10.2895,
+        "answer": "parasitic relationships",
+        "latency_ms": 60.27
+      },
+      {
+        "score_diff": 3.1325,
+        "answer": "mutualistic",
+        "latency_ms": 79.03
+      },
+      {
+        "score_diff": 12.6895,
+        "answer": "mutualistic",
+        "latency_ms": 53.13
+      },
+      {
+        "score_diff": 7.9147,
+        "answer": "mutualistic relationships",
+        "latency_ms": 68.87
+      },
+      {
+        "score_diff": 3.7036,
+        "answer": "genes that give the bacterium some advantage",
+        "latency_ms": 77.48
+      }
+    ]
+  },
+  {
+    "idx": 81,
+    "query": "what is the weather on the first week of may in northwest arkansas",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 0.064,
+    "best_sent_ce": 0.064,
+    "ce_all_scores": [
+      0.064,
+      -3.04,
+      -6.519,
+      -10.824,
+      -3.686
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 9.293,
+    "qa_no_answer_best": 9.293,
+    "qa_diff_any": -0.0,
+    "qa_answer_any": "",
+    "retrieval_ms": 30.14,
+    "ce_ms": 148.74,
+    "sent_ce_ms": 0.02,
+    "qa_best_ms": 66.75,
+    "qa_all_ms": 270.76,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 66.75
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 46.83
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 38.73
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 46.76
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 71.59
+      }
+    ]
+  },
+  {
+    "idx": 82,
+    "query": "what medication treat insulin resistance",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.329,
+    "best_sent_ce": 8.98,
+    "ce_all_scores": [
+      9.329,
+      4.816,
+      -1.274,
+      0.152,
+      1.418
+    ],
+    "qa_diff_best": 3.9804,
+    "qa_answer_best": "metformin and the thiazolidinediones",
+    "qa_answer_score_best": 10.1038,
+    "qa_no_answer_best": 6.1234,
+    "qa_diff_any": 4.8388,
+    "qa_answer_any": "medications for insulin resistance syndrome ( metabolic syndrome",
+    "retrieval_ms": 25.86,
+    "ce_ms": 133.96,
+    "sent_ce_ms": 47.55,
+    "qa_best_ms": 63.51,
+    "qa_all_ms": 317.57,
+    "qa_per_passage": [
+      {
+        "score_diff": 3.9804,
+        "answer": "metformin and the thiazolidinediones",
+        "latency_ms": 63.51
+      },
+      {
+        "score_diff": 4.8388,
+        "answer": "medications for insulin resistance syndrome ( metabolic synd",
+        "latency_ms": 64.74
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 66.5
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 54.47
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 68.24
+      }
+    ]
+  },
+  {
+    "idx": 83,
+    "query": "what makes marsala wine special",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 4.333,
+    "best_sent_ce": 3.648,
+    "ce_all_scores": [
+      4.333,
+      3.437,
+      2.642,
+      3.624,
+      0.663
+    ],
+    "qa_diff_best": 9.4659,
+    "qa_answer_best": "marsala is a higher alcohol fortified wine ( usually around 17 - 20 % ) that is available in both sw",
+    "qa_answer_score_best": 10.6993,
+    "qa_no_answer_best": 1.2334,
+    "qa_diff_any": 11.2838,
+    "qa_answer_any": "it is most famous for chicken marsala",
+    "retrieval_ms": 25.61,
+    "ce_ms": 146.22,
+    "sent_ce_ms": 36.91,
+    "qa_best_ms": 64.8,
+    "qa_all_ms": 323.12,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.4659,
+        "answer": "marsala is a higher alcohol fortified wine ( usually around ",
+        "latency_ms": 64.8
+      },
+      {
+        "score_diff": 3.9965,
+        "answer": "fortified wine",
+        "latency_ms": 69.56
+      },
+      {
+        "score_diff": 7.3797,
+        "answer": "marsala is brandy - fortified",
+        "latency_ms": 60.77
+      },
+      {
+        "score_diff": 11.2838,
+        "answer": "it is most famous for chicken marsala",
+        "latency_ms": 67.95
+      },
+      {
+        "score_diff": 6.4693,
+        "answer": "this is a typical cooking wine classification",
+        "latency_ms": 59.93
+      }
+    ]
+  },
+  {
+    "idx": 84,
+    "query": "definition of heirs and assigns",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.02,
+    "best_sent_ce": 10.125,
+    "ce_all_scores": [
+      10.02,
+      8.655,
+      7.356,
+      9.29,
+      5.093
+    ],
+    "qa_diff_best": -0.0001,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 4.4337,
+    "qa_no_answer_best": 4.4338,
+    "qa_diff_any": 6.93,
+    "qa_answer_any": "assigns are successors in interest to a property",
+    "retrieval_ms": 26.24,
+    "ce_ms": 141.06,
+    "sent_ce_ms": 30.67,
+    "qa_best_ms": 51.61,
+    "qa_all_ms": 252.99,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 51.61
+      },
+      {
+        "score_diff": 6.93,
+        "answer": "assigns are successors in interest to a property",
+        "latency_ms": 65.0
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 57.45
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 45.84
+      },
+      {
+        "score_diff": 3.92,
+        "answer": "found them to be willing and competent enough to come to ami",
+        "latency_ms": 32.99
+      }
+    ]
+  },
+  {
+    "idx": 85,
+    "query": "what is the atoms and molecules full of",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 4.689,
+    "best_sent_ce": -0.528,
+    "ce_all_scores": [
+      0.785,
+      4.689,
+      4.532,
+      1.476,
+      2.132
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 8.4522,
+    "qa_no_answer_best": 8.4522,
+    "qa_diff_any": 3.6708,
+    "qa_answer_any": "atoms are not usually alone, but instead come in groups called molecules",
+    "retrieval_ms": 27.42,
+    "ce_ms": 146.27,
+    "sent_ce_ms": 43.49,
+    "qa_best_ms": 60.55,
+    "qa_all_ms": 326.65,
+    "qa_per_passage": [
+      {
+        "score_diff": 3.6708,
+        "answer": "atoms are not usually alone, but instead come in groups call",
+        "latency_ms": 72.98
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 60.55
+      },
+      {
+        "score_diff": 0.7548,
+        "answer": "atoms",
+        "latency_ms": 63.12
+      },
+      {
+        "score_diff": 1.0698,
+        "answer": "atoms are composed of three type of particles",
+        "latency_ms": 73.07
+      },
+      {
+        "score_diff": 2.3023,
+        "answer": "molecules",
+        "latency_ms": 56.79
+      }
+    ]
+  },
+  {
+    "idx": 86,
+    "query": "what is the daily minimum protein requirement",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 7.09,
+    "best_sent_ce": -0.401,
+    "ce_all_scores": [
+      7.09,
+      -1.308,
+      -0.503,
+      -2.514,
+      4.426
+    ],
+    "qa_diff_best": 6.4403,
+    "qa_answer_best": "0. 8 grams per kilogram ( 0. 36 grams per pound ) of body weight per day",
+    "qa_answer_score_best": 9.991,
+    "qa_no_answer_best": 3.5507,
+    "qa_diff_any": 6.4403,
+    "qa_answer_any": "0. 8 grams per kilogram ( 0. 36 grams per pound ) of body weight per day",
+    "retrieval_ms": 26.41,
+    "ce_ms": 138.11,
+    "sent_ce_ms": 78.78,
+    "qa_best_ms": 67.53,
+    "qa_all_ms": 304.57,
+    "qa_per_passage": [
+      {
+        "score_diff": 6.4403,
+        "answer": "0. 8 grams per kilogram ( 0. 36 grams per pound ) of body we",
+        "latency_ms": 67.53
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 50.08
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 59.26
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 68.7
+      },
+      {
+        "score_diff": 0.7076,
+        "answer": "optimal protein works out to be about 15 % to 25 % of your d",
+        "latency_ms": 58.9
+      }
+    ]
+  },
+  {
+    "idx": 87,
+    "query": "effexor for menopause symptoms",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 7.611,
+    "best_sent_ce": 3.572,
+    "ce_all_scores": [
+      6.935,
+      6.925,
+      7.611,
+      6.571,
+      -0.779
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 7.6709,
+    "qa_no_answer_best": 7.6709,
+    "qa_diff_any": 6.8008,
+    "qa_answer_any": "menopause is associated with a variety of symptoms in women including sleep disturbances, mood chang",
+    "retrieval_ms": 25.17,
+    "ce_ms": 158.6,
+    "sent_ce_ms": 53.6,
+    "qa_best_ms": 74.6,
+    "qa_all_ms": 323.02,
+    "qa_per_passage": [
+      {
+        "score_diff": 3.092,
+        "answer": "pre - menopause symptoms",
+        "latency_ms": 58.77
+      },
+      {
+        "score_diff": 2.3935,
+        "answer": "pre - menopause symptoms",
+        "latency_ms": 58.87
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 74.6
+      },
+      {
+        "score_diff": 1.495,
+        "answer": "e",
+        "latency_ms": 60.24
+      },
+      {
+        "score_diff": 6.8008,
+        "answer": "menopause is associated with a variety of symptoms in women ",
+        "latency_ms": 70.44
+      }
+    ]
+  },
+  {
+    "idx": 88,
+    "query": "how much time it takes for employee referral process in Infosys",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.353,
+    "best_sent_ce": -0.205,
+    "ce_all_scores": [
+      4.249,
+      3.547,
+      5.353,
+      0.006,
+      -4.119
+    ],
+    "qa_diff_best": 5.8845,
+    "qa_answer_best": "3 hours",
+    "qa_answer_score_best": 11.2151,
+    "qa_no_answer_best": 5.3306,
+    "qa_diff_any": 5.8845,
+    "qa_answer_any": "3 hours",
+    "retrieval_ms": 29.23,
+    "ce_ms": 179.62,
+    "sent_ce_ms": 58.27,
+    "qa_best_ms": 71.64,
+    "qa_all_ms": 371.06,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 83.96
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 67.39
+      },
+      {
+        "score_diff": 5.8845,
+        "answer": "3 hours",
+        "latency_ms": 71.64
+      },
+      {
+        "score_diff": 1.3752,
+        "answer": "last date for receiving referral details is october 13, 2014",
+        "latency_ms": 85.62
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 62.32
+      }
+    ]
+  },
+  {
+    "idx": 89,
+    "query": "what type of toxin does epsom salt release from your body while bathing",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 5.693,
+    "best_sent_ce": 4.775,
+    "ce_all_scores": [
+      5.693,
+      4.447,
+      3.942,
+      0.375,
+      1.635
+    ],
+    "qa_diff_best": 3.7244,
+    "qa_answer_best": "swelling",
+    "qa_answer_score_best": 9.2871,
+    "qa_no_answer_best": 5.5627,
+    "qa_diff_any": 3.7244,
+    "qa_answer_any": "swelling",
+    "retrieval_ms": 30.52,
+    "ce_ms": 176.52,
+    "sent_ce_ms": 70.39,
+    "qa_best_ms": 83.42,
+    "qa_all_ms": 348.8,
+    "qa_per_passage": [
+      {
+        "score_diff": 3.7244,
+        "answer": "swelling",
+        "latency_ms": 83.42
+      },
+      {
+        "score_diff": 0.1225,
+        "answer": "toxins out of the body is to take a hot epsom salt bath. hot",
+        "latency_ms": 63.97
+      },
+      {
+        "score_diff": 2.0321,
+        "answer": "toxins",
+        "latency_ms": 62.53
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.83
+      },
+      {
+        "score_diff": 2.3205,
+        "answer": "acid versus alkaline",
+        "latency_ms": 65.93
+      }
+    ]
+  },
+  {
+    "idx": 90,
+    "query": "care of patient during surgery with boil excision",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": -1.305,
+    "best_sent_ce": -3.08,
+    "ce_all_scores": [
+      -1.305,
+      -5.812,
+      -4.858,
+      -5.346,
+      -4.992
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 10.1536,
+    "qa_no_answer_best": 10.1536,
+    "qa_diff_any": -0.0,
+    "qa_answer_any": "",
+    "retrieval_ms": 26.77,
+    "ce_ms": 154.08,
+    "sent_ce_ms": 34.7,
+    "qa_best_ms": 54.88,
+    "qa_all_ms": 303.73,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 54.88
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 46.3
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.74
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 71.16
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 58.54
+      }
+    ]
+  },
+  {
+    "idx": 91,
+    "query": "hostel barcelona",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.6,
+    "best_sent_ce": 9.651,
+    "ce_all_scores": [
+      8.721,
+      9.6,
+      8.844,
+      9.6,
+      8.185
+    ],
+    "qa_diff_best": 1.8734,
+    "qa_answer_best": "toc hostel barcelona",
+    "qa_answer_score_best": 1.8113,
+    "qa_no_answer_best": -0.0621,
+    "qa_diff_any": 4.4527,
+    "qa_answer_any": "jam hostel barcelona",
+    "retrieval_ms": 21.95,
+    "ce_ms": 105.46,
+    "sent_ce_ms": 30.5,
+    "qa_best_ms": 54.36,
+    "qa_all_ms": 249.67,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 50.6
+      },
+      {
+        "score_diff": 1.8734,
+        "answer": "toc hostel barcelona",
+        "latency_ms": 54.36
+      },
+      {
+        "score_diff": 4.4527,
+        "answer": "jam hostel barcelona",
+        "latency_ms": 40.52
+      },
+      {
+        "score_diff": 1.8734,
+        "answer": "toc hostel barcelona",
+        "latency_ms": 53.9
+      },
+      {
+        "score_diff": 3.1585,
+        "answer": "sant jordi hostel rock palace",
+        "latency_ms": 50.17
+      }
+    ]
+  },
+  {
+    "idx": 92,
+    "query": "what was william l hawkins: an imaginative geography about",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 8.692,
+    "best_sent_ce": 7.331,
+    "ce_all_scores": [
+      7.851,
+      8.124,
+      8.002,
+      8.692,
+      8.092
+    ],
+    "qa_diff_best": 9.1927,
+    "qa_answer_best": "a major traveling exhibition",
+    "qa_answer_score_best": 10.8019,
+    "qa_no_answer_best": 1.6092,
+    "qa_diff_any": 9.5602,
+    "qa_answer_any": "organized in collaboration with the figge art museum in davenport, iowa",
+    "retrieval_ms": 29.37,
+    "ce_ms": 149.68,
+    "sent_ce_ms": 44.62,
+    "qa_best_ms": 58.71,
+    "qa_all_ms": 282.45,
+    "qa_per_passage": [
+      {
+        "score_diff": 9.3153,
+        "answer": "drawn from important public and private collections across t",
+        "latency_ms": 47.36
+      },
+      {
+        "score_diff": 2.657,
+        "answer": "author : crawley, susan mitchell",
+        "latency_ms": 71.89
+      },
+      {
+        "score_diff": 9.5602,
+        "answer": "organized in collaboration with the figge art museum in dave",
+        "latency_ms": 52.52
+      },
+      {
+        "score_diff": 9.1927,
+        "answer": "a major traveling exhibition",
+        "latency_ms": 58.71
+      },
+      {
+        "score_diff": 9.5432,
+        "answer": "crawley, susan mitchell",
+        "latency_ms": 51.88
+      }
+    ]
+  },
+  {
+    "idx": 93,
+    "query": "what was the north's initial strategy in the civil war?",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 4.476,
+    "best_sent_ce": 4.436,
+    "ce_all_scores": [
+      3.3,
+      2.016,
+      2.808,
+      4.476,
+      0.872
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 7.3562,
+    "qa_no_answer_best": 7.3562,
+    "qa_diff_any": 14.2495,
+    "qa_answer_any": "blockaded the south and was the invader",
+    "retrieval_ms": 28.47,
+    "ce_ms": 140.05,
+    "sent_ce_ms": 42.05,
+    "qa_best_ms": 58.47,
+    "qa_all_ms": 305.3,
+    "qa_per_passage": [
+      {
+        "score_diff": 3.3971,
+        "answer": "simple",
+        "latency_ms": 60.11
+      },
+      {
+        "score_diff": 14.2495,
+        "answer": "blockaded the south and was the invader",
+        "latency_ms": 65.16
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 68.96
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 58.47
+      },
+      {
+        "score_diff": 0.2098,
+        "answer": "weaken the opponents will and try to get europe to enter the",
+        "latency_ms": 52.49
+      }
+    ]
+  },
+  {
+    "idx": 94,
+    "query": "what is the transpiration stream",
+    "is_answerable": true,
+    "gold_retrieved": false,
+    "best_ce_score": 8.595,
+    "best_sent_ce": 8.447,
+    "ce_all_scores": [
+      8.595,
+      8.525,
+      8.509,
+      3.67,
+      3.735
+    ],
+    "qa_diff_best": 8.8814,
+    "qa_answer_best": "transpiration",
+    "qa_answer_score_best": 10.5067,
+    "qa_no_answer_best": 1.6253,
+    "qa_diff_any": 12.2057,
+    "qa_answer_any": "flow of water",
+    "retrieval_ms": 24.74,
+    "ce_ms": 153.66,
+    "sent_ce_ms": 26.35,
+    "qa_best_ms": 39.8,
+    "qa_all_ms": 285.63,
+    "qa_per_passage": [
+      {
+        "score_diff": 8.8814,
+        "answer": "transpiration",
+        "latency_ms": 39.8
+      },
+      {
+        "score_diff": 12.2057,
+        "answer": "flow of water",
+        "latency_ms": 50.62
+      },
+      {
+        "score_diff": 9.0437,
+        "answer": "transpiration",
+        "latency_ms": 65.63
+      },
+      {
+        "score_diff": 9.6232,
+        "answer": "the last stage in the transpiration stream is the water movi",
+        "latency_ms": 75.96
+      },
+      {
+        "score_diff": 10.5591,
+        "answer": "the last stage in the transpiration stream is the water movi",
+        "latency_ms": 53.51
+      }
+    ]
+  },
+  {
+    "idx": 95,
+    "query": "what is the salary of a purchasing specialist for tesla?",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 10.473,
+    "best_sent_ce": 10.408,
+    "ce_all_scores": [
+      10.473,
+      8.57,
+      8.516,
+      5.791,
+      -11.214
+    ],
+    "qa_diff_best": 15.7309,
+    "qa_answer_best": "$ 85, 212",
+    "qa_answer_score_best": 13.4359,
+    "qa_no_answer_best": -2.295,
+    "qa_diff_any": 16.3981,
+    "qa_answer_any": "$ 78, 413",
+    "retrieval_ms": 29.45,
+    "ce_ms": 196.71,
+    "sent_ce_ms": 26.93,
+    "qa_best_ms": 42.58,
+    "qa_all_ms": 303.65,
+    "qa_per_passage": [
+      {
+        "score_diff": 15.7309,
+        "answer": "$ 85, 212",
+        "latency_ms": 42.58
+      },
+      {
+        "score_diff": 16.3981,
+        "answer": "$ 78, 413",
+        "latency_ms": 41.66
+      },
+      {
+        "score_diff": 9.4556,
+        "answer": "\u00a323, 197",
+        "latency_ms": 73.85
+      },
+      {
+        "score_diff": 6.9189,
+        "answer": "\u00a323, 853",
+        "latency_ms": 44.18
+      },
+      {
+        "score_diff": 0.5523,
+        "answer": "85, 212",
+        "latency_ms": 101.23
+      }
+    ]
+  },
+  {
+    "idx": 96,
+    "query": "how is natural gas energy safer?",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 3.001,
+    "best_sent_ce": 1.874,
+    "ce_all_scores": [
+      3.001,
+      1.961,
+      2.534,
+      -0.389,
+      2.497
+    ],
+    "qa_diff_best": 2.2752,
+    "qa_answer_best": "safe development",
+    "qa_answer_score_best": 7.7922,
+    "qa_no_answer_best": 5.5171,
+    "qa_diff_any": 8.4778,
+    "qa_answer_any": "transport natural gas safely through underground pipelines",
+    "retrieval_ms": 40.8,
+    "ce_ms": 134.28,
+    "sent_ce_ms": 29.04,
+    "qa_best_ms": 39.82,
+    "qa_all_ms": 235.86,
+    "qa_per_passage": [
+      {
+        "score_diff": 2.2752,
+        "answer": "safe development",
+        "latency_ms": 39.82
+      },
+      {
+        "score_diff": 8.4778,
+        "answer": "transport natural gas safely through underground pipelines",
+        "latency_ms": 51.74
+      },
+      {
+        "score_diff": 1.4498,
+        "answer": "all - of - the - above energy strategy, the energy departmen",
+        "latency_ms": 39.33
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 50.75
+      },
+      {
+        "score_diff": 1.7051,
+        "answer": "energy efficiency",
+        "latency_ms": 54.13
+      }
+    ]
+  },
+  {
+    "idx": 97,
+    "query": "what type of photon has the greatest energy",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": 8.99,
+    "best_sent_ce": 4.452,
+    "ce_all_scores": [
+      8.113,
+      8.99,
+      7.92,
+      8.279,
+      2.335
+    ],
+    "qa_diff_best": 6.5811,
+    "qa_answer_best": "1. a 560 nm photon",
+    "qa_answer_score_best": 8.4334,
+    "qa_no_answer_best": 1.8523,
+    "qa_diff_any": 12.2085,
+    "qa_answer_any": "the photon with the highest frequency",
+    "retrieval_ms": 32.49,
+    "ce_ms": 170.24,
+    "sent_ce_ms": 52.87,
+    "qa_best_ms": 50.82,
+    "qa_all_ms": 288.89,
+    "qa_per_passage": [
+      {
+        "score_diff": 12.2085,
+        "answer": "the photon with the highest frequency",
+        "latency_ms": 82.08
+      },
+      {
+        "score_diff": 6.5811,
+        "answer": "1. a 560 nm photon",
+        "latency_ms": 50.82
+      },
+      {
+        "score_diff": 9.923,
+        "answer": "all particles which represents a quantum of light and other ",
+        "latency_ms": 59.47
+      },
+      {
+        "score_diff": 4.7759,
+        "answer": "the rays which have the highest frequency",
+        "latency_ms": 51.96
+      },
+      {
+        "score_diff": 0.4232,
+        "answer": "the greater the frequency, the greater the energy. e = hf ul",
+        "latency_ms": 44.44
+      }
+    ]
+  },
+  {
+    "idx": 98,
+    "query": "which plants live in the sonoran desert?",
+    "is_answerable": true,
+    "gold_retrieved": true,
+    "best_ce_score": 9.535,
+    "best_sent_ce": 9.535,
+    "ce_all_scores": [
+      9.535,
+      5.591,
+      1.457,
+      6.6,
+      4.135
+    ],
+    "qa_diff_best": 11.8115,
+    "qa_answer_best": "fairy duster, jimson weed ( poisonous ), tumble weed, night blooming cereus, devils claw, ghost flow",
+    "qa_answer_score_best": 10.0689,
+    "qa_no_answer_best": -1.7426,
+    "qa_diff_any": 11.8115,
+    "qa_answer_any": "fairy duster, jimson weed ( poisonous ), tumble weed, night blooming cereus, devils claw, ghost flow",
+    "retrieval_ms": 28.45,
+    "ce_ms": 163.25,
+    "sent_ce_ms": 0.01,
+    "qa_best_ms": 54.36,
+    "qa_all_ms": 300.28,
+    "qa_per_passage": [
+      {
+        "score_diff": 11.8115,
+        "answer": "fairy duster, jimson weed ( poisonous ), tumble weed, night ",
+        "latency_ms": 54.36
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 74.04
+      },
+      {
+        "score_diff": -0.0001,
+        "answer": "",
+        "latency_ms": 51.69
+      },
+      {
+        "score_diff": 3.7613,
+        "answer": "buffelgrass",
+        "latency_ms": 45.83
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 74.24
+      }
+    ]
+  },
+  {
+    "idx": 99,
+    "query": "how do size of an organisation affect legal issues",
+    "is_answerable": false,
+    "gold_retrieved": false,
+    "best_ce_score": -1.897,
+    "best_sent_ce": -4.776,
+    "ce_all_scores": [
+      -3.25,
+      -1.897,
+      -5.299,
+      -5.654,
+      -7.025
+    ],
+    "qa_diff_best": -0.0,
+    "qa_answer_best": "",
+    "qa_answer_score_best": 11.0017,
+    "qa_no_answer_best": 11.0017,
+    "qa_diff_any": -0.0,
+    "qa_answer_any": "",
+    "retrieval_ms": 26.74,
+    "ce_ms": 152.04,
+    "sent_ce_ms": 43.4,
+    "qa_best_ms": 85.88,
+    "qa_all_ms": 423.34,
+    "qa_per_passage": [
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 97.07
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 85.88
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 88.19
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 72.31
+      },
+      {
+        "score_diff": -0.0,
+        "answer": "",
+        "latency_ms": 79.67
+      }
+    ]
+  }
+]

@@ -1,0 +1,2653 @@
+{
+  "false_confidence": [
+    {
+      "idx": 1,
+      "query": "difference from phycol and psychiatrist",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 3.019,
+      "best_passage_idx": 0,
+      "best_passage_text": "1 Be aware of the difference between being a psychologist and a psychiatrist.. 2  To be a Psychiatrist, you must go to medical school and get a medical degree (MD). 3  Then, you specialize in Psychiatry.4  Psychologists do not have medical degrees, and, therefore, cannot prescribe medication.his has",
+      "best_passage_query_id": 149249,
+      "best_passage_is_selected": false,
+      "generated_answer": "1 Be aware of the difference between being a psychologist and a psychiatrist.. 2  To be a Psychiatrist, you must go to medical school and get a medical degree (MD).",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.019,
+          "faiss_score": 0.8651,
+          "is_selected": false,
+          "query_id": 149249,
+          "lang": "en",
+          "text_preview": "1 Be aware of the difference between being a psychologist and a psychiatrist.. 2  To be a Psychiatrist, you must go to medical school and get a medica"
+        },
+        {
+          "rank": 1,
+          "ce_score": -1.612,
+          "faiss_score": 0.8534,
+          "is_selected": false,
+          "query_id": 149249,
+          "lang": "en",
+          "text_preview": "1 To be a Psychiatrist, you must go to medical school and get a medical degree (MD). 2  Then, you specialize in Psychiatry. 3  Psychologists do not ha"
+        },
+        {
+          "rank": 2,
+          "ce_score": -1.965,
+          "faiss_score": 0.8419,
+          "is_selected": false,
+          "query_id": 149249,
+          "lang": "en",
+          "text_preview": "The goal you choose will determine your path. A clinical psychologist, for example, will have heavy training in both the theory and practice of psycho"
+        },
+        {
+          "rank": 3,
+          "ce_score": -3.72,
+          "faiss_score": 0.8397,
+          "is_selected": false,
+          "query_id": 149249,
+          "lang": "en",
+          "text_preview": "aining.A therapist, on the other hand, can often get by with a masters degree in their chosen specialty.ost fields require a master\u2019s degree, although"
+        },
+        {
+          "rank": 4,
+          "ce_score": -11.426,
+          "faiss_score": 0.8386,
+          "is_selected": false,
+          "query_id": 1089085,
+          "lang": "en",
+          "text_preview": "ck your admission status. For Parents Is UCF right for your student? For Counselors Connect with our team. Frequently Asked Questions Answers to your "
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 6,
+      "query": "how to do citations in an essay",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 7.959,
+      "best_passage_idx": 1,
+      "best_passage_text": "In-Text Citations. In-text citations must be used in the following situations: 1. When a direct quote has been placed in your essay. 2. When you place a paraphrased idea from a source in your essay. 3. When you summarize information from one source and use it in your essay.here are a number of citat",
+      "best_passage_query_id": 355815,
+      "best_passage_is_selected": false,
+      "generated_answer": "When you summarize information from one source and use it in your essay.here are a number of citation systems that you can use.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 6.118,
+          "faiss_score": 0.9064,
+          "is_selected": false,
+          "query_id": 355815,
+          "lang": "en",
+          "text_preview": "2. Be able to recognize the two components of citation. When citing an essay, you include information in two places: in the body of your paper and in "
+        },
+        {
+          "rank": 1,
+          "ce_score": 7.959,
+          "faiss_score": 0.9061,
+          "is_selected": false,
+          "query_id": 355815,
+          "lang": "en",
+          "text_preview": "In-Text Citations. In-text citations must be used in the following situations: 1. When a direct quote has been placed in your essay. 2. When you place"
+        },
+        {
+          "rank": 2,
+          "ce_score": 4.277,
+          "faiss_score": 0.897,
+          "is_selected": false,
+          "query_id": 355815,
+          "lang": "en",
+          "text_preview": "Although a quote from an expert can add impact to your essay, in most cases you should try to either paraphrase or summarize the information, using ci"
+        },
+        {
+          "rank": 3,
+          "ce_score": -6.369,
+          "faiss_score": 0.8944,
+          "is_selected": false,
+          "query_id": 355815,
+          "lang": "en",
+          "text_preview": "ckets [ ] for information you add within the quotation. 2  Cite your source. 3  Usually, when you use a quotation, it's appropriate to cite the author"
+        },
+        {
+          "rank": 4,
+          "ce_score": -4.453,
+          "faiss_score": 0.8944,
+          "is_selected": false,
+          "query_id": 355815,
+          "lang": "en",
+          "text_preview": "1 Cite your source. 2  Usually, when you use a quotation, it's appropriate to cite the author's name within the text. 3  In that case, you need only t"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 8,
+      "query": "who is the person that created transformers",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 4.622,
+      "best_passage_idx": 2,
+      "best_passage_text": "Transformers are make-believe robots that are made by a toy company named Hasbro. In the story, they come from a planet called Cybertron. There are two main types of Transformers. These are the Autobots, the good guys, and the Decepticons, the bad guys. The leader of the Autobots is named Optimus Pr",
+      "best_passage_query_id": 988715,
+      "best_passage_is_selected": false,
+      "generated_answer": "Transformers are make-believe robots that are made by a toy company named Hasbro.",
+      "gold_in_topk": true,
+      "gold_passage_idx": 1,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.576,
+          "faiss_score": 0.8509,
+          "is_selected": false,
+          "query_id": 988715,
+          "lang": "en",
+          "text_preview": "The Covenant of Primus. Optimus Prime was created as the last of the Thirteen, the first generation of Transformers, each created directly by Primus a"
+        },
+        {
+          "rank": 1,
+          "ce_score": 2.986,
+          "faiss_score": 0.8428,
+          "is_selected": true,
+          "query_id": 1051257,
+          "lang": "en",
+          "text_preview": "Megatron is the founder of the Decepticon uprising, and their most well-known and feared leader. As a young, charismatic leader forged in battle and t"
+        },
+        {
+          "rank": 2,
+          "ce_score": 4.622,
+          "faiss_score": 0.8404,
+          "is_selected": false,
+          "query_id": 988715,
+          "lang": "en",
+          "text_preview": "Transformers are make-believe robots that are made by a toy company named Hasbro. In the story, they come from a planet called Cybertron. There are tw"
+        },
+        {
+          "rank": 3,
+          "ce_score": 3.738,
+          "faiss_score": 0.8353,
+          "is_selected": false,
+          "query_id": 988715,
+          "lang": "en",
+          "text_preview": "The slashfic writes itself. Optimus Prime was the last born of the original Thirteen Transformers. His spark was the most like their progenitor Primus"
+        },
+        {
+          "rank": 4,
+          "ce_score": -5.088,
+          "faiss_score": 0.8336,
+          "is_selected": false,
+          "query_id": 988715,
+          "lang": "en",
+          "text_preview": "Originally, the Thirteen were considered multiversal singularities, but Another Light brought that concept to an end. 1  The members of this original "
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 19,
+      "query": "erie insurance corporate address",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.314,
+      "best_passage_idx": 4,
+      "best_passage_text": "Most Searched Headquarters. Write A Review For Erie Insurance Corporate Headquarters. Note: This is not to be used to contact Erie Insurance Corporate Offices nor is this site affiliated with them in any way. The purpose of this site is supply you with their phone number and address as well as share",
+      "best_passage_query_id": 181353,
+      "best_passage_is_selected": false,
+      "generated_answer": "Write A Review For Erie Insurance Corporate Headquarters. Note: This is not to be used to contact Erie Insurance Corporate Offices nor is this site affiliated with them in any way.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.13,
+          "faiss_score": 0.906,
+          "is_selected": false,
+          "query_id": 181353,
+          "lang": "en",
+          "text_preview": "Call (866) 473-3932 today to get started with a FREE TRIAL! The Erie Insurance Exchange Activities Association Inc Company Profile. Erie Insurance Exc"
+        },
+        {
+          "rank": 1,
+          "ce_score": 2.798,
+          "faiss_score": 0.8791,
+          "is_selected": false,
+          "query_id": 181353,
+          "lang": "en",
+          "text_preview": "Erie Insurance Group History. Erie Insurance Group was founded as the Erie insurance Exchange, an automobile insurer, in 1925. Until 1953, the company"
+        },
+        {
+          "rank": 2,
+          "ce_score": 4.002,
+          "faiss_score": 0.8786,
+          "is_selected": false,
+          "query_id": 181353,
+          "lang": "en",
+          "text_preview": "Erie Insurance Group. Erie Insurance is an American multi-line insurance company, offering auto, home, commercial and life insurance through a network"
+        },
+        {
+          "rank": 3,
+          "ce_score": 2.59,
+          "faiss_score": 0.8747,
+          "is_selected": false,
+          "query_id": 181353,
+          "lang": "en",
+          "text_preview": "Erie Insurance Group History. Erie Insurance Group was founded in 1925 as an automobile insurance company. Annual polices in 1925 were $34. The compan"
+        },
+        {
+          "rank": 4,
+          "ce_score": 5.314,
+          "faiss_score": 0.8677,
+          "is_selected": false,
+          "query_id": 181353,
+          "lang": "en",
+          "text_preview": "Most Searched Headquarters. Write A Review For Erie Insurance Corporate Headquarters. Note: This is not to be used to contact Erie Insurance Corporate"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 20,
+      "query": "what is tlr development",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.338,
+      "best_passage_idx": 0,
+      "best_passage_text": "TLR and Brain Development During TLR, the connections to the temporal lobe are starting to be developed, setting up the brain to be able to sequence. We use sequencing for reading (keeping sounds in order), writing (keeping letters, words, and thoughts in order) and math (step-by-step directions, co",
+      "best_passage_query_id": 1029623,
+      "best_passage_is_selected": false,
+      "generated_answer": "TLR and Brain Development During TLR, the connections to the temporal lobe are starting to be developed, setting up the brain to be able to sequence.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 6.338,
+          "faiss_score": 0.8609,
+          "is_selected": false,
+          "query_id": 1029623,
+          "lang": "en",
+          "text_preview": "TLR and Brain Development During TLR, the connections to the temporal lobe are starting to be developed, setting up the brain to be able to sequence. "
+        },
+        {
+          "rank": 1,
+          "ce_score": 4.149,
+          "faiss_score": 0.8607,
+          "is_selected": false,
+          "query_id": 1029623,
+          "lang": "en",
+          "text_preview": "and back. These muscles are necessary for later stages of development. If a child has a retained TLR, they may have passed too quickly through this st"
+        },
+        {
+          "rank": 2,
+          "ce_score": 4.383,
+          "faiss_score": 0.8596,
+          "is_selected": false,
+          "query_id": 1029623,
+          "lang": "en",
+          "text_preview": "Recent developments in the TLR field highlight the importance of these molecules to human health and disease and demonstrate that their targeting, to "
+        },
+        {
+          "rank": 3,
+          "ce_score": 5.449,
+          "faiss_score": 0.8547,
+          "is_selected": false,
+          "query_id": 1029623,
+          "lang": "en",
+          "text_preview": "What is Time and Leave Reporting (TLR)? TLR is an online time and leave reporting program for LWTech employees. What are the Benefits of TLR? Electron"
+        },
+        {
+          "rank": 4,
+          "ce_score": -0.954,
+          "faiss_score": 0.8534,
+          "is_selected": false,
+          "query_id": 1029623,
+          "lang": "en",
+          "text_preview": "These problems are further confounded by our very incomplete knowledge of how TLR agonists interact with their receptors. For TLR3, an understanding o"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 21,
+      "query": "tail wagging the dog originate",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 7.119,
+      "best_passage_idx": 0,
+      "best_passage_text": "tail wagging the dog. Situation in which an apparently insignificant or powerless entity controls the larger system of which it is a part. The phrase \u201cthe tail that wags the dog\u201d dates to the turn of the last century. In 1907, it appeared in Von Arnum's Fraulein Schmidt. F. Scott Fitzgerald used it ",
+      "best_passage_query_id": 1090142,
+      "best_passage_is_selected": false,
+      "generated_answer": "The phrase \u201cthe tail that wags the dog\u201d dates to the turn of the last century. In 1907, it appeared in Von Arnum's Fraulein Schmidt.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 7.119,
+          "faiss_score": 0.9065,
+          "is_selected": false,
+          "query_id": 1090142,
+          "lang": "en",
+          "text_preview": "tail wagging the dog. Situation in which an apparently insignificant or powerless entity controls the larger system of which it is a part. The phrase "
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.308,
+          "faiss_score": 0.8923,
+          "is_selected": false,
+          "query_id": 1090142,
+          "lang": "en",
+          "text_preview": "The title of the film comes from the idiomatic English-language expression the tail wagging the dog, which is referenced at the beginning of the film "
+        },
+        {
+          "rank": 2,
+          "ce_score": 5.455,
+          "faiss_score": 0.8884,
+          "is_selected": false,
+          "query_id": 1090142,
+          "lang": "en",
+          "text_preview": "\u201cIt was a case of the tail dogging the wag.\u201d In this case the word \u201cwag\u201d is an antiquated reference to a witty person. 1. Wilton, David. 2001. Wilton'"
+        },
+        {
+          "rank": 3,
+          "ce_score": 3.692,
+          "faiss_score": 0.875,
+          "is_selected": false,
+          "query_id": 1090142,
+          "lang": "en",
+          "text_preview": "In a New York Times article, the implication that the tail has special leverage is more apparent: \u201cWhen suppliers finance buying groups 'you get the t"
+        },
+        {
+          "rank": 4,
+          "ce_score": 4.374,
+          "faiss_score": 0.8691,
+          "is_selected": false,
+          "query_id": 1090142,
+          "lang": "en",
+          "text_preview": "In a New York Times article, the implication that the tail has special leverage is more apparent: \u201cWhen suppliers finance buying groups 'you get the t"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 23,
+      "query": "calculate distance deceleration",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.859,
+      "best_passage_idx": 0,
+      "best_passage_text": "When you have constant acceleration (or deceleration) and want to find distance, you can use this equation of motion (see ref 1): (1) v\u00b2 = u\u00b2 + 2a * d, where: v = current velocity u = initial velocity = 12m/s a = acceleration = 3.2m/s\u00b2 d = distance In this case, v = 0 because we're slowing to a stop",
+      "best_passage_query_id": 1088828,
+      "best_passage_is_selected": false,
+      "generated_answer": "When you have constant acceleration (or deceleration) and want to find distance, you can use this equation of motion (see ref 1): (1) v\u00b2 = u\u00b2 + 2a * d, where: v = current velocity u = initial velocity",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 6.859,
+          "faiss_score": 0.8922,
+          "is_selected": false,
+          "query_id": 1088828,
+          "lang": "en",
+          "text_preview": "When you have constant acceleration (or deceleration) and want to find distance, you can use this equation of motion (see ref 1): (1) v\u00b2 = u\u00b2 + 2a * d"
+        },
+        {
+          "rank": 1,
+          "ce_score": -2.222,
+          "faiss_score": 0.8902,
+          "is_selected": false,
+          "query_id": 1088828,
+          "lang": "en",
+          "text_preview": "The final formula for the braking distance is given below. Notice how the acceleration rate is calculated by multiplying the acceleration due to gravi"
+        },
+        {
+          "rank": 2,
+          "ce_score": -7.378,
+          "faiss_score": 0.8837,
+          "is_selected": false,
+          "query_id": 1088828,
+          "lang": "en",
+          "text_preview": "Solving for the different variables we can use the following formulas: 1  Given u, t and a calculate s. Given initial velocity, time and acceleration "
+        },
+        {
+          "rank": 3,
+          "ce_score": 2.869,
+          "faiss_score": 0.8774,
+          "is_selected": false,
+          "query_id": 1088828,
+          "lang": "en",
+          "text_preview": "I just want to calculate the minimum stopping distance of a car. \u2013 Gauzi Feb 25 '15 at 14:51 That would be the max. deceleration without skidding, whi"
+        },
+        {
+          "rank": 4,
+          "ce_score": 3.579,
+          "faiss_score": 0.8714,
+          "is_selected": false,
+          "query_id": 1088828,
+          "lang": "en",
+          "text_preview": "3 Calculating Braking Distance 3.1 Influencing Factors Braking distance depends on: \u2022 the speed of the train when the brakes are applied; \u2022 the decele"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 25,
+      "query": "how to cook fried chicken legs",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.255,
+      "best_passage_idx": 1,
+      "best_passage_text": "1 Heat oil in a deep-fryer or large skillet to 350 degrees F (175 degrees C). 2  Combine the flour, cornmeal, and salt in another resealable plastic bag. 3  Add the drumsticks, seal bag, and shake to coat. 4  Fry the chicken, uncovered, for 25 to 30 minutes or until juices run clear. 5  Turn occasio",
+      "best_passage_query_id": 352443,
+      "best_passage_is_selected": false,
+      "generated_answer": "4  Fry the chicken, uncovered, for 25 to 30 minutes or until juices run clear. 5  Turn occasionally to brown evenly.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.929,
+          "faiss_score": 0.8961,
+          "is_selected": false,
+          "query_id": 352443,
+          "lang": "en",
+          "text_preview": "1 Heat oil in a deep-fryer or large skillet to 350 degrees F (175 degrees C). 2  Combine the flour, cornmeal, and salt in another resealable plastic b"
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.255,
+          "faiss_score": 0.8958,
+          "is_selected": false,
+          "query_id": 352443,
+          "lang": "en",
+          "text_preview": "1 Heat oil in a deep-fryer or large skillet to 350 degrees F (175 degrees C). 2  Combine the flour, cornmeal, and salt in another resealable plastic b"
+        },
+        {
+          "rank": 2,
+          "ce_score": 2.692,
+          "faiss_score": 0.889,
+          "is_selected": false,
+          "query_id": 352443,
+          "lang": "en",
+          "text_preview": "1 1 In shallow dish, mix flour, paprika, salt and pepper. 2  Coat chicken with flour mixture. 3  2 In 12-inch nonstick skillet, heat oil (1/4 inch) ov"
+        },
+        {
+          "rank": 3,
+          "ce_score": -1.048,
+          "faiss_score": 0.8866,
+          "is_selected": false,
+          "query_id": 1098522,
+          "lang": "en",
+          "text_preview": "Position the oven rack in the bottom third of the oven. Pre-heat oven for 15 minutes. Remove neck and giblets from cavity. If stuffing, tie legs toget"
+        },
+        {
+          "rank": 4,
+          "ce_score": 0.487,
+          "faiss_score": 0.8866,
+          "is_selected": false,
+          "query_id": 352443,
+          "lang": "en",
+          "text_preview": "Dip the seasoned chicken in the egg, and then coat well in the flour mixture. Heat the oil to 350 degrees F in a deep pot. Do not fill the pot more th"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 26,
+      "query": "what majors are clemson university known for",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.521,
+      "best_passage_idx": 0,
+      "best_passage_text": "Clemson University Majors Discover the majors and programs offered by Clemson University and the types of degrees awarded. Arts Business Education Health Professions Humanities Science, Technology, and Math Arts",
+      "best_passage_query_id": 1025494,
+      "best_passage_is_selected": false,
+      "generated_answer": "Clemson University Majors Discover the majors and programs offered by Clemson University and the types of degrees awarded.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 8.521,
+          "faiss_score": 0.8894,
+          "is_selected": false,
+          "query_id": 1025494,
+          "lang": "en",
+          "text_preview": "Clemson University Majors Discover the majors and programs offered by Clemson University and the types of degrees awarded. Arts Business Education Hea"
+        },
+        {
+          "rank": 1,
+          "ce_score": 5.797,
+          "faiss_score": 0.8888,
+          "is_selected": false,
+          "query_id": 1025494,
+          "lang": "en",
+          "text_preview": "List of Clemson University majors by size and degree. See the most popular majors at Clemson University."
+        },
+        {
+          "rank": 2,
+          "ce_score": 6.183,
+          "faiss_score": 0.8822,
+          "is_selected": false,
+          "query_id": 1025494,
+          "lang": "en",
+          "text_preview": "Clemson students are known for their loyalty and hospitality. According to The Princeton Review, Clemson students are also proud of their university, "
+        },
+        {
+          "rank": 3,
+          "ce_score": 6.887,
+          "faiss_score": 0.8759,
+          "is_selected": false,
+          "query_id": 1025494,
+          "lang": "en",
+          "text_preview": "Clemson University is a nationally ranked public research university with a reputation for exceptional student experience. This institution combines t"
+        },
+        {
+          "rank": 4,
+          "ce_score": 2.323,
+          "faiss_score": 0.8587,
+          "is_selected": false,
+          "query_id": 1025494,
+          "lang": "en",
+          "text_preview": "Clemson University is a public, 4 year college located in Clemson, South Carolina. A large-sized college, Clemson University has 16,562 undergraduate "
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 31,
+      "query": "cite a movie mla",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.65,
+      "best_passage_idx": 1,
+      "best_passage_text": "To cite a movie quote in MLA style, the title of the film, the director's name, the studio and the release year are required. If relevant the performer's name should included, following the director.",
+      "best_passage_query_id": 92677,
+      "best_passage_is_selected": false,
+      "generated_answer": "To cite a movie quote in MLA style, the title of the film, the director's name, the studio and the release year are required.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 8.524,
+          "faiss_score": 0.9242,
+          "is_selected": false,
+          "query_id": 92677,
+          "lang": "en",
+          "text_preview": "Quick Answer. To cite a movie quote in MLA style, the title of the film, the director's name, the studio and the release year are required. If relevan"
+        },
+        {
+          "rank": 1,
+          "ce_score": 8.65,
+          "faiss_score": 0.9216,
+          "is_selected": false,
+          "query_id": 92677,
+          "lang": "en",
+          "text_preview": "To cite a movie quote in MLA style, the title of the film, the director's name, the studio and the release year are required. If relevant the performe"
+        },
+        {
+          "rank": 2,
+          "ce_score": 8.628,
+          "faiss_score": 0.9212,
+          "is_selected": false,
+          "query_id": 92677,
+          "lang": "en",
+          "text_preview": "To cite a movie quote in MLA style, the title of the film, the director's name, the studio and the release year are required. If relevant the performe"
+        },
+        {
+          "rank": 3,
+          "ce_score": 8.114,
+          "faiss_score": 0.9081,
+          "is_selected": false,
+          "query_id": 92677,
+          "lang": "en",
+          "text_preview": "How to cite a film in a bibliography using MLA. The most basic entry for a film consists of the title, director, distributor, year of release, and med"
+        },
+        {
+          "rank": 4,
+          "ce_score": 8.062,
+          "faiss_score": 0.9076,
+          "is_selected": false,
+          "query_id": 92677,
+          "lang": "en",
+          "text_preview": "How to cite a film in a bibliography using MLA. The most basic entry for a film consists of the title, director, distributor, year of release, and med"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 33,
+      "query": "headache that causes earache",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.37,
+      "best_passage_idx": 1,
+      "best_passage_text": "Research Deeper: More About These Symptoms. 1  Earache Earache: Causes. Medications causing Earache. Diagnostic Guides. Diagnosis. 2  Throbbing headache Introduction: Throbbing headache. Causes of Throbbing headache. 3  General Information: Other Possible Causes.",
+      "best_passage_query_id": 1100068,
+      "best_passage_is_selected": false,
+      "generated_answer": "1  Earache Earache: Causes. Medications causing Earache.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.14,
+          "faiss_score": 0.9186,
+          "is_selected": false,
+          "query_id": 1100068,
+          "lang": "en",
+          "text_preview": "Cervicogenic headache is known to cause pain behind the ear, headaches on the front skull and the nerves found on the neck. It is normally brought abo"
+        },
+        {
+          "rank": 1,
+          "ce_score": 5.37,
+          "faiss_score": 0.9074,
+          "is_selected": false,
+          "query_id": 1100068,
+          "lang": "en",
+          "text_preview": "Research Deeper: More About These Symptoms. 1  Earache Earache: Causes. Medications causing Earache. Diagnostic Guides. Diagnosis. 2  Throbbing headac"
+        },
+        {
+          "rank": 2,
+          "ce_score": 2.3,
+          "faiss_score": 0.9068,
+          "is_selected": false,
+          "query_id": 1100068,
+          "lang": "en",
+          "text_preview": "Middle ear infection. A middle ear infection puts pressure on the eardrum, causing pain and, sometimes, hearing loss. Migraine headache (adult) Migrai"
+        },
+        {
+          "rank": 3,
+          "ce_score": 5.181,
+          "faiss_score": 0.9025,
+          "is_selected": false,
+          "query_id": 1100068,
+          "lang": "en",
+          "text_preview": "Earache headache nausea - Causes for sore throat, swollen tonsils, blood running down back of throat, bad cough, earache, headache, nausea? URI. The b"
+        },
+        {
+          "rank": 4,
+          "ce_score": 0.098,
+          "faiss_score": 0.9015,
+          "is_selected": false,
+          "query_id": 1100068,
+          "lang": "en",
+          "text_preview": "Most people assume earaches and ear pain happen only to children, but they can also happen to adults. An earache may affect one or both ears, but the "
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 35,
+      "query": "what is elastomer processing?",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 4.42,
+      "best_passage_idx": 1,
+      "best_passage_text": "Understanding TPEs. Thermoplastic Elastomers (TPEs) are a class of polymers that, within their design limits, behave like thermoset rubber but that, above their melt or softening temperatures, are melt processable via thermoplastic processing methods and, unlike thermoset rubber, can be easily repro",
+      "best_passage_query_id": 1056064,
+      "best_passage_is_selected": false,
+      "generated_answer": "Thermoplastic Elastomers (TPEs) are a class of polymers that, within their design limits, behave like thermoset rubber but that, above their melt or softening temperatures, are melt processable via th",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 0.843,
+          "faiss_score": 0.8687,
+          "is_selected": false,
+          "query_id": 1056064,
+          "lang": "en",
+          "text_preview": "Thermoplastic elastomers, sometimes referred to as thermoplastic rubbers, are a class of copolymers or a physical mix of polymers which consist of mat"
+        },
+        {
+          "rank": 1,
+          "ce_score": 4.42,
+          "faiss_score": 0.863,
+          "is_selected": false,
+          "query_id": 1056064,
+          "lang": "en",
+          "text_preview": "Understanding TPEs. Thermoplastic Elastomers (TPEs) are a class of polymers that, within their design limits, behave like thermoset rubber but that, a"
+        },
+        {
+          "rank": 2,
+          "ce_score": 0.143,
+          "faiss_score": 0.8548,
+          "is_selected": false,
+          "query_id": 1056064,
+          "lang": "en",
+          "text_preview": "(A) is an unstressed polymer; (B) is the same polymer under stress. When the stress is removed, it will return to the A configuration. (The dots repre"
+        },
+        {
+          "rank": 3,
+          "ce_score": 0.578,
+          "faiss_score": 0.8537,
+          "is_selected": false,
+          "query_id": 1056064,
+          "lang": "en",
+          "text_preview": "Thermoplastic elastomer. Thermoplastic elastomers (TPE), sometimes referred to as thermoplastic rubbers, are a class of copolymers or a physical mix o"
+        },
+        {
+          "rank": 4,
+          "ce_score": 0.252,
+          "faiss_score": 0.8528,
+          "is_selected": false,
+          "query_id": 1056064,
+          "lang": "en",
+          "text_preview": "(May 2014) Thermoplastic elastomers (TPE), sometimes referred to as thermoplastic rubbers, are a class of copolymers or a physical mix of polymers (us"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 36,
+      "query": "why adaptive sports help people with disabilities",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.685,
+      "best_passage_idx": 0,
+      "best_passage_text": "Just pick any sport, says Iselin. There's something adaptive for it. In this day and age, any person with any disability can participate in their sport of choice. Iselin says adaptive sports equipment is not made based on what people can't do anymore but what they can do. It's not what the disabilit",
+      "best_passage_query_id": 985290,
+      "best_passage_is_selected": false,
+      "generated_answer": "Iselin says adaptive sports equipment is not made based on what people can't do anymore but what they can do.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 6.685,
+          "faiss_score": 0.8937,
+          "is_selected": false,
+          "query_id": 985290,
+          "lang": "en",
+          "text_preview": "Just pick any sport, says Iselin. There's something adaptive for it. In this day and age, any person with any disability can participate in their spor"
+        },
+        {
+          "rank": 1,
+          "ce_score": 5.336,
+          "faiss_score": 0.8885,
+          "is_selected": false,
+          "query_id": 985290,
+          "lang": "en",
+          "text_preview": "Noting the importance of exercise for physical health, and the unique barriers people with disabilities face when trying to get it, the Medical Colleg"
+        },
+        {
+          "rank": 2,
+          "ce_score": 5.289,
+          "faiss_score": 0.8759,
+          "is_selected": false,
+          "query_id": 985290,
+          "lang": "en",
+          "text_preview": "Para sports or adaptive sports are often confused with Special Olympics. Both provide wonderful opportunities for athletes with disabilities but there"
+        },
+        {
+          "rank": 3,
+          "ce_score": 0.043,
+          "faiss_score": 0.8739,
+          "is_selected": false,
+          "query_id": 985290,
+          "lang": "en",
+          "text_preview": "If you are an active participant in adaptive sports and have complex communication needs, your insights are in high demand! Read on\u2026 Embracing the Zen"
+        },
+        {
+          "rank": 4,
+          "ce_score": 3.288,
+          "faiss_score": 0.8721,
+          "is_selected": false,
+          "query_id": 985290,
+          "lang": "en",
+          "text_preview": "Limits disappear with adaptive sporting goodsWhen Sun Valley Adaptive Sports in Ketchum, ID, was established in 1999, there weren't many adaptive equi"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 37,
+      "query": "what is the primary function",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.566,
+      "best_passage_idx": 1,
+      "best_passage_text": "What is the primary function of the circulatory system? A: According to the National Center for Biotechnology Information, the primary function of the circulatory system is to pass substances back and forth between... Full Answer >",
+      "best_passage_query_id": 1034069,
+      "best_passage_is_selected": false,
+      "generated_answer": "A: According to the National Center for Biotechnology Information, the primary function of the circulatory system is to pass substances back and forth between...",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.853,
+          "faiss_score": 0.8811,
+          "is_selected": false,
+          "query_id": 1034069,
+          "lang": "en",
+          "text_preview": "The main function is called at program startup after initialization of the non-local objects with static storage duration. It is the designated entry "
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.566,
+          "faiss_score": 0.8686,
+          "is_selected": false,
+          "query_id": 1034069,
+          "lang": "en",
+          "text_preview": "What is the primary function of the circulatory system? A: According to the National Center for Biotechnology Information, the primary function of the"
+        },
+        {
+          "rank": 2,
+          "ce_score": 4.795,
+          "faiss_score": 0.8655,
+          "is_selected": false,
+          "query_id": 1034069,
+          "lang": "en",
+          "text_preview": "According to the Merck Manual Home Health Handbook, the primary function of erythrocytes, more commonly known as red blood cells, is to transport oxyg"
+        },
+        {
+          "rank": 3,
+          "ce_score": 5.3,
+          "faiss_score": 0.8626,
+          "is_selected": false,
+          "query_id": 1034069,
+          "lang": "en",
+          "text_preview": "A: According to the Merck Manual Home Health Handbook, the primary function of erythrocytes, more commonly known as red blood cells, is to transport o"
+        },
+        {
+          "rank": 4,
+          "ce_score": -10.983,
+          "faiss_score": 0.8447,
+          "is_selected": false,
+          "query_id": 1034069,
+          "lang": "hi",
+          "text_preview": "\u092a\u0930\u093f\u0938\u0902\u091a\u0930\u0923 \u0924\u0902\u0924\u094d\u0930 \u0915\u093e \u092a\u094d\u0930\u093e\u0925\u092e\u093f\u0915 \u0915\u093e\u0930\u094d\u092f \u0915\u094d\u092f\u093e \u0939\u0948? \u090f: \u0930\u093e\u0937\u094d\u091f\u094d\u0930\u0940\u092f \u091c\u0948\u0935 \u092a\u094d\u0930\u094c\u0926\u094d\u092f\u094b\u0917\u093f\u0915\u0940 \u0938\u0942\u091a\u0928\u093e \u0915\u0947\u0902\u0926\u094d\u0930 \u0915\u0947 \u0905\u0928\u0941\u0938\u093e\u0930, \u092a\u0930\u093f\u0938\u0902\u091a\u0930\u0923 \u0924\u0902\u0924\u094d\u0930 \u0915\u093e \u092a\u094d\u0930\u093e\u0925\u092e\u093f\u0915 \u0915\u093e\u0930\u094d\u092f \u092a\u0926\u093e\u0930\u094d\u0925\u094b\u0902 \u0915\u094b \u090f\u0915 \u0926\u0942\u0938\u0930\u0947 "
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 38,
+      "query": "who is authorized to wear the armed forces reserve army ribbon",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 7.995,
+      "best_passage_idx": 0,
+      "best_passage_text": "d. Appropriate Wear of the Ribbon. (1) Only one Armed Forces Reserve Medal (AFRM) is authorized for wear. (2) Not entitled to 'M device, entitled to AFRM: AFRM with appropriate bronze/silver/gold hourglass centered on the ribbon bar and suspension ribbon.",
+      "best_passage_query_id": 991236,
+      "best_passage_is_selected": false,
+      "generated_answer": "(1) Only one Armed Forces Reserve Medal (AFRM) is authorized for wear. (2) Not entitled to 'M device, entitled to AFRM: AFRM with appropriate bronze/silver/gold hourglass centered on the ribbon bar an",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 7.995,
+          "faiss_score": 0.908,
+          "is_selected": false,
+          "query_id": 991236,
+          "lang": "en",
+          "text_preview": "d. Appropriate Wear of the Ribbon. (1) Only one Armed Forces Reserve Medal (AFRM) is authorized for wear. (2) Not entitled to 'M device, entitled to A"
+        },
+        {
+          "rank": 1,
+          "ce_score": 5.488,
+          "faiss_score": 0.8811,
+          "is_selected": false,
+          "query_id": 991236,
+          "lang": "en",
+          "text_preview": "The Armed Forces Reserve Medal (with bronze hourglass) is the basic award and is earned after ten years of qualifying service; however, if a service m"
+        },
+        {
+          "rank": 2,
+          "ce_score": -10.959,
+          "faiss_score": 0.867,
+          "is_selected": false,
+          "query_id": 991236,
+          "lang": "hi",
+          "text_preview": "\u0921\u0940. \u0930\u093f\u092c\u0928 \u0915\u093e \u0909\u092a\u092f\u0941\u0915\u094d\u0924 \u092a\u0939\u0928\u093e\u0935\u093e\u0964 (1) \u0915\u0947\u0935\u0932 \u090f\u0915 \u0938\u0936\u0938\u094d\u0924\u094d\u0930 \u092c\u0932 \u0906\u0930\u0915\u094d\u0937\u093f\u0924 \u092a\u0926\u0915 (\u090f.\u090f\u092b.\u0906\u0930.\u090f\u092e.) \u092a\u0939\u0928\u0928\u0947 \u0915\u0947 \u0932\u093f\u090f \u0905\u0927\u093f\u0915\u0943\u0924 \u0939\u0948\u0964 (2) '\u090f\u092e' \u0909\u092a\u0915\u0930\u0923 \u0915\u093e \u0939\u0915\u0926\u093e\u0930 \u0928\u0939\u0940\u0902, \u090f.\u090f\u092b.\u0906\u0930.\u090f\u092e.: \u0930\u093f\u092c\u0928 \u092a"
+        },
+        {
+          "rank": 3,
+          "ce_score": 4.963,
+          "faiss_score": 0.866,
+          "is_selected": false,
+          "query_id": 991236,
+          "lang": "en",
+          "text_preview": "The initial presentation of the Armed Forces Reserve Medal is authorized with the bronze hourglass device denoting ten years of reserve service. At tw"
+        },
+        {
+          "rank": 4,
+          "ce_score": 2.609,
+          "faiss_score": 0.849,
+          "is_selected": false,
+          "query_id": 991236,
+          "lang": "en",
+          "text_preview": "Any member of the Guard or Reserve who, after 31 December 1960, becomes eligible for the Armed Forces Expeditionary Medal, Vietnam Service Medal or th"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 42,
+      "query": "how long do i cook my chicken and vegetable sheet pan",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.824,
+      "best_passage_idx": 0,
+      "best_passage_text": "Make spaces in the vegetables for chicken parts throughout the pan. Roast in oven for 20 minutes, then toss the potato and cauliflower to ensure they\u2019re cooking evenly, and return the pan to the oven for 10 to 20 minutes more (i.e. 30 to 40 minutes total roasting time), until chicken and vegetables ",
+      "best_passage_query_id": 1098522,
+      "best_passage_is_selected": false,
+      "generated_answer": "30 to 40 minutes total roasting time), until chicken and vegetables are cooked through.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.824,
+          "faiss_score": 0.9199,
+          "is_selected": false,
+          "query_id": 1098522,
+          "lang": "en",
+          "text_preview": "Make spaces in the vegetables for chicken parts throughout the pan. Roast in oven for 20 minutes, then toss the potato and cauliflower to ensure they\u2019"
+        },
+        {
+          "rank": 1,
+          "ce_score": -0.685,
+          "faiss_score": 0.9071,
+          "is_selected": false,
+          "query_id": 1098522,
+          "lang": "en",
+          "text_preview": "Transfer chicken to a carving board, and let rest 10 minutes. Cut chicken into 8 pieces, and serve with roasted lemons, shallots, and pan juices. If u"
+        },
+        {
+          "rank": 2,
+          "ce_score": -2.35,
+          "faiss_score": 0.9001,
+          "is_selected": false,
+          "query_id": 1025417,
+          "lang": "en",
+          "text_preview": "Add flour and cook 1 minute, then deglaze pan with wine. Add beef stock, blend, and cook until sauce thickens. Serve over chicken or pork."
+        },
+        {
+          "rank": 3,
+          "ce_score": -2.604,
+          "faiss_score": 0.8992,
+          "is_selected": false,
+          "query_id": 1098522,
+          "lang": "en",
+          "text_preview": "Position the oven rack in the bottom third of the oven. Pre-heat oven for 15 minutes. Remove neck and giblets from cavity. If stuffing, tie legs toget"
+        },
+        {
+          "rank": 4,
+          "ce_score": -3.129,
+          "faiss_score": 0.8991,
+          "is_selected": false,
+          "query_id": 1098522,
+          "lang": "en",
+          "text_preview": "Setup. 1  Position the oven rack in the bottom third of the oven. 2  Pre-heat oven for 15 minutes. 3  Remove neck and giblets from cavity. 4  If stuff"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 43,
+      "query": "what is zip code of fairmont mis",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 7.669,
+      "best_passage_idx": 0,
+      "best_passage_text": "An extended ZIP+4 code, introduced in the 1980s, includes the five digits of the Fairmont ZIP code, a hyphen, and four more digits that determine a more specific location within a given ZIP code in Fairmont, West Virginia. The Fairmont Zip Code is 26554, 26555. If you want to send a mail to Fairmont",
+      "best_passage_query_id": 1028221,
+      "best_passage_is_selected": false,
+      "generated_answer": "The Fairmont Zip Code is 26554, 26555. If you want to send a mail to Fairmont City, you should use the 26554, 26555 Zip Code.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 7.669,
+          "faiss_score": 0.8897,
+          "is_selected": false,
+          "query_id": 1028221,
+          "lang": "en",
+          "text_preview": "An extended ZIP+4 code, introduced in the 1980s, includes the five digits of the Fairmont ZIP code, a hyphen, and four more digits that determine a mo"
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.535,
+          "faiss_score": 0.8797,
+          "is_selected": false,
+          "query_id": 1028221,
+          "lang": "en",
+          "text_preview": "You can search for the Fairmont WV zip code by its streets and block numbers if we have some of the Fairmont streets loaded in our website Fairmont Ar"
+        },
+        {
+          "rank": 2,
+          "ce_score": 5.451,
+          "faiss_score": 0.8748,
+          "is_selected": false,
+          "query_id": 1028221,
+          "lang": "en",
+          "text_preview": "FAIRMONT CITY Zip Code (IL) . Fairmont City is a village of Saint Clair, Illinois in the Great Lakes region of the USA. It is located about 85 miles s"
+        },
+        {
+          "rank": 3,
+          "ce_score": 5.352,
+          "faiss_score": 0.8683,
+          "is_selected": false,
+          "query_id": 1028221,
+          "lang": "en",
+          "text_preview": "The Zipcode for Fairmont City is . Fairmont City is a village of Saint Clair, Illinois in the Great Lakes region of the USA. It is located about 85 mi"
+        },
+        {
+          "rank": 4,
+          "ce_score": 4.444,
+          "faiss_score": 0.868,
+          "is_selected": false,
+          "query_id": 1028221,
+          "lang": "en",
+          "text_preview": "Fairmont City Zip Code - Get the zipcode for Fairmont City in Saint Clair, (IL) Illinois - zip-codez.com"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 44,
+      "query": "what kind of turbochargers are used by alexander dennis?",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 4.396,
+      "best_passage_idx": 3,
+      "best_passage_text": "In 2012, Alexander Dennis unveiled a new generation Enviro500 (also known as the Enviro500 MMC) with a new chassis design. The chassis (also known as the Trident E500 Turbo and E50D/E50H) had the longitudinally-mounted engine and gearbox slightly offset to the left.",
+      "best_passage_query_id": 1026215,
+      "best_passage_is_selected": false,
+      "generated_answer": "In 2012, Alexander Dennis unveiled a new generation Enviro500 (also known as the Enviro500 MMC) with a new chassis design.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 0.329,
+          "faiss_score": 0.862,
+          "is_selected": false,
+          "query_id": 1026215,
+          "lang": "en",
+          "text_preview": "Alexander Dennis Enviro500. The Alexander Dennis Enviro500 (previously known as the TransBus Enviro500) is a three-axle double-decker bus built by Ale"
+        },
+        {
+          "rank": 1,
+          "ce_score": 0.362,
+          "faiss_score": 0.8543,
+          "is_selected": false,
+          "query_id": 1026215,
+          "lang": "en",
+          "text_preview": "(November 2015) The Alexander Dennis Enviro500 (previously known as the TransBus Enviro500) is a three-axle double-decker bus built by Alexander Denni"
+        },
+        {
+          "rank": 2,
+          "ce_score": -0.008,
+          "faiss_score": 0.8531,
+          "is_selected": false,
+          "query_id": 1026215,
+          "lang": "en",
+          "text_preview": "The Alexander Dennis Enviro500 is a three-axle double-decker bus built by Alexander Dennis in the United Kingdom. It was unveiled in 2002 and is one o"
+        },
+        {
+          "rank": 3,
+          "ce_score": 4.396,
+          "faiss_score": 0.8529,
+          "is_selected": false,
+          "query_id": 1026215,
+          "lang": "en",
+          "text_preview": "In 2012, Alexander Dennis unveiled a new generation Enviro500 (also known as the Enviro500 MMC) with a new chassis design. The chassis (also known as "
+        },
+        {
+          "rank": 4,
+          "ce_score": -0.266,
+          "faiss_score": 0.8486,
+          "is_selected": false,
+          "query_id": 1026215,
+          "lang": "en",
+          "text_preview": "A turbocharger is used to increase the output in the high-compression (17.2:1 in recent versions) diesel. It is an all-iron engine with forged steel c"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 45,
+      "query": "how to clean new steel for painting with acrylic latex",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.149,
+      "best_passage_idx": 0,
+      "best_passage_text": "1 Prime the metal surface with a rust-resistant latex or oil-based primer. 2  Typically, paints with some degree of glossiness are used on steel doors; in order to create adhesion for the new top coat of paint, you'll need to lightly sand the surface first with fine grit sandpaper. Check the door fo",
+      "best_passage_query_id": 350637,
+      "best_passage_is_selected": false,
+      "generated_answer": "2  Typically, paints with some degree of glossiness are used on steel doors; in order to create adhesion for the new top coat of paint, you'll need to lightly sand the surface first with fine grit san",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.149,
+          "faiss_score": 0.8704,
+          "is_selected": false,
+          "query_id": 350637,
+          "lang": "en",
+          "text_preview": "1 Prime the metal surface with a rust-resistant latex or oil-based primer. 2  Typically, paints with some degree of glossiness are used on steel doors"
+        },
+        {
+          "rank": 1,
+          "ce_score": 1.762,
+          "faiss_score": 0.8675,
+          "is_selected": false,
+          "query_id": 350637,
+          "lang": "en",
+          "text_preview": "Paint. Acrylic latex paint is usually the best bet for metal. A cheap metal paint or a spray paint is likely to rub off, forcing you to have to repeat"
+        },
+        {
+          "rank": 2,
+          "ce_score": 2.041,
+          "faiss_score": 0.8672,
+          "is_selected": false,
+          "query_id": 350637,
+          "lang": "en",
+          "text_preview": "6. Paint. Acrylic latex paint is usually the best bet for metal. A cheap metal paint or a spray paint is likely to rub off, forcing you to have to rep"
+        },
+        {
+          "rank": 3,
+          "ce_score": 1.451,
+          "faiss_score": 0.8667,
+          "is_selected": false,
+          "query_id": 350637,
+          "lang": "en",
+          "text_preview": "1. Prime the sheet metal with an oil-based primer or a rust-resistant latex primer. A primer, sometimes referred to as an undercoat, is a preparatory "
+        },
+        {
+          "rank": 4,
+          "ce_score": -2.567,
+          "faiss_score": 0.865,
+          "is_selected": false,
+          "query_id": 350637,
+          "lang": "en",
+          "text_preview": "re.he road salt that you removed was probably white aluminum corrosion (aluminum oxide). After you clean and rinse the surface, you will need to prime"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 47,
+      "query": "what was the purpose of the new deal quizlet",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 4.595,
+      "best_passage_idx": 0,
+      "best_passage_text": "The New Deal did all of the following EXCEPT: A) construct the foundations of the federal welfare system. B) transform the Democratic Party into the dominant force in American politics for the next thirty years. C) preside over the birth of the modern labor movement. D) end the Great Depression. E) ",
+      "best_passage_query_id": 1011866,
+      "best_passage_is_selected": false,
+      "generated_answer": "The New Deal did all of the following EXCEPT: A) construct the foundations of the federal welfare system.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 4.595,
+          "faiss_score": 0.8883,
+          "is_selected": false,
+          "query_id": 1011866,
+          "lang": "en",
+          "text_preview": "The New Deal did all of the following EXCEPT: A) construct the foundations of the federal welfare system. B) transform the Democratic Party into the d"
+        },
+        {
+          "rank": 1,
+          "ce_score": 1.005,
+          "faiss_score": 0.8669,
+          "is_selected": false,
+          "query_id": 1011866,
+          "lang": "en",
+          "text_preview": "Along with programs of the New Deal, Congress approved legislation that gave the president powers unprecedented in American history. The creation of m"
+        },
+        {
+          "rank": 2,
+          "ce_score": 2.322,
+          "faiss_score": 0.8561,
+          "is_selected": false,
+          "query_id": 1011866,
+          "lang": "en",
+          "text_preview": "The National Recovery Administration was a prime New Deal agency established by U.S. president Franklin D. Roosevelt in 1933. The goal was to eliminat"
+        },
+        {
+          "rank": 3,
+          "ce_score": -6.054,
+          "faiss_score": 0.8495,
+          "is_selected": false,
+          "query_id": 1011866,
+          "lang": "en",
+          "text_preview": "Assorted References. 1  effect on United Mine Workers of America (in John L. Lewis) 2  establishment by Roosevelt (in Franklin D. Roosevelt: \u201cThe Hund"
+        },
+        {
+          "rank": 4,
+          "ce_score": -3.216,
+          "faiss_score": 0.8494,
+          "is_selected": false,
+          "query_id": 1011866,
+          "lang": "en",
+          "text_preview": "FDR's Wife and New Deal supporter. Was a great supporter of civil rights and opposed the Jim Crow laws. She also worked for birth control and better c"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 49,
+      "query": "what is the penalty for an individual who falsifies an entry in a logbook",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 4.947,
+      "best_passage_idx": 1,
+      "best_passage_text": "Yes, Ladies and Gentlemen, falsification of a logbook is a felony. 18 U.S.C. \u00a7 1001, states, in part, as follows: (a) Except as otherwise provided in this section, whoever, in any matter within the jurisdiction of the executive, legislative, or judicial branch of the Government of the United States,",
+      "best_passage_query_id": 1034699,
+      "best_passage_is_selected": false,
+      "generated_answer": "Yes, Ladies and Gentlemen, falsification of a logbook is a felony. \u00a7 1001, states, in part, as follows: (a) Except as otherwise provided in this section, whoever, in any matter within the jurisdiction",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 4.891,
+          "faiss_score": 0.8998,
+          "is_selected": false,
+          "query_id": 1034699,
+          "lang": "en",
+          "text_preview": "Yes, Ladies and Gentlemen, falsification of a logbook is a felony. 18 U.S.C. \u00a7 1001, states, in part, as follows: (a) Except as otherwise provided in."
+        },
+        {
+          "rank": 1,
+          "ce_score": 4.947,
+          "faiss_score": 0.8956,
+          "is_selected": false,
+          "query_id": 1034699,
+          "lang": "en",
+          "text_preview": "Yes, Ladies and Gentlemen, falsification of a logbook is a felony. 18 U.S.C. \u00a7 1001, states, in part, as follows: (a) Except as otherwise provided in "
+        },
+        {
+          "rank": 2,
+          "ce_score": 1.217,
+          "faiss_score": 0.8769,
+          "is_selected": false,
+          "query_id": 1034699,
+          "lang": "en",
+          "text_preview": "or makes or uses any false writing or document knowing the same to contain any materially false, fictitious, or fradulent statement or entry, shall be"
+        },
+        {
+          "rank": 3,
+          "ce_score": -2.328,
+          "faiss_score": 0.873,
+          "is_selected": false,
+          "query_id": 1034699,
+          "lang": "en",
+          "text_preview": "The \u201clogbook\u201d must contain a notice to purchasers that false statements or misrepresentations in the logbook is a criminal offense. If not feasible to"
+        },
+        {
+          "rank": 4,
+          "ce_score": 2.113,
+          "faiss_score": 0.8646,
+          "is_selected": false,
+          "query_id": 1034699,
+          "lang": "en",
+          "text_preview": "fraudulent statement or entry, shall be fined not more than $250,000 if an individual or $500,000 if an organization, imprisoned not more than five ye"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 53,
+      "query": "carnival cruise how many day to move up",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.116,
+      "best_passage_idx": 0,
+      "best_passage_text": "Carnival has two formal nights on a 6-7 day cruise and one on 3-5 day cruises. All the other dinners in the main dining room are more informal or Business casual. (ie no jeans, tee shirts, tank tops, etc) Of course there are many other dining areas on the ship and you do not have to eat in the main ",
+      "best_passage_query_id": 82849,
+      "best_passage_is_selected": false,
+      "generated_answer": "Carnival has two formal nights on a 6-7 day cruise and one on 3-5 day cruises. All the other dinners in the main dining room are more informal or Business casual.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.116,
+          "faiss_score": 0.8864,
+          "is_selected": false,
+          "query_id": 82849,
+          "lang": "en",
+          "text_preview": "Carnival has two formal nights on a 6-7 day cruise and one on 3-5 day cruises. All the other dinners in the main dining room are more informal or Busi"
+        },
+        {
+          "rank": 1,
+          "ce_score": 4.046,
+          "faiss_score": 0.8844,
+          "is_selected": false,
+          "query_id": 82849,
+          "lang": "en",
+          "text_preview": "Asker's rating. 1  Carnival has two formal nights on a 6-7 day cruise and one on 3-5 day cruises. All the other dinners in the main dining room are mo"
+        },
+        {
+          "rank": 2,
+          "ce_score": 4.263,
+          "faiss_score": 0.883,
+          "is_selected": false,
+          "query_id": 82849,
+          "lang": "en",
+          "text_preview": "Asker's rating. 1  Carnival has two formal nights on a 6-7 day cruise and one on 3-5 day cruises. 2  I am going on a 2 week cruise in about a week, an"
+        },
+        {
+          "rank": 3,
+          "ce_score": -1.978,
+          "faiss_score": 0.8643,
+          "is_selected": false,
+          "query_id": 82849,
+          "lang": "en",
+          "text_preview": "From 29 to15 days prior to sailing, the penalty is 75% of the total fare or the deposit amount, whichever is greater. From 14 days prior to sailing to"
+        },
+        {
+          "rank": 4,
+          "ce_score": -2.036,
+          "faiss_score": 0.8542,
+          "is_selected": false,
+          "query_id": 82849,
+          "lang": "en",
+          "text_preview": "Best Answer: 2 formal nights on a 7-day cruise. 1 formal night on a 5 day cruise. Formal nights range from cocktail dresses to long gowns for the ladi"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 55,
+      "query": "where can you find aurora",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.006,
+      "best_passage_idx": 1,
+      "best_passage_text": "This town on the Trans-Labrador Highway is a great spot for viewing the aurora borealis in eastern Canada. Find your way to the top of the \u201cOMG Hill\u201d at the Birch Brook Nordic Ski Club on a clear winter night and see the colours of the northern lights reflect off of the snow-covered trails.",
+      "best_passage_query_id": 1000729,
+      "best_passage_is_selected": false,
+      "generated_answer": "This town on the Trans-Labrador Highway is a great spot for viewing the aurora borealis in eastern Canada.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.547,
+          "faiss_score": 0.8798,
+          "is_selected": false,
+          "query_id": 1000729,
+          "lang": "en",
+          "text_preview": "Fort McMurray can be found on the 56th parallel, which is underneath the auroral zone, where most auroras occur. Because of this, Fort McMurray is a h"
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.006,
+          "faiss_score": 0.8649,
+          "is_selected": false,
+          "query_id": 1000729,
+          "lang": "en",
+          "text_preview": "This town on the Trans-Labrador Highway is a great spot for viewing the aurora borealis in eastern Canada. Find your way to the top of the \u201cOMG Hill\u201d "
+        },
+        {
+          "rank": 2,
+          "ce_score": 2.651,
+          "faiss_score": 0.8559,
+          "is_selected": false,
+          "query_id": 1000729,
+          "lang": "en",
+          "text_preview": "The aurora borealis, or northern lights is a phenomenon that draws travelers from around the world to the rugged wilderness of Canada. The Great White"
+        },
+        {
+          "rank": 3,
+          "ce_score": 0.008,
+          "faiss_score": 0.852,
+          "is_selected": false,
+          "query_id": 1000729,
+          "lang": "en",
+          "text_preview": "Even if you are quite far north and have auroras at much lower kp numbers, a geomagnetic storm will turn the usual good aurora shows into amazing auro"
+        },
+        {
+          "rank": 4,
+          "ce_score": 3.525,
+          "faiss_score": 0.8448,
+          "is_selected": false,
+          "query_id": 1000729,
+          "lang": "en",
+          "text_preview": "What Kp strength do you need to view aurora where you are? To see the Northern Lights in the lower parts of Southern Canada you generally need Kp3+ le"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 56,
+      "query": "where do you measure waist measurement for men",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 7.606,
+      "best_passage_idx": 0,
+      "best_passage_text": "If most of your fat is around your waist rather than at your hips, you\u2019re at a higher risk for heart disease and type 2 diabetes. This risk goes up with a waist size that is greater than 35 inches for women or greater than 40 inches for men. To correctly measure your waist, stand and place a tape me",
+      "best_passage_query_id": 1000252,
+      "best_passage_is_selected": false,
+      "generated_answer": "To correctly measure your waist, stand and place a tape measure around your middle, just above your hipbones.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 7.606,
+          "faiss_score": 0.8981,
+          "is_selected": false,
+          "query_id": 1000252,
+          "lang": "en",
+          "text_preview": "If most of your fat is around your waist rather than at your hips, you\u2019re at a higher risk for heart disease and type 2 diabetes. This risk goes up wi"
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.414,
+          "faiss_score": 0.896,
+          "is_selected": false,
+          "query_id": 1000252,
+          "lang": "en",
+          "text_preview": "Instructions - Men's body measurements 1. Neck The neck measurement is taken around the neck with the tape resting on your shoulders. You should put o"
+        },
+        {
+          "rank": 2,
+          "ce_score": 5.912,
+          "faiss_score": 0.8939,
+          "is_selected": false,
+          "query_id": 1000252,
+          "lang": "en",
+          "text_preview": "Measure for Men\u2019s Accessories: Belts. Belts are meant to fit on your true waist, so you can use the same waist measurement as your pants, by bending t"
+        },
+        {
+          "rank": 3,
+          "ce_score": 6.705,
+          "faiss_score": 0.8874,
+          "is_selected": false,
+          "query_id": 1000252,
+          "lang": "en",
+          "text_preview": "How to measure waist, hips, chest, and more. 1  Chest: Measure the circumference of your chest. Place one end of the tape measure at the fullest part "
+        },
+        {
+          "rank": 4,
+          "ce_score": 5.862,
+          "faiss_score": 0.8804,
+          "is_selected": false,
+          "query_id": 1000252,
+          "lang": "en",
+          "text_preview": "To accurately measure your waist circumference, follow these steps: 1  Locate your upper hip bone. 2  Place a tape measure around your bare stomach ju"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 58,
+      "query": "what is the lowest temperature in celsius today",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.366,
+      "best_passage_idx": 0,
+      "best_passage_text": "The lowest possible temperature, or absolute zero as it is called, is -459.67\u00b0F (-273.15\u00b0C). It is also called 0 kelvin, a scale with increments equivalent to degrees of Celsius, but which uses absolute zero rather than water's freezing point as its starting point.",
+      "best_passage_query_id": 1037270,
+      "best_passage_is_selected": false,
+      "generated_answer": "The lowest possible temperature, or absolute zero as it is called, is -459.67\u00b0F (-273.15\u00b0C).",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 6.366,
+          "faiss_score": 0.9109,
+          "is_selected": false,
+          "query_id": 1037270,
+          "lang": "en",
+          "text_preview": "The lowest possible temperature, or absolute zero as it is called, is -459.67\u00b0F (-273.15\u00b0C). It is also called 0 kelvin, a scale with increments equiv"
+        },
+        {
+          "rank": 1,
+          "ce_score": -0.587,
+          "faiss_score": 0.888,
+          "is_selected": false,
+          "query_id": 1037270,
+          "lang": "en",
+          "text_preview": "The third lowest temperature ever recorded in the UK was clocked in Shawbury in the Midlands on 13 December 1981, when the mercury dipped to -25.2 deg"
+        },
+        {
+          "rank": 2,
+          "ce_score": 1.201,
+          "faiss_score": 0.8847,
+          "is_selected": false,
+          "query_id": 1037270,
+          "lang": "en",
+          "text_preview": "en anything yet. By a long way, the coldest place on Earth is Vostok, Antarctica, where the lowest ever temperature was recorded. A Russian research s"
+        },
+        {
+          "rank": 3,
+          "ce_score": -2.984,
+          "faiss_score": 0.8778,
+          "is_selected": false,
+          "query_id": 1037270,
+          "lang": "en",
+          "text_preview": "The average temperature on Earth is 61 degrees F (16 C). The hottest temperature ever recorded was 159.3 F (70.7 C) and the coldest temperature was mi"
+        },
+        {
+          "rank": 4,
+          "ce_score": 0.986,
+          "faiss_score": 0.8746,
+          "is_selected": false,
+          "query_id": 1037270,
+          "lang": "en",
+          "text_preview": "The lowest theoretical temperature is absolute zero, at which the thermal motion of all fundamental particles in matter reaches a minimum. Although cl"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 60,
+      "query": "how did adolescent suicide prevention start",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 4.149,
+      "best_passage_idx": 1,
+      "best_passage_text": "The mission of the Society for the Prevention of Teen Suicide is to reduce the number of youth suicides... Read More. The Society for the Prevention of Teen Suicide was founded in 2005 by two friends who lost teenaged children to suicide... Read More.",
+      "best_passage_query_id": 212757,
+      "best_passage_is_selected": false,
+      "generated_answer": "The Society for the Prevention of Teen Suicide was founded in 2005 by two friends who lost teenaged children to suicide...",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.879,
+          "faiss_score": 0.9002,
+          "is_selected": false,
+          "query_id": 212757,
+          "lang": "en",
+          "text_preview": "The mission of the Society for the Prevention of Teen Suicide is to reduce the number of youth suicides... History. The Society for the Prevention of "
+        },
+        {
+          "rank": 1,
+          "ce_score": 4.149,
+          "faiss_score": 0.8993,
+          "is_selected": false,
+          "query_id": 212757,
+          "lang": "en",
+          "text_preview": "The mission of the Society for the Prevention of Teen Suicide is to reduce the number of youth suicides... Read More. The Society for the Prevention o"
+        },
+        {
+          "rank": 2,
+          "ce_score": -2.446,
+          "faiss_score": 0.8522,
+          "is_selected": false,
+          "query_id": 212757,
+          "lang": "en",
+          "text_preview": "About Teen Suicide. The reasons behind a teen's suicide or attempted suicide can be complex. Although suicide is relatively rare among children, the r"
+        },
+        {
+          "rank": 3,
+          "ce_score": -11.052,
+          "faiss_score": 0.8513,
+          "is_selected": false,
+          "query_id": 212757,
+          "lang": "hi",
+          "text_preview": "\u0915\u093f\u0936\u094b\u0930 \u0906\u0924\u094d\u092e\u0939\u0924\u094d\u092f\u093e \u0930\u094b\u0915\u0925\u093e\u092e \u0938\u092e\u093e\u091c \u0915\u093e \u092e\u093f\u0936\u0928 \u092f\u0941\u0935\u093e\u0913\u0902 \u0915\u0940 \u0906\u0924\u094d\u092e\u0939\u0924\u094d\u092f\u093e \u0915\u0940 \u0938\u0902\u0916\u094d\u092f\u093e \u0915\u094b \u0915\u092e \u0915\u0930\u0928\u093e \u0939\u0948... \u0905\u0927\u093f\u0915 \u092a\u0922\u093c\u0947\u0902\u0964 \u0915\u093f\u0936\u094b\u0930 \u0906\u0924\u094d\u092e\u0939\u0924\u094d\u092f\u093e \u0930\u094b\u0915\u0925\u093e\u092e \u0938\u092e\u093e\u091c \u0915\u0940 \u0938\u094d\u0925\u093e\u092a\u0928\u093e 2005 \u092e\u0947\u0902 \u0926\u094b \u0926\u094b\u0938\u094d"
+        },
+        {
+          "rank": 4,
+          "ce_score": -2.822,
+          "faiss_score": 0.8479,
+          "is_selected": false,
+          "query_id": 212757,
+          "lang": "en",
+          "text_preview": "Suicide is the third-leading cause of death for 15- to 24-year-olds, according to the Centers for Disease Control and Prevention (CDC), after accident"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 62,
+      "query": "how to relieve a burn",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.544,
+      "best_passage_idx": 2,
+      "best_passage_text": "For minor burns: 1  Cool the burn to help soothe the pain. 2  Hold the burned area under cool (not cold) running water for 10 to 15 minutes or until the pain eases. 3  Or apply a clean towel dampened with cool tap water. Cool the burn to help soothe the pain. 2  Hold the burned area under cool (not ",
+      "best_passage_query_id": 375607,
+      "best_passage_is_selected": false,
+      "generated_answer": "For minor burns: 1  Cool the burn to help soothe the pain. 2  Hold the burned area under cool (not cold) running water for 10 to 15 minutes or until the pain eases.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 8.324,
+          "faiss_score": 0.9109,
+          "is_selected": false,
+          "query_id": 375607,
+          "lang": "en",
+          "text_preview": "1 Cool the burn to help soothe the pain. 2  Hold the burned area under cool (not cold) running water for 10 to 15 minutes or until the pain eases. 3  "
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.441,
+          "faiss_score": 0.9064,
+          "is_selected": false,
+          "query_id": 375607,
+          "lang": "en",
+          "text_preview": "1 Cover the burn with a clean, dry cloth to reduce the risk of infection. 2  Do not put any salve or medicine on the burned area, so your doctor can p"
+        },
+        {
+          "rank": 2,
+          "ce_score": 8.544,
+          "faiss_score": 0.9059,
+          "is_selected": false,
+          "query_id": 375607,
+          "lang": "en",
+          "text_preview": "For minor burns: 1  Cool the burn to help soothe the pain. 2  Hold the burned area under cool (not cold) running water for 10 to 15 minutes or until t"
+        },
+        {
+          "rank": 3,
+          "ce_score": 8.493,
+          "faiss_score": 0.9059,
+          "is_selected": false,
+          "query_id": 375607,
+          "lang": "en",
+          "text_preview": "Then you've also got a great way to soothe a burn. For a minor burn, soak the burned area in milk for 15 minutes or so. You may also apply a cloth soa"
+        },
+        {
+          "rank": 4,
+          "ce_score": 8.228,
+          "faiss_score": 0.9059,
+          "is_selected": false,
+          "query_id": 375607,
+          "lang": "en",
+          "text_preview": "Minor burns. For minor burns: 1  Cool the burn to help soothe the pain. 2  Hold the burned area under cool (not cold) running water for 10 to 15 minut"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 65,
+      "query": "what was benjamin harrison respected for",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 6.596,
+      "best_passage_idx": 2,
+      "best_passage_text": "Harrison's reputation became that of a strong leader. He earned the respect of his men and did not leave them in battle. The men learned that he stood by his word and was always concerned with their well-being. Harrison knew that they would have to be disciplined to survive battle. Harrison did not ",
+      "best_passage_query_id": 1013042,
+      "best_passage_is_selected": false,
+      "generated_answer": "Harrison's reputation became that of a strong leader. He earned the respect of his men and did not leave them in battle.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.181,
+          "faiss_score": 0.8721,
+          "is_selected": false,
+          "query_id": 1013042,
+          "lang": "en",
+          "text_preview": "Years after, Benjamin Harrison participated in many Civil War reunions and during his presidency was a champion of providing pensions for GAR veterans"
+        },
+        {
+          "rank": 1,
+          "ce_score": 5.206,
+          "faiss_score": 0.8659,
+          "is_selected": false,
+          "query_id": 1013042,
+          "lang": "en",
+          "text_preview": "Benjamin Harrison (1833-1901) exhibited values-driven leadership in every chapter of his life: as a young student of Miami University and a founding m"
+        },
+        {
+          "rank": 2,
+          "ce_score": 6.596,
+          "faiss_score": 0.8617,
+          "is_selected": false,
+          "query_id": 1013042,
+          "lang": "en",
+          "text_preview": "Harrison's reputation became that of a strong leader. He earned the respect of his men and did not leave them in battle. The men learned that he stood"
+        },
+        {
+          "rank": 3,
+          "ce_score": 3.745,
+          "faiss_score": 0.8614,
+          "is_selected": false,
+          "query_id": 1013042,
+          "lang": "en",
+          "text_preview": "Benjamin Harrison\u2019s Road to the White House. From 1881 to 1887, Harrison represented Indiana in the U.S. Senate, arguing for the rights of homesteader"
+        },
+        {
+          "rank": 4,
+          "ce_score": 3.15,
+          "faiss_score": 0.8588,
+          "is_selected": false,
+          "query_id": 1013042,
+          "lang": "en",
+          "text_preview": "Benjamin Harrison 1894 Letter to His Son View Larger Image Benjamin Harrison (1833-1901) was a lawyer, a Civil War brigadier general, and eventually t"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 66,
+      "query": "how to defrost banana bread",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.459,
+      "best_passage_idx": 0,
+      "best_passage_text": "Store at room temperature or in the refrigerator for up to 1 week. Store in the freezer for 2 to 4 months. Thaw frozen banana bread in its packaging at room temperature or in the refrigerator before serving. Substitute 1 cup of applesauce for the vegetable oil to reduce the fat content in the banana",
+      "best_passage_query_id": 354264,
+      "best_passage_is_selected": false,
+      "generated_answer": "Substitute 1 cup of applesauce for the vegetable oil to reduce the fat content in the banana bread.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.459,
+          "faiss_score": 0.9025,
+          "is_selected": false,
+          "query_id": 354264,
+          "lang": "en",
+          "text_preview": "Store at room temperature or in the refrigerator for up to 1 week. Store in the freezer for 2 to 4 months. Thaw frozen banana bread in its packaging a"
+        },
+        {
+          "rank": 1,
+          "ce_score": 0.045,
+          "faiss_score": 0.8959,
+          "is_selected": false,
+          "query_id": 354264,
+          "lang": "en",
+          "text_preview": "Bake the banana bread in a 350-degree Fahrenheit oven for 1 hour. The bread is done when a toothpick inserted at the center comes out clean. Bake for "
+        },
+        {
+          "rank": 2,
+          "ce_score": 0.967,
+          "faiss_score": 0.8899,
+          "is_selected": false,
+          "query_id": 354264,
+          "lang": "en",
+          "text_preview": "Mix in the flour. Pour the batter into your prepared loaf pan. Bake for 1 hour to 1 hour 10 minutes (check at 50 minutes) at 350\u00b0F (175\u00b0C), or until a"
+        },
+        {
+          "rank": 3,
+          "ce_score": -0.717,
+          "faiss_score": 0.8758,
+          "is_selected": false,
+          "query_id": 354264,
+          "lang": "en",
+          "text_preview": "Banana bread is also one of the best possible uses for browning bananasyou can even freeze your fruit and bake the bread later. There's also the recip"
+        },
+        {
+          "rank": 4,
+          "ce_score": -1.618,
+          "faiss_score": 0.8696,
+          "is_selected": false,
+          "query_id": 354264,
+          "lang": "en",
+          "text_preview": "Method. Preheat the oven to 350\u00b0F (175\u00b0C), and butter a 4x8-inch loaf pan. In a mixing bowl, mash the ripe bananas with a fork until smooth. Stir the "
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 67,
+      "query": "what is the example of cloud computing",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.124,
+      "best_passage_idx": 2,
+      "best_passage_text": "How Cloud Computing Works. A cloud computing system keeps its critical data on Internet servers rather than distributing copies of data files to individual client devices. Video-sharing cloud services like Netflix, for example, stream data across the Internet to a player application on the viewing d",
+      "best_passage_query_id": 1039797,
+      "best_passage_is_selected": false,
+      "generated_answer": "A cloud computing system keeps its critical data on Internet servers rather than distributing copies of data files to individual client devices.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 6.237,
+          "faiss_score": 0.9002,
+          "is_selected": false,
+          "query_id": 1039797,
+          "lang": "en",
+          "text_preview": "So there you have it, five examples of computing in the cloud. When presenting these examples I have tried to balance the many advantages of working e"
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.096,
+          "faiss_score": 0.8928,
+          "is_selected": false,
+          "query_id": 1039797,
+          "lang": "en",
+          "text_preview": "Cloud computing is a computing-infrastructure and software model for enabling ubiquitous access to shared pools of configurable resources (such as com"
+        },
+        {
+          "rank": 2,
+          "ce_score": 8.124,
+          "faiss_score": 0.8788,
+          "is_selected": false,
+          "query_id": 1039797,
+          "lang": "en",
+          "text_preview": "How Cloud Computing Works. A cloud computing system keeps its critical data on Internet servers rather than distributing copies of data files to indiv"
+        },
+        {
+          "rank": 3,
+          "ce_score": 2.514,
+          "faiss_score": 0.8742,
+          "is_selected": false,
+          "query_id": 1039797,
+          "lang": "en",
+          "text_preview": "The source of the term cloud computing is mostly unknown, although it came to be part of the general vocabulary in computers after Google CEO Eric Sch"
+        },
+        {
+          "rank": 4,
+          "ce_score": 2.379,
+          "faiss_score": 0.8685,
+          "is_selected": false,
+          "query_id": 1039797,
+          "lang": "en",
+          "text_preview": "Cloud computing enables webmail clients to use cloud storage and give you the opportunity to check your emails from any place in the world. All big te"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 68,
+      "query": "how high to hang art above sofa",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.612,
+      "best_passage_idx": 0,
+      "best_passage_text": "Height. Recommended height and spacing guidelines for hanging wall art above a sofa are simply suggested reference points. They're not meant to be hard-and-fast rules for hanging every piece of wall art. Typically, the bottom of a single art piece or grouping should hang about 8 to 10 inches above t",
+      "best_passage_query_id": 235357,
+      "best_passage_is_selected": false,
+      "generated_answer": "Typically, the bottom of a single art piece or grouping should hang about 8 to 10 inches above the back of a sofa.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 8.612,
+          "faiss_score": 0.9371,
+          "is_selected": false,
+          "query_id": 235357,
+          "lang": "en",
+          "text_preview": "Height. Recommended height and spacing guidelines for hanging wall art above a sofa are simply suggested reference points. They're not meant to be har"
+        },
+        {
+          "rank": 1,
+          "ce_score": 5.747,
+          "faiss_score": 0.9259,
+          "is_selected": false,
+          "query_id": 235357,
+          "lang": "en",
+          "text_preview": "Over the sofa is a common place to hang artwork. How to hang your art depends on the size of the picture, the room in which you want to hang it, the f"
+        },
+        {
+          "rank": 2,
+          "ce_score": 8.246,
+          "faiss_score": 0.9252,
+          "is_selected": false,
+          "query_id": 235357,
+          "lang": "en",
+          "text_preview": "Typically, the bottom of a single art piece or grouping should hang about 8 to 10 inches above the back of a sofa. You can tweak the measurements a fe"
+        },
+        {
+          "rank": 3,
+          "ce_score": 7.823,
+          "faiss_score": 0.9219,
+          "is_selected": false,
+          "query_id": 235357,
+          "lang": "en",
+          "text_preview": "When hanging art above a sofa or another piece of furniture, like a credenza, keep the bottom edge of the frame 6 to 12 inches above the furniture. Ec"
+        },
+        {
+          "rank": 4,
+          "ce_score": 2.979,
+          "faiss_score": 0.9181,
+          "is_selected": false,
+          "query_id": 235357,
+          "lang": "en",
+          "text_preview": "Over the sofa is a common place to hang artwork. How to hang your art depends on the size of the picture, the room in which you want to hang it, the f"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 72,
+      "query": "average american assets",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.416,
+      "best_passage_idx": 0,
+      "best_passage_text": "The per capita wealth of the average American is over $220,000 (blue line in below graph). This is true capital building, and refutes that the average American is not a good investor. This graph above showed average net worth, but gives no understanding of median wealth (the wealth of the 50th perce",
+      "best_passage_query_id": 30752,
+      "best_passage_is_selected": false,
+      "generated_answer": "The per capita wealth of the average American is over $220,000 (blue line in below graph).",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.416,
+          "faiss_score": 0.8993,
+          "is_selected": false,
+          "query_id": 30752,
+          "lang": "en",
+          "text_preview": "The per capita wealth of the average American is over $220,000 (blue line in below graph). This is true capital building, and refutes that the average"
+        },
+        {
+          "rank": 1,
+          "ce_score": -10.886,
+          "faiss_score": 0.8809,
+          "is_selected": false,
+          "query_id": 30752,
+          "lang": "hi",
+          "text_preview": "\u0914\u0938\u0924 \u0905\u092e\u0947\u0930\u093f\u0915\u0940 \u0915\u0940 \u092a\u094d\u0930\u0924\u093f \u0935\u094d\u092f\u0915\u094d\u0924\u093f \u0938\u0902\u092a\u0924\u094d\u0924\u093f 220,000 \u0921\u0949\u0932\u0930 \u0938\u0947 \u0905\u0927\u093f\u0915 \u0939\u0948 (\u0928\u0940\u091a\u0947 \u0915\u0947 \u0917\u094d\u0930\u093e\u092b \u092e\u0947\u0902 \u0928\u0940\u0932\u0940 \u0930\u0947\u0916\u093e)\u0964 \u092f\u0939 \u0938\u091a\u094d\u091a\u0940 \u092a\u0942\u0902\u091c\u0940 \u0928\u093f\u0930\u094d\u092e\u093e\u0923 \u0939\u0948, \u0914\u0930 \u0907\u0938 \u092c\u093e\u0924 \u0915\u093e \u0916\u0902\u0921\u0928 \u0915\u0930\u0924\u093e \u0939\u0948 \u0915\u093f \u0914\u0938"
+        },
+        {
+          "rank": 2,
+          "ce_score": -0.136,
+          "faiss_score": 0.8699,
+          "is_selected": false,
+          "query_id": 30752,
+          "lang": "en",
+          "text_preview": "The majority of Americans may be financially and economically illiterate. Many have nothing, and likely will never have anything. Over 65% of American"
+        },
+        {
+          "rank": 3,
+          "ce_score": -2.585,
+          "faiss_score": 0.8639,
+          "is_selected": false,
+          "query_id": 30752,
+          "lang": "en",
+          "text_preview": "This is a very fun toy. Mmh\u2026I\u2019m a citizen of a 3rd world country and my networth is in the 90th percentile for an American. I only have a fraction of "
+        },
+        {
+          "rank": 4,
+          "ce_score": -10.857,
+          "faiss_score": 0.858,
+          "is_selected": false,
+          "query_id": 30752,
+          "lang": "hi",
+          "text_preview": "\u0905\u0927\u093f\u0915\u093e\u0902\u0936 \u0905\u092e\u0947\u0930\u093f\u0915\u0940 \u0906\u0930\u094d\u0925\u093f\u0915 \u0914\u0930 \u0905\u0915\u094d\u0937\u0930\u0940\u092f \u0930\u0942\u092a \u0938\u0947 \u0928\u093f\u0930\u0915\u094d\u0937\u0930 \u0939\u094b \u0938\u0915\u0924\u0947 \u0939\u0948\u0902\u0964 \u0915\u0908 \u0932\u094b\u0917\u094b\u0902 \u0915\u0947 \u092a\u093e\u0938 \u0915\u0941\u091b \u0928\u0939\u0940\u0902 \u0939\u0948, \u0914\u0930 \u0938\u0902\u092d\u0935\u0924\u0903 \u0909\u0928\u0915\u0947 \u092a\u093e\u0938 \u0915\u092d\u0940 \u0915\u0941\u091b \u0928\u0939\u0940\u0902 \u0939\u094b\u0917\u093e\u0964 65% \u0938\u0947 \u0905\u0927\u093f\u0915 \u0905\u092e\u0947\u0930\u093f\u0915\u0940 \u0935"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 74,
+      "query": "weather in gilbert arizona in summer",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.113,
+      "best_passage_idx": 0,
+      "best_passage_text": "CLIMATE OVERVIEW : Gilbert, Arizona, gets 9 inches of rain per year. The US average is 39. Snowfall is 0 inches. The average US city gets 26 inches of snow per year. The number of days with any measurable precipitation is 20. On average, there are 296 sunny days per year in Gilbert, Arizona. The Jul",
+      "best_passage_query_id": 1088526,
+      "best_passage_is_selected": false,
+      "generated_answer": "On average, there are 296 sunny days per year in Gilbert, Arizona. The July high is around 105 degrees.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 8.113,
+          "faiss_score": 0.8962,
+          "is_selected": false,
+          "query_id": 1088526,
+          "lang": "en",
+          "text_preview": "CLIMATE OVERVIEW : Gilbert, Arizona, gets 9 inches of rain per year. The US average is 39. Snowfall is 0 inches. The average US city gets 26 inches of"
+        },
+        {
+          "rank": 1,
+          "ce_score": 5.317,
+          "faiss_score": 0.8663,
+          "is_selected": false,
+          "query_id": 1088526,
+          "lang": "en",
+          "text_preview": "Get Gilbert, AZ 85234 typical July Weather including average and record temperatures from AccuWeather.com"
+        },
+        {
+          "rank": 2,
+          "ce_score": 4.442,
+          "faiss_score": 0.8625,
+          "is_selected": false,
+          "query_id": 1088526,
+          "lang": "en",
+          "text_preview": "Weather.com brings you the most accurate monthly weather forecast for Gilbert, AZ (85296) with average/record and high/low temperatures, precipitation"
+        },
+        {
+          "rank": 3,
+          "ce_score": -10.852,
+          "faiss_score": 0.8471,
+          "is_selected": false,
+          "query_id": 1088526,
+          "lang": "hi",
+          "text_preview": "\u091c\u0932\u0935\u093e\u092f\u0941 \u0905\u0935\u0932\u094b\u0915\u0928: \u0917\u093f\u0932\u094d\u092c\u0930\u094d\u091f, \u090f\u0930\u093f\u091c\u093c\u094b\u0928\u093e \u092e\u0947\u0902 \u092a\u094d\u0930\u0924\u093f \u0935\u0930\u094d\u0937 9 \u0907\u0902\u091a \u092c\u093e\u0930\u093f\u0936 \u0939\u094b\u0924\u0940 \u0939\u0948\u0964 \u0905\u092e\u0947\u0930\u093f\u0915\u0940 \u0914\u0938\u0924 39 \u0939\u0948\u0964 \u092c\u0930\u094d\u092b\u092c\u093e\u0930\u0940 0 \u0907\u0902\u091a \u0939\u0948\u0964 \u0914\u0938\u0924 \u0905\u092e\u0947\u0930\u093f\u0915\u0940 \u0936\u0939\u0930 \u092e\u0947\u0902 \u092a\u094d\u0930\u0924\u093f \u0935\u0930\u094d\u0937 26 \u0907\u0902\u091a \u092c\u0930\u094d\u092b"
+        },
+        {
+          "rank": 4,
+          "ce_score": 3.892,
+          "faiss_score": 0.8432,
+          "is_selected": false,
+          "query_id": 1088526,
+          "lang": "en",
+          "text_preview": "y low is 41. Sperling's comfort index for Gilbert is a 76 out of 100, where a higher score indicates a more comfortable year-around climate. The US av"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 75,
+      "query": "what is french name for mom",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 3.983,
+      "best_passage_idx": 0,
+      "best_passage_text": "Grand-m\u00e8re is the formal French term for grandmother. It can be spelled with or without the hyphen. Grand-maman is slightly less formal, and there are several informal terms, including gra-mere, m\u00e9m\u00e8re, m\u00e9m\u00e9 and mam\u00e9. Mamie is also used by modern French families.",
+      "best_passage_query_id": 1054954,
+      "best_passage_is_selected": false,
+      "generated_answer": "Grand-m\u00e8re is the formal French term for grandmother. It can be spelled with or without the hyphen.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.983,
+          "faiss_score": 0.8897,
+          "is_selected": false,
+          "query_id": 1054954,
+          "lang": "en",
+          "text_preview": "Grand-m\u00e8re is the formal French term for grandmother. It can be spelled with or without the hyphen. Grand-maman is slightly less formal, and there are"
+        },
+        {
+          "rank": 1,
+          "ce_score": 1.179,
+          "faiss_score": 0.8827,
+          "is_selected": false,
+          "query_id": 1054954,
+          "lang": "en",
+          "text_preview": "The French term for great-grandmother is arri\u00e8re-grand-m\u00e8re, although of course great-grandmothers may be given various nicknames as well. Non-French "
+        },
+        {
+          "rank": 2,
+          "ce_score": -3.128,
+          "faiss_score": 0.8697,
+          "is_selected": false,
+          "query_id": 1054954,
+          "lang": "en",
+          "text_preview": "French grandmothers go by several different names and nicknames and are known for their cooking and their fashion sense. French grandmothers go by sev"
+        },
+        {
+          "rank": 3,
+          "ce_score": -3.255,
+          "faiss_score": 0.8619,
+          "is_selected": false,
+          "query_id": 1054954,
+          "lang": "en",
+          "text_preview": "Learn the French words for grandfather, go to the list of ethnic names for grandmothers or to a comprehensive list of grandmother names. You can also "
+        },
+        {
+          "rank": 4,
+          "ce_score": -3.258,
+          "faiss_score": 0.8617,
+          "is_selected": false,
+          "query_id": 1054954,
+          "lang": "en",
+          "text_preview": "Learn the French words for grandfather, go to the list of ethnic names for grandmothers or to a comprehensive list of grandmother names. You can also "
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 76,
+      "query": "how long to wait until pot plants ready to smoke",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 3.201,
+      "best_passage_idx": 0,
+      "best_passage_text": "It's actually a really good question! Every new grower should know how long they're signing up for! The short answer is: from Day 1 of your weed plant's life to actually smoking your harvest, it takes... Time Needed: 8 weeks - 7+ Months.egetative Stage: 2 weeks - 2+ months. The length of this stage ",
+      "best_passage_query_id": 272623,
+      "best_passage_is_selected": false,
+      "generated_answer": "The short answer is: from Day 1 of your weed plant's life to actually smoking your harvest, it takes...",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.201,
+          "faiss_score": 0.8934,
+          "is_selected": false,
+          "query_id": 272623,
+          "lang": "en",
+          "text_preview": "It's actually a really good question! Every new grower should know how long they're signing up for! The short answer is: from Day 1 of your weed plant"
+        },
+        {
+          "rank": 1,
+          "ce_score": 0.654,
+          "faiss_score": 0.8847,
+          "is_selected": false,
+          "query_id": 272623,
+          "lang": "en",
+          "text_preview": "If you're not going to answer don't waste anyone's time. How long before you can harvest it depends on when you force the plant into flowering (12 hr "
+        },
+        {
+          "rank": 2,
+          "ce_score": 3.178,
+          "faiss_score": 0.8833,
+          "is_selected": false,
+          "query_id": 272623,
+          "lang": "en",
+          "text_preview": "You don't smoke leaf unless your an idiot. It will take a few months to get anything off a plant, only female plants will bud and thats what you harve"
+        },
+        {
+          "rank": 3,
+          "ce_score": 0.852,
+          "faiss_score": 0.8766,
+          "is_selected": false,
+          "query_id": 272623,
+          "lang": "en",
+          "text_preview": "ah, you don't smoke leaves bro. They're good for tea and stuff but they don't have enough THC to get high from smoking. You need to smoke the bud (flo"
+        },
+        {
+          "rank": 4,
+          "ce_score": 0.024,
+          "faiss_score": 0.8754,
+          "is_selected": false,
+          "query_id": 272623,
+          "lang": "en",
+          "text_preview": "We would recommend that before you harvest, you flush your marijuana plants with clear water or start a reverse-osmosis filter 2-3 weeks before harves"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 77,
+      "query": "what is dsc for handheld gps vhf",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.473,
+      "best_passage_idx": 0,
+      "best_passage_text": "These VHF/GPS combo handhelds include Digital Selective Calling (DSC), which functions as a sort of VHF-frequency emergency beacon. Just push and hold down the red DISTRESS button on your handheld VHF radio, and it sends an automated digital distress message to the Coast Guard and all other DSC radi",
+      "best_passage_query_id": 1056258,
+      "best_passage_is_selected": false,
+      "generated_answer": "These VHF/GPS combo handhelds include Digital Selective Calling (DSC), which functions as a sort of VHF-frequency emergency beacon.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 8.473,
+          "faiss_score": 0.8981,
+          "is_selected": false,
+          "query_id": 1056258,
+          "lang": "en",
+          "text_preview": "These VHF/GPS combo handhelds include Digital Selective Calling (DSC), which functions as a sort of VHF-frequency emergency beacon. Just push and hold"
+        },
+        {
+          "rank": 1,
+          "ce_score": 6.975,
+          "faiss_score": 0.8937,
+          "is_selected": false,
+          "query_id": 1056258,
+          "lang": "en",
+          "text_preview": "VHF radios with DSC. Standard Horizon HX870E (DSC) Price: \u00a3189.95 Supplier: standardhorizon.co.uk This Class-D DSC VHF handheld features a 66-channel "
+        },
+        {
+          "rank": 2,
+          "ce_score": 7.206,
+          "faiss_score": 0.8924,
+          "is_selected": false,
+          "query_id": 1056258,
+          "lang": "en",
+          "text_preview": "This is a feature which is present in all fixed-mount VHF radios manufactured since 1999, but it is not present in every VHF handheld model. What is D"
+        },
+        {
+          "rank": 3,
+          "ce_score": 2.224,
+          "faiss_score": 0.859,
+          "is_selected": false,
+          "query_id": 1056258,
+          "lang": "en",
+          "text_preview": "Your VHF-DSC Marine Radio 5 The use of the \u00d2DISTRESS\u00d3 function will ensure the most expeditious response by rescue organizations as well as nearby boa"
+        },
+        {
+          "rank": 4,
+          "ce_score": 0.782,
+          "faiss_score": 0.8564,
+          "is_selected": false,
+          "query_id": 1056258,
+          "lang": "en",
+          "text_preview": "This DSC radio has a GPS-linked man overboard function. The \u201cGet Buddy\u201d function allows other Link-2 holding buddies to receive or send position, bear"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 80,
+      "query": "what type of association is formed by bacteria with many other organisms, including humans?",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 2.678,
+      "best_passage_idx": 1,
+      "best_passage_text": "However, the definition does not describe the quality of the interaction. When both members of the association benefit, the symbiotic relationship is called mutualistic. Fungi form mutualistic associations with many types of organisms, including cyanobacteria, plants, and animals. Fungi & Plant Mutu",
+      "best_passage_query_id": 1016258,
+      "best_passage_is_selected": false,
+      "generated_answer": "Fungi form mutualistic associations with many types of organisms, including cyanobacteria, plants, and animals.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": -0.645,
+          "faiss_score": 0.8762,
+          "is_selected": false,
+          "query_id": 1016258,
+          "lang": "en",
+          "text_preview": "Humans are host to a variety of commensal bacteria in their bodies that do not harm them but rely on them for survival (e.g. bacteria that consume dea"
+        },
+        {
+          "rank": 1,
+          "ce_score": 2.678,
+          "faiss_score": 0.8729,
+          "is_selected": false,
+          "query_id": 1016258,
+          "lang": "en",
+          "text_preview": "However, the definition does not describe the quality of the interaction. When both members of the association benefit, the symbiotic relationship is "
+        },
+        {
+          "rank": 2,
+          "ce_score": -1.697,
+          "faiss_score": 0.8698,
+          "is_selected": false,
+          "query_id": 1016258,
+          "lang": "en",
+          "text_preview": "In microbiology, there are many examples of mutualistic bacteria in the gut that aid digestion in both humans and animals. Commensalism is a relations"
+        },
+        {
+          "rank": 3,
+          "ce_score": -3.302,
+          "faiss_score": 0.8694,
+          "is_selected": false,
+          "query_id": 1016258,
+          "lang": "en",
+          "text_preview": "Mutualistic relationships are those where both members of an association benefit; Fungi form these types of relationships with various other Kingdoms "
+        },
+        {
+          "rank": 4,
+          "ce_score": -4.979,
+          "faiss_score": 0.8647,
+          "is_selected": false,
+          "query_id": 1016258,
+          "lang": "en",
+          "text_preview": "The plasmid often contains genes that give the bacterium some advantage over other bacteria. For example it may contain a gene that makes the bacteriu"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 88,
+      "query": "how much time it takes for employee referral process in Infosys",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.353,
+      "best_passage_idx": 2,
+      "best_passage_text": "Mostly, Infosys conduct interview by providing an Invitation for an in-person discussion through mail. Date, day, time, venue address and contact person name is mentioned in the mail. Also the entire process can take 3 hours of approximately time.It is also clearly mentioned in the mail that \u201cCandid",
+      "best_passage_query_id": 328612,
+      "best_passage_is_selected": false,
+      "generated_answer": "Also the entire process can take 3 hours of approximately time.It is also clearly mentioned in the mail that \u201cCandidates have to maintain a gap of at least 9 months between two successive selection pr",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 4.249,
+          "faiss_score": 0.9199,
+          "is_selected": false,
+          "query_id": 328612,
+          "lang": "en",
+          "text_preview": "Generally Infosys can take 1-2 days for updating the status in portal. Wait for two days and check for the same in infosys page. If it is still in-pro"
+        },
+        {
+          "rank": 1,
+          "ce_score": 3.547,
+          "faiss_score": 0.9139,
+          "is_selected": false,
+          "query_id": 328612,
+          "lang": "en",
+          "text_preview": "9 months between two successive selection processes with Infosys\u201d.ttp://www.infosys.com/careers/apply-now/apply.asp. Infosys Interview Process for Exp"
+        },
+        {
+          "rank": 2,
+          "ce_score": 5.353,
+          "faiss_score": 0.9128,
+          "is_selected": false,
+          "query_id": 328612,
+          "lang": "en",
+          "text_preview": "Mostly, Infosys conduct interview by providing an Invitation for an in-person discussion through mail. Date, day, time, venue address and contact pers"
+        },
+        {
+          "rank": 3,
+          "ce_score": 0.006,
+          "faiss_score": 0.8947,
+          "is_selected": false,
+          "query_id": 328612,
+          "lang": "en",
+          "text_preview": "You can ask Any Infosys Employee For this referral drive. If you don\u2019t find any referral then please make use of Facebook and Linkedin to find infosys"
+        },
+        {
+          "rank": 4,
+          "ce_score": -4.119,
+          "faiss_score": 0.8776,
+          "is_selected": false,
+          "query_id": 328612,
+          "lang": "en",
+          "text_preview": "e to face interview.ttp://www.infosys.com/careers/apply-now/apply.asp. Infosys Interview Process for Experienced Candidates. For experienced professio"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 89,
+      "query": "what type of toxin does epsom salt release from your body while bathing",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 5.693,
+      "best_passage_idx": 0,
+      "best_passage_text": "Epsom salts for detox. Another simple way to draw toxins out of the body is to take a hot epsom salt bath. Hot water draws toxins out of the body to the skin\u2019s surface, and while the water cools it pulls toxins from the skin, according to Naturopath Dr. Hazel Parcells. When magnesium sulfate (epsom ",
+      "best_passage_query_id": 1014059,
+      "best_passage_is_selected": false,
+      "generated_answer": "When magnesium sulfate (epsom salt) is absorbed through the skin in a bath, it helps to draw toxins from the body, reduce swelling",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 5.693,
+          "faiss_score": 0.9287,
+          "is_selected": false,
+          "query_id": 1014059,
+          "lang": "en",
+          "text_preview": "Epsom salts for detox. Another simple way to draw toxins out of the body is to take a hot epsom salt bath. Hot water draws toxins out of the body to t"
+        },
+        {
+          "rank": 1,
+          "ce_score": 4.447,
+          "faiss_score": 0.9224,
+          "is_selected": false,
+          "query_id": 1014059,
+          "lang": "en",
+          "text_preview": "Epsom salts for detox Another simple way to draw toxins out of the body is to take a hot epsom salt bath. Hot water draws toxins out of the body to th"
+        },
+        {
+          "rank": 2,
+          "ce_score": 3.942,
+          "faiss_score": 0.908,
+          "is_selected": false,
+          "query_id": 1014059,
+          "lang": "en",
+          "text_preview": "Given Below are 6 Great Uses of Epsom Salt. Epsom salt is one of the most popular bath salts used at home as well as commercial spas. When you soak in"
+        },
+        {
+          "rank": 3,
+          "ce_score": 0.375,
+          "faiss_score": 0.9012,
+          "is_selected": false,
+          "query_id": 1014059,
+          "lang": "en",
+          "text_preview": "Epsom Salt Bath for Detoxing. Dissolve 2 cups of epsom salts (source) in a regular sized bath. Use more as needed if your tub is oversized. The temper"
+        },
+        {
+          "rank": 4,
+          "ce_score": 1.635,
+          "faiss_score": 0.9011,
+          "is_selected": false,
+          "query_id": 1014059,
+          "lang": "en",
+          "text_preview": "This is because one ingredient may compete with another. For example, pushing nutrients into the body with an epsom salt bath versus pulling toxins ou"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 93,
+      "query": "what was the north's initial strategy in the civil war?",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 4.476,
+      "best_passage_idx": 3,
+      "best_passage_text": "Compare and contrast military strategies of the north and south during the civil war.? What was the difference between the North's and South's Civil War military strategies?? What kind of resource was there between North & South at start of civil war and the initial military strategy? More questions",
+      "best_passage_query_id": 1011982,
+      "best_passage_is_selected": false,
+      "generated_answer": "What kind of resource was there between North & South at start of civil war and the initial military strategy?",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.3,
+          "faiss_score": 0.8994,
+          "is_selected": false,
+          "query_id": 1011982,
+          "lang": "en",
+          "text_preview": "The Southern strategy was to fight a defensive war, and hope for either military assistance from France or England, OR fighting long enough for the no"
+        },
+        {
+          "rank": 1,
+          "ce_score": 2.016,
+          "faiss_score": 0.8737,
+          "is_selected": false,
+          "query_id": 1011982,
+          "lang": "en",
+          "text_preview": "Best Answer: The strategies changed with the different Generals in Chief. In brief, the North blockaded the South and was the invader. The South tried"
+        },
+        {
+          "rank": 2,
+          "ce_score": 2.808,
+          "faiss_score": 0.8703,
+          "is_selected": false,
+          "query_id": 1011982,
+          "lang": "en",
+          "text_preview": "Civil War Strategy and Tactics. 1  THE STRATEGY OF THE CIVIL WAR. 2  Thousands of Union Troops were Pinned Down in the Defense of Washington. 3  Vicks"
+        },
+        {
+          "rank": 3,
+          "ce_score": 4.476,
+          "faiss_score": 0.8695,
+          "is_selected": false,
+          "query_id": 1011982,
+          "lang": "en",
+          "text_preview": "Compare and contrast military strategies of the north and south during the civil war.? What was the difference between the North's and South's Civil W"
+        },
+        {
+          "rank": 4,
+          "ce_score": 0.872,
+          "faiss_score": 0.8516,
+          "is_selected": false,
+          "query_id": 1011982,
+          "lang": "en",
+          "text_preview": "Confederate Strategy: Weaken the Opponents Will and Try to Get Europe to Enter the War For the South it was an easier task to decide upon an objective"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 96,
+      "query": "how is natural gas energy safer?",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 3.001,
+      "best_passage_idx": 0,
+      "best_passage_text": "The Energy Department is committed to safe development of America\u2019s natural gas resources. The Energy Department is committed to safe development of America\u2019s natural gas resources.",
+      "best_passage_query_id": 1098864,
+      "best_passage_is_selected": false,
+      "generated_answer": "The Energy Department is committed to safe development of America\u2019s natural gas resources.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 3.001,
+          "faiss_score": 0.8911,
+          "is_selected": false,
+          "query_id": 1098864,
+          "lang": "en",
+          "text_preview": "The Energy Department is committed to safe development of America\u2019s natural gas resources. The Energy Department is committed to safe development of A"
+        },
+        {
+          "rank": 1,
+          "ce_score": 1.961,
+          "faiss_score": 0.8899,
+          "is_selected": false,
+          "query_id": 1098864,
+          "lang": "en",
+          "text_preview": "committed to delivering clean, safe and reliable natural gas to our customers. We transport natural gas safely through underground pipelines to our re"
+        },
+        {
+          "rank": 2,
+          "ce_score": 2.534,
+          "faiss_score": 0.8856,
+          "is_selected": false,
+          "query_id": 1098864,
+          "lang": "en",
+          "text_preview": "As part of a comprehensive all-of-the-above energy strategy, the Energy Department is committed to safe development of America\u2019s natural gas resources"
+        },
+        {
+          "rank": 3,
+          "ce_score": -0.389,
+          "faiss_score": 0.8833,
+          "is_selected": false,
+          "query_id": 1098864,
+          "lang": "en",
+          "text_preview": "America\u2019s reserves of natural gas and oil contained in shale formations are an important part of a balanced and sustainable national energy strategy. "
+        },
+        {
+          "rank": 4,
+          "ce_score": 2.497,
+          "faiss_score": 0.877,
+          "is_selected": false,
+          "query_id": 1098864,
+          "lang": "en",
+          "text_preview": "However, natural gas is a fossil fuel whose emissions do contribute to global warming, making it a far less attractive climate solution than lower- an"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    },
+    {
+      "idx": 97,
+      "query": "what type of photon has the greatest energy",
+      "is_answerable": false,
+      "grounded": true,
+      "best_ce_score": 8.99,
+      "best_passage_idx": 1,
+      "best_passage_text": "Which photon has the greatest energy? 1. a 560 nm photon 2. a 210 nm photon 3. a photon with a frequency of 1.12 \u00d7 1015 4. an infrared photon 5. a photon with an energy of 3.8 eV",
+      "best_passage_query_id": 1014418,
+      "best_passage_is_selected": false,
+      "generated_answer": "Which photon has the greatest energy? a 560 nm photon 2.",
+      "gold_in_topk": false,
+      "gold_passage_idx": null,
+      "reference_answer": "N/A",
+      "all_passages": [
+        {
+          "rank": 0,
+          "ce_score": 8.113,
+          "faiss_score": 0.9237,
+          "is_selected": false,
+          "query_id": 1014418,
+          "lang": "en",
+          "text_preview": "The photon with the highest frequency has the most energy because E = hf = hc/\u03bb (recall that c = f \u03bb). So a higher frequency corresponds to a lower wa"
+        },
+        {
+          "rank": 1,
+          "ce_score": 8.99,
+          "faiss_score": 0.9208,
+          "is_selected": false,
+          "query_id": 1014418,
+          "lang": "en",
+          "text_preview": "Which photon has the greatest energy? 1. a 560 nm photon 2. a 210 nm photon 3. a photon with a frequency of 1.12 \u00d7 1015 4. an infrared photon 5. a pho"
+        },
+        {
+          "rank": 2,
+          "ce_score": 7.92,
+          "faiss_score": 0.9115,
+          "is_selected": false,
+          "query_id": 1014418,
+          "lang": "en",
+          "text_preview": "The photons with the highest energies are gamma or X-rays, UV light, Blue light, and radio waves. All particles which represents a quantum of light an"
+        },
+        {
+          "rank": 3,
+          "ce_score": 8.279,
+          "faiss_score": 0.8964,
+          "is_selected": false,
+          "query_id": 1014418,
+          "lang": "en",
+          "text_preview": "The energy of a photon is dependant upon the frequency of the wave. So the rays which have the highest frequency have the highest energy of a photon. "
+        },
+        {
+          "rank": 4,
+          "ce_score": 2.335,
+          "faiss_score": 0.8928,
+          "is_selected": false,
+          "query_id": 1014418,
+          "lang": "en",
+          "text_preview": "Best Answer: Well, the energy of a photon is directly proportional to its frequency. The greater the frequency, the greater the energy. E = hf Ultravi"
+        }
+      ],
+      "failure_type": "D_topical_overlap"
+    }
+  ],
+  "false_refusal": [],
+  "true_positive_count": 50,
+  "true_negative_count": 8
+}
