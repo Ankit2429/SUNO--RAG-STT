@@ -62,10 +62,11 @@ function queryTerms(query: string): Set<string> {
 function normalizeContentTerm(term: string): string {
   if (!term) return "";
   const raw = normalizeDigits(term.normalize("NFKC").toLocaleLowerCase());
+  const dotStripped = raw.replace(/[\.\-\_\:\/]/g, "");
 
   // Safe language-aware inflection/case stripping
-  let base = raw
-    .replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां)$/u, "")
+  let base = dotStripped
+    .replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|वर्धक|कारी|पूर्ण|कर्ताओं|कर्ता|ताओं|ताएं|ियों|ियां|िया|्यों|यां|ों|ाओं|ाएं|ाएँ|ें)$/u, "")
     .replace(/(?:ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ಲ್ಲಿ)$/u, "")
     .replace(/(?:களின்|க்கான|களை|உடன்|இருந்து|இல்|க்கு|ஐ|ஆல்|இன்|கள்)$/u, "")
     .replace(/(?:ಯొక్క|లో|కి|కు|తో|చేत|ను|ల|లో|ని|ను)$/u, "")
@@ -444,6 +445,21 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
   // Definition queries should not be conditional "If..." or "When..." clauses
   if (/\b(?:what\s+is|what\s+are|define|meaning\s+of)\b/i.test(qLower) && /^(?:if|when)\s+/i.test(sentence.trim())) {
     return false;
+  }
+
+  // Action mismatch: Cancel vs. Enroll
+  if (/\b(?:cancel|cancellation|delete|close|remove)\b/i.test(qLower) || /\b(?:रद्द|बंद|हटाना|हटाएं)\b/i.test(qLower)) {
+    const hasCancelInSentence = /\b(?:cancel|cancellation|delete|close|remove|terminate|stop|end)\b/i.test(sLower) || /\b(?:रद्द|बंद|समाप्त|हटाना)\b/i.test(sLower);
+    const hasEnrollOnlyInSentence = /\b(?:enroll|enrollment|register|registration|apply|sign\s*up)\b/i.test(sLower) || /\b(?:नामांकन|पंजीकरण|शामिल|आवेदन)\b/i.test(sLower);
+    if (!hasCancelInSentence && hasEnrollOnlyInSentence) {
+      return false;
+    }
+  }
+
+  // Cost / Pricing / Pay query requires cost indicator
+  if (/\b(?:do\s+you\s+have\s+to\s+pay|how\s+much\s+does\s+it\s+cost|pay\s+to\s+enter)\b/i.test(qLower) || /\b(?:प्रवेश.*भुगतान|पैसे.*देने)\b/i.test(qLower)) {
+    const hasPayIndicator = /\b(?:pay|free|fee|cost|price|admission|ticket|dollars?|\$|charge|permit)\b/i.test(sLower) || /\b(?:भुगतान|शुल्क|मुफ्त|लागत|टिकट|पैसे)\b/i.test(sLower);
+    if (!hasPayIndicator) return false;
   }
 
 

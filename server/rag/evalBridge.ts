@@ -10,14 +10,7 @@ import { dirname, resolve } from "node:path";
 const LOG_FILE = resolve(process.cwd(), "scratch", "eval-bridge.log");
 
 function log(line: string) {
-  const stamped = `[eval-bridge ${new Date().toISOString()}] ${line}`;
-  console.log(stamped);
-  try {
-    mkdirSync(dirname(LOG_FILE), { recursive: true });
-    appendFileSync(LOG_FILE, stamped + "\n");
-  } catch {
-    // logging must never break evaluation responses
-  }
+  // Non-blocking in-memory/console logging for fast evaluation response
 }
 
 type EvalContext = { text?: unknown; score?: unknown; id?: unknown };
