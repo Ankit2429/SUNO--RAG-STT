@@ -77,8 +77,8 @@ describe("transcribeWithSarvam", () => {
     await transcribeWithSarvam({ audioBase64, mimeType: "audio/webm;codecs=opus", languageHint: "en-IN" });
 
     const log = infoSpy.mock.calls.flat().join(" ");
-    expect(log).toMatch(/\[Sarvam\] attempt=1\/3 starting at=/);
-    expect(log).toMatch(/\[Sarvam\] attempt=1\/3 status=200 statusText="OK" durationMs=\d+ transcript=true/);
+    expect(log).toMatch(/\[Sarvam\] attempt=1\/2 starting at=/);
+    expect(log).toMatch(/\[Sarvam\] attempt=1\/2 status=200 statusText="OK" durationMs=\d+ transcript=true/);
     expect(log).not.toContain("test-key");
     expect(log).not.toContain(audioBase64);
   });
@@ -93,6 +93,6 @@ describe("transcribeWithSarvam", () => {
     const result = await transcribeWithSarvam({ audioBase64, mimeType: "audio/webm;codecs=opus", languageHint: "en-IN" });
 
     expect(result.transcript).toBe("Recovered transcript");
-    expect(warnSpy.mock.calls.flat().join(" ")).toMatch(/\[Sarvam\] attempt=1\/3 network_error name=TypeError message="network offline" durationMs=\d+/);
+    expect(warnSpy.mock.calls.flat().join(" ")).toMatch(/\[Sarvam\] attempt=1\/2 network_error name=TypeError message="network offline" durationMs=\d+/);
   });
 });

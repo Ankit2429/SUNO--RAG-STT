@@ -58,15 +58,17 @@ export async function transcribeWithSarvam(input: {
   // multipart file MIME against a base-type allowlist, so strip media parameters.
   const providerMimeType = input.mimeType.split(";", 1)[0].trim().toLowerCase();
 
+  const SARVAM_ATTEMPT_TIMEOUT_MS = 8_000;
+  const MAX_ATTEMPTS = 2;
   const idempotencyKey = createHash("sha256").update(bytes).digest("hex").slice(0, 32);
   const extension = providerMimeType.includes("ogg") ? "ogg" : providerMimeType.includes("wav") ? "wav" : "webm";
   let lastError = "Sarvam did not return a transcription.";
 
-  for (let attempt = 0; attempt < 3; attempt += 1) {
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
     const attemptNumber = attempt + 1;
     const startedAt = new Date().toISOString();
     const startedAtMs = Date.now();
-    console.info(`[Sarvam] attempt=${attemptNumber}/3 starting at=${startedAt}`);
+    console.info(`[Sarvam] attempt=${attemptNumber}/${MAX_ATTEMPTS} starting at=${startedAt}`);
     const form = new FormData();
     const audio = new Uint8Array(bytes.byteLength);
     audio.set(bytes);
@@ -80,24 +82,24 @@ export async function transcribeWithSarvam(input: {
         method: "POST",
         headers: { "api-subscription-key": secret, "x-idempotency-key": idempotencyKey },
         body: form,
-        signal: AbortSignal.timeout(25_000),
+        signal: AbortSignal.timeout(SARVAM_ATTEMPT_TIMEOUT_MS),
       });
     } catch (error) {
+      const timedOut = error instanceof Error && (error.name === "TimeoutError" || /timeout/i.test(error.message));
       console.warn(
-        `[Sarvam] attempt=${attemptNumber}/3 network_error name=${error instanceof Error ? error.name : "UnknownError"} ` +
+        `[Sarvam] attempt=${attemptNumber}/${MAX_ATTEMPTS} network_error name=${error instanceof Error ? error.name : "UnknownError"} ` +
         `message=${JSON.stringify(safeDiagnosticMessage(error))} durationMs=${Date.now() - startedAtMs}`,
       );
-      const timedOut = error instanceof Error && error.name === "TimeoutError";
-      lastError = timedOut ? "Sarvam transcription timed out. Please retry your question." : `Sarvam network failure: ${error instanceof Error ? error.message : "unknown"}`;
-      if (attempt === 2) break;
-      await pause(120 * 2 ** attempt);
+      lastError = timedOut ? "Sarvam transcription timed out after 8 seconds. Please retry your question." : `Sarvam network failure: ${error instanceof Error ? error.message : "unknown"}`;
+      if (attempt === MAX_ATTEMPTS - 1) break;
+      await pause(100);
       continue;
     }
     const payload = (await response.json().catch(() => ({}))) as SarvamResponse & { error?: { message?: string } };
     const hasTranscript = Boolean(payload.transcript?.trim());
     const providerError = payload.error?.message ? safeDiagnosticMessage(payload.error.message) : null;
     const responseLog = [
-      `[Sarvam] attempt=${attemptNumber}/3`,
+      `[Sarvam] attempt=${attemptNumber}/${MAX_ATTEMPTS}`,
       `status=${response.status}`,
       `statusText=${JSON.stringify(response.statusText)}`,
       `durationMs=${Date.now() - startedAtMs}`,
@@ -120,9 +122,14 @@ export async function transcribeWithSarvam(input: {
         idempotencyKey,
       };
     }
-    lastError = payload.error?.message || (response.ok ? "Sarvam returned an empty transcript. Speak clearly for at least one second, then try again." : `Sarvam responded with ${response.status}.`);
-    if ((!RETRYABLE_STATUS.has(response.status) && !(response.ok && !payload.transcript?.trim())) || attempt === 2) break;
-    await pause(120 * 2 ** attempt);
+    // If response was 200 OK but transcript was empty, it's deterministic silence/noise; do not waste another retry.
+    if (response.ok && !hasTranscript) {
+      lastError = "Sarvam returned an empty transcript. Speak clearly for at least one second, then try again.";
+      break;
+    }
+    lastError = payload.error?.message || `Sarvam responded with ${response.status}.`;
+    if (!RETRYABLE_STATUS.has(response.status) || attempt === MAX_ATTEMPTS - 1) break;
+    await pause(100);
   }
   throw new Error(lastError);
 }
