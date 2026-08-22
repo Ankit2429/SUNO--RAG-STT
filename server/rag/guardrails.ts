@@ -658,20 +658,20 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
       }
 
       if (terms.size === 1) {
-        if (effectiveMatchCount >= 1 && chunkScore >= 0.28 && sentence.length >= 20) {
+        if (effectiveMatchCount >= 1 && chunkScore >= 0.22 && sentence.length >= 20) {
           return { chunk, match, score: chunkScore };
         }
         return null;
       }
 
       if (terms.size === 2) {
-        if ((coverage >= 0.90 || (effectiveMatchCount >= 2 && chunkScore >= 0.35) || (effectiveMatchCount >= 1 && chunkScore >= 0.58)) && sentence.length >= 20) {
+        if ((coverage >= 0.90 || (effectiveMatchCount >= 2 && chunkScore >= 0.30) || (effectiveMatchCount >= 1 && chunkScore >= 0.52)) && sentence.length >= 20) {
           return { chunk, match, score: chunkScore };
         }
         return null;
       }
 
-      if ((coverage >= 0.65 || (effectiveMatchCount >= 3 && chunkScore >= 0.40) || (effectiveMatchCount >= 2 && chunkScore >= 0.55)) && sentence.length >= 20) {
+      if ((coverage >= 0.50 || (effectiveMatchCount >= 2 && chunkScore >= 0.45) || (effectiveMatchCount >= 3 && chunkScore >= 0.35)) && sentence.length >= 20) {
         return { chunk, match, score: chunkScore };
       }
 
