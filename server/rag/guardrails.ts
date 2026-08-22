@@ -470,15 +470,27 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
     if (!hasAddressIndicator) return false;
   }
 
-  // Cost / Price
-  if (/\b(?:cost|price|fee|how\s+much|rates?|salary|charge)\b/i.test(qLower)) {
-    const hasCostIndicator = /[$€£₹]|\b(?:\d+(?:\.\d+)?\s*(?:dollars?|cents?|rupees?|bucks?|usd|inr|per\s+(?:month|year|day|hour|kwh))|free|cost|price|charge|fee)\b/i.test(sLower) || /\b(?:\d+\s*(?:रुपये|डॉलर|लागत|खर्च|मूल्य|दर))\b/i.test(sLower);
+  // Cost / Price / Monetary amount
+  if (/\b(?:cost|price|fee|tuition|salary|worth)\b/i.test(qLower) || /\b(?:लागत|कीमत|मूल्य|शुल्क|वेतन)\b/i.test(qLower)) {
+    const hasCostIndicator = /[$€£₹]|\b(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|twenty|fifty|hundred|thousand|million|billion)\s*(?:dollars?|cents?|rupees?|bucks?|usd|inr|per\s+(?:month|year|day|hour|kwh|sq|foot|yard))\b/i.test(sLower) || /\b(?:free|no\s+charge|gratis|complimentary)\b/i.test(sLower) || /\b(?:\d+\s*(?:रुपये|डॉलर|पैसे|रु))\b/i.test(sLower) || /\b(?:कीमत|मूल्य|लागत|खर्च)\s*(?:है|लगभग|करीब)\s*(?:[$₹\d]|मुफ्त)/i.test(sLower);
     if (!hasCostIndicator) return false;
   }
 
+  // Highest rated / Superlative ranking
+  if (/\b(?:highest\s+rated|top\s+rated|best\s+rated|most\s+popular|most\s+famous)\b/i.test(qLower) || /\b(?:उच्चतम\s+मूल्यांकित|शीर्ष\s+रेटेड|सबसे\s+प्रसिद्ध|सबसे\s+लोकप्रिय)\b/i.test(qLower)) {
+    const hasRatingIndicator = /\b(?:rated|rating|stars?|reviews?|ranked|top-rated|best|most\s+popular|most\s+famous|number\s+one|#1)\b/i.test(sLower) || /\b(?:रेटिंग|सर्वश्रेष्ठ|शीर्ष|स्टार|प्रसिद्ध|लोकप्रिय)\b/i.test(sLower);
+    if (!hasRatingIndicator) return false;
+  }
+
+  // What is it called / Term for
+  if (/\b(?:what\s+is\s+it\s+called|what\s+is\s+the\s+term|what\s+do\s+you\s+call)\b/i.test(qLower) || /\b(?:क्या\s+कहते\s+हैं|क्या\s+कहा\s+जाता\s+है|किसे\s+कहते\s+हैं)\b/i.test(qLower)) {
+    const hasNamingIndicator = /\b(?:called|known\s+as|referred\s+to\s+as|term\s+is|termed|named|defined\s+as)\b/i.test(sLower) || /\b(?:कहते\s+हैं|कहा\s+जाता\s+है|नाम\s+है|नामित)\b/i.test(sLower);
+    if (!hasNamingIndicator) return false;
+  }
+
   // Count / Quantity / Age / Distance / Speed / Height / Dimension / Duration
-  if (/\b(?:how\s+many|how\s+old|distance|speed|how\s+long|how\s+far|how\s+high|how\s+tall|height|depth)\b/i.test(qLower)) {
-    const hasNumericQuantity = /\b(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|twenty|thirty|forty|fifty|hundred|thousand|several|few)\s*(?:years?|months?|weeks?|days?|hours?|mins?|minutes?|seconds?|miles?|km|kilometers?|meters?|feet|inches|in\.|ft\.|mph|kmph|percent|%|lbs?|kg|grams?|cm|mm)\b/i.test(sLower) || /\b(?:साल|वर्ष|दिन|महीने|किलोमीटर|मीटर|मील|प्रतिशत)\b/i.test(sLower);
+  if (/\b(?:how\s+many|how\s+old|distance|speed|how\s+long|how\s+far|how\s+high|how\s+tall|height|depth)\b/i.test(qLower) || /\b(?:कितने|कितनी|कितना|दूरी|गति|ऊंचाई|आयु|उम्र)\b/i.test(qLower)) {
+    const hasNumericQuantity = /\b(?:\d+(?:-\d+)?(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|twenty|thirty|forty|fifty|hundred|thousand|several|few)\s*(?:years?|months?|weeks?|days?|hours?|mins?|minutes?|seconds?|miles?|km|kilometers?|meters?|feet|inches|in\.|ft\.|mph|kmph|percent|%|lbs?|kg|grams?|cm|mm)\b/i.test(sLower) || /\b(?:\d+\s*(?:साल|वर्ष|दिन|महीने|किलोमीटर|मीटर|मील|प्रतिशत))\b/i.test(sLower);
     if (!hasNumericQuantity) return false;
   }
 
@@ -508,8 +520,6 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
     if (!hasPersonIndicator) return false;
   }
 
-
-
   // Origin / History / Coined / Started
   if (/\b(?:originate|origin|derived|coined|come\s+from|started|history|invented)\b/i.test(qLower)) {
     const hasOriginIndicator = /\b(?:originated|origin|first\s+used|coined|derived\s+from|history|came\s+from|started\s+in|dated\s+back|began\s+in|century|\b(?:1[7-9]\d\d|20\d\d)\b|etymology)\b/i.test(sLower) || /\b(?:उत्पत्ति|शुरुआत|इतिहास|सिक्का|शुरू)\b/i.test(sLower);
@@ -523,11 +533,10 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
   }
 
   // How-to / Procedure
-  if (/\b(?:how\s+to|steps\s+to|instructions?\s+for|ways?\s+to)\b/i.test(qLower)) {
-    const hasStepIndicator = /\b(?:to\s+[a-z]+|step|use|using|apply|first|then|after|before|by\s+[a-z]+ing|make\s+sure|should|must|can\s+be|recommended|method|process|procedure)\b/i.test(sLower) || /\b(?:तरीका|प्रक्रिया|कदम|उपयोग|करें)\b/i.test(sLower);
+  if (/\b(?:how\s+to|steps\s+to|instructions?\s+for|ways?\s+to)\b/i.test(qLower) || /\b(?:कैसे\s+[^\s]+\s+करें|तरीका|उपाय)\b/i.test(qLower)) {
+    const hasStepIndicator = /\b(?:to\s+[a-z]+|step|use|using|apply|first|then|after|before|by\s+[a-z]+ing|make\s+sure|should|must|can\s+be|recommended|method|process|procedure|train|teach|educate|conduct|provide|start|ensure)\b/i.test(sLower) || /\b(?:तरीका|प्रक्रिया|कदम|उपयोग|करें|सिखा|प्रशिक्षित|प्रदान)\b/i.test(sLower);
     if (!hasStepIndicator) return false;
   }
-
 
   return true;
 }
