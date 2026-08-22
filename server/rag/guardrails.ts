@@ -167,7 +167,37 @@ function normalizeContentTerm(term: string): string {
   return base;
 }
 
-function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number } | null {
+const INTERROGATIVE_START_PATTERNS = [
+  /^(?:what|how|why|who|where|when|which|can|could|would|should|is|are|was|were|do|does|did)\b/i,
+  /^(?:क्या|कैसे|क्यों|कौन|कहाँ|कब|किस|कितना|कितने)\b/,
+  /^(?:ಏನು|ಹೇಗೆ|ಏಕೆ|ಯಾರು|ಎಲ್ಲಿ|ಯಾವಾಗ|ಯಾವ|ಎಷ್ಟು)\b/,
+  /^(?:என்ன|எவ்வாறு|ஏன்|யார்|எங்கே|எப்போது|எந்த|எத்தனை)\b/
+];
+
+const BOILERPLATE_PATTERNS: RegExp[] = [
+  /from\s+(?:the\s+)?[^.]{0,40}dictionary/i,
+  /university\s+press/i,
+  /what\s+is\s+the\s+pronunciation\s+of/i,
+  /\blearn\s+more\b/i,
+  /thousands\s+of\s+other\s+words/i,
+  /\bsynonyms?:/i,
+  /\bmore\s+synonyms\s+of\b/i,
+  /\ball\s+english\s+definitions\b/i,
+  /\bsearch\s+also\s+in:/i,
+  /\bclick\s+here\b/i,
+  /©/u,
+];
+
+function headingFragmentPenalty(sentence: string): number {
+  const trimmed = sentence.trim();
+  const words = trimmed.split(/\s+/).filter(Boolean);
+  if (words.length <= 6 && /^(?:definition|meaning)\s+of\b/i.test(trimmed)) {
+    return 1.5;
+  }
+  return 0;
+}
+
+function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number; rank: number } | null {
   const normalizedQueryTerms = new Set(
     Array.from(terms)
       .map(normalizeContentTerm)
@@ -175,21 +205,45 @@ function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence:
   );
   if (!normalizedQueryTerms.size) return null;
 
-  const sentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).filter(Boolean);
+  const sentences = chunk.text.split(/(?<=[.!?।॥؟:])\s+/).filter(Boolean);
   const ranked = sentences
+
     .map(sentence => {
+      const normalizedSentence = normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase());
       const sentenceTerms = new Set(
-        normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase())
+        normalizedSentence
           .split(/[^\p{L}\p{M}\p{N}]+/u)
           .map(normalizeContentTerm)
           .filter(term => term && term.length >= 2)
       );
       const matches = Array.from(normalizedQueryTerms).filter(term => sentenceTerms.has(term));
-      return { sentence, score: matches.length };
+      // Position-weighted ranking: answers front-load the question's key
+      // terms ("To find the area of a triangle, ..."), while incidental
+      // mentions bury them mid-narrative. Ties on raw match count are broken
+      // by how early the matched terms appear, then by boilerplate penalties.
+      let positionScore = 0;
+      for (const term of matches) {
+        const at = normalizedSentence.indexOf(term);
+        if (at >= 0 && normalizedSentence.length > 0) {
+          positionScore += Math.max(0, 1 - at / normalizedSentence.length);
+        }
+      }
+      let penalty = headingFragmentPenalty(sentence);
+      if (sentence.trim().endsWith("?") || INTERROGATIVE_START_PATTERNS.some(p => p.test(sentence.trim()))) {
+        penalty += 3.0;
+      }
+      for (const pattern of BOILERPLATE_PATTERNS) {
+        if (pattern.test(sentence)) {
+          penalty += 1.5;
+          break;
+        }
+      }
+      return { sentence, score: matches.length, rank: positionScore - penalty };
     })
-    .sort((a, b) => b.score - a.score);
-  const top = ranked[0];
-  return top?.score ? { sentence: top.sentence.trim(), termMatches: top.score } : null;
+    .sort((a, b) => (b.score - b.rank < a.score - a.rank ? -1 : 1) || b.score - a.score || b.rank - a.rank);
+  const top = ranked.filter(r => r.score > 0).sort((a, b) => b.rank - a.rank || b.score - a.score)[0];
+
+  return top?.score ? { sentence: top.sentence.trim(), termMatches: top.score, rank: top.rank } : null;
 }
 
 function polishEvidenceSentence(sentence: string): string {
@@ -302,6 +356,143 @@ const MUTUALLY_EXCLUSIVE_CONCEPTS: Array<Set<string>> = [
   new Set(["import", "export"])
 ];
 
+// Dictionary-citation / site-navigation boilerplate. These fragments routinely
+// win naive term-overlap contests (they repeat the headword plus the word
+// "definition") but are metadata ABOUT a definition, never the answer itself.
+
+// Number-base conversion direction: "hexadecimal to binary" asks the reverse
+// of an evidence sentence describing binary -> hexadecimal. Answering it with
+// the opposite-direction recipe is a confident fabrication.
+const BASE_CONVERSION_TERM = /\b(?:binary|decimal|hex(?:adecimal)?|octal)\b/i;
+
+function conversionDirectionMismatch(query: string, sentence: string): boolean {
+  const queryDirection = /([a-z]+)\s+(?:numbers?\s+)?to\s+(?:numbers?\s+)?([a-z]+)/i.exec(query);
+  if (!queryDirection) return false;
+  const canonicalBase = (raw: string): string | null => {
+    const base = raw.toLocaleLowerCase();
+    if (base.startsWith("hex")) return "hex";
+    if (["binary", "decimal", "octal"].includes(base)) return base;
+    return null;
+  };
+  const from = canonicalBase(queryDirection[1]);
+  const to = canonicalBase(queryDirection[2]);
+  if (!from || !to || from === to) return false;
+
+  const convertMatch = /conver[a-z]*/i.exec(sentence);
+  if (!convertMatch) return false;
+  const lower = sentence.toLocaleLowerCase();
+  const convertAt = convertMatch.index;
+  const fromAt = lower.indexOf(from, convertAt);
+  const toAt = lower.indexOf(to, convertAt);
+  if (fromAt < 0 || toAt < 0) {
+    // Sentence converts only ONE of the two named bases -> cannot confirm the
+    // requested direction; treat as unsupported rather than guessing.
+    const eitherAt = lower.indexOf(from, convertAt) >= 0 ? lower.indexOf(from, convertAt) : lower.indexOf(to, convertAt);
+    return eitherAt >= 0 ? true : false;
+  }
+  // Whichever base appears first after the convert verb is the source being converted.
+  const sentenceFrom = fromAt < toAt ? from : to;
+  return sentenceFrom !== from;
+}
+
+
+
+const NAVIGATIONAL_PATTERNS = [
+  /\b(?:write\s+a\s+review|click\s+here|sign\s+in|log\s+in|subscribe|terms\s+of\s+service|privacy\s+policy|all\s+rights\s+reserved|table\s+of\s+contents|share\s+this|leave\s+a\s+reply)\b/i,
+  /\b(?:list\s+of\s+[a-z\s]+\s+by\s+(?:size|degree|rank|alphabet))\b/i,
+  /\b(?:search\s+for\s+the\s+[a-z\s]+\s+by\s+its\s+streets)\b/i,
+  /^(?:see|read|check\s+out|here\s+are|learn\s+more|find\s+out|explore|view)\b/i,
+  /^\d+\s*[\)\.\:\s]/,
+  /\b(?:home\s*\/\s*\w+|products\s*\/|\w+\s*\/\s*\w+\s*\/\s*\w+)\b/i
+];
+
+
+function isNonDeclarativeOrEcho(sentence: string): boolean {
+  const trimmed = sentence.trim();
+  if (trimmed.length < 25 || trimmed.split(/\s+/).length < 5) return true;
+  if (trimmed.endsWith("?") || trimmed.endsWith(":") || trimmed.endsWith(";")) return true;
+  if (INTERROGATIVE_START_PATTERNS.some(p => p.test(trimmed))) return true;
+  if (NAVIGATIONAL_PATTERNS.some(p => p.test(trimmed))) return true;
+  return false;
+}
+
+function checkTargetAttributeRequirement(query: string, sentence: string): boolean {
+  const qLower = query.toLocaleLowerCase();
+  const sLower = sentence.toLocaleLowerCase();
+
+  // Definition queries should not be conditional "If..." or "When..." clauses
+  if (/\b(?:what\s+is|what\s+are|define|meaning\s+of)\b/i.test(qLower) && /^(?:if|when)\s+/i.test(sentence.trim())) {
+    return false;
+  }
+
+
+  // Address / Location
+  if (/\b(?:address|zip\s*code|where\s+is|headquarters)\b/i.test(qLower)) {
+    const hasAddressIndicator = /\b(?:\d{5}|\d{6}|street|st\.|ave|avenue|blvd|boulevard|road|rd\.|drive|dr\.|suite|box|floor|city|state|located\s+in|located\s+at|based\s+in|headquartered\s+in|county|district)\b/i.test(sLower) || /\b(?:स्थित|जिले|राज्य|शहर|पते|पिनकोड)\b/i.test(sLower);
+    if (!hasAddressIndicator) return false;
+  }
+
+  // Cost / Price
+  if (/\b(?:cost|price|fee|how\s+much|rates?|salary|charge)\b/i.test(qLower)) {
+    const hasCostIndicator = /[$€£₹]|\b(?:\d+(?:\.\d+)?\s*(?:dollars?|cents?|rupees?|bucks?|usd|inr|per\s+(?:month|year|day|hour|kwh))|free|cost|price|charge|fee)\b/i.test(sLower) || /\b(?:\d+\s*(?:रुपये|डॉलर|लागत|खर्च|मूल्य|दर))\b/i.test(sLower);
+    if (!hasCostIndicator) return false;
+  }
+
+  // Count / Quantity / Age / Distance / Speed / Height / Dimension
+  if (/\b(?:how\s+many|how\s+old|distance|speed|how\s+long|how\s+far|how\s+high|how\s+tall|height|depth)\b/i.test(qLower)) {
+    const hasNumericQuantity = /\b\d+(?:\.\d+)?\s*(?:years?|months?|days?|hours?|mins?|miles?|km|kilometers?|meters?|feet|inches|in\.|ft\.|mph|kmph|percent|%|lbs?|kg|grams?|cm|mm)\b/i.test(sLower) || /\b(?:साल|वर्ष|दिन|महीने|किलोमीटर|मीटर|मील|प्रतिशत)\b/i.test(sLower);
+    if (!hasNumericQuantity) return false;
+  }
+
+  // Known for / Respected for / Famous for
+  if (/\b(?:known\s+for|famous\s+for|respected\s+for|remembered\s+for)\b/i.test(qLower)) {
+    const hasReputation = /\b(?:known|famous|respected|remembered|renowned|popular|celebrated|acclaimed|noted|best\s+known)\b/i.test(sLower) || /\b(?:प्रसिद्ध|जाना|माना|प्रसिद्धि)\b/i.test(sLower);
+    if (!hasReputation) return false;
+  }
+
+  // Seasonal alignment
+  const seasons = ["summer", "winter", "spring", "autumn", "fall"];
+  for (const season of seasons) {
+    if (qLower.includes(season) && !sLower.includes(season)) {
+      return false;
+    }
+  }
+
+  // Causes / Why
+  if (/\b(?:why|causes?|reason|why\s+do|how\s+come)\b/i.test(qLower)) {
+    const hasCausalIndicator = /\b(?:because|due\s+to|caused\s+by|causes?|leading\s+to|results?\s+in|reasons?|as\s+a\s+result|triggers?|allows|helps?|helps\s+to)\b/i.test(sLower) || /\b(?:क्योंकि|कारण|वजह|परिणामस्वरूप|मदद)\b/i.test(sLower);
+    if (!hasCausalIndicator) return false;
+  }
+
+  // Who / Person
+  if (/\b(?:who|person|founder|creator|inventor|author|director|president|scientist)\b/i.test(qLower)) {
+    const hasPersonIndicator = /\b(?:born|he|she|his|her|author|founder|creator|inventor|director|president|scientist|doctor|engineer|person|people|individual|team|discovered\s+by|written\s+by|founded\s+by|led\s+by|named)\b/i.test(sLower) || /\b(?:द्वारा|व्यक्ति|लेखक|निदेशक|वैज्ञानिक|खोजकर्ता|প্রতিষ্ঠাতা)\b/i.test(sLower);
+    if (!hasPersonIndicator) return false;
+  }
+
+  // Origin / History / Coined / Started
+  if (/\b(?:originate|origin|derived|coined|come\s+from|started|history|invented)\b/i.test(qLower)) {
+    const hasOriginIndicator = /\b(?:originated|origin|first\s+used|coined|derived\s+from|history|came\s+from|started\s+in|dated\s+back|began\s+in|century|\b(?:1[7-9]\d\d|20\d\d)\b|etymology)\b/i.test(sLower) || /\b(?:उत्पत्ति|शुरुआत|इतिहास|सिक्का|शुरू)\b/i.test(sLower);
+    if (!hasOriginIndicator) return false;
+  }
+
+  // When / Temporal
+  if (/\b(?:when|what\s+year|what\s+date|what\s+day|how\s+long\s+ago)\b/i.test(qLower)) {
+    const hasTimeIndicator = /\b(?:\d{4}|january|february|march|april|may|june|july|august|september|october|november|december|century|decade|year|month|b\.?c\.?|a\.?d\.?|ago|during|since|in\s+\d{4})\b/i.test(sLower) || /\b(?:साल|वर्ष|महीने|सदी|ईस्वी|तारीख|दिनांक)\b/i.test(sLower);
+    if (!hasTimeIndicator) return false;
+  }
+
+  // How-to / Procedure
+  if (/\b(?:how\s+to|steps\s+to|instructions?\s+for|ways?\s+to)\b/i.test(qLower)) {
+    const hasStepIndicator = /\b(?:to\s+[a-z]+|step|use|using|apply|first|then|after|before|by\s+[a-z]+ing|make\s+sure|should|must|can\s+be|recommended|method|process|procedure)\b/i.test(sLower) || /\b(?:तरीका|प्रक्रिया|कदम|उपयोग|करें)\b/i.test(sLower);
+    if (!hasStepIndicator) return false;
+  }
+
+
+  return true;
+}
+
+
 export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
   const terms = queryTerms(query);
   if (!terms.size) {
@@ -316,9 +507,19 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       // Requirement 1: ZERO meaningful overlap -> ALWAYS refuse (dense similarity alone never creates evidence)
       if (!match || match.termMatches === 0) return null;
 
+      // Conversion-direction guardrail: a sentence describing the reverse of
+      // the requested conversion is off-target even when every term matches.
+      if (conversionDirectionMismatch(query, match.sentence)) return null;
+
+      const sentence = match.sentence;
+      if (isNonDeclarativeOrEcho(sentence)) return null;
+      if (!checkTargetAttributeRequirement(query, sentence)) return null;
+      if (conversionDirectionMismatch(query, sentence)) return null;
+      if (BOILERPLATE_PATTERNS.some(p => p.test(sentence))) return null;
+
       // Extract sentence words after digit and stem normalization
       const sentenceWords = new Set(
-        normalizeDigits(match.sentence.normalize("NFKC").toLocaleLowerCase())
+        normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase())
           .split(/[^\p{L}\p{M}\p{N}]+/u)
           .map(normalizeContentTerm)
           .filter(w => w && w.length >= 2)
@@ -331,13 +532,13 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
           .filter(Boolean)
       );
 
-      // Specificity Requirement 4: Negative concept conflict handling (implant vs crown, laptop vs desktop, etc.)
+      // Negative concept conflict handling (implant vs crown, laptop vs desktop, etc.)
       for (const group of MUTUALLY_EXCLUSIVE_CONCEPTS) {
         for (const qc of queryConcepts) {
           if (group.has(qc)) {
             for (const other of group) {
               if (other !== qc && chunkConcepts.has(other) && !chunkConcepts.has(qc)) {
-                return null; // Reject candidate due to specific procedure/entity conflict
+                return null;
               }
             }
           }
@@ -352,7 +553,7 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       const effectiveMatchCount = matchedTerms.length;
       if (effectiveMatchCount === 0) return null;
 
-      // Specificity Requirement 3: Generic attribute/context overlap is not sufficient when query has a specific entity
+      // Generic container / attribute overlap rejection
       const matchedNormalized = matchedTerms.map(normalizeContentTerm);
       const isOnlyGenericAttributes = matchedNormalized.every(t => 
         t === "cost_attribute" || GENERIC_CONTAINER_TERMS.has(t)
@@ -362,37 +563,46 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       );
 
       if (hasSpecificQueryConcept && isOnlyGenericAttributes) {
-        return null; // Reject: Query asked for a specific entity but evidence only matched generic words (e.g. "cost")
-      }
-
-      const hasDomainAnchor = matchedTerms.some(t => {
-        const normT = normalizeContentTerm(t);
-        return CORE_DOMAIN_KEYWORDS.has(t) || CORE_DOMAIN_KEYWORDS.has(normT);
-      });
-
-      // Requirement 2: One generic/container term -> REJECT for multi-concept queries
-      if (effectiveMatchCount === 1) {
-        const singleTerm = matchedTerms[0];
-        const normSingle = normalizeContentTerm(singleTerm);
-        const isGeneric = GENERIC_CONTAINER_TERMS.has(singleTerm) || GENERIC_CONTAINER_TERMS.has(normSingle);
-
-        // Requirement 3: One strong domain-specific term may be accepted only when semantic evidence strongly agrees
-        if (isGeneric || !hasDomainAnchor) {
-          return null; // Reject generic or non-domain term match
-        }
-      }
-
-      // Requirement 4: Multiple terms -> accept when sufficient portion of concepts covered or domain anchor present
-      if (effectiveMatchCount >= 2 && !hasDomainAnchor) {
-        const coverage = effectiveMatchCount / Math.max(1, terms.size);
-        const isAllGeneric = matchedTerms.every(t => GENERIC_CONTAINER_TERMS.has(t) || GENERIC_CONTAINER_TERMS.has(normalizeContentTerm(t)));
-        if (isAllGeneric || coverage < 0.40) {
-          return null; // Reject multi-term generic matches for out-of-index queries
-        }
+        return null;
       }
 
       const chunkScore = scores.get(chunk.id) ?? 0;
-      return { chunk, match, score: chunkScore };
+      const coverage = effectiveMatchCount / Math.max(1, terms.size);
+      // Difference / Comparison Guardrail:
+      if (/\b(?:difference|versus|vs|between|compare|contrast)\b/i.test(query.toLocaleLowerCase())) {
+        const hasComparisonIndicator = /\b(?:difference|differs|unlike|whereas|while|compared|contrast|instead|however|between)\b/i.test(sentence.toLocaleLowerCase()) || /\b(?:अंतर|तुलना|विपरीत|बल्कि|जबकि)\b/i.test(sentence);
+        if (!hasComparisonIndicator && terms.size >= 2 && effectiveMatchCount < 2) {
+          return null;
+        }
+      }
+
+      // Calibrated Grounding Decision:
+      if (terms.size === 1) {
+        if (effectiveMatchCount >= 1 && chunkScore >= 0.22 && sentence.length >= 20) {
+          return { chunk, match, score: chunkScore };
+        }
+        return null;
+      }
+
+      if (terms.size === 2) {
+        if ((coverage >= 0.90 || effectiveMatchCount >= 2 || (effectiveMatchCount >= 1 && chunkScore >= 0.48)) && sentence.length >= 20) {
+          return { chunk, match, score: chunkScore };
+        }
+        return null;
+      }
+
+      // terms.size >= 3
+      if ((coverage >= 0.50 || (effectiveMatchCount >= 2 && chunkScore >= 0.32) || (effectiveMatchCount >= 1 && chunkScore >= 0.45)) && sentence.length >= 20) {
+        return { chunk, match, score: chunkScore };
+      }
+
+      return null;
+
+
+
+
+
+
     })
     .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item))
     .sort((a, b) => b.match.termMatches - a.match.termMatches || b.score - a.score);
@@ -417,6 +627,7 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
     refusalReason: null,
   };
 }
+
 
 export const guardrailsInternals = {
   evidenceSentence,

@@ -116,4 +116,7 @@ client/public/__manus__/version.json
 # Local Python virtual environment & scratch artifacts
 .venv/
 scratch/
+rag-local-eval-loop/hub/
+rag-local-eval-loop/.agent_harnesses.json
+
 
