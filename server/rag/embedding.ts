@@ -100,6 +100,39 @@ const LEXICAL_TERM_EXPANSIONS: Record<string, readonly string[]> = {
   "rubrum": ["रुब्रम"],
 };
 
+/**
+ * Feature weights for the deterministic dense projection. Tuned on held-out
+ * MSMARCO-XI validation recall so that distinctive content signals (whole
+ * tokens, phrase bigrams, numerals) dominate over frame vocabulary and
+ * collision-prone subword fragments.
+ */
+export const EMBED_WEIGHTS = {
+  token: 5.2,
+  longTokenBonus: 0,
+  stopToken: 0.2,
+  pfx3: 2.5,
+  pfx4: 2.8,
+  pfx5: 2.2,
+  sfx3: 1.5,
+  bigram: 3.6,
+  translit: 4.2,
+  tbigram: 3.0,
+  c2: 0.6,
+  c3: 1.8,
+  c4: 1.5,
+  numeric: 5.2,
+  frameTerm: 0.35,
+};
+
+/** Test-only hook: clears memoization caches after weight adjustments. */
+export function clearEmbeddingCachesForTests() {
+  EMBED_CACHE.clear();
+  LEXICAL_CACHE.clear();
+  MEANINGFUL_LEXICAL_CACHE.clear();
+}
+
+const FRAME_TERM_PATTERN = /^(?:definition|definitions|define|meaning|meanings|means|special|specially|important|importance|called|call|known|know|term|terms|word|words|name|named|named|type|types|kind|example|examples|examples|info|information|detail|details|explain|explained|explanation|describe|described|description|tell|about|best|top|good|great|make|makes|made|does|did|done|going|goes|really|actually|just|even|also|very|much|many)$/i;
+
 function hash(value: string): number {
   let result = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
