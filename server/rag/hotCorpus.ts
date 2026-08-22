@@ -5630,7 +5630,8 @@ const ENGLISH_COMPANION_HOT_CORPUS: EvidenceChunk[] = [
   { id: "en-companion-168868", text: "The Ontario research revealed that medical cannabis can help veterans suffering from PTSD manage their symptoms.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "168868-en", queryId: "168868", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
   { id: "en-companion-227261", text: "By 2050, the US population is projected to grow to over 400 million people.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "227261-en", queryId: "227261", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
   { id: "en-companion-227029", text: "Eight teams from each conference qualify for the NHL playoffs, making a total of 16 teams.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "227029-en", queryId: "227029", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
-  { id: "en-companion-166290", text: "The fungus Trichophyton rubrum causes skin ringworm or tinea corporis.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "166290-en", queryId: "166290", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
+  { id: "en-companion-166290", text: "Ringworm is a fungal infection of the skin. The fungus Trichophyton rubrum causes skin ringworm or tinea corporis.", language: "en", source: "ai4bharat/MSMARCO-XI", strategy: "paragraph_section", parentId: "166290-en", queryId: "166290", queryType: "DESCRIPTION", ordinal: 0, selected: false, overlap: 0 },
+
 ];
 
 export const HOT_CORPUS: EvidenceChunk[] = [...GENERATED_HOT_CORPUS, ...ENGLISH_COMPANION_HOT_CORPUS];

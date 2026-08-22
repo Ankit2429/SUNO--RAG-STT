@@ -247,12 +247,12 @@ function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence:
         }
       }
       return { sentence, score: matches.length, rank: positionScore - penalty };
-    })
-    .sort((a, b) => (b.score - b.rank < a.score - a.rank ? -1 : 1) || b.score - a.score || b.rank - a.rank);
-  const top = ranked.filter(r => r.score > 0).sort((a, b) => b.rank - a.rank || b.score - a.score)[0];
+    });
+  const top = ranked.filter(r => r.score > 0).sort((a, b) => b.score - a.score || b.rank - a.rank)[0];
 
   return top?.score ? { sentence: top.sentence.trim(), termMatches: top.score, rank: top.rank } : null;
 }
+
 
 function polishEvidenceSentence(sentence: string): string {
   const standalone = sentence.replace(/^\s*(?:फिर|नंतर|ನಂತರ|பிறகு)\s+/, "").trim();
@@ -509,10 +509,58 @@ function checkTargetAttributeRequirement(query: string, sentence: string): boole
 }
 
 
-export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
+export interface QueryDimension {
+  text: string;
+  type: "definition" | "cause" | "symptom" | "treatment" | "process" | "location" | "person" | "temporal" | "quantity" | "price" | "comparison" | "general";
+}
+
+export function detectQueryDimensions(query: string): QueryDimension[] {
+  const q = query.trim();
+  // Compound connectors: " and what ", " and how ", " and why ", " and where ", " and who ", " its causes ", " its symptoms "
+  const splitPattern = /\b(?:and\s+(?:what|how|why|where|who|whom|whose|when|which|is|are|its?|their)|as\s+well\s+as|along\s+with|\s*[,;]\s*(?:and\s+)?(?:what|how|why|where|who|when|its?|their))\b/i;
+  
+  const rawParts = q.split(splitPattern).map(p => p.trim()).filter(p => p.length >= 3);
+  if (rawParts.length <= 1) {
+    return [{ text: q, type: classifyDimensionType(q) }];
+  }
+
+  const dimensions: QueryDimension[] = [];
+  const mainTerms = Array.from(queryTerms(rawParts[0])).map(normalizeContentTerm).filter(Boolean);
+  const mainSubject = mainTerms.join(" ");
+
+  for (let i = 0; i < rawParts.length; i++) {
+    let partText = rawParts[i];
+    const partTerms = Array.from(queryTerms(partText));
+    if (i > 0 && partTerms.length <= 2 && mainSubject) {
+      partText = `${partText} of ${mainSubject}`;
+    }
+    dimensions.push({
+      text: partText,
+      type: classifyDimensionType(partText)
+    });
+  }
+
+  return dimensions;
+}
+
+function classifyDimensionType(text: string): QueryDimension["type"] {
+  const t = text.toLowerCase();
+  if (/\b(?:what\s+is|what\s+are|define|definition|meaning)\b/.test(t)) return "definition";
+  if (/\b(?:cause|causes|caused|why|origin|reasons?)\b/.test(t)) return "cause";
+  if (/\b(?:symptom|symptoms|signs?)\b/.test(t)) return "symptom";
+  if (/\b(?:treatment|treat|cure|therapy|medicine)\b/.test(t)) return "treatment";
+  if (/\b(?:how\s+to|how\s+does|how\s+do|process|steps?|works?)\b/.test(t)) return "process";
+  if (/\b(?:where|location|place|country|city)\b/.test(t)) return "location";
+  if (/\b(?:who|whom|whose|person|founder|author|owner)\b/.test(t)) return "person";
+  if (/\b(?:when|year|date|time)\b/.test(t)) return "temporal";
+  if (/\b(?:how\s+many|how\s+much|cost|price|quantity)\b/.test(t)) return "quantity";
+  return "general";
+}
+
+function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string) {
   const terms = queryTerms(query);
   if (!terms.size) {
-    return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
+    return { supported: [], result: refused("Retrieved passages did not meet the evidence sufficiency threshold.") };
   }
 
   const queryConcepts = new Set(Array.from(terms).map(normalizeContentTerm).filter(Boolean));
@@ -520,11 +568,7 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
   const supported = evidence
     .map(chunk => {
       const match = evidenceSentence(chunk, terms);
-      // Requirement 1: ZERO meaningful overlap -> ALWAYS refuse (dense similarity alone never creates evidence)
       if (!match || match.termMatches === 0) return null;
-
-      // Conversion-direction guardrail: a sentence describing the reverse of
-      // the requested conversion is off-target even when every term matches.
       if (conversionDirectionMismatch(query, match.sentence)) return null;
 
       const sentence = match.sentence;
@@ -533,7 +577,6 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       if (conversionDirectionMismatch(query, sentence)) return null;
       if (BOILERPLATE_PATTERNS.some(p => p.test(sentence))) return null;
 
-      // Extract sentence words after digit and stem normalization
       const sentenceWords = new Set(
         normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase())
           .split(/[^\p{L}\p{M}\p{N}]+/u)
@@ -548,7 +591,6 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
           .filter(Boolean)
       );
 
-      // Negative concept conflict handling (implant vs crown, laptop vs desktop, etc.)
       for (const group of MUTUALLY_EXCLUSIVE_CONCEPTS) {
         for (const qc of queryConcepts) {
           if (group.has(qc)) {
@@ -569,7 +611,6 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
       const effectiveMatchCount = matchedTerms.length;
       if (effectiveMatchCount === 0) return null;
 
-      // Generic container / attribute overlap rejection
       const matchedNormalized = matchedTerms.map(normalizeContentTerm);
       const isOnlyGenericAttributes = matchedNormalized.every(t => 
         t === "cost_attribute" || GENERIC_CONTAINER_TERMS.has(t)
@@ -584,7 +625,7 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
 
       const chunkScore = scores.get(chunk.id) ?? 0;
       const coverage = effectiveMatchCount / Math.max(1, terms.size);
-      // Difference / Comparison Guardrail:
+
       if (/\b(?:difference|versus|vs|between|compare|contrast)\b/i.test(query.toLocaleLowerCase())) {
         const hasComparisonIndicator = /\b(?:difference|differs|unlike|whereas|while|compared|contrast|instead|however|between)\b/i.test(sentence.toLocaleLowerCase()) || /\b(?:अंतर|तुलना|विपरीत|बल्कि|जबकि)\b/i.test(sentence);
         if (!hasComparisonIndicator && terms.size >= 2 && effectiveMatchCount < 2) {
@@ -592,7 +633,6 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
         }
       }
 
-      // Calibrated Grounding Decision:
       if (terms.size === 1) {
         if (effectiveMatchCount >= 1 && chunkScore >= 0.22 && sentence.length >= 20) {
           return { chunk, match, score: chunkScore };
@@ -607,20 +647,11 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
         return null;
       }
 
-      // terms.size >= 3
       if ((coverage >= 0.60 || (effectiveMatchCount >= 2 && chunkScore >= 0.40)) && sentence.length >= 20) {
         return { chunk, match, score: chunkScore };
       }
 
       return null;
-
-
-
-
-
-
-
-
     })
     .filter((item): item is { chunk: EvidenceChunk; match: { sentence: string; termMatches: number }; score: number } => Boolean(item))
     .sort((a, b) => b.match.termMatches - a.match.termMatches || b.score - a.score);
@@ -628,27 +659,86 @@ export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], sc
   const uniqueParents = new Set(supported.map(item => item.chunk.parentId));
   const top = supported[0];
   if (!top || top.score < 0.20 || !uniqueParents.size) {
-    return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
+    return { supported: [], result: refused("Retrieved passages did not meet the evidence sufficiency threshold.") };
   }
 
   const sourceFaithfulAnswer = focusedSourceFaithfulAnswer(query, languageCode, top.chunk.queryId, evidence, top.match.termMatches, scores);
-  if (sourceFaithfulAnswer) return sourceFaithfulAnswer;
+  if (sourceFaithfulAnswer) return { supported, result: sourceFaithfulAnswer };
 
   const citations = [top];
   const answer = citations.map(item => polishEvidenceSentence(item.match.sentence)).join(" ");
   const confidenceBand: ConfidenceBand = uniqueParents.size >= 2 && top.score >= 0.48 ? "HIGH" : "MEDIUM";
   return {
-    status: "GROUNDED",
-    answer,
-    evidenceIds: citations.map(item => item.chunk.id),
-    confidenceBand,
-    refusalReason: null,
+    supported,
+    result: {
+      status: "GROUNDED" as const,
+      answer,
+      evidenceIds: citations.map(item => item.chunk.id),
+      confidenceBand,
+      refusalReason: null,
+    }
   };
 }
 
+export function verifyAndSynthesize(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string): StructuredAnswer {
+  const dimensions = detectQueryDimensions(query);
+  
+  if (dimensions.length > 1) {
+    const dimensionResults: { dimension: QueryDimension; match: { chunk: EvidenceChunk; sentence: string; score: number } | null }[] = [];
+
+    for (const dim of dimensions) {
+      const dimEval = evaluateSingleIntent(dim.text, evidence, scores, languageCode);
+      if (dimEval.supported.length > 0 && dimEval.result.status === "GROUNDED") {
+        const best = dimEval.supported[0];
+        dimensionResults.push({
+          dimension: dim,
+          match: { chunk: best.chunk, sentence: dimEval.result.answer, score: best.score }
+        });
+      } else {
+        dimensionResults.push({ dimension: dim, match: null });
+      }
+    }
+
+
+    const supportedDims = dimensionResults.filter(r => r.match !== null) as { dimension: QueryDimension; match: { chunk: EvidenceChunk; sentence: string; score: number } }[];
+    
+    if (supportedDims.length === 0) {
+      return refused("Retrieved passages did not meet the evidence sufficiency threshold.");
+    }
+
+    // Deduplicate sentences preserving order
+    const uniqueSentences: string[] = [];
+    const usedChunkIds = new Set<string>();
+    for (const s of supportedDims) {
+      if (!uniqueSentences.includes(s.match.sentence)) {
+        uniqueSentences.push(s.match.sentence);
+      }
+      usedChunkIds.add(s.match.chunk.id);
+    }
+
+    const unsupportedDims = dimensionResults.filter(r => r.match === null);
+    let finalAnswer = uniqueSentences.join(" ");
+    if (unsupportedDims.length > 0 && supportedDims.length > 0) {
+      const missingLabels = unsupportedDims.map(d => `"${d.dimension.text.replace(/\s+of\s+.*$/i, "")}"`).join(", ");
+      finalAnswer += ` (The corpus evidence does not contain sufficient details to address: ${missingLabels}).`;
+    }
+
+    return {
+      status: "GROUNDED",
+      answer: finalAnswer,
+      evidenceIds: Array.from(usedChunkIds),
+      confidenceBand: supportedDims.length === dimensions.length ? "HIGH" : "MEDIUM",
+      refusalReason: null,
+    };
+  }
+
+  return evaluateSingleIntent(query, evidence, scores, languageCode).result;
+}
 
 export const guardrailsInternals = {
   evidenceSentence,
   queryTerms,
   normalizeContentTerm,
+  detectQueryDimensions,
 };
+
