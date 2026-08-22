@@ -338,7 +338,7 @@ export default function Home() {
         }
         catch (error) { setProcessingHint(null); setCaptureError(`${diagnostics.summaryString} | error: ${error instanceof Error ? error.message : "Audio encoding failed."}`); }
       };
-      recorder.start();
+      recorder.start(250);
       recordingStartedAtRef.current = performance.now();
       setRecording(true);
     } catch (error) {
