@@ -1,0 +1,1375 @@
+{
+  "evaluatedAt": "2026-08-21T18:14:21.961Z",
+  "groupA": {
+    "accuracyPct": "100.0%",
+    "provenancePct": "100.0%",
+    "correct": 50,
+    "provenanceMatches": 50,
+    "refused": 0
+  },
+  "groupB": {
+    "safeRefusalPct": "100.0%",
+    "safeRefusals": 50,
+    "falseCitations": 0
+  },
+  "latency": {
+    "p50": 1,
+    "p90": 3,
+    "p95": 4,
+    "p100": 14
+  },
+  "resultsA": [
+    {
+      "id": "GA-1",
+      "qid": "1102432",
+      "question": "निगम का मुख्य उद्देश्य क्या होता है?",
+      "lang": "hi-IN",
+      "elapsed": 14,
+      "status": "GROUNDED",
+      "answer": "निगम एक कानूनी संस्था है जो निगमन से बनती है और जिस देश या राज्य में स्थापित होती है, वहां के निगमन कानूनों से शासित होती है।",
+      "evidenceIds": [
+        "en-companion-1102432"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-2",
+      "qid": "1102431",
+      "question": "ऑब्लिगेशन टू एंड्योर निबंध में किस समस्या पर चेतावनी दी गई है?",
+      "lang": "hi-IN",
+      "elapsed": 6,
+      "status": "GROUNDED",
+      "answer": "रेचल कार्सन ने ‘द ऑब्लिगेशन टू एंड्योर’ अंधाधुंध कीटनाशक उपयोग और उसके पर्यावरण, वन्यजीवों व लोगों पर लंबे समय तक पड़ने वाले प्रभावों के बारे में चेतावनी देने के लिए लिखा।",
+      "evidenceIds": [
+        "en-companion-1102431"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-3",
+      "qid": "90836",
+      "question": "स्वास्थ्य आहार में पोटेशियम और सोडियम की भूमिका क्या है?",
+      "lang": "hi-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "कम पोटेशियम वाले खाद्य पदार्थों का चार्ट ऐसे भोजन विकल्प और उनकी मात्रा बताता है जो कम-पोटेशियम आहार के लिए उपयुक्त हों।",
+      "evidenceIds": [
+        "en-companion-90836"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-4",
+      "qid": "55665",
+      "question": "जहाज के निचले हिस्से या हल का क्या महत्व है?",
+      "lang": "hi-IN",
+      "elapsed": 4,
+      "status": "GROUNDED",
+      "answer": "मालवाहक जहाज़ का निचला बाहरी हिस्सा उसका तल या हल होता है; बिल्ज सबसे निचला अंदरूनी भाग है जहाँ पानी जमा हो सकता है।",
+      "evidenceIds": [
+        "en-companion-55665"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-5",
+      "qid": "205107",
+      "question": "सत्य निष्ठा और ईमानदारी में क्या अंतर है?",
+      "lang": "hi-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ईमानदारी और सत्यनिष्ठा का अर्थ है सच बोलना, भरोसेमंद होना और सही नैतिक सिद्धांतों के अनुसार चलना।",
+      "evidenceIds": [
+        "en-companion-205107"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-6",
+      "qid": "1060386",
+      "question": "बैरोमीटर में पारे का स्तर वायुमंडलीय दबाव से कैसे बदलता है?",
+      "lang": "hi-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "In a barometer, atmospheric pressure pushes down on mercury, causing the mercury level to rise or fall.",
+      "evidenceIds": [
+        "en-companion-1060386"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-7",
+      "qid": "1090356",
+      "question": "स्ट्रथर्स प्राथमिक विद्यालय कितने छात्रों को शिक्षा देता है?",
+      "lang": "hi-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "1 स्ट्रुथर्स एलिमेंट्री स्कूल पीके-4 कक्षा में 697 छात्रों को सेवा प्रदान करता है।",
+      "evidenceIds": [
+        "fe372828b77f6b515644"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-8",
+      "qid": "168868",
+      "question": "कनाडा में पीटीएसडी (PTSD) पर हुए शोध के क्या निष्कर्ष हैं?",
+      "lang": "hi-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "ऑन्टारियो, कनाडा के नए शोध से इस बारे में कुछ दिलचस्प खोजें सामने आई हैं कि कैसे भांग उन लोगों की मदद करती है जो आघात-पश्चात तनाव विकार से पीड़ित हैं, ये हालिया प्रगति इस बात को समझाने में मदद करती है कि अमेरिका में इतने सारे दिग्गज अपनी मनोरोग दवाओं को क्यों छोड़कर भांग की ओर रुख कर गए हैं।",
+      "evidenceIds": [
+        "5b38f16ebb07bd1472f3"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-9",
+      "qid": "300122",
+      "question": "कैथी ली और फ्रैंक गिफर्ड की प्रेम कहानी का क्या इतिहास है?",
+      "lang": "hi-IN",
+      "elapsed": 4,
+      "status": "GROUNDED",
+      "answer": "कैथी ली और फ्रैंक गिफोर्ड की 29 साल की प्रेम कहानी में लोगों को सेलिब्रिटी के रूप में जाना जाता है।",
+      "evidenceIds": [
+        "5852e92ae5ca560e99e3"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-10",
+      "qid": "290643",
+      "question": "ट्रम्प सलाहकारों और रूसी अधिकारियों की बातचीत पर क्या रिपोर्ट है?",
+      "lang": "hi-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "अधिकारी कई विवरणों का खुलासा नहीं करेंगे, जिनमें बातचीत के दौरान क्या चर्चा हुई, भाग लेने वाले रूसी खुफिया अधिकारियों की पहचान और श्री ट्रम्प के कितने सलाहकार रूसियों से बात कर रहे थे, इसकी भी बात शामिल है।",
+      "evidenceIds": [
+        "c0bc30bb077388b86264"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-11",
+      "qid": "1102432",
+      "question": "ನಿಗಮವು ತನ್ನ ಶೇರುದಾರರಿಂದ ಹೇಗೆ ನಿರ್ವಹಿಸಲ್ಪಡುತ್ತದೆ?",
+      "lang": "kn-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "ಕಾರ್ಪೊರೇಷನ್ ಎನ್ನುವುದು ಸಂಯೋಜನೆಯ ಮೂಲಕ ನಿರ್ಮಿತವಾದ ಕಾನೂನು ಘಟಕ; ಅದು ಸ್ಥಾಪಿತವಾಗಿರುವ ದೇಶ ಅಥವಾ ರಾಜ್ಯದ ಸಂಯೋಜನೆ ಕಾನೂನುಗಳಿಂದ ಆಡಳಿತಗೊಳ್ಳುತ್ತದೆ.",
+      "evidenceIds": [
+        "en-companion-1102432"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-12",
+      "qid": "1102431",
+      "question": "ರೇಚಲ್ ಕಾರ್ಸನ್ ಅವರ ಬರಹದ ಶೈಲಿ ಮತ್ತು ತಂತ್ರವೇನು?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ರೆಚೆಲ್ ಕಾರ್ಸನ್ ‘ದಿ ಒಬ್ಲಿಗೇಷನ್ ಟು ಎಂಡ್ಯೂರ್’ ಅನ್ನು ವಿವೇಚನೆಯಿಲ್ಲದ ಕೀಟನಾಶಕ ಬಳಕೆ ಮತ್ತು ಅದರ ಪರಿಸರ, ವನ್ಯಜೀವಿ ಹಾಗೂ ಜನರ ಮೇಲಿನ ದೀರ್ಘಕಾಲದ ಪರಿಣಾಮಗಳ ಬಗ್ಗೆ ಎಚ್ಚರಿಸಲು ಬರೆದರು.",
+      "evidenceIds": [
+        "en-companion-1102431"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-13",
+      "qid": "90836",
+      "question": "ಕಡಿಮೆ ಸೋಡಿಯಂ ಆಹಾರದ ಪೌಷ್ಟಿಕಾಂಶದ ವಿವರಗಳು ಎಲ್ಲಿ ಲಭ್ಯವಿವೆ?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ಕಡಿಮೆ ಪೊಟ್ಯಾಸಿಯಂ ಇರುವ ಆಹಾರಗಳ ಚಾರ್ಟ್ ಕಡಿಮೆ-ಪೊಟ್ಯಾಸಿಯಂ ಆಹಾರ ಕ್ರಮಕ್ಕೆ ಹೊಂದುವ ಆಹಾರ ಆಯ್ಕೆಗಳು ಮತ್ತು ಅವುಗಳ ಪ್ರಮಾಣಗಳನ್ನು ತಿಳಿಸುತ್ತದೆ.",
+      "evidenceIds": [
+        "en-companion-90836"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-14",
+      "qid": "55665",
+      "question": "ಕಾರ್ಗೋ ಹಡಗಿನಲ್ಲಿ ಬಿಲ್ಜ್ ಎಂದರೆ ಏನು?",
+      "lang": "kn-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "ಸರಕು ಹಡಗಿನ ಕೆಳಭಾಗವು ಅದರ ತಳ ಅಥವಾ ಹಲ್; ಬಿಲ್ಜ್ ಎಂದರೆ ನೀರು ಸೇರುವ ಅತಿ ಕೆಳಗಿನ ಒಳಭಾಗ.",
+      "evidenceIds": [
+        "en-companion-55665"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-15",
+      "qid": "205107",
+      "question": "ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ಸತ್ಯಸಂಧತೆಯ ನಡುವಿನ ವ್ಯತ್ಯಾಸವೇನು?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ಪ್ರಾಮಾಣಿಕತೆ ಮತ್ತು ನೈತಿಕ ಸಮಗ್ರತೆ ಎಂದರೆ ಸತ್ಯವಂತರಾಗಿರುವುದು, ನಂಬಿಗಸ್ತರಾಗಿರುವುದು ಮತ್ತು ಸದುದ್ದೇಶದ ನೈತಿಕ ತತ್ವಗಳನ್ನು ಅನುಸರಿಸುವುದು.",
+      "evidenceIds": [
+        "en-companion-205107"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-16",
+      "qid": "1060386",
+      "question": "ವಾತಾವರಣದ ಒತ್ತಡವು ಬ್ಯಾರೋಮೀಟರ್ ಮೇಲೆ ಹೇಗೆ ಪ್ರಭಾವ ಬೀರುತ್ತದೆ?",
+      "lang": "kn-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "In a barometer, atmospheric pressure pushes down on mercury, causing the mercury level to rise or fall.",
+      "evidenceIds": [
+        "en-companion-1060386"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-17",
+      "qid": "168868",
+      "question": "ಪಿಟಿಎಸ್ಡಿ (PTSD) ರೋಗಿಗಳಿಗೆ ಗಾಂಜಾ ಸಹಾಯ ಮಾಡುತ್ತದೆ ಎಂಬ ಸಂಶೋಧನೆ ಎಲ್ಲಿದೆ?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ಗಾಂಜಾ ನಿಜವಾಗಿಯೂ ಇಲ್ಲಿ ರೋಗಿಗಳಿಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆಯೇ ಎಂಬುದು ಇಲ್ಲಿ ಕಂಡುಬರುತ್ತದೆ.",
+      "evidenceIds": [
+        "6de986ca28d2838681d2"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-18",
+      "qid": "227261",
+      "question": "2050 ರ ವೇಳೆಗೆ ಅಮೆರಿಕದ ಜನಸಂಖ್ಯೆ ಎಷ್ಟು ಹೆಚ್ಚಾಗಬಹುದು?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ಅಮೆರಿಕಾ ಸಂಯುಕ್ತ ಸಂಸ್ಥಾನಗಳ ಜನಸಂಖ್ಯೆಯು ೨೦೫೦ರ ವೇಳೆಗೆ ೪೦೦ ದಶಲಕ್ಷಕ್ಕೆ ತಲುಪುತ್ತದೆ ಎಂಬುದು ಪ್ರಕ್ಷೇಪಣೆಗಳಾಗಿವೆ - ಸುಮಾರು ೪೦ ವರ್ಷಗಳಲ್ಲಿ ೩೩ ಪ್ರತಿಶತ ಹೆಚ್ಚಳ; ೨೦೦೬ರಲ್ಲಿ ಯು.ಎಸ್.",
+      "evidenceIds": [
+        "c3b71255a3bdcb4a8d13"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-19",
+      "qid": "227029",
+      "question": "ಎನ್ಹೆಚ್ಎಲ್ ಕಾನ್ಫರೆನ್ಸ್ನಲ್ಲಿ ಎಷ್ಟು ತಂಡಗಳು ಪ್ಲೇಆಫ್ಗೆ ಅರ್ಹತೆ ಪಡೆಯುತ್ತವೆ?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "೧೬ ತಂಡಗಳು ಪ್ಲೇಆಫ್‌ಗಳನ್ನು ಮಾಡುತ್ತವೆ ಮತ್ತು ಪ್ರತಿ ಸುತ್ತು ೭ ಸರಣಿಗಳಲ್ಲಿ ಅತ್ಯುತ್ತಮವಾಗಿರುತ್ತದೆ.",
+      "evidenceIds": [
+        "22d62fbd8f729d40a44b"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-20",
+      "qid": "166290",
+      "question": "ರಿಂಗ್ವರ್ಮ್ ಶಿಲೀಂಧ್ರವು ಮನುಷ್ಯರಲ್ಲಿ ಹೇಗೆ ಹರಡುತ್ತದೆ?",
+      "lang": "kn-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "ಚರ್ಮದ ಉಂಗುರದ ರೋಗ (ಟಿನಿಯಾ ಕಾರ್ಪೋರಿಸ್) ಸಾಮಾನ್ಯವಾಗಿ ಟ್ರೈಕೋಫೈಟಾನ್ ರುಬ್ರಮ್ ಎಂಬ ಶಿಲೀಂಧ್ರದಿಂದ ಉಂಟಾಗುತ್ತದೆ, ಇದು ಒಬ್ಬ ವ್ಯಕ್ತಿಯಿಂದ ಇನ್ನೊಬ್ಬರಿಗೆ ಹರಡುತ್ತದೆ.",
+      "evidenceIds": [
+        "34d9680b0cb9418bc459"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-21",
+      "qid": "1102432",
+      "question": "ஒரு நிறுவனம் எவ்வாறு பங்குகளின் மூலம் நிர்வகிக்கப்படுகிறது?",
+      "lang": "ta-IN",
+      "elapsed": 4,
+      "status": "GROUNDED",
+      "answer": "ஒரு கார்ப்பரேஷன் என்பது இணைப்பின் மூலம் உருவான சட்ட அமைப்பு; அது உருவாக்கப்பட்ட நாடு அல்லது மாநிலத்தின் இணைப்பு சட்டங்களால் நிர்வகிக்கப்படுகிறது.",
+      "evidenceIds": [
+        "en-companion-1102432"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-22",
+      "qid": "1102431",
+      "question": "ரேச்சல் கார்சன் சுற்றுச்சூழல் பற்றிய கட்டுரையில் என்ன எச்சரித்துள்ளார்?",
+      "lang": "ta-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ரேச்சல் கார்சன் ‘தி ஒப்ளிகேஷன் டு என்ட்யூர்’ கட்டுரையை கட்டுப்பாடற்ற பூச்சிக்கொல்லி பயன்பாடு மற்றும் அதன் சுற்றுச்சூழல், வனவிலங்குகள், மனிதர்கள் மீதான நீண்டகால விளைவுகளை எச்சரிக்க எழுதினார்.",
+      "evidenceIds": [
+        "en-companion-1102431"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-23",
+      "qid": "90836",
+      "question": "குறைந்த சோடியம் உணவுப் பட்டியலில் உள்ள ஊட்டச்சத்து தகவல்கள் யாவை?",
+      "lang": "ta-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "குறைந்த பொட்டாசியம் உணவுப் பட்டியல், குறைந்த பொட்டாசியம் உணவுமுறைக்கு ஏற்ற உணவுத் தேர்வுகளையும் அவற்றின் அளவுகளையும் காட்டுகிறது.",
+      "evidenceIds": [
+        "en-companion-90836"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-24",
+      "qid": "55665",
+      "question": "சரக்குக் கப்பலின் பில்ஜ் பகுதியில் நீர் எவ்வாறு சேகரிக்கப்படுகிறது?",
+      "lang": "ta-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "சரக்கு கப்பலின் கீழ்புறம் அதன் அடிப்பகுதி அல்லது ஹல்; பில்ஜ் என்பது நீர் சேரக்கூடிய மிகக் கீழான உள்புற பகுதி.",
+      "evidenceIds": [
+        "en-companion-55665"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-25",
+      "qid": "205107",
+      "question": "நேர்மை மற்றும் உண்மைத்தன்மை பற்றிய கருத்துக்கள் யாவை?",
+      "lang": "ta-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "நேர்மையும் ஒருமைப்பாடும் என்பது உண்மையாக இருப்பது, நம்பகமாக இருப்பது, நல்ல ஒழுக்கக் கொள்கைகளால் வழிநடத்தப்படுவது ஆகும்.",
+      "evidenceIds": [
+        "en-companion-205107"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-26",
+      "qid": "1060386",
+      "question": "பாரோமீட்டரில் பாதரசத்தின் உயரம் எவ்வாறு அளவிடப்படுகிறது?",
+      "lang": "ta-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "In a barometer, atmospheric pressure pushes down on mercury, causing the mercury level to rise or fall.",
+      "evidenceIds": [
+        "en-companion-1060386"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-27",
+      "qid": "168868",
+      "question": "கனடா ஆராய்ச்சியின் படி PTSD பாதிப்புக்கு தீர்வு என்ன?",
+      "lang": "ta-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "The Ontario research revealed that medical cannabis can help veterans suffering from PTSD manage their symptoms.",
+      "evidenceIds": [
+        "en-companion-168868"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-28",
+      "qid": "227261",
+      "question": "உலக மக்கள் தொகை வளர்ச்சி மற்றும் காற்று மாசுபாடு பற்றிய தகவல் என்ன?",
+      "lang": "ta-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "உலக மக்கள்தொகை அதிகரிப்புடன் காற்று மாசுபாடும் அதிகரித்துள்ளது.",
+      "evidenceIds": [
+        "d9c3cf62313d7abde745"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-29",
+      "qid": "227029",
+      "question": "NHL விளையாட்டு தொடரில் எத்தனை அணிகள் போட்டியிடுகின்றன?",
+      "lang": "ta-IN",
+      "elapsed": 4,
+      "status": "GROUNDED",
+      "answer": "என்ஹெச்எல் 2 மாநாடுகளாகவும், ஒவ்வொரு மாநாட்டிலும் 3 பிரிவுகளாகவும் பிரிக்கப்பட்டுள்ளது.",
+      "evidenceIds": [
+        "ba4a5c88ed08c40ea1ab"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-30",
+      "qid": "166290",
+      "question": "பூஞ்சை தொற்றினால் ஏற்படும் ரிங்வோர்ம் நோய் அறிகுறிகள் யாவை?",
+      "lang": "ta-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "ரிங்வோர்ம் தோலில் வளரும் பூஞ்சையால் ஏற்படுகிறது.",
+      "evidenceIds": [
+        "d409294aa62119136411"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-31",
+      "qid": "1102432",
+      "question": "कंपनीचे भागधारक तिचे व्यवस्थापन कसे करतात?",
+      "lang": "mr-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "कॉर्पोरेशन ही निगमनातून निर्माण झालेली कायदेशीर संस्था आहे आणि ज्या देशात किंवा राज्यात ती स्थापन होते त्या ठिकाणच्या निगमन कायद्यांनुसार चालते.",
+      "evidenceIds": [
+        "en-companion-1102432"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-32",
+      "qid": "1102431",
+      "question": "राचेल कार्सन यांच्या ऑब्लिगेशन टू एंड्युर निबंधाचे महत्त्व काय आहे?",
+      "lang": "mr-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "रेचल कार्सन यांनी ‘द ऑब्लिगेशन टू एंड्योर’ हे अंधाधुंद कीटकनाशक वापर आणि त्याचे पर्यावरण, वन्यजीव व लोकांवरील दीर्घकालीन परिणाम याबद्दल इशारा देण्यासाठी लिहिले.",
+      "evidenceIds": [
+        "en-companion-1102431"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-33",
+      "qid": "90836",
+      "question": "कमी सोडियम आणि कमी पोटॅशियम आहार योजनेची माहिती काय आहे?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "कमी पोटॅशियम असलेल्या अन्नपदार्थांचा तक्ता कमी-पोटॅशियम आहारासाठी योग्य अन्नपर्याय आणि त्यांचे प्रमाण सांगतो.",
+      "evidenceIds": [
+        "en-companion-90836"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-34",
+      "qid": "55665",
+      "question": "जहाजाच्या तळाशी पाणी साचणाऱ्या भागाला काय म्हणतात?",
+      "lang": "mr-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "मालवाहू जहाजाचा खालचा बाह्य भाग तळ किंवा हुल असतो; बिल्ज हा पाणी साचू शकणारा सर्वात खालचा अंतर्गत भाग आहे.",
+      "evidenceIds": [
+        "en-companion-55665"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-35",
+      "qid": "205107",
+      "question": "प्रमाणिकपणा आणि सत्याधारित आचरण याबद्दल काय सांगितले आहे?",
+      "lang": "mr-IN",
+      "elapsed": 2,
+      "status": "GROUNDED",
+      "answer": "प्रामाणिकपणा आणि सचोटी म्हणजे सत्यवादी व विश्वासार्ह असणे आणि योग्य नैतिक तत्त्वांनुसार वागणे.",
+      "evidenceIds": [
+        "en-companion-205107"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-36",
+      "qid": "1060386",
+      "question": "हवेचा दाब वाढल्यावर बॅरोमीटरमधील पार्याची पातळी कशी बदलते?",
+      "lang": "mr-IN",
+      "elapsed": 5,
+      "status": "GROUNDED",
+      "answer": "जेव्हा हवेचा दाब वाढतो, तेव्हा तो पारा उच्च स्थानावर ढकलतो.",
+      "evidenceIds": [
+        "9c9aaa9e234c283af9eb"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-37",
+      "qid": "168868",
+      "question": "कॅनडामधील अभ्यासानुसार पीटीएसडी रुग्णांवर काय परिणाम होतो?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "The Ontario research revealed that medical cannabis can help veterans suffering from PTSD manage their symptoms.",
+      "evidenceIds": [
+        "en-companion-168868"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-38",
+      "qid": "227261",
+      "question": "२०५० पर्यंत जगाची आणि अमेरिकेची लोकसंख्या किती वाढेल?",
+      "lang": "mr-IN",
+      "elapsed": 4,
+      "status": "GROUNDED",
+      "answer": "२०५० पर्यंत अमेरिकेतील लोकसंख्या ४०० दशलक्षांवर पोहोचेल असा अंदाज आहे - सुमारे ४० वर्षांत ३३ टक्के वाढ; २००६ मध्ये अमेरिकेने ३०० दशलक्षव्या रहिवाश्याला नोंदणी केली.",
+      "evidenceIds": [
+        "6017b9dd0ca80aab1b9a"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-39",
+      "qid": "227029",
+      "question": "एनएचएल प्लेऑफ फेरीमध्ये किती संघ सहभागी होतात?",
+      "lang": "mr-IN",
+      "elapsed": 3,
+      "status": "GROUNDED",
+      "answer": "१६ संघ प्लेऑफमध्ये जातात आणि प्रत्येक फेरीत ७ च्या सर्वोत्तम मालिका असते.",
+      "evidenceIds": [
+        "19c4a7fed14f42d3dea3"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-40",
+      "qid": "166290",
+      "question": "ट्रायकोफायटन रुब्रम बुरशीमुळे कोणता आजार होतो?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "त्वचेचा रिंगवर्म (टिनिया कॉर्पोरिस) हा सामान्यतः ट्रायकोफायटन रुब्रम या बुरशीमुळे होतो, जो एका व्यक्तीकडून दुसऱ्या व्यक्तीकडे पसरतो.",
+      "evidenceIds": [
+        "35c8df5bc5c2343e2eb6"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-41",
+      "qid": "1102432",
+      "question": "How is a corporation governed by shareholders and incorporation laws?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "It is governed by the incorporation laws of the country or state in which it is formed.",
+      "evidenceIds": [
+        "en-companion-1102432"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-42",
+      "qid": "1102431",
+      "question": "What warning did Rachel Carson issue regarding pesticide use?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "GROUNDED",
+      "answer": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the environment, wildlife, and people.",
+      "evidenceIds": [
+        "en-companion-1102431"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-43",
+      "qid": "90836",
+      "question": "What nutritional information is in a low sodium low potassium diet?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet.",
+      "evidenceIds": [
+        "en-companion-90836"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-44",
+      "qid": "55665",
+      "question": "Where does water collect in the lowest internal area of a ship?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "GROUNDED",
+      "answer": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect.",
+      "evidenceIds": [
+        "en-companion-55665"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-45",
+      "qid": "205107",
+      "question": "What is the distinction between honesty and adherence to facts?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "GROUNDED",
+      "answer": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles.",
+      "evidenceIds": [
+        "en-companion-205107"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-46",
+      "qid": "1060386",
+      "question": "How does atmospheric pressure affect the mercury level in a barometer?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "In a barometer, atmospheric pressure pushes down on mercury, causing the mercury level to rise or fall.",
+      "evidenceIds": [
+        "en-companion-1060386"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-47",
+      "qid": "168868",
+      "question": "What did the Ontario research reveal regarding PTSD treatment?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "GROUNDED",
+      "answer": "The Ontario research revealed that medical cannabis can help veterans suffering from PTSD manage their symptoms.",
+      "evidenceIds": [
+        "en-companion-168868"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-48",
+      "qid": "227261",
+      "question": "What is the projected population of the US by 2050?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "By 2050, the US population is projected to grow to over 400 million people.",
+      "evidenceIds": [
+        "en-companion-227261"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-49",
+      "qid": "227029",
+      "question": "How many teams enter the NHL playoffs in each conference?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "GROUNDED",
+      "answer": "Eight teams from each conference qualify for the NHL playoffs, making a total of 16 teams.",
+      "evidenceIds": [
+        "en-companion-227029"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    },
+    {
+      "id": "GA-50",
+      "qid": "166290",
+      "question": "Which fungus causes skin ringworm or tinea corporis?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "GROUNDED",
+      "answer": "The fungus Trichophyton rubrum causes skin ringworm or tinea corporis.",
+      "evidenceIds": [
+        "en-companion-166290"
+      ],
+      "isGrounded": true,
+      "isRefused": false,
+      "provenanceMatch": true,
+      "isCorrect": true
+    }
+  ],
+  "resultsB": [
+    {
+      "id": "GB-1",
+      "question": "What is the distance between Jupiter and Saturn in kilometers?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-2",
+      "question": "What are the core components of the Linux kernel memory manager?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-3",
+      "question": "Who was elected mayor of Tokyo in 1995?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-4",
+      "question": "What is the chemical reaction formula for synthesizing aspirin?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-5",
+      "question": "How many species of hummingbirds live in the Amazon basin?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-6",
+      "question": "What is the tuition cost at Melbourne University in 2026?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-7",
+      "question": "Who directed the film Inception in 2010?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-8",
+      "question": "What is the rules governing offside in ice hockey?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-9",
+      "question": "How to fix a leaky kitchen faucet cartridge?",
+      "lang": "en-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-10",
+      "question": "What are the symptoms of acute appendicitis in adults?",
+      "lang": "en-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-11",
+      "question": "ताज महल का निर्माण किस सम्राट ने करवाया था?",
+      "lang": "hi-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-12",
+      "question": "भारत के प्रथम राष्ट्रपति कौन थे?",
+      "lang": "hi-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-13",
+      "question": "सोलर पैनल सौर ऊर्जा को बिजली में कैसे बदलते हैं?",
+      "lang": "hi-IN",
+      "elapsed": 3,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-14",
+      "question": "कंप्यूटर रिस्पॉन्स टाइम कैसे कम करें?",
+      "lang": "hi-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-15",
+      "question": "डिजिटल सिग्नेचर तकनीक कैसे काम करती है?",
+      "lang": "hi-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-16",
+      "question": "चंद्रयान 3 मिशन के लैंडर का नाम क्या था?",
+      "lang": "hi-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-17",
+      "question": "विटामिन सी की कमी से कौन सा रोग होता है?",
+      "lang": "hi-IN",
+      "elapsed": 3,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-18",
+      "question": "संविधान के अनुच्छेद 21 का क्या महत्व है?",
+      "lang": "hi-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-19",
+      "question": "स्मार्टफोन बैटरी की लाइफ कैसे बढ़ाएं?",
+      "lang": "hi-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-20",
+      "question": "क्वांटम कंप्यूटिंग और क्लासिकल कंप्यूटिंग में क्या अंतर है?",
+      "lang": "hi-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-21",
+      "question": "ಕರ್ನಾಟಕದ ರಾಜ್ಯ ರಾಜಧಾನಿ ನಗರ ಯಾವುದು?",
+      "lang": "kn-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-22",
+      "question": "ವಿಶ್ವದ ಅತ್ಯಂತ ಎತ್ತರದ ಶಿಖರ ಯಾವುದು?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-23",
+      "question": "ದ್ಯುತಿಸಂಶ್ಲೇಷಣೆ ಪ್ರಕ್ರಿಯೆ ಹೇಗೆ ನಡೆಯುತ್ತದೆ?",
+      "lang": "kn-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-24",
+      "question": "ಕಂಪ್ಯೂಟರ್ ಹಾರ್ಡ್ ಡಿಸ್ಕ್ ಹೇಗೆ ಡೇಟಾ ಶೇಖರಿಸುತ್ತದೆ?",
+      "lang": "kn-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-25",
+      "question": "ವಿಟಮಿನ್ ಡಿ ಕೊರತೆಯ ಲಕ್ಷಣಗಳು ಯಾವುವು?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-26",
+      "question": "ಬೆಂಗಳೂರಿನ ಮೆಟ್ರೋ ರೈಲು ಯೋಜನೆ ಯಾವಾಗ ಪ್ರಾರಂಭವಾಯಿತು?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-27",
+      "question": "ವಿಶ್ವಸಂಸ್ಥೆಯ ಪ್ರಧಾನ ಕಚೇರಿ ಎಲ್ಲಿದೆ?",
+      "lang": "kn-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-28",
+      "question": "ಕನ್ನಡ ಸಾಹಿತ್ಯದಲ್ಲಿ ಜ್ಞಾನಪೀಠ ಪ್ರಶಸ್ತಿ ಪಡೆದವರು ಯಾರು?",
+      "lang": "kn-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-29",
+      "question": "ಸೌರಮಂಡಲದ ಅತಿ ದೊಡ್ಡ ಗ್ರಹ ಯಾವುದು?",
+      "lang": "kn-IN",
+      "elapsed": 3,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-30",
+      "question": "ಇಂಟರ್ನೆಟ್ ಪ್ರೋಟೋಕಾಲ್ (IP) ವಿಳಾಸ ಎಂದರೇನು?",
+      "lang": "kn-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-31",
+      "question": "தமிழ்நாட்டின் தலைநகரம் எது?",
+      "lang": "ta-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-32",
+      "question": "சூரிய குடும்பத்தில் மிகப்பெரிய கோள் எது?",
+      "lang": "ta-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-33",
+      "question": "ஒளிச்சேர்க்கை எவ்வாறு நடைபெறுகிறது?",
+      "lang": "ta-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-34",
+      "question": "கணினி நினைவகம் (RAM) எவ்வாறு செயல்படுகிறது?",
+      "lang": "ta-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-35",
+      "question": "இந்தியாவின் முதல் விண்வெளி வீரர் யார்?",
+      "lang": "ta-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-36",
+      "question": "மின்சார மோட்டார் எவ்வாறு சுழல்கிறது?",
+      "lang": "ta-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-37",
+      "question": "வைட்டமின் பி12 குறைபாட்டின் அறிகுறிகள் யாவை?",
+      "lang": "ta-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-38",
+      "question": "திருக்குறளை எழுதியவர் யார்?",
+      "lang": "ta-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-39",
+      "question": "விண்வெளியில் ஈர்ப்பு விசை எவ்வாறு செயல்படுகிறது?",
+      "lang": "ta-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-40",
+      "question": "இணையதள பாதுகாப்பு மற்றும் ஃபயர்வால் என்றால் என்ன?",
+      "lang": "ta-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-41",
+      "question": "ताज महाल बांधणारा सम्राट कोण होता?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-42",
+      "question": "महाराष्ट्राची राजधानी कोणती आहे?",
+      "lang": "mr-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-43",
+      "question": "प्रकाशसंश्लेषण प्रक्रिया कशी होते?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-44",
+      "question": "संगणक रॅम (RAM) कशी कार्य करते?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-45",
+      "question": "व्हिटॅमिन डी च्या कमતરतेची लक्षणे कोणती?",
+      "lang": "mr-IN",
+      "elapsed": 2,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-46",
+      "question": "मुंबईतील पहिली लोकल ट्रेन कधी धावली?",
+      "lang": "mr-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-47",
+      "question": "संयुक्त राष्ट्रांचे मुख्यालय कोठे आहे?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-48",
+      "question": "मराठी साहित्यातील पहिले ज्ञानपीठ विजेते कोण?",
+      "lang": "mr-IN",
+      "elapsed": 0,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-49",
+      "question": "सूर्यमालेतील सर्वात मोठा ग्रह कोणता?",
+      "lang": "mr-IN",
+      "elapsed": 3,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    },
+    {
+      "id": "GB-50",
+      "question": "आयપી एड्रेस म्हणजे काय?",
+      "lang": "mr-IN",
+      "elapsed": 1,
+      "status": "REFUSED",
+      "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "evidenceIds": [],
+      "isSafeRefusal": true,
+      "isFalseCitation": false
+    }
+  ]
+}

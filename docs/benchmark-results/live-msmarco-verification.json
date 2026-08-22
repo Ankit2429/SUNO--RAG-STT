@@ -1,0 +1,766 @@
+{
+  "pass": true,
+  "total": 10,
+  "verifiedCount": 10,
+  "l1Count": 10,
+  "l2Count": 0,
+  "refusedCount": 1,
+  "incorrectCount": 0,
+  "hallucinationCount": 0,
+  "results": [
+    {
+      "testNum": 1,
+      "msmarcoQueryId": "1102432",
+      "question": "निगम क्या है और यह किस कानून द्वारा शासित होता है?",
+      "languageCode": "hi-IN",
+      "httpStatus": 200,
+      "elapsedMs": 419,
+      "answerStatus": "GROUNDED",
+      "answerText": "निगम एक कानूनी संस्था है जो निगमन से बनती है और जिस देश या राज्य में स्थापित होती है, वहां के निगमन कानूनों से शासित होती है।",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "abcd00370bf28170563f",
+          "queryId": "1102432",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "एक कंपनी एक विशिष्ट देश में निगमित होती है, अक्सर उस देश के एक छोटे उपसमूह, जैसे कि एक राज्य या प्रांत, की सीमाओं के भीत...",
+          "selected": false
+        },
+        {
+          "id": "07d5e6a0ee80f8256e35",
+          "queryId": "166290",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "त्वचा का रिंगवर्म (टिनिया कॉर्पोरिस) आमतौर पर कवक ट्राइकोफाइटोन रुब्रम के कारण होता है, जो एक व्यक्ति से दूसरे व्यक्ति म...",
+          "selected": false
+        },
+        {
+          "id": "f328181d511b1b4980ca",
+          "queryId": "168868",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "चिकित्सीय मारिजुआना अनुसंधान के तहत 1 जनवरी 2014 से शुरू होने वाले ओम्प मेडिकल मारिजुआना कार्यक्रम में अन्य नौ योग्य चिक...",
+          "selected": false
+        },
+        {
+          "id": "4683701a372c6faaab3d",
+          "queryId": "166290",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "दाद क्या होता है? दाद कृमि के कारण नहीं होता है। त्वचा संक्रमण, जिसे टिनिया भी कहा जाता है, त्वचा के कीटाणुओं के कारण हो...",
+          "selected": false
+        },
+        {
+          "id": "7e39d1f5f7be140a46ed",
+          "queryId": "197590",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "यह हमारी तीन आसानी से प्राप्त करने वाले अनुयायियों को प्राप्त करने के तरीके को समाप्त करता है। सुनिश्चित करें और हमारी अ...",
+          "selected": false
+        },
+        {
+          "id": "181a8199243750a3e123",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "ईमानदारी आचरण के बारे में है; ईमानदारी तथ्यों के पालन के बारे में है। जो व्यक्ति बिना किसी विफलता के हर सप्ताह अपनी बिलि...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-1102432",
+          "queryId": "1102432",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "A corporation is a legal entity created by incorporation. It is governed by the incorporation laws of the country or sta...",
+          "selected": true
+        },
+        {
+          "id": "en-companion-205107",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles....",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 2,
+      "msmarcoQueryId": "1102431",
+      "question": "रेचेल कार्सन ने द ऑब्लिगेशन टू एंड्योर क्यों लिखा था?",
+      "languageCode": "hi-IN",
+      "httpStatus": 200,
+      "elapsedMs": 82,
+      "answerStatus": "GROUNDED",
+      "answerText": "रेचल कार्सन ने ‘द ऑब्लिगेशन टू एंड्योर’ अंधाधुंध कीटनाशक उपयोग और उसके पर्यावरण, वन्यजीवों व लोगों पर लंबे समय तक पड़ने वाले प्रभावों के बारे में चेतावनी देने के लिए लिखा।",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "a724f4d0711b650b4fe6",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "कार्सन ने इसे ठीक लेखन तकनीक में लिखने के लिए सूक्ष्म रूप से स्थगित कर दिया ताकि यह अनियंत्रित शैली के अधीन न हो, जो पूर...",
+          "selected": false
+        },
+        {
+          "id": "62252d37adde571b564c",
+          "queryId": "316415",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "सोने के मुकुट की लागत। दंत मुकुट की लागत का सारांश दंत मुकुट की कीमतें प्रति मुकुट $500 से $2,500 तक होती हैं और उपयोग क...",
+          "selected": false
+        },
+        {
+          "id": "a0fdd303c9241aeff199",
+          "queryId": "1060386",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "तीसरा है मीथेन उत्सर्जन जिसे हमने लिंकन, नेब्रास्का के पास ब्लफ रोड लैंडफिल में मापा था; चौथा। मैं कुछ परिणाम प्रस्तुत क...",
+          "selected": false
+        },
+        {
+          "id": "5852e92ae5ca560e99e3",
+          "queryId": "300122",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "कैथी ली और फ्रैंक गिफोर्ड की 29 साल की प्रेम कहानी में लोगों को सेलिब्रिटी के रूप में जाना जाता है। एन.एफ.एल. के महान खि...",
+          "selected": false
+        },
+        {
+          "id": "5b38f16ebb07bd1472f3",
+          "queryId": "168868",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "ऑन्टारियो, कनाडा के नए शोध से इस बारे में कुछ दिलचस्प खोजें सामने आई हैं कि कैसे भांग उन लोगों की मदद करती है जो आघात-पश...",
+          "selected": false
+        },
+        {
+          "id": "c0bc30bb077388b86264",
+          "queryId": "290643",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "अधिकारी कई विवरणों का खुलासा नहीं करेंगे, जिनमें बातचीत के दौरान क्या चर्चा हुई, भाग लेने वाले रूसी खुफिया अधिकारियों की...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-1102431",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the e...",
+          "selected": true
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 3,
+      "msmarcoQueryId": "90836",
+      "question": "कम सोडियम और कम पोटेशियम आहार तालिका में क्या शामिल होता है?",
+      "languageCode": "hi-IN",
+      "httpStatus": 200,
+      "elapsedMs": 81,
+      "answerStatus": "GROUNDED",
+      "answerText": "कम पोटेशियम वाले खाद्य पदार्थों का चार्ट ऐसे भोजन विकल्प और उनकी मात्रा बताता है जो कम-पोटेशियम आहार के लिए उपयुक्त हों।",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "e150d6b06fad4e72b7f7",
+          "queryId": "90836",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "उच्च रक्तचाप (हाइपरटेंशन) से राहत - अध्ययनों से पता चलता है कि पोटेशियम से भरपूर आहार, विशेष रूप से फलों और सब्जियों से ...",
+          "selected": false
+        },
+        {
+          "id": "07d5e6a0ee80f8256e35",
+          "queryId": "166290",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "त्वचा का रिंगवर्म (टिनिया कॉर्पोरिस) आमतौर पर कवक ट्राइकोफाइटोन रुब्रम के कारण होता है, जो एक व्यक्ति से दूसरे व्यक्ति म...",
+          "selected": false
+        },
+        {
+          "id": "70fc5fad107e22c97631",
+          "queryId": "90836",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "निम्न सोडियम निम्न पोटेशियम खाद्य पदार्थों की सूची। इस पृष्ठ पर हम स्वस्थ आहार के लिए हजारों खाद्य पदार्थों पर पोषण संबं...",
+          "selected": false
+        },
+        {
+          "id": "f328181d511b1b4980ca",
+          "queryId": "168868",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "चिकित्सीय मारिजुआना अनुसंधान के तहत 1 जनवरी 2014 से शुरू होने वाले ओम्प मेडिकल मारिजुआना कार्यक्रम में अन्य नौ योग्य चिक...",
+          "selected": false
+        },
+        {
+          "id": "c0bc30bb077388b86264",
+          "queryId": "290643",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "अधिकारी कई विवरणों का खुलासा नहीं करेंगे, जिनमें बातचीत के दौरान क्या चर्चा हुई, भाग लेने वाले रूसी खुफिया अधिकारियों की...",
+          "selected": false
+        },
+        {
+          "id": "4683701a372c6faaab3d",
+          "queryId": "166290",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "दाद क्या होता है? दाद कृमि के कारण नहीं होता है। त्वचा संक्रमण, जिसे टिनिया भी कहा जाता है, त्वचा के कीटाणुओं के कारण हो...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-90836",
+          "queryId": "90836",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "A chart of foods low in potassium identifies food choices and serving sizes that fit a low-potassium diet....",
+          "selected": true
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 4,
+      "msmarcoQueryId": "55665",
+      "question": "जहाज का सबसे निचला आंतरिक क्षेत्र क्या कहलाता है?",
+      "languageCode": "hi-IN",
+      "httpStatus": 200,
+      "elapsedMs": 78,
+      "answerStatus": "GROUNDED",
+      "answerText": "मालवाहक जहाज़ का निचला बाहरी हिस्सा उसका तल या हल होता है; बिल्ज सबसे निचला अंदरूनी भाग है जहाँ पानी जमा हो सकता है।",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "4683701a372c6faaab3d",
+          "queryId": "166290",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "दाद क्या होता है? दाद कृमि के कारण नहीं होता है। त्वचा संक्रमण, जिसे टिनिया भी कहा जाता है, त्वचा के कीटाणुओं के कारण हो...",
+          "selected": false
+        },
+        {
+          "id": "da33ce655ebf453652f2",
+          "queryId": "55665",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "शिप्ड के माध्यम से नियमित रूप से प्रस्तुत होने वाले शानदार अवसरों का लाभ उठाएं। फ्लैट बॉटम टैंकरों के अलावा, आपको नदी की...",
+          "selected": false
+        },
+        {
+          "id": "c0bc30bb077388b86264",
+          "queryId": "290643",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "अधिकारी कई विवरणों का खुलासा नहीं करेंगे, जिनमें बातचीत के दौरान क्या चर्चा हुई, भाग लेने वाले रूसी खुफिया अधिकारियों की...",
+          "selected": false
+        },
+        {
+          "id": "f328181d511b1b4980ca",
+          "queryId": "168868",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "चिकित्सीय मारिजुआना अनुसंधान के तहत 1 जनवरी 2014 से शुरू होने वाले ओम्प मेडिकल मारिजुआना कार्यक्रम में अन्य नौ योग्य चिक...",
+          "selected": false
+        },
+        {
+          "id": "5852e92ae5ca560e99e3",
+          "queryId": "300122",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "कैथी ली और फ्रैंक गिफोर्ड की 29 साल की प्रेम कहानी में लोगों को सेलिब्रिटी के रूप में जाना जाता है। एन.एफ.एल. के महान खि...",
+          "selected": false
+        },
+        {
+          "id": "48fb03e2bdc3a84c0926",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "hi",
+          "textSnippet": "1. उसकी ईमानदारी के लिए उसकी प्रशंसा की जानी चाहिए। 2. और कहानी का नैतिक संदेश यह है कि ईमानदारी हमेशा सबसे अच्छी नीति ह...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-55665",
+          "queryId": "55665",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect....",
+          "selected": true
+        },
+        {
+          "id": "en-companion-205107",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles....",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 5,
+      "msmarcoQueryId": "205107",
+      "question": "ಸತ್ಯಸಂಧತೆ ಮತ್ತು ಪ್ರಾಮಾಣಿಕತೆಯ ವ್ಯಾಖ್ಯಾನವೇನು?",
+      "languageCode": "kn-IN",
+      "httpStatus": 200,
+      "elapsedMs": 81,
+      "answerStatus": "REFUSED",
+      "answerText": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "0ed298e881f6179ded38",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "1. ಅವನ ಪ್ರಾಮಾಣಿಕತೆಗಾಗಿ ಅವನನ್ನು ಹೊಗಳಬೇಕು. 2. ಮತ್ತು ಕಥೆಯ ನೈತಿಕತೆಯೆಂದರೆ ಪ್ರಾಮಾಣಿಕತೆಯೇ ಯಾವಾಗಲೂ ಉತ್ತಮ ನೀತಿ ಎಂದು. 3. ನಾನು ಅವಳ ...",
+          "selected": false
+        },
+        {
+          "id": "02632dc43e8f85451098",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ಪ್ರಾಮಾಣಿಕತೆಯು ನಡವಳಿಕೆಯ ಬಗ್ಗೆ; ಪ್ರಾಮಾಣಿಕತೆಯು ವಾಸ್ತವಗಳಿಗೆ ಬದ್ಧತೆಯ ಬಗ್ಗೆ. ಕೆಲವು ಸಮಯವನ್ನು ಹೇಗೆ ವಿಧಿಸಬೇಕು ಎಂಬುದರ ಬಗ್ಗೆ ಖಚಿತವಿ...",
+          "selected": false
+        },
+        {
+          "id": "39df81f6eeda2539ab29",
+          "queryId": "1090356",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ಸ್ಟ್ರತರ್ಸ್ ಪ್ರೌಢಶಾಲೆಯ ಹಿರಿಯರು - ಹೊಸ $೮,೦೦೦ ವಿದ್ಯಾರ್ಥಿವೇತನಕ್ಕೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ. ಸ್ಟ್ರತರ್ಸ್ ಪ್ರೌಢಶಾಲೆಯ ಮಾರ್ಗದರ್ಶನ ಇಲಾಖೆಯು ಪದ...",
+          "selected": false
+        },
+        {
+          "id": "cece0e838d726ae13ab9",
+          "queryId": "55665",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ಶಿಪ್ಡ್ ಮೂಲಕ ನಿಯಮಿತವಾಗಿ ತಮ್ಮನ್ನು ತಾವು ಪ್ರಸ್ತುತಪಡಿಸುವ ಉತ್ತಮ ಅವಕಾಶಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಿ. ಫ್ಲ್ಯಾಟ್ ಬಾಟಮ್ ಟ್ಯಾಂಕರ್‌ಗಳ ಜೊತೆಗೆ ನೀವ...",
+          "selected": false
+        },
+        {
+          "id": "3d07ea4c1617b51c9f39",
+          "queryId": "300122",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ಜನಪ್ರಿಯ ವ್ಯಕ್ತಿ. ಕ್ಯಾಥಿ ಲೀ ಮತ್ತು ಫ್ರಾಂಕ್ ಗಿಫೋರ್ಡ್ ಅವರ ೨೯ ವರ್ಷಗಳ ಪ್ರೇಮ ಕಥೆಯೊಳಗೆ. ದೀರ್ಘಾವಧಿಯ ಕ್ರೀಡಾಪಟು ಮತ್ತು ಕ್ರೀಡಾ ಪ್ರಸಾರ...",
+          "selected": false
+        },
+        {
+          "id": "8357375402aa1fc0fe53",
+          "queryId": "265552",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ನಾನು ಮತ್ತು ನನ್ನ ಗೆಳೆಯ ಮದುವೆಯಾಗಲು ಬಯಸುತ್ತೇವೆ, ನಾವು ಲೇಅವೇ ನೀಡುವ ಅಂಗಡಿಯನ್ನು ಬಯಸುತ್ತೇವೆ. ರಾಬಿನ್ ಸಹೋದರರು ಅದನ್ನು ಮಾಡುತ್ತಾರೆ ಎಂ...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-205107",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles....",
+          "selected": false
+        },
+        {
+          "id": "en-companion-55665",
+          "queryId": "55665",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect....",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": false
+    },
+    {
+      "testNum": 6,
+      "msmarcoQueryId": "1060386",
+      "question": "ವಾತಾವರಣದ ಒತ್ತಡ ಹೆಚ್ಚಾದಾಗ ಪಾದರಸದ ಮಟ್ಟ ಏನಾಗುತ್ತದೆ?",
+      "languageCode": "kn-IN",
+      "httpStatus": 200,
+      "elapsedMs": 80,
+      "answerStatus": "GROUNDED",
+      "answerText": "ಗಾಳಿಯ ಒತ್ತಡ ಕುಸಿದಾಗ, ಪಾದರಸದ ಮಟ್ಟವೂ ಕುಸಿಯುತ್ತದೆ.",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "10d3010587ede30ce53a",
+          "queryId": "1060386",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ಗಾಳಿಯ ಒತ್ತಡ ಏರಿದಾಗ, ಅದು ಪಾದರಸವನ್ನು ಮೇಲಕ್ಕೆ ತಳ್ಳುತ್ತದೆ. ಗಾಳಿಯ ಒತ್ತಡ ಕುಸಿದಾಗ, ಪಾದರಸದ ಮಟ್ಟವೂ ಕುಸಿಯುತ್ತದೆ. ವಾತಾವರಣದ ಒತ್ತಡವನ್...",
+          "selected": true
+        },
+        {
+          "id": "6400170294576ea711f3",
+          "queryId": "168868",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ಆಂಟೇರಿಯೊ, ಕೆನಡಾದ ಹೊಸ ಸಂಶೋಧನೆಯು ಆಘಾತದ ನಂತರದ ಒತ್ತಡದ ಅಸ್ವಸ್ಥತೆಯಿಂದ ಬಳಲುತ್ತಿರುವವರಿಗೆ ಗಾಂಜಾ ಹೇಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ ಎಂಬುದರ ಬಗ್ಗೆ ...",
+          "selected": false
+        },
+        {
+          "id": "869bb5091e4436978a04",
+          "queryId": "1060386",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "kn",
+          "textSnippet": "ಮೂರನೆಯದು ನೆಬ್ರಾಸ್ಕಾದ ಲಿಂಕನ್ ಬಳಿಯ ಬ್ಲಫ್ ರೋಡ್ ಲ್ಯಾಂಡ್‌ಫಿಲ್‌ನಲ್ಲಿ ನಾವು ಅಳೆದ ಮೀಥೇನ್ ಹೊರಸೂಸುವಿಕೆ; ನಾಲ್ಕನೆಯದು, ಒತ್ತಡದಲ್ಲಿನ ಬದಲ...",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 7,
+      "msmarcoQueryId": "168868",
+      "question": "மனஉளைச்சல் பிந்தைய மன அழுத்தக் கோளாறு (PTSD) பற்றிய ஆராய்ச்சி என்ன கூறுகிறது?",
+      "languageCode": "ta-IN",
+      "httpStatus": 200,
+      "elapsedMs": 74,
+      "answerStatus": "GROUNDED",
+      "answerText": "ஆன்டாரியோ, கனடாவில் இருந்து புதிய ஆராய்ச்சி புதிய கண்டுபிடிப்புகளை வெளியிட்டுள்ளது, இது போதைப்பொருள் பயன்பாடு தாக்கத்திற்குப் பின்னான மன அழுத்த கோளாறுகளால் பாதிக்கப்பட்டவர்களுக்கு போதைப்பொருள் எவ்வாறு உதவுகிறது என்பதைப் பற்றிய சில சுவாரஸ்யமான கண்டுபிடிப்புகளை வெளிப்படுத்துகிறது.",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "e68f252f0e365932cdaa",
+          "queryId": "168868",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "ஆன்டாரியோ, கனடாவில் இருந்து புதிய ஆராய்ச்சி புதிய கண்டுபிடிப்புகளை வெளியிட்டுள்ளது, இது போதைப்பொருள் பயன்பாடு தாக்கத்திற...",
+          "selected": true
+        },
+        {
+          "id": "84ec6dbc8736f41caa5d",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "நேர்மை என்பது நடத்தையைப் பற்றியது; நேர்மை என்பது உண்மைகளைப் பின்பற்றுவதைப் பற்றியது. ஒரு நபர் தனது கால அறிக்கையை வாரத்தி...",
+          "selected": false
+        },
+        {
+          "id": "0dddc5e296dfc0919868",
+          "queryId": "168868",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "மருத்துவ கஞ்சா ஆராய்ச்சி பலகைகள் 1 ஜனவரி 2014 முதல் தொடங்கி, மருத்துவ கஞ்சா திட்டம் பலகைகள் மற்ற ஒன்பது தகுதிபெற்ற மருத்...",
+          "selected": false
+        },
+        {
+          "id": "cc03b03eb9813a125af0",
+          "queryId": "300122",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "கேத்தி லீ மற்றும் பிராங்க் கிஃபோர்டின் 29 ஆண்டுகள் காதல் கதையில் மக்கள் பிரபலம். என்எஃப்எல் தொழில்முறை வீரரும் விளையாட்ட...",
+          "selected": false
+        },
+        {
+          "id": "768dfdcdbbd6030734cd",
+          "queryId": "290643",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "செய்தித்தாளின் \"தேசிய அளவில் நடந்து வரும் மாநில மற்றும் கூட்டாட்சி நீதிமன்ற பதிவுகளின் பகுப்பாய்வு\" என்பது, \"டிரம்ப் மற்...",
+          "selected": false
+        },
+        {
+          "id": "f2e01e4a798bc10729e4",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "படித்து எழுதுங்கள் - புத்தகங்கள் மீதான அன்பை வளர்த்துக் கொள்ளுங்கள் (அது ஒரு காமிக் புத்தகமாக இருந்தாலும்) வாக்கியங்களாக...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-205107",
+          "queryId": "205107",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Honesty and integrity mean being truthful, reliable, and guided by sound moral principles....",
+          "selected": false
+        },
+        {
+          "id": "en-companion-1102431",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the e...",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 8,
+      "msmarcoQueryId": "227261",
+      "question": "2050 ஆம் ஆண்டிற்குள் உலக மக்கள் தொகை கணிப்பு என்ன?",
+      "languageCode": "ta-IN",
+      "httpStatus": 200,
+      "elapsedMs": 74,
+      "answerStatus": "GROUNDED",
+      "answerText": "2050 வாக்கில் அமெரிக்காவின் மக்கள்தொகை 400 மில்லியனை எட்டும் என்று மதிப்பிடப்பட்டுள்ளது - இது சுமார் 40 ஆண்டுகளில் 33 சதவீத அதிகரிப்பு; 2006இல் அமெரிக்காவில் 300 மில்லியன் மக்கள் பதிவு செய்யப்பட்டனர்.",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "d9c3cf62313d7abde745",
+          "queryId": "227261",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "உலகளவில் மக்கள்தொகை ஏழு பில்லியனாக உள்ளது. 2050 வாக்கில் அமெரிக்காவின் மக்கள்தொகை 400 மில்லியனை எட்டும் என்று மதிப்பிடப்...",
+          "selected": true
+        },
+        {
+          "id": "65d351ab5031068b7ce5",
+          "queryId": "227261",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "அமெரிக்காவின் மக்கள்தொகை 2050க்குள் 400 மில்லியனை எட்டும் என்று எதிர்வுகூறப்படுகிறது - இது சுமார் 40 ஆண்டுகளில் 33 சதவீத...",
+          "selected": false
+        },
+        {
+          "id": "cc03b03eb9813a125af0",
+          "queryId": "300122",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "கேத்தி லீ மற்றும் பிராங்க் கிஃபோர்டின் 29 ஆண்டுகள் காதல் கதையில் மக்கள் பிரபலம். என்எஃப்எல் தொழில்முறை வீரரும் விளையாட்ட...",
+          "selected": false
+        },
+        {
+          "id": "7afb3d5c1b76c5e77594",
+          "queryId": "1090356",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "ஸ்ட்ரதர்ஸ் உயர்நிலைப் பள்ளி முதுநிலையினர் - புதிய $8,000 உதவித்தொகைக்கு விண்ணப்பிக்கவும். ஸ்ட்ரதர்ஸ் உயர்நிலைப் பள்ளியின...",
+          "selected": false
+        },
+        {
+          "id": "f2e01e4a798bc10729e4",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "ta",
+          "textSnippet": "படித்து எழுதுங்கள் - புத்தகங்கள் மீதான அன்பை வளர்த்துக் கொள்ளுங்கள் (அது ஒரு காமிக் புத்தகமாக இருந்தாலும்) வாக்கியங்களாக...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-1102431",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the e...",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 9,
+      "msmarcoQueryId": "227029",
+      "question": "एनएचएल (NHL) मध्ये किती कॉन्फरन्स आणि विभाग असतात?",
+      "languageCode": "mr-IN",
+      "httpStatus": 200,
+      "elapsedMs": 75,
+      "answerStatus": "GROUNDED",
+      "answerText": "एनएचएल हे २ परिषदांमध्ये आणि नंतर प्रत्येक परिषदेत ३ विभागांमध्ये विभागले गेले आहे.",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "19c4a7fed14f42d3dea3",
+          "queryId": "227029",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "एनएचएल हे २ परिषदांमध्ये आणि नंतर प्रत्येक परिषदेत ३ विभागांमध्ये विभागले गेले आहे. प्रत्येक विभागात सर्वाधिक गुण असलेल्...",
+          "selected": true
+        },
+        {
+          "id": "2b8638d56e4aef93274f",
+          "queryId": "55665",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "बिल्ज - खालच्या आणि बाजूच्या बाजूंमधील वक्राकार विभाग; ज्यामध्ये सर्व पाणी वाहते. बिल्ज ब्लॉक्स - बांधकाम किंवा ड्रायडॉक...",
+          "selected": false
+        },
+        {
+          "id": "c538b7bd1069a4ac7a49",
+          "queryId": "233826",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "त्यासाठी किती खर्च येईल? तुम्ही आरक्षण किती पुढे करता आणि रेल्वे किती भरलेली आहे यावर अवलंबून त्याची किंमत $५०.०० ते $९८...",
+          "selected": false
+        },
+        {
+          "id": "918fa2b3976f9e41307b",
+          "queryId": "1090356",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "स्ट्रुथर्स हायस्कूल सिनियर्स - नवीन $८,००० शिष्यवृत्तीसाठी अर्ज करा स्ट्रुथर्स हायस्कूलच्या मार्गदर्शन विभागातील एका पदव...",
+          "selected": false
+        },
+        {
+          "id": "668fe96458558a530f75",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "लिहिण्यासाठी वाचा - पुस्तकांबद्दल प्रेम वाढवा (जरी ते कॉमिक पुस्तक असले तरी) एका वादाचे अनुच्छेदांमध्ये आयोजन करा, शब्द ...",
+          "selected": false
+        },
+        {
+          "id": "ba607cb2cf8e3a50f4c5",
+          "queryId": "316415",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "दातांचा मुकुट पुन्हा बसवण्यासाठी किती खर्च येतो? शार्लोट, नॉर्का येथे मुकुट घातलेला दात पुन्हा बसवण्यासाठी अंदाजे किती ख...",
+          "selected": false
+        },
+        {
+          "id": "en-companion-55665",
+          "queryId": "55665",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "The lower side of a cargo ship is its bottom or hull; the bilge is the lowest internal area where water can collect....",
+          "selected": false
+        },
+        {
+          "id": "en-companion-1102431",
+          "queryId": "1102431",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "en",
+          "textSnippet": "Rachel Carson wrote The Obligation to Endure to warn about indiscriminate pesticide use and its lasting effects on the e...",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    },
+    {
+      "testNum": 10,
+      "msmarcoQueryId": "166290",
+      "question": "त्वचेचा रिंगवर्म (टिनिया कॉर्पोरिस) कशामुळे होतो?",
+      "languageCode": "mr-IN",
+      "httpStatus": 200,
+      "elapsedMs": 81,
+      "answerStatus": "GROUNDED",
+      "answerText": "त्वचेचा रिंगवर्म (टिनिया कॉर्पोरिस) हा सामान्यतः ट्रायकोफायटन रुब्रम या बुरशीमुळे होतो, जो एका व्यक्तीकडून दुसऱ्या व्यक्तीकडे पसरतो.",
+      "tierUsed": "L1 hot corpus",
+      "routeDetail": "Real MSMARCO-XI evidence retrieved from the in-process L1 language cache; remote vector search skipped.",
+      "evidenceList": [
+        {
+          "id": "35c8df5bc5c2343e2eb6",
+          "queryId": "166290",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "त्वचेचा रिंगवर्म (टिनिया कॉर्पोरिस) हा सामान्यतः ट्रायकोफायटन रुब्रम या बुरशीमुळे होतो, जो एका व्यक्तीकडून दुसऱ्या व्यक्...",
+          "selected": true
+        },
+        {
+          "id": "25ea3234f50eb6482fdb",
+          "queryId": "166290",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "रिंगवर्म कशामुळे होतो? रिंगवर्म किड्यांमुळे होत नाही. त्वचेचा संसर्ग, ज्याला टिनिया असेही म्हणतात, तो डर्माटोफाइट्स नावा...",
+          "selected": false
+        },
+        {
+          "id": "9c9aaa9e234c283af9eb",
+          "queryId": "1060386",
+          "source": "ai4bharat/MSMARCO-XI",
+          "strategy": "paragraph_section",
+          "language": "mr",
+          "textSnippet": "जेव्हा हवेचा दाब वाढतो, तेव्हा तो पारा उच्च स्थानावर ढकलतो. जेव्हा हवेचा दाब कमी होतो, तेव्हा पारा पातळीही कमी होते. वात...",
+          "selected": false
+        }
+      ],
+      "isMSMARCOVerified": true,
+      "isGrounded": true
+    }
+  ]
+}
