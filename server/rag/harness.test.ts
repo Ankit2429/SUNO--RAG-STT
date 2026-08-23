@@ -87,4 +87,40 @@ describe("fail-closed guardrails", () => {
     expect(run.evidence).toEqual([]);
     expect(run.trace.find(event => event.stage === "detect_language")?.detail).toContain("outside the focused");
   });
+
+  it("routes automatic detection without explicit probability field when language is in focused scope", async () => {
+    transcribeMock.mockResolvedValue({
+      transcript: "What is a corporation?",
+      languageCode: "en-IN",
+      script: "Latin",
+      languageProbability: null,
+      autoDetected: true,
+      providerRequestId: "auto-en",
+      idempotencyKey: "test-key",
+    });
+
+    const run = await runVoiceHarness({ audioBase64: Buffer.from("audio").toString("base64"), mimeType: "audio/webm", languageHint: AUTO_DETECT_LANGUAGE });
+
+    expect(run.answer.status).toBe("GROUNDED");
+    expect(run.detectedLanguage).toBe("en-IN");
+    expect(run.evidence.length).toBeGreaterThan(0);
+  });
+
+  it("routes automatic detection via script inference when Sarvam returns unknown languageCode", async () => {
+    transcribeMock.mockResolvedValue({
+      transcript: "ಕಾರ್ಪೊರೇಷನ್ ಯಾವ ಕಾನೂನುಗಳ ಮೂಲಕ ನಿಯಂತ್ರಿತವಾಗುತ್ತದೆ?",
+      languageCode: "unknown",
+      script: "Kannada",
+      languageProbability: null,
+      autoDetected: true,
+      providerRequestId: "auto-kn",
+      idempotencyKey: "test-key",
+    });
+
+    const run = await runVoiceHarness({ audioBase64: Buffer.from("audio").toString("base64"), mimeType: "audio/webm", languageHint: AUTO_DETECT_LANGUAGE });
+
+    expect(run.answer.status).toBe("GROUNDED");
+    expect(run.detectedLanguage).toBe("kn-IN");
+    expect(run.evidence.length).toBeGreaterThan(0);
+  });
 });
