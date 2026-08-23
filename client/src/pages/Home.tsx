@@ -65,16 +65,23 @@ function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes
   const automaticDetection = languageCode === AUTO_DETECT_LANGUAGE;
   const selectedLanguage = automaticDetection ? null : VOICE_LANGUAGES.find(language => language.code === languageCode) || VOICE_LANGUAGES[0];
   const selectedIsIndexed = !automaticDetection && indexedLanguageCodes.includes(languageCode.slice(0, 2));
-  return <div data-testid="voice-language-picker" className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-left">
-    <label htmlFor="voice-language" className="mono text-[9px] font-bold uppercase tracking-[0.13em] text-[#625A4F]">Voice route</label>
-    <select id="voice-language" value={languageCode} disabled={disabled} onChange={event => onChange(event.target.value as VoiceLanguageCode)} className="h-9 min-w-0 border-2 border-[#1B1815] bg-[#FFFDF7] px-2 text-xs font-bold outline-none focus:ring-2 focus:ring-[#EE5B2B] disabled:cursor-not-allowed disabled:opacity-50 sm:min-w-80">
-      <option value={AUTO_DETECT_LANGUAGE}>Automatic detection · Sarvam identifies your spoken language</option>
-      {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
-    </select>
-    <span className={`mono border border-[#1B1815] px-2 py-1 text-[8px] font-bold ${automaticDetection ? "bg-[#EEE5D6]" : selectedIsIndexed ? "bg-[#EE5B2B] text-[#1B1815]" : "bg-[#EEE5D6]"}`}>{automaticDetection ? "AUTO DETECT" : selectedIsIndexed ? "INDEXED EVIDENCE" : "TRANSCRIPTION ONLY"}</span>
-    <p className="basis-full text-center mono text-[9px] leading-relaxed text-[#625A4F]"><span className="font-bold text-[#EE5B2B]">Tip:</span> Select your spoken language for better transcription and answer accuracy.</p>
-    <p className="basis-full text-center mono text-[8px] leading-relaxed text-[#625A4F]">{automaticDetection ? "Sarvam detects speech language, then SUNO checks bounded MSMARCO-XI evidence." : `${selectedLanguage?.label} is routed through the same cited evidence gate.`} STOP &amp; SEND remains available.</p>
-  </div>;
+  return (
+    <div data-testid="voice-language-picker" className="flex flex-col items-center justify-center gap-2 text-left">
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+        <label htmlFor="voice-language" className="mono text-[9px] font-bold uppercase tracking-[0.13em] text-[#625A4F]">Voice route</label>
+        <select id="voice-language" value={languageCode} disabled={disabled} onChange={event => onChange(event.target.value as VoiceLanguageCode)} className="h-9 min-w-0 border-2 border-[#1B1815] bg-[#FFFDF7] px-2 text-xs font-bold outline-none focus:ring-2 focus:ring-[#EE5B2B] disabled:cursor-not-allowed disabled:opacity-50 sm:min-w-80">
+          <option value={AUTO_DETECT_LANGUAGE}>Automatic detection · Sarvam identifies your spoken language</option>
+          {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
+        </select>
+        <span className={`mono border border-[#1B1815] px-2 py-1 text-[8px] font-bold ${automaticDetection ? "bg-[#EEE5D6]" : selectedIsIndexed ? "bg-[#EE5B2B] text-[#1B1815]" : "bg-[#EEE5D6]"}`}>{automaticDetection ? "AUTO DETECT" : selectedIsIndexed ? "INDEXED EVIDENCE" : "TRANSCRIPTION ONLY"}</span>
+      </div>
+      <div className="flex items-center justify-center gap-1.5 border-l-2 border-[#EE5B2B] bg-[#FFFDF7] px-2.5 py-1 text-center">
+        <span className="mono text-[9px] font-bold uppercase tracking-wider text-[#EE5B2B]">Tip:</span>
+        <span className="mono text-[9px] font-semibold text-[#1B1815]">Select your spoken language for better transcription and answer accuracy.</span>
+      </div>
+      <p className="basis-full text-center mono text-[8px] leading-relaxed text-[#625A4F]">{automaticDetection ? "Sarvam detects speech language, then SUNO checks bounded MSMARCO-XI evidence." : `${selectedLanguage?.label} is routed through the same cited evidence gate.`} STOP &amp; SEND remains available.</p>
+    </div>
+  );
 }
 
 /** Client-side adapter used by the Home form before calling the tRPC mutation. */
