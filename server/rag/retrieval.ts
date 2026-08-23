@@ -89,7 +89,11 @@ function reciprocalRankFuse(groups: QdrantPoint[][]): Map<string, number> {
 }
 
 function cosine(left: number[], right: number[]): number {
-  return left.reduce((sum, value, index) => sum + value * (right[index] || 0), 0);
+  let sum = 0;
+  for (let i = 0; i < 384; i++) {
+    sum += (left[i] || 0) * (right[i] || 0);
+  }
+  return sum;
 }
 
 interface PreprocessedTerm {
@@ -97,23 +101,57 @@ interface PreprocessedTerm {
   stem: string;
 }
 
+const PREPROCESSED_TERM_CACHE = new Map<string, PreprocessedTerm>();
+
+function preprocessTermFast(term: string): PreprocessedTerm {
+  let cached = PREPROCESSED_TERM_CACHE.get(term);
+  if (cached) return cached;
+  const norm = normalizeDigits(term.normalize("NFKC").toLocaleLowerCase());
+  const stripped = norm.replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां|ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ಲ್ಲಿ|களின்|க்கான|களை|உடன்|இருந்து|இல்|க்கு|ஐ|ஆல்|இன்|கள்|யின்)$/u, "");
+  const stem = stripped.length >= 2 ? stripped : "";
+  cached = { norm, stem };
+  PREPROCESSED_TERM_CACHE.set(term, cached);
+  return cached;
+}
+
 function preprocessTerms(terms: string[]): PreprocessedTerm[] {
-  return terms.map(term => {
-    const norm = normalizeDigits(term.normalize("NFKC").toLocaleLowerCase());
-    const stripped = norm.replace(/(?:बद्दल|मध्ये|च्या|ची|चा|चे|ला|ने|वर|खाली|तील|साठी|द्वारे|पासून|कडे|मुळे|प्रमाणे|संबंधित|नुसार|बाबत|विषयी|ों|ियों|िया|ियां|्यों|यां|ನ್ನು|ಗೆ|ಯ|ಅಲ್ಲಿ|ಯಿಂದ|ಗಾಗಿ|ಗಳ|ಗಳಿ|ಗಳಿಂದ|ಯಲ್ಲಿ|ಯನ್ನು|ವಿನ|ದ|ಅನ್ನು|ಗಳು|ಲ್ಲಿ|களின்|க்கான|களை|உடன்|இருந்து|இல்|க்கு|ஐ|ஆல்|இன்|கள்|யின்)$/u, "");
-    const stem = stripped.length >= 2 ? stripped : "";
-    return { norm, stem };
-  });
+  return terms.map(preprocessTermFast);
+}
+
+// Build inverted index and chunk term sets at startup
+const HOT_CHUNK_TERMS = new Map<string, Set<string>>();
+const HOT_INVERTED_INDEX = new Map<string, Set<string>>();
+
+for (const chunk of HOT_CORPUS) {
+  const terms = meaningfulLexicalTerms(chunk.text);
+  const termSet = new Set<string>();
+  for (let i = 0; i < terms.length; i++) {
+    const { norm, stem } = preprocessTermFast(terms[i]);
+    if (norm) {
+      termSet.add(norm);
+      let set = HOT_INVERTED_INDEX.get(norm);
+      if (!set) { set = new Set(); HOT_INVERTED_INDEX.set(norm, set); }
+      set.add(chunk.id);
+    }
+    if (stem) {
+      termSet.add(stem);
+      let set = HOT_INVERTED_INDEX.get(stem);
+      if (!set) { set = new Set(); HOT_INVERTED_INDEX.set(stem, set); }
+      set.add(chunk.id);
+    }
+  }
+  HOT_CHUNK_TERMS.set(chunk.id, termSet);
 }
 
 function scoreChunkLexical(chunkId: string, prepTerms: PreprocessedTerm[]): number {
+  const terms = HOT_CHUNK_TERMS.get(chunkId);
   const normalized = HOT_NORMALIZED_TEXT.get(chunkId) || "";
   let score = 0;
   for (let i = 0; i < prepTerms.length; i++) {
     const { norm, stem } = prepTerms[i];
-    if (normalized.includes(norm)) {
+    if (terms?.has(norm) || normalized.includes(norm)) {
       score += 1;
-    } else if (stem && normalized.includes(stem)) {
+    } else if (stem && (terms?.has(stem) || normalized.includes(stem))) {
       score += 1;
     }
   }
@@ -140,7 +178,26 @@ function retrieveHot(query: string, language: string): RetrievalResult | null {
   const queryVector = embedText(query);
   const minRequiredHits = 1;
 
-  const ranked = scoped
+  // Build candidate set from inverted index
+  const candidateIds = new Set<string>();
+  for (let i = 0; i < prepTerms.length; i++) {
+    const { norm, stem } = prepTerms[i];
+    const s1 = HOT_INVERTED_INDEX.get(norm);
+    if (s1) s1.forEach(id => candidateIds.add(id));
+    if (stem) {
+      const s2 = HOT_INVERTED_INDEX.get(stem);
+      if (s2) s2.forEach(id => candidateIds.add(id));
+    }
+  }
+
+  // Narrow target chunks for large scoped collections
+  const targetChunks = scoped.length <= 300
+    ? scoped
+    : (candidateIds.size > 0
+        ? scoped.filter(chunk => candidateIds.has(chunk.id))
+        : scoped);
+
+  const ranked = targetChunks
     .map(chunk => {
       const lexicalHits = scoreChunkLexical(chunk.id, prepTerms);
       const dense = Math.max(0, cosine(queryVector, HOT_VECTORS.get(chunk.id) || []));

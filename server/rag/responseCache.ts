@@ -25,8 +25,8 @@ export class TypedResponseCache {
   private readonly entries = new Map<string, CacheEntry>();
 
   constructor(
-    private readonly ttlMs = 45_000,
-    private readonly maxEntries = 96,
+    private readonly ttlMs = 300_000,
+    private readonly maxEntries = 1024,
     private readonly now = () => Date.now(),
   ) {}
 

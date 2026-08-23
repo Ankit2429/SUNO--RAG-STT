@@ -55,12 +55,17 @@ function queryTerms(query: string): Set<string> {
   return new Set(normalized.filter(term => term && term.length >= 2 && !STOP_WORDS.has(term)));
 }
 
+const NORMALIZED_TERM_CACHE = new Map<string, string>();
+
 /**
  * Language-aware lexical normalization and stem expansion that preserves Indic
  * combining marks and distinguishes domain concepts from generic question frames.
  */
-function normalizeContentTerm(term: string): string {
+export function normalizeContentTerm(term: string): string {
   if (!term) return "";
+  const cached = NORMALIZED_TERM_CACHE.get(term);
+  if (cached !== undefined) return cached;
+
   const raw = normalizeDigits(term.normalize("NFKC").toLocaleLowerCase());
   const dotStripped = raw.replace(/[\.\-\_\:\/]/g, "");
 
@@ -75,104 +80,179 @@ function normalizeContentTerm(term: string): string {
 
   base = base.replace(/ங்$/u, "ம்");
 
-  // Corporation / Company / Governance
-  if (base.startsWith("निगम") || base.startsWith("कम्पनी") || base.startsWith("कंपनी") || base.startsWith("कॉर्प") || base === "संस्था" || base === "संयोजन") return "corporation";
-  if (base.startsWith("ನಿಗಮ") || base.startsWith("ಕಂಪನಿ") || base.startsWith("ಕಾರ್ಪ") || base.startsWith("ಸಂಯೋಜನೆ")) return "corporation";
-  if (base.startsWith("நிறுவன") || base.startsWith("கார்ப்ப") || base.startsWith("இணைப்ப")) return "corporation";
-  if (base.startsWith("भागधारक") || base.startsWith("ಶೇರುದಾರ") || base.startsWith("பங்கு") || base.startsWith("shareholder")) return "shareholders";
-  if (base.startsWith("ಆಡಳಿತ") || base.startsWith("ನಿಯಂತ್ರಿತ") || base.startsWith("शासित") || base.startsWith("governed") || base.startsWith("govern")) return "governed";
-  if (base.startsWith("ಕಾನೂನು") || base.startsWith("சட்ட") || base.startsWith("कायद") || base.startsWith("कानून") || base.startsWith("law")) return "law";
+  let res = base;
+  if (base.startsWith("निगम") || base.startsWith("कम्पनी") || base.startsWith("कंपनी") || base.startsWith("कॉर्प") || base === "संस्था" || base === "संयोजन") res = "corporation";
+  else if (base.startsWith("ನಿಗಮ") || base.startsWith("ಕಂಪನಿ") || base.startsWith("ಕಾರ್ಪ") || base.startsWith("ಸಂಯೋಜನೆ")) res = "corporation";
+  else if (base.startsWith("நிறுவன") || base.startsWith("கார்ப்ப") || base.startsWith("இணைப்ப")) res = "corporation";
+  else if (base.startsWith("भागधारक") || base.startsWith("ಶೇರುದಾರ") || base.startsWith("பங்கு") || base.startsWith("shareholder")) res = "shareholders";
+  else if (base.startsWith("ಆಡಳಿತ") || base.startsWith("ನಿಯಂತ್ರಿತ") || base.startsWith("शासित") || base.startsWith("governed") || base.startsWith("govern")) res = "governed";
+  else if (base.startsWith("ಕಾನೂನು") || base.startsWith("சட்ட") || base.startsWith("कायद") || base.startsWith("कानून") || base.startsWith("law")) res = "law";
+  else if (base.startsWith("कार्सन") || base.startsWith("कಾರ್ಸ") || base.startsWith("கார்ச") || base.startsWith("carson")) res = "carson";
+  else if (base.startsWith("रेचल") || base.startsWith("राचेल") || base.startsWith("ರೇಚಲ್") || base.startsWith("ರೆಚೆಲ್") || base.startsWith("ரேச்ச") || base.startsWith("rachel")) res = "rachel";
+  else if (base.startsWith("कीटनाशक") || base.startsWith("कीटकनाशक") || base.startsWith("பூச்சிக்கொல்லி") || base.startsWith("சுற்றுச்சூழ") || base.startsWith("pesticide") || base.startsWith("पर्यावरण")) res = "pesticide";
+  else if (base.startsWith("ऑब्लिगेशन") || base.startsWith("ओब्लिगेशन") || base.startsWith("ಒಬ್ಲಿಗೇಷನ್") || base.startsWith("ஒப்ளிகேஷன்") || base.startsWith("obligation") || base.startsWith("endure") || base.startsWith("एंड्योर") || base.startsWith("एंड्युर")) res = "obligation";
+  else if (raw.includes("கட்டுரை") || base.startsWith("கட்டுரை") || base.startsWith("कட்டுர") || base.startsWith("निबंध") || base.startsWith("article")) res = "article";
+  else if (base.startsWith("पोटेशियम") || base.startsWith("पोटैशियम") || base.startsWith("पोटॅशियम") || base.startsWith("ಪೊಟ್ಯಾಸಿಯ") || base.startsWith("பொட்டாசிய") || base.startsWith("potassium")) res = "potassium";
+  else if (base.startsWith("सोडियम") || base.startsWith("ಸೋಡಿಯ") || base.startsWith("சோடிய") || base.startsWith("sodium")) res = "sodium";
+  else if (base.startsWith("आहार") || base.startsWith("ಆಹಾರ") || base.startsWith("உணவு") || base.startsWith("diet") || base.startsWith("nutrition") || base.startsWith("पोषक")) res = "diet";
+  else if (base.startsWith("तक्ता") || base.startsWith("चार्ट") || base.startsWith("ಚಾರ್ಟ್") || base.startsWith("பட்டியல") || base.startsWith("chart")) res = "chart";
+  else if (base.startsWith("जहाज") || base.startsWith("जहाज़") || base.startsWith("ಹಡಗು") || base.startsWith("ಹಡಗಿ") || base.startsWith("கப்பல") || base.startsWith("ship") || base.startsWith("vessel")) res = "ship";
+  else if (base.startsWith("बिल्ज") || base.startsWith("ಬಿಲ್ಜ್") || base.startsWith("ಬಿಲ್ಗ") || base.startsWith("பில்ஜ") || base.startsWith("bilge")) res = "bilge";
+  else if (base.startsWith("निचल") || base.startsWith("तळा") || base.startsWith("तळ") || base.startsWith("खाल") || base.startsWith("ಹಲ್") || base.startsWith("ஹಲ್") || base.startsWith("bottom") || base.startsWith("hull")) res = "hull";
+  else if (base.startsWith("मालवाहक") || base.startsWith("मालवाहू") || base.startsWith("ಸರಕು") || base.startsWith("சரக்கு") || base.startsWith("cargo")) res = "cargo";
+  else if (base.startsWith("ईमानदारी") || base.startsWith("प्रामाणिक") || base.startsWith("ಪ್ರಾಮಾಣಿಕ") || base.startsWith("ಸತ್ಯಸಂಧ") || base.startsWith("நேர்ம") || base.startsWith("உண்மைத்தன்மை") || base.startsWith("honest")) res = "honesty";
+  else if (base.startsWith("सत्यनिष्ठा") || base.startsWith("सचोटी") || base.startsWith("सत्य") || base.startsWith("निष्ठा") || base.startsWith("समग्रता") || base.startsWith("integrity")) res = "integrity";
+  else if (base.startsWith("नैतिक") || base.startsWith("moral")) res = "moral";
+  else if (base.startsWith("बैरोमीटर") || base.startsWith("बॅरोमीटर") || base.startsWith("ಬ್ಯಾರೋಮೀಟರ್") || base.startsWith("பாரோமீட்ட") || base.startsWith("barometer")) res = "barometer";
+  else if (base.startsWith("पारा") || base.startsWith("पारे") || base.startsWith("पार्या") || base.startsWith("ಪಾದರಸ") || base.startsWith("பாதரச") || base.startsWith("mercury")) res = "mercury";
+  else if (base.startsWith("वायुमंडलीय") || base.startsWith("हवेचा") || base.startsWith("ವಾತಾವರಣ") || base.startsWith("காற்றழுத்த") || base.startsWith("atmospheric")) res = "atmospheric";
+  else if (base.startsWith("दबाव") || base.startsWith("दाब") || base.startsWith("ಒತ್ತಡ") || base.startsWith("அழுத்த") || base.startsWith("pressure")) res = "pressure";
+  else if (base.startsWith("स्ट्रथर्स") || base.startsWith("स्ट्रुथर्स") || base.startsWith("ಸ್ಟ್ರತರ್ಸ್") || base.startsWith("struthers")) res = "struthers";
+  else if (base.startsWith("पीटीएसडी") || base.startsWith("ಪಿಟಿಎಸ್ಡಿ") || base.startsWith("பிடிஎஸ்டி") || base.startsWith("ptsd")) res = "ptsd";
+  else if (base.startsWith("गांजा") || base.startsWith("ಗಾಂಜಾ") || base.startsWith("போதைப்பொருள்") || base.startsWith("cannabis") || base.startsWith("marijuana")) res = "cannabis";
+  else if (base.startsWith("कनाडा") || base.startsWith("कॅनडा") || base.startsWith("கனடா") || base.startsWith("canada")) res = "ontario";
+  else if (base.startsWith("ऑन्टारियो") || base.startsWith("ஆன்டாரியோ") || base.startsWith("ontario")) res = "ontario";
+  else if (base.startsWith("गिफर्ड") || base.startsWith("गिफ़र्ड") || base.startsWith("gifford")) res = "gifford";
+  else if (base.startsWith("कैथी") || base.startsWith("kathie")) res = "kathie";
+  else if (base.startsWith("ट्रम्प") || base.startsWith("ट्रंप") || base.startsWith("trump")) res = "trump";
+  else if (base.startsWith("रूसी") || base.startsWith("russian")) res = "russian";
+  else if (base === "2050" || base === "२०५०" || base === "೨೦೫೦") res = "2050";
+  else if (base.includes("மக்கள்") || base.includes("ಜನಸಂಖ್ಯೆ") || base.includes("जनसंख्या") || base.includes("लोकसंख्या") || base.startsWith("population")) res = "population";
+  else if (base.includes("மாசு") || base.includes("pollution") || base.includes("प्रदूषण") || base.includes("ಮಾಲಿನ್ಯ")) res = "pollution";
+  else if (base.includes("காற்று") || base.startsWith("air")) res = "air";
+  else if (base.startsWith("अमेरिक") || base.startsWith("us") || base.startsWith("united")) res = "us";
+  else if (base.startsWith("एनएचएल") || base.startsWith("ಎನ್ಹೆಚ್ಎಲ್") || base.startsWith("என்ஹெச்எல்") || base.startsWith("nhl")) res = "nhl";
+  else if (base.startsWith("प्लेऑफ") || base.startsWith("ಪ್ಲೇಆಫ್") || base.startsWith("பிளேஆஃப்") || base.startsWith("playoff")) res = "playoffs";
+  else if (base === "ga" || base.startsWith("georgia") || base.startsWith("जॉर्जिया") || base.startsWith("ಜಾರ್ಜಿಯಾ") || base.startsWith("ஜார்ஜியா")) res = "georgia";
+  else if (base === "ca" || base.startsWith("california") || base.startsWith("कैलिफोर्निया") || base.startsWith("ಕ್ಯಾಲಿಫೋರ್ನಿಯಾ")) res = "california";
+  else if (base === "fl" || base.startsWith("florida") || base.startsWith("फ्लोरिडा") || base.startsWith("ಫ್ಲೋರಿಡಾ")) res = "florida";
+  else if (base === "tx" || base.startsWith("texas") || base.startsWith("टेक्सास") || base.startsWith("ಟೆಕ್ಸಾಸ್")) res = "texas";
+  else if (base.startsWith("ইমপ্লাণ্ট") || base.startsWith("ইমপ্লান্ট") || base.startsWith("इम्प्लांट") || base.startsWith("ಇಂಪ್ಲಾಂಟ್") || base.startsWith("இம்ப்ளான்ட்") || base.startsWith("implant")) res = "implant";
+  else if (base.startsWith("মুকুট") || base.startsWith("क्राउन") || base.startsWith("ಕ್ರೌನ್") || base.startsWith("கிரீடம்") || base.startsWith("crown")) res = "crown";
+  else if (base.startsWith("डेंटल") || base.startsWith("दांत") || base.startsWith("दंत") || base.startsWith("பல்") || base.startsWith("பற்க") || base.startsWith("ಹಲ್ಲಿ") || base.startsWith("dental") || base.startsWith("tooth") || base.startsWith("teeth")) res = "dental";
+  else if (base.startsWith("सोलर") || base.startsWith("सौर") || base.startsWith("ಸೌರ") || base.startsWith("சூரிய") || base.startsWith("solar") || base.startsWith("pv")) res = "solar";
+  else if (base.startsWith("बिजली") || base.startsWith("वीज") || base.startsWith("ವಿದ್ಯುತ್") || base.startsWith("மின்சாரம்") || base.startsWith("electricity") || base.startsWith("kwh") || base.startsWith("किलोवाट") || base.startsWith("किलोवॅट")) res = "electricity";
+  else if (base.startsWith("ल্যাপটপ") || base.startsWith("लैपटॉप") || base.startsWith("ಲ್ಯಾಪ್ಟಾಪ್") || base.startsWith("லேப்டாப்") || base.startsWith("laptop")) res = "laptop";
+  else if (base.startsWith("ডেস্কটপ") || base.startsWith("डेस्कटॉप") || base.startsWith("ಡೆಸ್ಕ್ಟಾಪ್") || base.startsWith("டெஸ்க்டாப்") || base.startsWith("desktop")) res = "desktop";
+  else if (base.startsWith("টিকা") || base.startsWith("ভ্যাকসিন") || base.startsWith("वैक्सीन") || base.startsWith("लसीका") || base.startsWith("தடுப்பூசி") || base.startsWith("vaccine")) res = "vaccine";
+  else if (base.startsWith("অ্যান্টিবায়োটিক") || base.startsWith("एंटीबायोटिक") || base.startsWith("ಆಂಟಿಬಯೋಟಿಕ್") || base.startsWith("நுண்ணுயிர் எதிர்ப்பி") || base.startsWith("antibiotic")) res = "antibiotic";
+  else if (base.startsWith("विखंडन") || base.startsWith("fission")) res = "fission";
+  else if (base.startsWith("संलयन") || base.startsWith("fusion")) res = "fusion";
+  else if (base.startsWith("বিমান") || base.startsWith("विमान") || base.startsWith("விமானம்") || base.startsWith("aircraft") || base.startsWith("airplane")) res = "aircraft";
+  else if (base.startsWith("ইনপেশেন্ট") || base.startsWith("इनपेशेंट") || base.startsWith("inpatient")) res = "inpatient";
+  else if (base.startsWith("আউটপেশেন্ট") || base.startsWith("आउटपेशेंट") || base.startsWith("outpatient")) res = "outpatient";
+  else if (base.startsWith("খরচ") || base.startsWith("খৰচ") || base.startsWith("मूल्य") || base.startsWith("দাম") || base.startsWith("किंमत") || base.startsWith("खर्च") || base.startsWith("लागत") || base.startsWith("செலவு") || base.startsWith("ಬೆಲೆ") || base.startsWith("விலை") || base.startsWith("cost") || base.startsWith("price") || base.startsWith("rate") || base.startsWith("average") || base.startsWith("গড়")) res = "cost_attribute";
+  else if (base.startsWith("रिंगवर्म") || base.startsWith("दाद") || base.startsWith("ರಿಂಗ್ವರ್ಮ್") || base.startsWith("ரிங்வோர்") || base.startsWith("ringworm")) res = "ringworm";
+  else if (base.startsWith("टिनिया") || base.startsWith("டினியா") || base.startsWith("tinea")) res = "tinea";
+  else if (base.startsWith("कवक") || base.startsWith("बुरशी") || base.startsWith("ಶಿಲೀಂಧ್ರ") || base.startsWith("பூஞ்சை") || base.startsWith("fungus")) res = "fungus";
+  else if (base.startsWith("ट्रायकोफायटन") || base.startsWith("trichophyton")) res = "trichophyton";
+  else if (base.startsWith("रुब्रम") || base.startsWith("rubrum")) res = "rubrum";
 
-  // Rachel Carson / Pesticide / Obligation to Endure
-  if (base.startsWith("कार्सन") || base.startsWith("कಾರ್ಸ") || base.startsWith("கார்ச") || base.startsWith("carson")) return "carson";
-  if (base.startsWith("रेचल") || base.startsWith("राचेल") || base.startsWith("ರೇಚಲ್") || base.startsWith("ರೆಚೆಲ್") || base.startsWith("ரேச்ச") || base.startsWith("rachel")) return "rachel";
-  if (base.startsWith("कीटनाशक") || base.startsWith("कीटकनाशक") || base.startsWith("பூச்சிக்கொல்லி") || base.startsWith("சுற்றுச்சூழ") || base.startsWith("pesticide") || base.startsWith("पर्यावरण")) return "pesticide";
-  if (base.startsWith("ऑब्लिगेशन") || base.startsWith("ओब्लिगेशन") || base.startsWith("ಒಬ್ಲಿಗೇಷನ್") || base.startsWith("ஒப்ளிகேஷன்") || base.startsWith("obligation") || base.startsWith("endure") || base.startsWith("एंड्योर") || base.startsWith("एंड्युर")) return "obligation";
-  if (raw.includes("கட்டுரை") || base.startsWith("கட்டுரை") || base.startsWith("कட்டுர") || base.startsWith("निबंध") || base.startsWith("article")) return "article";
+  NORMALIZED_TERM_CACHE.set(term, res);
+  return res;
+}
 
-  // Potassium / Sodium / Diet / Nutrition
-  if (base.startsWith("पोटेशियम") || base.startsWith("पोटैशियम") || base.startsWith("पोटॅशियम") || base.startsWith("ಪೊಟ್ಯಾಸಿಯ") || base.startsWith("பொட்டாசிய") || base.startsWith("potassium")) return "potassium";
-  if (base.startsWith("सोडियम") || base.startsWith("ಸೋಡಿಯ") || base.startsWith("சோடிய") || base.startsWith("sodium")) return "sodium";
-  if (base.startsWith("आहार") || base.startsWith("ಆಹಾರ") || base.startsWith("உணவு") || base.startsWith("diet") || base.startsWith("nutrition") || base.startsWith("पोषक")) return "diet";
-  if (base.startsWith("तक्ता") || base.startsWith("चार्ट") || base.startsWith("ಚಾರ್ಟ್") || base.startsWith("பட்டியல") || base.startsWith("chart")) return "chart";
+interface PrecomputedCandidateUnit {
+  sentence: string;
+  isWindow: boolean;
+  normalizedSentence: string;
+  sentenceTerms: Set<string>;
+  penalty: number;
+  completenessBonus: number;
+}
 
-  // Ship / Bilge / Hull
-  if (base.startsWith("जहाज") || base.startsWith("जहाज़") || base.startsWith("ಹಡಗು") || base.startsWith("ಹಡಗಿ") || base.startsWith("கப்பல") || base.startsWith("ship") || base.startsWith("vessel")) return "ship";
-  if (base.startsWith("बिल्ज") || base.startsWith("ಬಿಲ್ಜ್") || base.startsWith("ಬಿಲ್ಗ") || base.startsWith("பில்ஜ") || base.startsWith("bilge")) return "bilge";
-  if (base.startsWith("निचल") || base.startsWith("तळा") || base.startsWith("तळ") || base.startsWith("खाल") || base.startsWith("ಹಲ್") || base.startsWith("ஹல்") || base.startsWith("bottom") || base.startsWith("hull")) return "hull";
-  if (base.startsWith("मालवाहक") || base.startsWith("मालवाहू") || base.startsWith("ಸರಕು") || base.startsWith("சரக்கு") || base.startsWith("cargo")) return "cargo";
+const CHUNK_CANDIDATES_CACHE = new Map<string, PrecomputedCandidateUnit[]>();
+const CHUNK_CONCEPTS_CACHE = new Map<string, Set<string>>();
+const SENTENCE_WORDS_CACHE = new Map<string, Set<string>>();
 
-  // Honesty / Integrity / Moral
-  if (base.startsWith("ईमानदारी") || base.startsWith("प्रामाणिक") || base.startsWith("ಪ್ರಾಮಾಣಿಕ") || base.startsWith("ಸತ್ಯಸಂಧ") || base.startsWith("நேர்ம") || base.startsWith("உண்மைத்தன்மை") || base.startsWith("honest")) return "honesty";
-  if (base.startsWith("सत्यनिष्ठा") || base.startsWith("सचोटी") || base.startsWith("सत्य") || base.startsWith("निष्ठा") || base.startsWith("समग्रता") || base.startsWith("integrity")) return "integrity";
-  if (base.startsWith("नैतिक") || base.startsWith("moral")) return "moral";
+export function getChunkConcepts(chunk: EvidenceChunk): Set<string> {
+  let concepts = CHUNK_CONCEPTS_CACHE.get(chunk.id);
+  if (concepts) return concepts;
+  concepts = new Set(
+    normalizeDigits(chunk.text.normalize("NFKC").toLocaleLowerCase())
+      .split(/[^\p{L}\p{M}\p{N}]+/u)
+      .map(normalizeContentTerm)
+      .filter(Boolean)
+  );
+  CHUNK_CONCEPTS_CACHE.set(chunk.id, concepts);
+  return concepts;
+}
 
-  // Barometer / Mercury / Atmospheric Pressure
-  if (base.startsWith("बैरोमीटर") || base.startsWith("बॅरोमीटर") || base.startsWith("ಬ್ಯಾರೋಮೀಟರ್") || base.startsWith("பாரோமீட்ட") || base.startsWith("barometer")) return "barometer";
-  if (base.startsWith("पारा") || base.startsWith("पारे") || base.startsWith("पार्या") || base.startsWith("ಪಾದರಸ") || base.startsWith("பாதரச") || base.startsWith("mercury")) return "mercury";
-  if (base.startsWith("वायुमंडलीय") || base.startsWith("हवेचा") || base.startsWith("ವಾತಾವರಣ") || base.startsWith("காற்றழுத்த") || base.startsWith("atmospheric")) return "atmospheric";
-  if (base.startsWith("दबाव") || base.startsWith("दाब") || base.startsWith("ಒತ್ತಡ") || base.startsWith("அழுத்த") || base.startsWith("pressure")) return "pressure";
+export function getSentenceWords(sentence: string): Set<string> {
+  let words = SENTENCE_WORDS_CACHE.get(sentence);
+  if (words) return words;
+  words = new Set(
+    normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase())
+      .split(/[^\p{L}\p{M}\p{N}]+/u)
+      .map(normalizeContentTerm)
+      .filter(w => w && w.length >= 2)
+  );
+  SENTENCE_WORDS_CACHE.set(sentence, words);
+  return words;
+}
 
-  // Struthers
-  if (base.startsWith("स्ट्रथर्स") || base.startsWith("स्ट्रुथर्स") || base.startsWith("ಸ್ಟ್ರತರ್ಸ್") || base.startsWith("struthers")) return "struthers";
+export function getCandidateUnits(chunk: EvidenceChunk): PrecomputedCandidateUnit[] {
+  let units = CHUNK_CANDIDATES_CACHE.get(chunk.id);
+  if (units) return units;
 
-  // PTSD / Cannabis / Ontario / Canada
-  if (base.startsWith("पीटीएसडी") || base.startsWith("ಪಿಟಿಎಸ್ಡಿ") || base.startsWith("பிடிஎஸ்டி") || base.startsWith("ptsd")) return "ptsd";
-  if (base.startsWith("गांजा") || base.startsWith("ಗಾಂಜಾ") || base.startsWith("போதைப்பொருள்") || base.startsWith("cannabis") || base.startsWith("marijuana")) return "cannabis";
-  if (base.startsWith("कनाडा") || base.startsWith("कॅनडा") || base.startsWith("கனடா") || base.startsWith("canada")) return "ontario";
-  if (base.startsWith("ऑन्टारियो") || base.startsWith("ஆன்டாரியோ") || base.startsWith("ontario")) return "ontario";
+  const rawSentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).map(s => s.trim()).filter(Boolean);
+  if (!rawSentences.length) {
+    CHUNK_CANDIDATES_CACHE.set(chunk.id, []);
+    return [];
+  }
 
-  // Gifford / Kathie
-  if (base.startsWith("गिफर्ड") || base.startsWith("गिफ़र्ड") || base.startsWith("gifford")) return "gifford";
-  if (base.startsWith("कैथी") || base.startsWith("kathie")) return "kathie";
+  const rawUnits: { text: string; isWindow: boolean }[] = [];
+  for (let i = 0; i < rawSentences.length; i += 1) {
+    rawUnits.push({ text: rawSentences[i], isWindow: false });
+    if (i < rawSentences.length - 1) {
+      const pair = `${rawSentences[i]} ${rawSentences[i + 1]}`;
+      if (pair.length <= 320) {
+        rawUnits.push({ text: pair, isWindow: true });
+      }
+    }
+  }
 
-  // Trump / Flynn / Russian
-  if (base.startsWith("ट्रम्प") || base.startsWith("ट्रंप") || base.startsWith("trump")) return "trump";
-  if (base.startsWith("रूसी") || base.startsWith("russian")) return "russian";
+  units = rawUnits.map(({ text: sentence, isWindow }) => {
+    const normalizedSentence = normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase());
+    const sentenceTerms = new Set(
+      normalizedSentence
+        .split(/[^\p{L}\p{M}\p{N}]+/u)
+        .map(normalizeContentTerm)
+        .filter(term => term && term.length >= 2)
+    );
 
-  // 2050 / Population / Pollution
-  if (base === "2050" || base === "२०५०" || base === "೨೦೫೦") return "2050";
-  if (base.includes("மக்கள்") || base.includes("ಜನಸಂಖ್ಯೆ") || base.includes("जनसंख्या") || base.includes("लोकसंख्या") || base.startsWith("population")) return "population";
-  if (base.includes("மாசு") || base.includes("pollution") || base.includes("प्रदूषण") || base.includes("ಮಾಲಿನ್ಯ")) return "pollution";
-  if (base.includes("காற்று") || base.startsWith("air")) return "air";
-  if (base.startsWith("अमेरिक") || base.startsWith("us") || base.startsWith("united")) return "us";
+    let penalty = headingFragmentPenalty(sentence);
+    if (sentence.trim().endsWith("?") || INTERROGATIVE_START_PATTERNS.some(p => p.test(sentence.trim()))) {
+      penalty += 3.0;
+    }
+    for (const pattern of BOILERPLATE_PATTERNS) {
+      if (pattern.test(sentence)) {
+        penalty += 1.5;
+        break;
+      }
+    }
 
-  // NHL / Playoffs
-  if (base.startsWith("एनएचएल") || base.startsWith("ಎನ್ಹೆಚ್ಎಲ್") || base.startsWith("என்ஹெச்எல்") || base.startsWith("nhl")) return "nhl";
-  if (base.startsWith("प्लेऑफ") || base.startsWith("ಪ್ಲೇಆಫ್") || base.startsWith("பிளேஆஃப்") || base.startsWith("playoff")) return "playoffs";
+    if (!isWindow && /^(?:it|they|this|these|he|she|यह|वह|ಅದು|ಇದು|ಇವರು|ಇವು|இது|இவர்)\s+(?:is|are|was|were|means|refers|has|have|can|होता|होती|है|आहे|ಆಗಿದೆ|ಆಗಿದ್ದಾರೆ|ஆகும்)/i.test(sentence)) {
+      penalty += 0.8;
+    }
 
-  // US State abbreviations
-  if (base === "ga" || base.startsWith("georgia") || base.startsWith("जॉर्जिया") || base.startsWith("ಜಾರ್ಜಿಯಾ") || base.startsWith("ஜார்ஜியா")) return "georgia";
-  if (base === "ca" || base.startsWith("california") || base.startsWith("कैलिफोर्निया") || base.startsWith("ಕ್ಯಾಲಿಫೋರ್ನಿಯಾ")) return "california";
-  if (base === "fl" || base.startsWith("florida") || base.startsWith("फ्लोरिडा") || base.startsWith("ಫ್ಲೋರಿಡಾ")) return "florida";
-  if (base === "tx" || base.startsWith("texas") || base.startsWith("टेक्सास") || base.startsWith("ಟೆಕ್ಸಾಸ್")) return "texas";
+    let completenessBonus = 0;
+    if (/\b(?:is a|is an|are|means|defined as|refers to|known as|named for|announced|because|causes|results in|due to|होता है|कहते हैं|कहा जाता है|अर्थात|म्हणतात|ಎಂದರೆ|ಆಗಿದೆ|ಎನ್ನಲಾಗುತ್ತದೆ|ஆகும்|காரணமாக)\b/i.test(sentence)) {
+      completenessBonus += 0.6;
+    }
 
+    return {
+      sentence,
+      isWindow,
+      normalizedSentence,
+      sentenceTerms,
+      penalty,
+      completenessBonus,
+    };
+  });
 
-  // Specific entity / procedure / object concepts
-  if (base.startsWith("ইমপ্লাণ্ট") || base.startsWith("ইমপ্লান্ট") || base.startsWith("इम्प्लांट") || base.startsWith("ಇಂಪ್ಲಾಂಟ್") || base.startsWith("இம்ப்ளான்ட்") || base.startsWith("implant")) return "implant";
-  if (base.startsWith("মুকুট") || base.startsWith("क्राउन") || base.startsWith("ಕ್ರೌನ್") || base.startsWith("கிரீடம்") || base.startsWith("crown")) return "crown";
-  if (base.startsWith("डेंटल") || base.startsWith("दांत") || base.startsWith("दंत") || base.startsWith("பல்") || base.startsWith("பற்க") || base.startsWith("ಹಲ್ಲಿ") || base.startsWith("dental") || base.startsWith("tooth") || base.startsWith("teeth")) return "dental";
-  if (base.startsWith("सोलर") || base.startsWith("सौर") || base.startsWith("ಸೌರ") || base.startsWith("சூரிய") || base.startsWith("solar") || base.startsWith("pv")) return "solar";
-  if (base.startsWith("बिजली") || base.startsWith("वीज") || base.startsWith("ವಿದ್ಯುತ್") || base.startsWith("மின்சாரம்") || base.startsWith("electricity") || base.startsWith("kwh") || base.startsWith("किलोवाट") || base.startsWith("किलोवॅट")) return "electricity";
-  if (base.startsWith("ल্যাপটপ") || base.startsWith("लैपटॉप") || base.startsWith("ಲ್ಯಾಪ್ಟಾಪ್") || base.startsWith("லேப்டாப்") || base.startsWith("laptop")) return "laptop";
-  if (base.startsWith("ডেস্কটপ") || base.startsWith("डेस्कटॉप") || base.startsWith("ಡೆಸ್ಕ್ಟಾಪ್") || base.startsWith("டெஸ்க்டாப்") || base.startsWith("desktop")) return "desktop";
-  if (base.startsWith("টিকা") || base.startsWith("ভ্যাকসিন") || base.startsWith("वैक्सीन") || base.startsWith("लसीका") || base.startsWith("தடுப்பூசி") || base.startsWith("vaccine")) return "vaccine";
-  if (base.startsWith("অ্যান্টিবায়োটিক") || base.startsWith("एंटीबायोटिक") || base.startsWith("ಆಂಟಿಬಯೋಟಿಕ್") || base.startsWith("நுண்ணுயிர் எதிர்ப்பி") || base.startsWith("antibiotic")) return "antibiotic";
-  if (base.startsWith("विखंडन") || base.startsWith("fission")) return "fission";
-  if (base.startsWith("संलयन") || base.startsWith("fusion")) return "fusion";
-  if (base.startsWith("বিমান") || base.startsWith("विमान") || base.startsWith("விமானம்") || base.startsWith("aircraft") || base.startsWith("airplane")) return "aircraft";
-  if (base.startsWith("ইনপেশেন্ট") || base.startsWith("इनपेशेंट") || base.startsWith("inpatient")) return "inpatient";
-  if (base.startsWith("আউটপেশেন্ট") || base.startsWith("आउटपेशेंट") || base.startsWith("outpatient")) return "outpatient";
-  if (base.startsWith("খরচ") || base.startsWith("খৰচ") || base.startsWith("मूल्य") || base.startsWith("দাম") || base.startsWith("किंमत") || base.startsWith("खर्च") || base.startsWith("लागत") || base.startsWith("செலவு") || base.startsWith("ಬೆಲೆ") || base.startsWith("விலை") || base.startsWith("cost") || base.startsWith("price") || base.startsWith("rate") || base.startsWith("average") || base.startsWith("গড়")) return "cost_attribute";
-
-  // Ringworm / Fungus / Trichophyton Rubrum
-  if (base.startsWith("रिंगवर्म") || base.startsWith("दाद") || base.startsWith("ರಿಂಗ್ವರ್ಮ್") || base.startsWith("ரிங்வோர்") || base.startsWith("ringworm")) return "ringworm";
-  if (base.startsWith("टिनिया") || base.startsWith("டினியா") || base.startsWith("tinea")) return "tinea";
-  if (base.startsWith("कवक") || base.startsWith("बुरशी") || base.startsWith("ಶಿಲೀಂಧ್ರ") || base.startsWith("பூஞ்சை") || base.startsWith("fungus")) return "fungus";
-  if (base.startsWith("ट्रायकोफायटन") || base.startsWith("trichophyton")) return "trichophyton";
-  if (base.startsWith("रुब्रम") || base.startsWith("rubrum")) return "rubrum";
-
-  return base;
+  CHUNK_CANDIDATES_CACHE.set(chunk.id, units);
+  return units;
 }
 
 const INTERROGATIVE_START_PATTERNS = [
@@ -206,74 +286,43 @@ function headingFragmentPenalty(sentence: string): number {
 }
 
 function evidenceSentence(chunk: EvidenceChunk, terms: Set<string>): { sentence: string; termMatches: number; rank: number } | null {
-  const normalizedQueryTerms = new Set(
-    Array.from(terms)
-      .map(normalizeContentTerm)
-      .filter(term => term && term.length >= 2)
-  );
-  if (!normalizedQueryTerms.size) return null;
+  const normalizedQueryTerms = Array.from(terms)
+    .map(normalizeContentTerm)
+    .filter(term => term && term.length >= 2);
+  if (!normalizedQueryTerms.length) return null;
 
-  const rawSentences = chunk.text.split(/(?<=[.!?।॥؟])\s+/).map(s => s.trim()).filter(Boolean);
-  if (!rawSentences.length) return null;
+  const candidateUnits = getCandidateUnits(chunk);
+  if (!candidateUnits.length) return null;
 
-  const candidateUnits: { text: string; isWindow: boolean }[] = [];
-  for (let i = 0; i < rawSentences.length; i += 1) {
-    candidateUnits.push({ text: rawSentences[i], isWindow: false });
-    if (i < rawSentences.length - 1) {
-      const pair = `${rawSentences[i]} ${rawSentences[i + 1]}`;
-      if (pair.length <= 320) {
-        candidateUnits.push({ text: pair, isWindow: true });
+  let topCandidate: { sentence: string; score: number; rank: number } | null = null;
+
+  for (let i = 0; i < candidateUnits.length; i++) {
+    const { sentence, isWindow, normalizedSentence, sentenceTerms, penalty, completenessBonus } = candidateUnits[i];
+    
+    let baseScore = 0;
+    let positionScore = 0;
+
+    for (let j = 0; j < normalizedQueryTerms.length; j++) {
+      const term = normalizedQueryTerms[j];
+      if (sentenceTerms.has(term)) {
+        baseScore++;
+        const at = normalizedSentence.indexOf(term);
+        if (at >= 0 && normalizedSentence.length > 0) {
+          positionScore += Math.max(0, 1 - at / normalizedSentence.length);
+        }
       }
+    }
+
+    if (baseScore === 0) continue;
+
+    const rank = positionScore + completenessBonus - penalty - (isWindow ? 0.2 : 0);
+
+    if (!topCandidate || baseScore > topCandidate.score || (baseScore === topCandidate.score && rank > topCandidate.rank)) {
+      topCandidate = { sentence, score: baseScore, rank };
     }
   }
 
-  const ranked = candidateUnits.map(({ text: sentence, isWindow }) => {
-    const normalizedSentence = normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase());
-    const sentenceTerms = new Set(
-      normalizedSentence
-        .split(/[^\p{L}\p{M}\p{N}]+/u)
-        .map(normalizeContentTerm)
-        .filter(term => term && term.length >= 2)
-    );
-    const matches = Array.from(normalizedQueryTerms).filter(term => sentenceTerms.has(term));
-    let positionScore = 0;
-    for (const term of matches) {
-      const at = normalizedSentence.indexOf(term);
-      if (at >= 0 && normalizedSentence.length > 0) {
-        positionScore += Math.max(0, 1 - at / normalizedSentence.length);
-      }
-    }
-
-    let penalty = headingFragmentPenalty(sentence);
-    if (sentence.trim().endsWith("?") || INTERROGATIVE_START_PATTERNS.some(p => p.test(sentence.trim()))) {
-      penalty += 3.0;
-    }
-    for (const pattern of BOILERPLATE_PATTERNS) {
-      if (pattern.test(sentence)) {
-        penalty += 1.5;
-        break;
-      }
-    }
-
-    // Pronoun incompleteness penalty if a single sentence begins with an unresolved pronoun
-    if (!isWindow && /^(?:it|they|this|these|he|she|यह|वह|ಅದು|ಇದು|ಇವರು|ಇವು|இது|இவர்)\s+(?:is|are|was|were|means|refers|has|have|can|होता|होती|है|आहे|ಆಗಿದೆ|ಆಗಿದ್ದಾರೆ|ஆகும்)/i.test(sentence)) {
-      penalty += 0.8;
-    }
-
-    // Completeness bonus for definitional or causal predicates
-    let completenessBonus = 0;
-    if (/\b(?:is a|is an|are|means|defined as|refers to|known as|named for|announced|because|causes|results in|due to|होता है|कहते हैं|कहा जाता है|अर्थात|म्हणतात|ಎಂದರೆ|ಆಗಿದೆ|ಎನ್ನಲಾಗುತ್ತದೆ|ஆகும்|காரணமாக)\b/i.test(sentence)) {
-      completenessBonus += 0.6;
-    }
-
-    const baseScore = matches.length;
-    const rank = positionScore + completenessBonus - penalty - (isWindow ? 0.2 : 0);
-    return { sentence, score: baseScore, rank };
-  });
-
-  const top = ranked.filter(r => r.score > 0).sort((a, b) => b.score - a.score || b.rank - a.rank)[0];
-
-  return top?.score ? { sentence: top.sentence.trim(), termMatches: top.score, rank: top.rank } : null;
+  return topCandidate ? { sentence: topCandidate.sentence.trim(), termMatches: topCandidate.score, rank: topCandidate.rank } : null;
 }
 
 
@@ -771,19 +820,8 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
       if (conversionDirectionMismatch(query, sentence)) return null;
       if (BOILERPLATE_PATTERNS.some(p => p.test(sentence))) return null;
 
-      const sentenceWords = new Set(
-        normalizeDigits(sentence.normalize("NFKC").toLocaleLowerCase())
-          .split(/[^\p{L}\p{M}\p{N}]+/u)
-          .map(normalizeContentTerm)
-          .filter(w => w && w.length >= 2)
-      );
-
-      const chunkConcepts = new Set(
-        normalizeDigits(chunk.text.normalize("NFKC").toLocaleLowerCase())
-          .split(/[^\p{L}\p{M}\p{N}]+/u)
-          .map(normalizeContentTerm)
-          .filter(Boolean)
-      );
+      const sentenceWords = getSentenceWords(sentence);
+      const chunkConcepts = getChunkConcepts(chunk);
 
       for (const group of MUTUALLY_EXCLUSIVE_CONCEPTS) {
         for (const qc of queryConcepts) {
