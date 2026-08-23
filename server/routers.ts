@@ -77,7 +77,9 @@ export const appRouter = router({
         ? withDelivery({ ...hit.run, requestId: randomUUID(), latency: { ...hit.run.latency, ragMs: elapsed(startedAt) } }, elapsed(startedAt), "HIT", hit.ageMs)
         : withDelivery(await runPostTranscriptionHarness(input), elapsed(startedAt), "MISS");
 
-      if (!hit) typedResponseCache.set(input.transcript, input.languageCode, run);
+      if (!hit && run.answer.status === "GROUNDED") {
+        typedResponseCache.set(input.transcript, input.languageCode, run);
+      }
       setTimingHeader(ctx.res, run);
       persistAfterResponse(run);
       return run;
