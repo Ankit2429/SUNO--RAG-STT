@@ -72,6 +72,7 @@ function LanguagePicker({ languageCode, onChange, disabled, indexedLanguageCodes
       {VOICE_LANGUAGES.map(language => <option key={language.code} value={language.code}>{language.label} · {language.nativeLabel} · {language.code}{indexedLanguageCodes.includes(language.code.slice(0, 2)) ? " — indexed evidence" : " — transcription only"}</option>)}
     </select>
     <span className={`mono border border-[#1B1815] px-2 py-1 text-[8px] font-bold ${automaticDetection ? "bg-[#EEE5D6]" : selectedIsIndexed ? "bg-[#EE5B2B] text-[#1B1815]" : "bg-[#EEE5D6]"}`}>{automaticDetection ? "AUTO DETECT" : selectedIsIndexed ? "INDEXED EVIDENCE" : "TRANSCRIPTION ONLY"}</span>
+    <p className="basis-full text-center mono text-[9px] leading-relaxed text-[#625A4F]"><span className="font-bold text-[#EE5B2B]">Tip:</span> Select your spoken language for better transcription and answer accuracy.</p>
     <p className="basis-full text-center mono text-[8px] leading-relaxed text-[#625A4F]">{automaticDetection ? "Sarvam detects speech language, then SUNO checks bounded MSMARCO-XI evidence." : `${selectedLanguage?.label} is routed through the same cited evidence gate.`} STOP &amp; SEND remains available.</p>
   </div>;
 }

@@ -172,6 +172,7 @@ describe("Home typed-question submission", () => {
     expect(screen.getByRole("option", { name: /English/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /Tamil/ })).toBeTruthy();
     expect(screen.getByRole("option", { name: /Marathi/ })).toBeTruthy();
+    expect(screen.getByText(/Select your spoken language for better transcription and answer accuracy/i)).toBeTruthy();
     expect(screen.getByText("EVALUATOR DETAILS")).toBeTruthy();
   });
 
