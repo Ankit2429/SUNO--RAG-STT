@@ -1,5 +1,6 @@
 import type { ConfidenceBand, EvidenceChunk, StructuredAnswer } from "@shared/rag";
 import { STOP_WORDS, meaningfulLexicalTerms, normalizeDigits } from "./embedding";
+import { HOT_CORPUS } from "./hotCorpus";
 
 const unsafePatterns = [
   /\b(?:make|build|buy)\s+(?:a\s+)?(?:bomb|weapon|explosive)/i,
@@ -981,4 +982,14 @@ export const guardrailsInternals = {
   normalizeContentTerm,
   detectQueryDimensions,
 };
+
+// Warm up candidate units and chunk concepts for the entire in-process hot corpus at module load
+for (let i = 0; i < HOT_CORPUS.length; i++) {
+  const chunk = HOT_CORPUS[i];
+  const units = getCandidateUnits(chunk);
+  getChunkConcepts(chunk);
+  for (let j = 0; j < units.length; j++) {
+    getSentenceWords(units[j].sentence);
+  }
+}
 
