@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 10,
+    "num_unanswerable": 10,
+    "num_examples": 20,
+    "num_chunks": 495,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 10,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.6,
+        "5": 0.9
+      },
+      "mrr": 0.615
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.6,
+        "5": 0.9
+      },
+      "mrr": 0.615
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 20,
+    "faithful_rate": 0.9,
+    "hallucination_rate": 0.1,
+    "num_confident_answers": 1,
+    "self_report_precision": 1.0,
+    "self_report_disagreements": [],
+    "hallucinated_examples": [
+      {
+        "query": "what is injection, ciprofloxacin for intravenous infusion",
+        "answer": "I couldn't find sufficient source-backed evidence to answer that.",
+        "judge_reason": "The context provides information about ASPEN CIPROFLOXACIN Injection for Intravenous Infusion and its uses."
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "I couldn't find sufficient source-backed evidence to answer that.",
+        "judge_reason": "The ANSWER states it couldn't find sufficient source-backed evidence to answer the question, which is not supported by the CONTEXT."
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 10,
+    "correct_rate": 0.0,
+    "incorrect_examples": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "reference_answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "answer": "I couldn't find sufficient source-backed evidence to answer that.",
+        "judge_reason": "ANSWER refuses to answer"
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "reference_answer": "If the agency is going to report to the credit bureau, it will be reported within thirty (30) days.",
+        "answer": "I couldn't find sufficient source-backed evidence to answer that.",
+        "judge_reason": "refers to incorrect time frame"
+      },
+      {
+        "query": "what is providing customer service",
+        "reference_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi",
+        "answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and...",
+        "judge_reason": "refers to incomplete information"
+      },
+      {
+        "query": "what makes marsala wine special",
+        "reference_answer": "Marsala wine is used in many different Italian foods, but it is most famous for chicken marsala.",
+        "answer": "I couldn't find sufficient source-backed evidence to answer that.",
+        "judge_reason": "ANSWER states information could not be found"
+      },
+      {
+        "query": "compatibility definition",
+        "reference_answer": "Compatibility means the ability of machines, especially computers, or computer programs to work successfully.",
+        "answer": "I couldn't find sufficient source-backed evidence to answer that.",
+        "judge_reason": "ANSWER states it couldn't find sufficient evidence"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 10,
+    "num_unanswerable_evaluated": 10,
+    "false_refusal_rate": 0.9,
+    "false_refusal_examples": [
+      {
+        "query": "cytopathology definition",
+        "expected_answer": "Cytopathology is a branch of pathology that examines individual cells in order to diagnose disease."
+      },
+      {
+        "query": "compatibility definition",
+        "expected_answer": "Compatibility means the ability of machines, especially computers, or computer programs to work successfully."
+      },
+      {
+        "query": "what is peninsula clean energy",
+        "expected_answer": "Peninsula Clean Energy is delivering cleaner, greener electricity at lower rates."
+      },
+      {
+        "query": "what makes marsala wine special",
+        "expected_answer": "Marsala wine is used in many different Italian foods, but it is most famous for chicken marsala."
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "expected_answer": "If the agency is going to report to the credit bureau, it will be reported within thirty (30) days."
+      }
+    ],
+    "false_confidence_rate": 0.0,
+    "false_confidence_examples": []
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 20,
+    "embed": {
+      "avg_ms": 3.57,
+      "p50_ms": 3.33,
+      "p95_ms": 5.37,
+      "p99_ms": 5.6
+    },
+    "search": {
+      "avg_ms": 0.19,
+      "p50_ms": 0.18,
+      "p95_ms": 0.31,
+      "p99_ms": 0.4
+    },
+    "retrieval_total": {
+      "avg_ms": 4.32,
+      "p50_ms": 4.16,
+      "p95_ms": 5.8,
+      "p99_ms": 5.81
+    },
+    "generation": {
+      "avg_ms": 5210.98,
+      "p50_ms": 5209.62,
+      "p95_ms": 5221.99,
+      "p99_ms": 5225.05
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": false
+  }
+}
