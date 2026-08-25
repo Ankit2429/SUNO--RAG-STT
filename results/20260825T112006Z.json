@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 10,
+    "num_unanswerable": 10,
+    "num_examples": 20,
+    "num_chunks": 495,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 10,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.6,
+        "5": 0.9
+      },
+      "mrr": 0.615
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.6,
+        "5": 0.9
+      },
+      "mrr": 0.615
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 20,
+    "faithful_rate": 0.6,
+    "hallucination_rate": 0.4,
+    "num_confident_answers": 11,
+    "self_report_precision": 0.8182,
+    "self_report_disagreements": [
+      {
+        "query": "how much ethanol in petrol uk",
+        "answer": "Esso: Ethanol is added at 5% to unleaded petrol at most sites in the UK.P: Ethanol is added at 5% to unleaded petrol at all sites across the UK. BP Ultimate (super unleaded petrol) does not have ethan",
+        "judge_reason": "The CONTEXT states that Esso and BP do not add ethanol to BP Ultimate (super unleaded petrol), but rather to regular unleaded petrol."
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "judge_reason": "The context does not directly support all claims made in the answer."
+      }
+    ],
+    "hallucinated_examples": [
+      {
+        "query": "how much ethanol in petrol uk",
+        "answer": "Esso: Ethanol is added at 5% to unleaded petrol at most sites in the UK.P: Ethanol is added at 5% to unleaded petrol at all sites across the UK. BP Ultimate (super unleaded petrol) does not have ethan",
+        "judge_reason": "The CONTEXT states that Esso and BP do not add ethanol to BP Ultimate (super unleaded petrol), but rather to regular unleaded petrol."
+      },
+      {
+        "query": "who is percival arthurian knight",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not support the claim that no directly matching MSMARCO-XI passage was found."
+      },
+      {
+        "query": "what is peninsula clean energy",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states that no directly matching MSMARCO-XI passage was found for the question, which is not supported by the CONTEXT."
+      },
+      {
+        "query": "how to become an lvn",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not cover the question about how to become an LVN."
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information about how long to keep documents related to insurance claims."
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 10,
+    "correct_rate": 0.3,
+    "incorrect_examples": [
+      {
+        "query": "cytopathology definition",
+        "reference_answer": "Cytopathology is a branch of pathology that examines individual cells in order to diagnose disease.",
+        "answer": "Cytopathology is the study of disease at the cellular level. Cytology tests are done on cells in fluid aspirations, scrapings or brushings to look at single cells or small clusters of cells and assess",
+        "judge_reason": "refers to cytology instead of cytopathology"
+      },
+      {
+        "query": "what is providing customer service",
+        "reference_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi",
+        "answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and...",
+        "judge_reason": "refuses to answer"
+      },
+      {
+        "query": "what is peninsula clean energy",
+        "reference_answer": "Peninsula Clean Energy is delivering cleaner, greener electricity at lower rates.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER says the documents don't contain the information"
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "reference_answer": "As with the policy paperwork, you will want to keep this insurance claim paperwork until at least three years after your policy has ended.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER says you have to keep paperwork until at least three years after your policy has ended which is different from the REFERENCE ANSWER that states to keep this insurance claim paperwork until at least three years after your policy has ended"
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "reference_answer": "If the agency is going to report to the credit bureau, it will be reported within thirty (30) days.",
+        "answer": "There's no standard amount of time but once an account becomes delinquent with the original creditor it can show up on your credit report as soon as 30 days after it has been sold to the collection ag",
+        "judge_reason": "states a range and contradicts itself"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 10,
+    "num_unanswerable_evaluated": 10,
+    "false_refusal_rate": 0.2,
+    "false_refusal_examples": [
+      {
+        "query": "what is peninsula clean energy",
+        "expected_answer": "Peninsula Clean Energy is delivering cleaner, greener electricity at lower rates."
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "expected_answer": "As with the policy paperwork, you will want to keep this insurance claim paperwork until at least three years after your policy has ended."
+      }
+    ],
+    "false_confidence_rate": 0.3,
+    "false_confidence_examples": [
+      {
+        "query": "how much ethanol in petrol uk",
+        "fabricated_answer": "Esso: Ethanol is added at 5% to unleaded petrol at most sites in the UK.P: Ethanol is added at 5% to unleaded petrol at all sites across the UK. BP Ultimate (super unleaded petrol) does not have ethan"
+      },
+      {
+        "query": "how much does it cost to repave a double driveway",
+        "fabricated_answer": "At $2 per square foot, a driveway that is 10-feet wide and 40-feet long will cost $800 to pave, but if the driveway is 100 feet long this will rise to $2,000 for the complete job."
+      },
+      {
+        "query": "what is injection, ciprofloxacin for intravenous infusion",
+        "fabricated_answer": "ASPEN CIPROFLOXACIN Injection for Intravenous Infusion contains ciprofloxacin (as ciprofloxacin lactate) as the active ingredient. It belongs to a group of antibiotics called fluoroquinolones."
+      }
+    ]
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 20,
+    "embed": {
+      "avg_ms": 1.7,
+      "p50_ms": 1.66,
+      "p95_ms": 2.6,
+      "p99_ms": 2.72
+    },
+    "search": {
+      "avg_ms": 0.15,
+      "p50_ms": 0.14,
+      "p95_ms": 0.28,
+      "p99_ms": 0.35
+    },
+    "retrieval_total": {
+      "avg_ms": 1.88,
+      "p50_ms": 1.97,
+      "p95_ms": 2.44,
+      "p99_ms": 2.48
+    },
+    "generation": {
+      "avg_ms": 11716.83,
+      "p50_ms": 11631.15,
+      "p95_ms": 12837.58,
+      "p99_ms": 13172.8
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": false
+  }
+}

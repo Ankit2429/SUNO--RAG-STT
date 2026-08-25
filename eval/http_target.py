@@ -71,7 +71,8 @@ def generate_answer(query: str, results: list) -> Answer:
         {
             "text": getattr(r, "text", ""),
             "score": float(getattr(r, "score", 0.0) or 0.0),
-            "id": getattr(r, "source", "") or f"ctx-{i}",
+            "id": getattr(r, "id", "") or f"cand-{i}",
+            "source": getattr(r, "source", "") or getattr(r, "lang", "en"),
         }
         for i, r in enumerate(results)
     ]

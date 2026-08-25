@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 50,
+    "num_unanswerable": 50,
+    "num_examples": 100,
+    "num_chunks": 2391,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 50,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.34,
+        "3": 0.58,
+        "5": 0.82
+      },
+      "mrr": 0.5037
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.34,
+        "3": 0.58,
+        "5": 0.82
+      },
+      "mrr": 0.5037
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 100,
+    "faithful_rate": 0.49,
+    "hallucination_rate": 0.51,
+    "num_confident_answers": 44,
+    "self_report_precision": 0.9091,
+    "self_report_disagreements": [
+      {
+        "query": "erie insurance corporate address",
+        "answer": "AT&T's Corporate Office Headquarters HQ Official Address: 208 South Akard Street Dallas, TX 75202 Corporate Phone Number: 1-2...",
+        "judge_reason": "No information about AT&T or its headquarters in the context"
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "judge_reason": "The context does not provide information about finding the area of a triangle or any specific triangle."
+      },
+      {
+        "query": "what was the purpose of the new deal quizlet",
+        "answer": "Roosevelt: “The Hundred Days”) 3  National Industrial Recovery Act (in National Industrial Recovery Act) 4  New Deal program (in New Deal) 5  opposition by Butler (in Pierce Butler)",
+        "judge_reason": "CONTEXT does not mention any 'Roosevelt' quote or 'Butler' in relation to the New Deal."
+      },
+      {
+        "query": "what is the transpiration stream",
+        "answer": "The flow of water through the xylem from the roots to the leaf, against gravity, is called the transpiration stream. Water rises through xylem vessels due to two key properties of water – cohesion and",
+        "judge_reason": "The context does not mention any details about the flow of water through xylem from roots to leaves or the properties of cohesion and adhesion."
+      }
+    ],
+    "hallucinated_examples": [
+      {
+        "query": "difference from phycol and psychiatrist",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not provide information relevant to the claim about finding an appropriate gas dryer model."
+      },
+      {
+        "query": "how long for stitches to be removed",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not provide information about how long stitches are removed after surgery and does not contain any information related to citing films in MLA format."
+      },
+      {
+        "query": "how to do citations in an essay",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER does not provide any factual claims supported by the CONTEXT."
+      },
+      {
+        "query": "how long do fly eggs live",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not provide information about Clements University's main subjects or the programs and degrees offered by Clements University."
+      },
+      {
+        "query": "usf admissions office phone number",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information about Admissions Office Usf's phone number or address."
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 50,
+    "correct_rate": 0.12,
+    "incorrect_examples": [
+      {
+        "query": "when was power rangers released in europe",
+        "reference_answer": "Power rangers was released on 2nd November in Europe.",
+        "answer": "Power Rangers: Super Legends has a release date of October 23rd (US) and 2nd November in Europe for Wii, DS, PS2, GameCube (as the last GameCube title!) and PC.",
+        "judge_reason": "Power Rangers was released on 2nd November in Europe according to the reference answer, but the given ANSWER states it was released on October 23rd."
+      },
+      {
+        "query": "what is the purpose of the passive-interface command?",
+        "reference_answer": "The purpose of the passive-interface command is it allows a routing protocol to forward updates out an interface that is missing its IP address allows a router to send routing updates on an interface ",
+        "answer": "The passive interface Command. With EIGRP running on a network, the passive-interface command stops both outgoing and incoming routing updates, since the effect of the command causes the router to sto",
+        "judge_reason": "refers only to one aspect of the command without addressing its purpose"
+      },
+      {
+        "query": "what is megatron called",
+        "reference_answer": "Megatron is the founder of the Decepticon uprising, and their most well-known and feared leader.",
+        "answer": "The Decepticons are no more and that is final.. ―Megatron's last words after he officially left the Decepticons and went somewhere in the galaxy in Predacons Rising.",
+        "judge_reason": "Megatron is not mentioned as a founder or leader of the Decepticon uprising"
+      },
+      {
+        "query": "how long for stitches to be removed",
+        "reference_answer": "From face stitches are removed in  5-7 days and from foot and ankle is removed in  approximately 14 days.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "refuses to answer"
+      },
+      {
+        "query": "when was hangzhou established",
+        "reference_answer": "Hangzhou was established in the 12th century.",
+        "answer": "Hangzhou • Established in 12th century (Hangchow or Hangzhou) • Located between lakes and rivers, part of canal system • Not possible to implement north-south alignment; city congested with liTle room",
+        "judge_reason": "ANSWER says Hangzhou was not established in the 12th century"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 50,
+    "num_unanswerable_evaluated": 50,
+    "false_refusal_rate": 0.46,
+    "false_refusal_examples": [
+      {
+        "query": "how long for stitches to be removed",
+        "expected_answer": "From face stitches are removed in  5-7 days and from foot and ankle is removed in  approximately 14 days."
+      },
+      {
+        "query": "how long do fly eggs live",
+        "expected_answer": "An adults fly eggs usually live for 15 to 25 days."
+      },
+      {
+        "query": "usf admissions office phone number",
+        "expected_answer": "You can contact Admissions Office Usf on the given phone number 813-974-3350."
+      },
+      {
+        "query": "do dolphins have the smell sense",
+        "expected_answer": "Yes,They were thought to lack the ability."
+      },
+      {
+        "query": "what is not present when fermentation is used",
+        "expected_answer": "Oxygen is not present, when fermentation is used."
+      }
+    ],
+    "false_confidence_rate": 0.34,
+    "false_confidence_examples": [
+      {
+        "query": "who is the person that created transformers",
+        "fabricated_answer": "Optimus Prime was created as the last of the Thirteen, the first generation of Transformers, each created directly by Primus as a band of unique warriors to combat and defeat Unicron. Upon his creatio"
+      },
+      {
+        "query": "erie insurance corporate address",
+        "fabricated_answer": "AT&T's Corporate Office Headquarters HQ Official Address: 208 South Akard Street Dallas, TX 75202 Corporate Phone Number: 1-2..."
+      },
+      {
+        "query": "bleaching is an outcome of ocean acidification that directly affects _____.",
+        "fabricated_answer": "Bleaching occurs when the conditions necessary to sustain the coral's zooxanthellae cannot be maintained. Any environmental trigger that affects the coral's ability to supply the zooxanthellae with nu"
+      },
+      {
+        "query": "cite a movie mla",
+        "fabricated_answer": "To cite a movie quote in MLA style, the title of the film, the director's name, the studio and the release year are required."
+      },
+      {
+        "query": "headache that causes earache",
+        "fabricated_answer": "Causes of earache. Just as the pain from earache affects people in different ways, there are a variety of causes of earache."
+      }
+    ]
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 100,
+    "embed": {
+      "avg_ms": 1.33,
+      "p50_ms": 1.31,
+      "p95_ms": 1.68,
+      "p99_ms": 2.07
+    },
+    "search": {
+      "avg_ms": 0.2,
+      "p50_ms": 0.2,
+      "p95_ms": 0.25,
+      "p99_ms": 0.36
+    },
+    "retrieval_total": {
+      "avg_ms": 1.64,
+      "p50_ms": 1.58,
+      "p95_ms": 1.88,
+      "p99_ms": 2.59
+    },
+    "generation": {
+      "avg_ms": 1992.13,
+      "p50_ms": 2194.11,
+      "p95_ms": 2263.68,
+      "p99_ms": 2394.52
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": false
+  }
+}

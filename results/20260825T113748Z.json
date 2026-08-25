@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 10,
+    "num_unanswerable": 10,
+    "num_examples": 20,
+    "num_chunks": 495,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 10,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.6,
+        "5": 0.9
+      },
+      "mrr": 0.615
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.6,
+        "5": 0.9
+      },
+      "mrr": 0.615
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 20,
+    "faithful_rate": 0.6,
+    "hallucination_rate": 0.4,
+    "num_confident_answers": 12,
+    "self_report_precision": 0.9167,
+    "self_report_disagreements": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "judge_reason": "The context does not provide information about finding the area of a triangle or any related formulas."
+      }
+    ],
+    "hallucinated_examples": [
+      {
+        "query": "what makes marsala wine special",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not support the claim that no directly matching MSMARCO-XI passage was found."
+      },
+      {
+        "query": "how much does it cost to repave a double driveway",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context provides information about the cost of driveways and does not directly contradict the claim that no matching passage was found."
+      },
+      {
+        "query": "who is percival arthurian knight",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states that no directly matching MSMARCO-XI passage was found for the question, which is unfaithful as it contradicts the presence of relevant information in the CONTEXT."
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states that no matching passage was found in the context, which is not supported by the CONTEXT."
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information about how long to keep documents related to insurance claims."
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 10,
+    "correct_rate": 0.3,
+    "incorrect_examples": [
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "reference_answer": "If the agency is going to report to the credit bureau, it will be reported within thirty (30) days.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER says the information is unanswerable"
+      },
+      {
+        "query": "what makes marsala wine special",
+        "reference_answer": "Marsala wine is used in many different Italian foods, but it is most famous for chicken marsala.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER says the documents don't contain the information"
+      },
+      {
+        "query": "cytopathology definition",
+        "reference_answer": "Cytopathology is a branch of pathology that examines individual cells in order to diagnose disease.",
+        "answer": "Cytopathology is the study of disease at the cellular level. Cytology tests are done on cells in fluid aspirations, scrapings or brushings to look at single cells or small clusters of cells and assess",
+        "judge_reason": "refers to cytology instead of cytopathology"
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "reference_answer": "As with the policy paperwork, you will want to keep this insurance claim paperwork until at least three years after your policy has ended.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER says you have to keep paperwork until at least three years after your policy has ended which is different from the REFERENCE ANSWER that states you will want to keep this insurance claim paperwork until at least three years after your policy has ended."
+      },
+      {
+        "query": "what is peninsula clean energy",
+        "reference_answer": "Peninsula Clean Energy is delivering cleaner, greener electricity at lower rates.",
+        "answer": "Latest Updates: Peninsula Clean Energy (PCE) is a community choice energy (CCE) program which allows Redwood City, along with the County and the other towns and cities in San Mateo County, to pool the",
+        "judge_reason": "refuses to answer"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 10,
+    "num_unanswerable_evaluated": 10,
+    "false_refusal_rate": 0.4,
+    "false_refusal_examples": [
+      {
+        "query": "what makes marsala wine special",
+        "expected_answer": "Marsala wine is used in many different Italian foods, but it is most famous for chicken marsala."
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "expected_answer": "If the agency is going to report to the credit bureau, it will be reported within thirty (30) days."
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "expected_answer": "As with the policy paperwork, you will want to keep this insurance claim paperwork until at least three years after your policy has ended."
+      },
+      {
+        "query": "what is the size and weight of a whitetail deer",
+        "expected_answer": "The size of a deer depends greatly on it's species, age, and sex. A typical adult female whitetail deer is usually around 100 lbs. and a male of the same species around 200 lbs."
+      }
+    ],
+    "false_confidence_rate": 0.6,
+    "false_confidence_examples": [
+      {
+        "query": "how much ethanol in petrol uk",
+        "fabricated_answer": "The Qinetic report for DfT found current (2010) usage of ethanol in petrol in the UK is low (equivalent to 2.8 % of total unleaded petrol sales in 2010) and that although the coverage is widespread it"
+      },
+      {
+        "query": "how to become an lvn",
+        "fabricated_answer": "Getting the Education Necessary to Become an LVN."
+      },
+      {
+        "query": "how to change your flight without paying",
+        "fabricated_answer": "Southwest Airlines lets you change or cancel a fare within the 24 hour window without penalty, but it also allows you to change or cancel a reservation anytime before flight time and get a credit for "
+      },
+      {
+        "query": "what is headset equalization for avaya",
+        "fabricated_answer": "Avaya Compatible Sennheiser D10 Wireless Headset with Avaya EHS included | Avaya Models: 1400, 9400, 9500 Series and Avaya 96x1 IP series"
+      },
+      {
+        "query": "are katydids grasshoppers",
+        "fabricated_answer": "Grasshoppers, crickets, katydids, and locusts all belong to the order Orthoptera."
+      }
+    ]
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 20,
+    "embed": {
+      "avg_ms": 1.5,
+      "p50_ms": 1.51,
+      "p95_ms": 1.9,
+      "p99_ms": 2.2
+    },
+    "search": {
+      "avg_ms": 0.13,
+      "p50_ms": 0.12,
+      "p95_ms": 0.19,
+      "p99_ms": 0.25
+    },
+    "retrieval_total": {
+      "avg_ms": 1.69,
+      "p50_ms": 1.62,
+      "p95_ms": 2.1,
+      "p99_ms": 2.4
+    },
+    "generation": {
+      "avg_ms": 1729.18,
+      "p50_ms": 2168.55,
+      "p95_ms": 2291.49,
+      "p99_ms": 2414.63
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": false
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 3,
+    "num_unanswerable": 3,
+    "num_examples": 6,
+    "num_chunks": 133,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 3,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.8333
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.8333
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 6,
+    "faithful_rate": 0.5,
+    "hallucination_rate": 0.5,
+    "num_confident_answers": 3,
+    "self_report_precision": 0.6667,
+    "self_report_disagreements": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "judge_reason": "The context does not provide information about finding the height of a triangle given its area and base"
+      }
+    ],
+    "hallucinated_examples": [
+      {
+        "query": "what is the scorebridge app used for",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information about MSMARCO-XI or any related passages."
+      },
+      {
+        "query": "hexadecimal numbers to binary numbers",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context provides information about converting binary and hexadecimal numbers, including the use of zero-padding to make the number of bits a multiple of four for easier conversion."
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "judge_reason": "The context does not provide information about finding the height of a triangle given its area and base"
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 3,
+    "correct_rate": 1.0,
+    "incorrect_examples": []
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 3,
+    "num_unanswerable_evaluated": 3,
+    "false_refusal_rate": 0.0,
+    "false_refusal_examples": [],
+    "false_confidence_rate": 0.0,
+    "false_confidence_examples": []
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 6,
+    "embed": {
+      "avg_ms": 1.95,
+      "p50_ms": 2.15,
+      "p95_ms": 2.52,
+      "p99_ms": 2.54
+    },
+    "search": {
+      "avg_ms": 0.08,
+      "p50_ms": 0.08,
+      "p95_ms": 0.11,
+      "p99_ms": 0.11
+    },
+    "retrieval_total": {
+      "avg_ms": 2.31,
+      "p50_ms": 2.39,
+      "p95_ms": 2.63,
+      "p99_ms": 2.64
+    },
+    "generation": {
+      "avg_ms": 1748.98,
+      "p50_ms": 1603.4,
+      "p95_ms": 2112.53,
+      "p99_ms": 2124.11
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": false
+  }
+}

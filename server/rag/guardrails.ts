@@ -24,7 +24,7 @@ const promptInjectionPatterns = [
 export function refused(reason: string): StructuredAnswer {
   return {
     status: "REFUSED",
-    answer: "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+    answer: "I couldn't find sufficient source-backed evidence to answer that.",
     evidenceIds: [],
     confidenceBand: "NONE",
     refusalReason: reason,
@@ -279,9 +279,13 @@ const BOILERPLATE_PATTERNS: RegExp[] = [
 
 function headingFragmentPenalty(sentence: string): number {
   const trimmed = sentence.trim();
-  const words = trimmed.split(/\s+/).filter(Boolean);
-  if (words.length <= 6 && /^(?:definition|meaning)\s+of\b/i.test(trimmed)) {
-    return 1.5;
+  const firstSent = trimmed.split(/[.!?]\s+/)[0] || trimmed;
+  const firstWords = firstSent.trim().split(/\s+/).filter(Boolean);
+  if (firstWords.length <= 12 && /^(?:Getting|Obtaining|Finding|Learning|Understanding|Developing|Checking|Knowing|Overview|Introduction|About)\s+(?:the\s+)?[A-Za-z\s]+[.!:]?$/i.test(firstSent.trim())) {
+    return 3.0;
+  }
+  if (firstWords.length <= 6 && /^(?:definition|meaning)\s+of\b/i.test(firstSent.trim())) {
+    return 2.5;
   }
   return 0;
 }
@@ -462,21 +466,23 @@ function conversionDirectionMismatch(query: string, sentence: string): boolean {
   const to = canonicalBase(queryDirection[2]);
   if (!from || !to || from === to) return false;
 
-  const convertMatch = /conver[a-z]*/i.exec(sentence);
-  if (!convertMatch) return false;
   const lower = sentence.toLocaleLowerCase();
-  const convertAt = convertMatch.index;
-  const fromAt = lower.indexOf(from, convertAt);
-  const toAt = lower.indexOf(to, convertAt);
-  if (fromAt < 0 || toAt < 0) {
-    // Sentence converts only ONE of the two named bases -> cannot confirm the
-    // requested direction; treat as unsupported rather than guessing.
-    const eitherAt = lower.indexOf(from, convertAt) >= 0 ? lower.indexOf(from, convertAt) : lower.indexOf(to, convertAt);
-    return eitherAt >= 0 ? true : false;
+  const hasConversionIndicator = /\b(?:conver[a-z]*|transform[a-z]*|calculat[a-z]*|represent[a-z]*|expressed\s+as|equals?|method|steps?|divide|multiply|shift)\b/i.test(sentence);
+  if (!hasConversionIndicator) return true; // Sentence does not state how to perform conversion
+
+  const convertMatch = /conver[a-z]*/i.exec(sentence);
+  if (convertMatch) {
+    const convertAt = convertMatch.index;
+    const fromAt = lower.indexOf(from, convertAt);
+    const toAt = lower.indexOf(to, convertAt);
+    if (fromAt < 0 || toAt < 0) {
+      const eitherAt = lower.indexOf(from, convertAt) >= 0 ? lower.indexOf(from, convertAt) : lower.indexOf(to, convertAt);
+      return eitherAt >= 0 ? true : false;
+    }
+    const sentenceFrom = fromAt < toAt ? from : to;
+    return sentenceFrom !== from;
   }
-  // Whichever base appears first after the convert verb is the source being converted.
-  const sentenceFrom = fromAt < toAt ? from : to;
-  return sentenceFrom !== from;
+  return false;
 }
 
 
@@ -516,6 +522,8 @@ function isRepetitiveListingSentence(sentence: string): boolean {
 }
 
 function isNonPropositionalFragment(sentence: string): boolean {
+  // Trailing dangling list indices, e.g. "... LVN. 1 1."
+  if (/\.\s*\d+[\s\.\:]*$/i.test(sentence.trim())) return true;
   // Numbered outline echo, e.g. "Civil War Strategy and Tactics. 1  THE STRATEGY OF THE CIVIL WAR."
   // or "... headache. 3  General Information: Other Possible Causes."
   if (/\.\s*\d{1,2}\s+[A-Z][A-Z\s\-']{4,}/.test(sentence)) return true;
@@ -542,6 +550,8 @@ function isNonDeclarativeOrEcho(sentence: string): boolean {
   if (trimmed.endsWith("?") || trimmed.endsWith(";")) return true;
   if (INTERROGATIVE_START_PATTERNS.some(p => p.test(trimmed))) return true;
   if (NAVIGATIONAL_PATTERNS.some(p => p.test(trimmed))) return true;
+  if (isNonPropositionalFragment(trimmed)) return true;
+  if (/^(?:Getting|Obtaining|Finding|Learning|Understanding|Developing|Checking|Knowing|Overview|Introduction|About)\s+(?:the\s+)?[A-Za-z\s]+[.!:]?$/i.test(trimmed)) return true;
   return false;
 }
 
@@ -800,6 +810,71 @@ function classifyDimensionType(text: string): QueryDimension["type"] {
   return "general";
 }
 
+function findBestEvidenceUnit(
+  chunk: EvidenceChunk,
+  query: string,
+  terms: Set<string>,
+  normalizedQueryTerms: string[],
+  queryConcepts: Set<string>
+): { sentence: string; termMatches: number; rank: number } | null {
+  const candidateUnits = getCandidateUnits(chunk);
+  if (!candidateUnits.length) return null;
+
+  let best: { sentence: string; termMatches: number; rank: number } | null = null;
+
+  for (let i = 0; i < candidateUnits.length; i++) {
+    const unit = candidateUnits[i];
+    const sentence = unit.sentence;
+
+    if (isNonDeclarativeOrEcho(sentence)) continue;
+    if (isNonPropositionalFragment(sentence)) continue;
+    if (conversionDirectionMismatch(query, sentence)) continue;
+    if (BOILERPLATE_PATTERNS.some(p => p.test(sentence))) continue;
+    if (!checkTargetAttributeRequirement(query, sentence)) continue;
+
+    const sentenceWords = getSentenceWords(sentence);
+    const matchedTerms = Array.from(terms).filter(t => {
+      const normT = normalizeContentTerm(t);
+      return (normT && normT.length >= 2 && sentenceWords.has(normT)) || sentenceWords.has(t);
+    });
+
+    const matchCount = matchedTerms.length;
+    if (matchCount === 0) continue;
+
+    const matchedNormalized = matchedTerms.map(normalizeContentTerm);
+    const isOnlyGenericAttributes = matchedNormalized.every(t =>
+      t === "cost_attribute" || GENERIC_CONTAINER_TERMS.has(t)
+    );
+    const hasSpecificQueryConcept = Array.from(queryConcepts).some(t =>
+      t !== "cost_attribute" && !GENERIC_CONTAINER_TERMS.has(t) && t.length >= 2
+    );
+    if (hasSpecificQueryConcept && isOnlyGenericAttributes) continue;
+
+    let positionScore = 0;
+    for (let j = 0; j < normalizedQueryTerms.length; j++) {
+      const term = normalizedQueryTerms[j];
+      if (unit.sentenceTerms.has(term)) {
+        const at = unit.normalizedSentence.indexOf(term);
+        if (at >= 0 && unit.normalizedSentence.length > 0) {
+          positionScore += Math.max(0, 1 - at / unit.normalizedSentence.length);
+        }
+      }
+    }
+
+    const rank = matchCount * 2.0 + positionScore + unit.completenessBonus - unit.penalty - (unit.isWindow ? 0.2 : 0);
+
+    if (!best || rank > best.rank) {
+      best = {
+        sentence: sentence.trim(),
+        termMatches: matchCount,
+        rank,
+      };
+    }
+  }
+
+  return best;
+}
+
 function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: Map<string, number>, languageCode?: string) {
   const terms = queryTerms(query);
   if (!terms.size) {
@@ -807,23 +882,13 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
   }
 
   const queryConcepts = new Set(Array.from(terms).map(normalizeContentTerm).filter(Boolean));
+  const normalizedQueryTerms = Array.from(terms)
+    .map(normalizeContentTerm)
+    .filter(term => term && term.length >= 2);
 
   const supported = evidence
     .map(chunk => {
-      const match = evidenceSentence(chunk, terms);
-      if (!match || match.termMatches === 0) return null;
-      if (conversionDirectionMismatch(query, match.sentence)) return null;
-
-      const sentence = match.sentence;
-      if (isNonDeclarativeOrEcho(sentence)) return null;
-      if (isNonPropositionalFragment(sentence)) return null;
-      if (!checkTargetAttributeRequirement(query, sentence)) return null;
-      if (conversionDirectionMismatch(query, sentence)) return null;
-      if (BOILERPLATE_PATTERNS.some(p => p.test(sentence))) return null;
-
-      const sentenceWords = getSentenceWords(sentence);
       const chunkConcepts = getChunkConcepts(chunk);
-
       for (const group of MUTUALLY_EXCLUSIVE_CONCEPTS) {
         for (const qc of queryConcepts) {
           if (group.has(qc)) {
@@ -835,6 +900,19 @@ function evaluateSingleIntent(query: string, evidence: EvidenceChunk[], scores: 
           }
         }
       }
+
+      const match = findBestEvidenceUnit(chunk, query, terms, normalizedQueryTerms, queryConcepts) ?? evidenceSentence(chunk, terms);
+      if (!match || match.termMatches === 0) return null;
+      if (conversionDirectionMismatch(query, match.sentence)) return null;
+
+      const sentence = match.sentence;
+      if (isNonDeclarativeOrEcho(sentence)) return null;
+      if (isNonPropositionalFragment(sentence)) return null;
+      if (!checkTargetAttributeRequirement(query, sentence)) return null;
+      if (conversionDirectionMismatch(query, sentence)) return null;
+      if (BOILERPLATE_PATTERNS.some(p => p.test(sentence))) return null;
+
+      const sentenceWords = getSentenceWords(sentence);
 
       const matchedTerms = Array.from(terms).filter(t => {
         const normT = normalizeContentTerm(t);

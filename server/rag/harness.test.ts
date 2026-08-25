@@ -29,7 +29,7 @@ describe("fail-closed guardrails", () => {
 
   it("returns the exact refused schema when support is insufficient", () => {
     expect(refused("Insufficient evidence.")).toEqual({
-      status: "REFUSED", answer: "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.", evidenceIds: [], confidenceBand: "NONE", refusalReason: "Insufficient evidence.",
+      status: "REFUSED", answer: "I couldn't find sufficient source-backed evidence to answer that.", evidenceIds: [], confidenceBand: "NONE", refusalReason: "Insufficient evidence.",
     });
   });
 

@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 3,
+    "num_unanswerable": 3,
+    "num_examples": 6,
+    "num_chunks": 133,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 3,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.8333
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.8333
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 6,
+    "faithful_rate": 0.5,
+    "hallucination_rate": 0.5,
+    "num_confident_answers": 1,
+    "self_report_precision": 1.0,
+    "self_report_disagreements": [],
+    "hallucinated_examples": [
+      {
+        "query": "what is the scorebridge app used for",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information about MSMARCO-XI or any related passages."
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information to solve the problem about finding the height of a triangle."
+      },
+      {
+        "query": "hexadecimal numbers to binary numbers",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not support the claim that no directly matching MSMARCO-XI passage was found."
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 3,
+    "correct_rate": 0.3333,
+    "incorrect_examples": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "reference_answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "refuses to answer"
+      },
+      {
+        "query": "what is providing customer service",
+        "reference_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "refuses to answer"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 3,
+    "num_unanswerable_evaluated": 3,
+    "false_refusal_rate": 0.6667,
+    "false_refusal_examples": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "expected_answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles."
+      },
+      {
+        "query": "what is providing customer service",
+        "expected_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi"
+      }
+    ],
+    "false_confidence_rate": 0.0,
+    "false_confidence_examples": []
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 6,
+    "embed": {
+      "avg_ms": 1.66,
+      "p50_ms": 1.48,
+      "p95_ms": 2.4,
+      "p99_ms": 2.53
+    },
+    "search": {
+      "avg_ms": 0.09,
+      "p50_ms": 0.08,
+      "p95_ms": 0.12,
+      "p99_ms": 0.12
+    },
+    "retrieval_total": {
+      "avg_ms": 1.9,
+      "p50_ms": 1.8,
+      "p95_ms": 2.58,
+      "p99_ms": 2.65
+    },
+    "generation": {
+      "avg_ms": 1095.09,
+      "p50_ms": 1030.19,
+      "p95_ms": 1329.24,
+      "p99_ms": 1400.35
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": true
+  }
+}

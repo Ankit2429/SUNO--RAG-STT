@@ -19,7 +19,7 @@ export const LEXICAL_QUERY_FRAME_TERMS = new Set([
 
 export const STOP_WORDS = new Set([
   // English
-  "what", "is", "are", "was", "were", "the", "a", "an", "in", "on", "at", "of", "to", "for", "with", "and", "or", "by", "from", "how", "why", "who", "whom", "whose", "where", "when", "which", "can", "does", "do", "did", "tell", "give", "me", "about", "called", "known", "as", "between", "many", "much", "more", "most", "some", "any", "this", "that", "these", "those", "have", "has", "had", "will", "would", "should", "could", "been", "being", "their", "there", "they", "them", "other", "into", "than", "then", "just", "also", "only", "its", "it", "low", "make", "do", "how", "belong", "belongs", "state", "country", "city", "first", "main", "major", "type", "role", "importance", "difference", "history", "report", "details", "information", "according",
+  "what", "is", "are", "was", "were", "the", "a", "an", "in", "on", "at", "of", "to", "for", "with", "and", "or", "by", "from", "how", "why", "who", "whom", "whose", "where", "when", "which", "can", "does", "do", "did", "tell", "give", "me", "about", "called", "known", "as", "between", "many", "much", "more", "most", "some", "any", "this", "that", "these", "those", "have", "has", "had", "will", "would", "should", "could", "been", "being", "their", "there", "they", "them", "other", "into", "than", "then", "just", "also", "only", "its", "it",
 
 
   // Hindi

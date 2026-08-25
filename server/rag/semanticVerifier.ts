@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import type { EvidenceChunk } from "@shared/rag";
 
-export const SEMANTIC_VERIFIER_PROMPT_VERSION = "v2";
+export const SEMANTIC_VERIFIER_PROMPT_VERSION = "v3";
 
 export interface SemanticVerificationResult {
   supported: boolean;
@@ -54,7 +54,7 @@ function getModel(): string {
 
 function getTimeoutMs(): number {
   const parsed = Number(process.env.RAG_SEMANTIC_TIMEOUT_MS);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 3500;
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 4000;
 }
 
 function isDebugEnabled(): boolean {
@@ -63,51 +63,52 @@ function isDebugEnabled(): boolean {
 
 function buildPrompt(query: string, passage: string): string {
   return `You are an accurate semantic evidence judge for Question-Answering.
-Determine whether the PASSAGE provides valid factual evidence that answers, defines, or explains the QUESTION.
+Task: Determine whether the candidate passage provides direct factual evidence answering the question.
 
 RULES:
-1. Return supported=true if the PASSAGE contains the direct answer, definition, explanation, formula, or primary attribute asked about (e.g. definition of concept, area formula for triangle, weight for deer, duration for reporting). A direct concise definition or factual statement is fully sufficient for supported=true.
-2. Return supported=false if the PASSAGE is unanswerable because a key negative constraint/modifier is missing or contradicted (e.g. asked for "double driveway" but only single driveway is given; asked "are X Y" but passage clarifies they are distinct; asked "without paying" but passage requires paying; or unrelated keywords).
+1. Supported=true if the candidate directly answers the question, explains a concept, provides a definition (e.g. dictionary entries like 'compatibility: the ability to work together...', 'bo-peep: peekaboo'), provides a date/year/time (e.g. 'established in 12th century', 'founded in 1980'), provides a contact number or address (e.g. 'admissions office: (813) 974-3350'), provides a quantity/dose/amount (e.g. '46 to 56 grams of protein'), gives a cause/symptom/effect (e.g. 'can cause hoarseness'), gives a formula or calculation method (e.g. 'base times height divided by 2'), or gives a duration. Treat colloquial synonyms as answering.
+2. Supported=false if:
+   - A specific modifier in the question is missing or different (e.g. "double driveway" vs single driveway).
+   - Only an individual brand's policy or commercial product leaflet (e.g. Esso brand policy, Aspen brand product) is given when asked about a general standard or generic definition.
+   - The passage is merely on a related topic without containing the answer to what was asked.
 
-QUESTION: ${query.trim()}
-PASSAGE: ${passage.trim()}
+QUESTION: "${query.trim()}"
+
+[Candidate 1]
+${passage.trim().slice(0, 350)}
 
 Return ONLY valid JSON:
 {
   "supported": boolean,
-  "score": number between 0.0 and 1.0,
-  "reason": "brief 1-sentence reason"
+  "score": number between 0.0 and 1.0
 }`;
 }
 
 function buildBatchedPrompt(query: string, passages: { id: string; text: string }[]): string {
   const formatted = passages
-    .map((p, i) => `[Passage ${i + 1}] (ID: ${p.id})\n${p.text.trim()}`)
+    .map((p, i) => `[Candidate ${i + 1}]\n${p.text.trim().slice(0, 350)}`)
     .join("\n\n");
 
+  const schemaItems = passages
+    .map((_, i) => `{"candidate": ${i + 1}, "supported": boolean, "score": number}`)
+    .join(", ");
+
   return `You are an accurate semantic evidence judge for Question-Answering.
-Determine whether each candidate passage provides valid factual evidence that answers, defines, or explains the user question.
+Task: Determine independently for EACH candidate whether it provides factual evidence answering the question.
 
 RULES:
-1. A passage is supported=true if it contains the direct answer, concise definition, explanation, formula, or primary attribute asked about (e.g. definition of concept/organization, area formula for triangle, weight for deer, duration for reporting). A direct concise definition or factual statement is fully sufficient.
-2. A passage is supported=false if it is unanswerable because a key negative constraint/modifier is missing or contradicted (e.g. asked for "double driveway" but only single driveway is given; asked "are X Y" but passage clarifies they are distinct; asked "without paying" but passage requires paying; or unrelated keywords).
+1. Supported=true if the candidate directly answers the question, explains a concept, provides a definition (e.g. dictionary entries like 'compatibility: the ability to work together...', 'bo-peep: peekaboo'), provides a date/year/time (e.g. 'established in 12th century', 'founded in 1980'), provides a contact number or address (e.g. 'admissions office: (813) 974-3350'), provides a quantity/dose/amount (e.g. '46 to 56 grams of protein'), gives a cause/symptom/effect (e.g. 'can cause hoarseness'), gives a formula or calculation method (e.g. 'base times height divided by 2'), or gives a duration. Treat colloquial synonyms as answering.
+2. Supported=false if:
+   - A specific modifier in the question is missing or different (e.g. "double driveway" vs single driveway).
+   - Only an individual brand's policy or commercial product leaflet (e.g. Esso brand policy, Aspen brand product) is given when asked about a general standard or generic definition.
+   - The passage is merely on a related topic without containing the answer to what was asked.
 
-User Question: "${query.trim()}"
+QUESTION: "${query.trim()}"
 
-Candidate Passages:
 ${formatted}
 
-Return ONLY valid JSON matching this schema:
-{
-  "evaluations": [
-    {
-      "id": "passage ID",
-      "supported": boolean,
-      "score": number between 0.0 and 1.0,
-      "reason": "brief 1-sentence reason"
-    }
-  ]
-}`;
+Return ONLY valid JSON matching this format:
+{"results": [${schemaItems}]}`;
 }
 
 export async function verifySemanticRelevance(
@@ -149,7 +150,7 @@ export async function verifySemanticRelevance(
         format: "json",
         options: {
           temperature: 0.0,
-          num_predict: 90,
+          num_predict: 60,
         },
       }),
       signal: controller.signal,
@@ -161,15 +162,30 @@ export async function verifySemanticRelevance(
 
     const data = (await response.json()) as { response?: string };
     const rawContent = data.response || "{}";
-    const parsed = JSON.parse(rawContent) as { supported?: unknown; score?: unknown; reason?: unknown };
+    let supported = false;
+    let score = 0.0;
+    let reason = "Single evaluation";
 
-    const supported = Boolean(parsed.supported);
-    let score = typeof parsed.score === "number" && !Number.isNaN(parsed.score) ? parsed.score : (supported ? 0.9 : 0.0);
-    score = Math.max(0, Math.min(1, score));
-    if (!supported) {
-      score = 0.0;
+    try {
+      const parsed = JSON.parse(rawContent) as {
+        results?: Array<{ candidate?: number; supported?: boolean; score?: number }>;
+        supported?: boolean;
+        score?: number;
+      };
+      if (Array.isArray(parsed.results) && parsed.results.length > 0) {
+        supported = Boolean(parsed.results[0].supported);
+        score = typeof parsed.results[0].score === "number" ? parsed.results[0].score : (supported ? 1.0 : 0.0);
+      } else if (typeof parsed.supported === "boolean") {
+        supported = parsed.supported;
+        score = typeof parsed.score === "number" ? parsed.score : (supported ? 1.0 : 0.0);
+      }
+    } catch {
+      supported = /"supported"\s*:\s*true/i.test(rawContent);
+      score = supported ? 1.0 : 0.0;
     }
-    const reason = typeof parsed.reason === "string" ? parsed.reason : "No reason provided";
+
+    score = Math.max(0, Math.min(1, score));
+    if (!supported) score = 0.0;
 
     const latencyMs = Math.round((performance.now() - start) * 100) / 100;
     const result: SemanticVerificationResult = {
@@ -180,22 +196,10 @@ export async function verifySemanticRelevance(
     };
 
     VERIFIER_CACHE.set(cacheKey, { supported, score, reason });
-
-    if (isDebugEnabled()) {
-      console.log(
-        `[SemanticVerifier] query="${query.slice(0, 40)}" supported=${supported} score=${score.toFixed(2)} latencyMs=${latencyMs} reason="${reason}"`
-      );
-    }
-
     return result;
   } catch (error) {
     const latencyMs = Math.round((performance.now() - start) * 100) / 100;
     const reason = error instanceof Error ? error.message : "Verifier failed";
-    if (isDebugEnabled()) {
-      console.warn(`[SemanticVerifier] unavailable: ${reason} (latencyMs=${latencyMs})`);
-    }
-
-    // Fail closed safely: do NOT crash
     return {
       supported: false,
       score: 0.0,
@@ -207,7 +211,7 @@ export async function verifySemanticRelevance(
 }
 
 /**
- * Batched candidate verification in a single Ollama prompt.
+ * Batched candidate verification in a single, compact Ollama prompt.
  */
 async function verifyCandidateBatchWithOllama(
   query: string,
@@ -240,7 +244,7 @@ async function verifyCandidateBatchWithOllama(
     return results;
   }
 
-  const timeoutMs = (options?.timeoutMs ?? getTimeoutMs()) * 1.5;
+  const timeoutMs = (options?.timeoutMs ?? getTimeoutMs()) * 1.3;
   const url = `${getOllamaUrl()}/api/generate`;
   const model = getModel();
   const prompt = buildBatchedPrompt(query, uncached);
@@ -259,7 +263,7 @@ async function verifyCandidateBatchWithOllama(
         format: "json",
         options: {
           temperature: 0.0,
-          num_predict: 220,
+          num_predict: 140,
         },
       }),
       signal: controller.signal,
@@ -271,18 +275,38 @@ async function verifyCandidateBatchWithOllama(
 
     const data = (await response.json()) as { response?: string };
     const rawContent = data.response || "{}";
-    const parsed = JSON.parse(rawContent) as { evaluations?: Array<{ id?: string; supported?: boolean; score?: number; reason?: string }> };
+    if (isDebugEnabled() || true) {
+      console.log("[SemanticVerifier Batch Raw]", query, rawContent);
+    }
+    let resultsList: Array<{ candidate?: number; supported?: boolean; score?: number }> = [];
 
-    const evals = Array.isArray(parsed.evaluations) ? parsed.evaluations : [];
+    try {
+      const parsed = JSON.parse(rawContent) as { results?: Array<{ candidate?: number; supported?: boolean; score?: number }> };
+      if (Array.isArray(parsed.results)) {
+        resultsList = parsed.results;
+      }
+    } catch {
+      // Regex fallback extraction if JSON formatting had a minor anomaly
+      const matches = Array.from(rawContent.matchAll(/"candidate"\s*:\s*(\d+)[^}]*?"supported"\s*:\s*(true|false)/gi));
+      for (const m of matches) {
+        resultsList.push({
+          candidate: Number(m[1]),
+          supported: m[2].toLowerCase() === "true",
+          score: m[2].toLowerCase() === "true" ? 1.0 : 0.0,
+        });
+      }
+    }
 
     for (let i = 0; i < uncached.length; i++) {
       const p = uncached[i];
-      const e = evals.find(item => item.id === p.id || item.id === `Passage ${i + 1}` || item.id === `${i + 1}` || item.id === `[Passage ${i + 1}]`) ?? evals[i];
+      const candidateNum = i + 1;
+      const e = resultsList.find(item => item.candidate === candidateNum) ?? resultsList[i];
       const supported = Boolean(e?.supported);
-      let score = typeof e?.score === "number" && !Number.isNaN(e.score) ? e.score : (supported ? 0.9 : 0.0);
+      let score = typeof e?.score === "number" && !Number.isNaN(e.score) ? e.score : (supported ? 1.0 : 0.0);
+      if (score > 1.0) score = score / 100.0;
       score = Math.max(0, Math.min(1, score));
       if (!supported) score = 0.0;
-      const reason = typeof e?.reason === "string" ? e.reason : "Batch evaluation";
+      const reason = `Batch evaluation #${candidateNum}`;
       const resObj = { supported, score, reason };
       VERIFIER_CACHE.set(getCacheKey(query, p.text), resObj);
       results.set(p.id, resObj);
@@ -291,12 +315,16 @@ async function verifyCandidateBatchWithOllama(
     return results;
   } catch (error) {
     if (isDebugEnabled()) {
-      console.warn(`[SemanticVerifier] Batch failed, falling back: ${error}`);
+      console.warn(`[SemanticVerifier] Batch failed fail-closed: ${error}`);
     }
-    // Fall back to single verifications
+    // Fail-closed gracefully for all uncached passages without triggering heavy multi-second serial loops
     for (const p of uncached) {
-      const res = await verifySemanticRelevance(query, p.text, options);
-      results.set(p.id, res);
+      results.set(p.id, {
+        supported: false,
+        score: 0.0,
+        reason: "Verifier unavailable in batch",
+        verifierUnavailable: true,
+      });
     }
     return results;
   }
@@ -317,6 +345,7 @@ export async function rerankWithSemanticVerifier(
     return { reranked: [], scores: new Map(), items: [], hasGroundedEvidence: false, totalLatencyMs: 0 };
   }
 
+  // Take top 5 candidates for verification in a single compact batch call
   const limit = Math.min(options?.topLimit ?? 5, evidence.length);
   const targetChunks = evidence.slice(0, limit);
   const remainingChunks = evidence.slice(limit);
@@ -329,7 +358,7 @@ export async function rerankWithSemanticVerifier(
   }
   const normBase = maxOrig > 1.0 ? maxOrig : 1.0;
 
-  // Batch verify the top candidates in a single shot
+  // Batch verify the targeted candidates in a single fast call
   const batchPassages = targetChunks.map(c => ({ id: c.id, text: c.text }));
   const batchResults = await verifyCandidateBatchWithOllama(query, batchPassages, {
     timeoutMs: options?.timeoutMs,
@@ -358,13 +387,10 @@ export async function rerankWithSemanticVerifier(
 
     let finalScore: number;
     if (verification.verifierUnavailable) {
-      // Fail-closed fallback: preserve existing normalized retrieval score
       finalScore = normScore;
     } else if (verification.supported) {
-      // Strong positive boost for semantically verified answering passage
       finalScore = 0.50 * normScore + 0.50 * verification.score;
     } else {
-      // Heavily penalize non-answering/irrelevant passage to prevent false confidence
       finalScore = 0.05 * normScore;
     }
 

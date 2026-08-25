@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 3,
+    "num_unanswerable": 3,
+    "num_examples": 6,
+    "num_chunks": 133,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 3,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.8333
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.8333
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 6,
+    "faithful_rate": 0.5,
+    "hallucination_rate": 0.5,
+    "num_confident_answers": 3,
+    "self_report_precision": 0.6667,
+    "self_report_disagreements": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "judge_reason": "The context does not provide information about finding the height of a triangle given its area and base"
+      }
+    ],
+    "hallucinated_examples": [
+      {
+        "query": "what is the scorebridge app used for",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information about MSMARCO-XI or any related passages."
+      },
+      {
+        "query": "compatibility definition",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states that no matching passage was found in the context, which is incorrect as there are relevant passages about compatibility and its definition."
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "judge_reason": "The context does not provide information about finding the height of a triangle given its area and base"
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 3,
+    "correct_rate": 0.6667,
+    "incorrect_examples": [
+      {
+        "query": "compatibility definition",
+        "reference_answer": "Compatibility means the ability of machines, especially computers, or computer programs to work successfully.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "refuses to answer"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 3,
+    "num_unanswerable_evaluated": 3,
+    "false_refusal_rate": 0.3333,
+    "false_refusal_examples": [
+      {
+        "query": "compatibility definition",
+        "expected_answer": "Compatibility means the ability of machines, especially computers, or computer programs to work successfully."
+      }
+    ],
+    "false_confidence_rate": 0.3333,
+    "false_confidence_examples": [
+      {
+        "query": "hexadecimal numbers to binary numbers",
+        "fabricated_answer": "For example, if we write 10 in hexadecimal, do we mean the decimal number ten, or the binary number of two (1 + 0). To get around this tricky problem hexadecimal numbers that identify the values of te"
+      }
+    ]
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 6,
+    "embed": {
+      "avg_ms": 1.61,
+      "p50_ms": 1.62,
+      "p95_ms": 2.25,
+      "p99_ms": 2.66
+    },
+    "search": {
+      "avg_ms": 0.08,
+      "p50_ms": 0.07,
+      "p95_ms": 0.11,
+      "p99_ms": 0.12
+    },
+    "retrieval_total": {
+      "avg_ms": 1.97,
+      "p50_ms": 1.81,
+      "p95_ms": 2.64,
+      "p99_ms": 2.84
+    },
+    "generation": {
+      "avg_ms": 1703.04,
+      "p50_ms": 1600.09,
+      "p95_ms": 2027.56,
+      "p99_ms": 2091.79
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": false
+  }
+}

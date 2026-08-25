@@ -13,8 +13,8 @@ describe("Semantic Evidence Verifier & Reranker", () => {
     clearVerifierCache();
   });
 
-  it("exports prompt version v2", () => {
-    expect(SEMANTIC_VERIFIER_PROMPT_VERSION).toBe("v2");
+  it("exports prompt version v3", () => {
+    expect(SEMANTIC_VERIFIER_PROMPT_VERSION).toBe("v3");
   });
 
   // Test 1: Definition

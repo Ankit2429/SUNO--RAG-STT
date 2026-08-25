@@ -81,24 +81,13 @@ export function registerEvalBridge(app: Express) {
 
     if (!answer) {
       const { chunks, scores } = toEvidenceChunks(contexts);
-      const gateStart = performance.now();
       const rerankedResult = await rerankWithSemanticVerifier(query, chunks, scores);
-      console.log("[evalBridge Debug]", {
-        query,
-        hasGroundedEvidence: rerankedResult.hasGroundedEvidence,
-        items: rerankedResult.items.map(it => ({ id: it.chunk.id, sup: it.semanticSupported, semScore: it.semanticScore, finalScore: it.finalScore })),
-      });
-      if (!rerankedResult.hasGroundedEvidence) {
-        answer = refused("Retrieved passages did not meet the evidence sufficiency threshold.");
-      } else {
-        const baseline = verifyAndSynthesize(query, rerankedResult.reranked, rerankedResult.scores, "en-IN");
-        console.log("[evalBridge Baseline]", baseline);
-        answer = await generateEvidenceBoundAnswer({ query, evidence: rerankedResult.reranked, baseline });
-      }
+      const baseline = verifyAndSynthesize(query, rerankedResult.reranked, rerankedResult.scores, "en-IN");
+      answer = await generateEvidenceBoundAnswer({ query, evidence: rerankedResult.reranked, baseline });
       log(
         `POST /api/eval/generate query=${JSON.stringify(query.slice(0, 60))} contexts=${contexts.length} ` +
         `status=${answer.status} evidence=${answer.evidenceIds.length} ` +
-        `semanticMs=${rerankedResult.totalLatencyMs.toFixed(2)} gateMs=${(performance.now() - gateStart).toFixed(2)} totalDurMs=${(performance.now() - started).toFixed(2)}`
+        `semanticMs=${rerankedResult.totalLatencyMs.toFixed(2)} totalDurMs=${(performance.now() - started).toFixed(2)}`
       );
     } else {
       log(`POST /api/eval/generate query=${JSON.stringify(query.slice(0, 60))} status=REFUSED(gate) totalDurMs=${(performance.now() - started).toFixed(2)}`);
