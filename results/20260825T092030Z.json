@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 10,
+    "num_unanswerable": 10,
+    "num_examples": 20,
+    "num_chunks": 495,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 10,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.7,
+        "5": 0.8
+      },
+      "mrr": 0.5867
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.7,
+        "5": 0.8
+      },
+      "mrr": 0.5867
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 20,
+    "faithful_rate": 0.6,
+    "hallucination_rate": 0.4,
+    "num_confident_answers": 13,
+    "self_report_precision": 0.8462,
+    "self_report_disagreements": [
+      {
+        "query": "what is injection, ciprofloxacin for intravenous infusion",
+        "answer": "CIPRO IV (ciprofloxacin) is a synthetic antimicrobial agent for intravenous (IV) administration. Ciprofloxacin, a fluoroquinolone, is 1-cyclopropyl-6-fluoro-1,4-dihydro-4-oxo-7-(1piperazinyl)-3quinoli",
+        "judge_reason": "The provided answer contains information not directly supported by the CONTEXT"
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "Find the height. Solution: In this example, we are given the area of a triangle and one dimension, and we are asked to work backwards to find the other dimension.",
+        "judge_reason": "The context does not provide information about finding the height from the area and base directly."
+      }
+    ],
+    "hallucinated_examples": [
+      {
+        "query": "who is percival arthurian knight",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states that no matching passage was found in the context, which is incorrect as there are multiple relevant passages about Percival and his connection to Arthurian legends."
+      },
+      {
+        "query": "what makes marsala wine special",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not support the claim that no directly matching MSMARCO-XI passage was found."
+      },
+      {
+        "query": "what is providing customer service",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states that no matching passage was found in the CONTEXT, which is incorrect as there are multiple relevant passages about customer service and its importance."
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states information that is not present in or directly implied by the CONTEXT"
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not support the claim that no directly matching MSMARCO-XI passage was found for the question"
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 10,
+    "correct_rate": 0.1,
+    "incorrect_examples": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "reference_answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "answer": "Find the height. Solution: In this example, we are given the area of a triangle and one dimension, and we are asked to work backwards to find the other dimension.",
+        "judge_reason": "refers to finding height instead of surface area"
+      },
+      {
+        "query": "cytopathology definition",
+        "reference_answer": "Cytopathology is a branch of pathology that examines individual cells in order to diagnose disease.",
+        "answer": "Cytopathology is the study of disease at the cellular level. Cytology tests are done on cells in fluid aspirations, scrapings or brushings to look at single cells or small clusters of cells and assess",
+        "judge_reason": "refers to cytology instead of cytopathology"
+      },
+      {
+        "query": "what is providing customer service",
+        "reference_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER contradicts REFERENCE ANSWER by stating customer service is not answerable"
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "reference_answer": "If the agency is going to report to the credit bureau, it will be reported within thirty (30) days.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER contradicts REFERENCE ANSWER by stating the agency won't report to credit bureau within 30 days, which is contrary to the REFERENCE ANSWER that says they will report within 30 days."
+      },
+      {
+        "query": "what makes marsala wine special",
+        "reference_answer": "Marsala wine is used in many different Italian foods, but it is most famous for chicken marsala.",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER contradicts REFERENCE ANSWER by stating Marsala wine is not used in many different Italian foods and does not mention chicken marsala"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 10,
+    "num_unanswerable_evaluated": 10,
+    "false_refusal_rate": 0.5,
+    "false_refusal_examples": [
+      {
+        "query": "what is providing customer service",
+        "expected_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi"
+      },
+      {
+        "query": "what makes marsala wine special",
+        "expected_answer": "Marsala wine is used in many different Italian foods, but it is most famous for chicken marsala."
+      },
+      {
+        "query": "how long before a collection agency reports to the credit bureau",
+        "expected_answer": "If the agency is going to report to the credit bureau, it will be reported within thirty (30) days."
+      },
+      {
+        "query": "how long do you have to keep paperwork",
+        "expected_answer": "As with the policy paperwork, you will want to keep this insurance claim paperwork until at least three years after your policy has ended."
+      },
+      {
+        "query": "what is the size and weight of a whitetail deer",
+        "expected_answer": "The size of a deer depends greatly on it's species, age, and sex. A typical adult female whitetail deer is usually around 100 lbs. and a male of the same species around 200 lbs."
+      }
+    ],
+    "false_confidence_rate": 0.8,
+    "false_confidence_examples": [
+      {
+        "query": "how much ethanol in petrol uk",
+        "fabricated_answer": "The Qinetic report for DfT found current (2010) usage of ethanol in petrol in the UK is low (equivalent to 2.8 % of total unleaded petrol sales in 2010) and that although the coverage is widespread it"
+      },
+      {
+        "query": "how much does it cost to repave a double driveway",
+        "fabricated_answer": "At $2 per square foot, a driveway that is 10-feet wide and 40-feet long will cost $800 to pave, but if the driveway is 100 feet long this will rise to $2,000 for the complete job."
+      },
+      {
+        "query": "how to become an lvn",
+        "fabricated_answer": "Getting the Education Necessary to Become an LVN."
+      },
+      {
+        "query": "how to change your flight without paying",
+        "fabricated_answer": "Southwest Airlines lets you change or cancel a fare within the 24 hour window without penalty, but it also allows you to change or cancel a reservation anytime before flight time and get a credit for "
+      },
+      {
+        "query": "what is headset equalization for avaya",
+        "fabricated_answer": "Avaya Compatible Sennheiser D10 Wireless Headset with Avaya EHS included | Avaya Models: 1400, 9400, 9500 Series and Avaya 96x1 IP series"
+      }
+    ]
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 20,
+    "embed": {
+      "avg_ms": 1.42,
+      "p50_ms": 1.39,
+      "p95_ms": 2.1,
+      "p99_ms": 2.55
+    },
+    "search": {
+      "avg_ms": 0.1,
+      "p50_ms": 0.1,
+      "p95_ms": 0.14,
+      "p99_ms": 0.15
+    },
+    "retrieval_total": {
+      "avg_ms": 1.59,
+      "p50_ms": 1.5,
+      "p95_ms": 2.29,
+      "p99_ms": 2.83
+    },
+    "generation": {
+      "avg_ms": 1.51,
+      "p50_ms": 0.79,
+      "p95_ms": 4.05,
+      "p99_ms": 9.55
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": true
+  }
+}

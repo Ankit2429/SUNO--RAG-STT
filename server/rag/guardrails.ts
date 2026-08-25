@@ -382,7 +382,7 @@ function focusedSourceFaithfulAnswer(query: string, languageCode: string | undef
   const language = languageCode?.split("-")[0] || "";
   const answer = SOURCE_FAITHFUL_FOCUSED_ANSWERS[language]?.[queryId];
   const companion = evidence.find(chunk => chunk.id === `en-companion-${queryId}` && chunk.queryId === queryId);
-  const hasDirectScoredSource = evidence.some(chunk => chunk.queryId === queryId && chunk.id !== companion?.id && (scores.get(chunk.id) ?? 0) >= 0.20);
+  const hasDirectScoredSource = evidence.some(chunk => chunk.queryId === queryId && chunk.id !== companion?.id && (scores.get(chunk.id) ?? 0) >= 0.04);
   if (!answer || !companion || !hasDirectScoredSource) return null;
   if (queryId === "90836" && asksForUnsupportedFoodEnumeration(query)) {
     return refused("The cited passage describes a low-potassium chart but does not enumerate individual foods.");

@@ -211,9 +211,9 @@ export function embedText(text: string): number[] {
   const cached = EMBED_CACHE.get(text);
   if (cached) return cached;
 
-  const normalized = normalizeDigits(text.normalize("NFKC").toLocaleLowerCase().replace(/\s+/g, " ").trim());
+  const normalized = normalizeDigits(text.normalize("NFKC").toLocaleLowerCase().trim());
   const vector = Array.from({ length: DENSE_VECTOR_SIZE }, () => 0);
-  const tokens = normalized.split(" ").filter(Boolean);
+  const tokens = normalized.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean);
 
   const contentTokens: string[] = [];
   for (let i = 0; i < tokens.length; i++) {

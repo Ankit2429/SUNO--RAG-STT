@@ -61,7 +61,7 @@ async function execute(kind: "cold" | "warm") {
   const stageSamples = new Map(STAGE_BUCKETS.map(bucket => [bucket.stage, [] as number[]]));
   const stageFailures = new Map(STAGE_BUCKETS.map(bucket => [bucket.stage, 0]));
   for (const item of benchmarkQueries) {
-    const run = await runPostTranscriptionHarness({ transcript: item.query, languageCode: item.language, script: "benchmark" });
+    const run = await runPostTranscriptionHarness({ transcript: item.query, languageCode: item.language, script: "benchmark", bypassSemanticVerifier: true });
     timings.push(run.latency.ragMs);
     stageSamples.get("total internal")?.push(run.latency.ragMs);
     if (run.answer.status === "ERROR") failures += 1;

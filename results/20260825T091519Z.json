@@ -1,0 +1,139 @@
+{
+  "meta": {
+    "target_root": "D:\\antigravity projects\\SUNO--RAG-STT",
+    "generation_backend": "unknown",
+    "generation_model_hint": "unknown",
+    "language": "hin",
+    "split": "validation",
+    "num_answerable": 3,
+    "num_unanswerable": 3,
+    "num_examples": 6,
+    "num_chunks": 133,
+    "top_k": 5,
+    "seed": 42,
+    "num_errored": 0
+  },
+  "retrieval": {
+    "check": "retrieval (reference-based)",
+    "num_evaluated": 3,
+    "top_k": 5,
+    "cross_lingual": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.7778
+    },
+    "same_language": {
+      "recall_at_k": {
+        "1": 0.6667,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "mrr": 0.7778
+    }
+  },
+  "faithfulness": {
+    "check": "faithfulness / hallucination (reference-free, LLM-as-judge)",
+    "num_evaluated": 6,
+    "faithful_rate": 0.3333,
+    "hallucination_rate": 0.6667,
+    "num_confident_answers": 2,
+    "self_report_precision": 0.5,
+    "self_report_disagreements": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "Find the height. Solution: In this example, we are given the area of a triangle and one dimension, and we are asked to work backwards to find the other dimension.",
+        "judge_reason": "The context does not provide information about finding the height of a triangle from its base and area"
+      }
+    ],
+    "hallucinated_examples": [
+      {
+        "query": "what is providing customer service",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The ANSWER states that no matching passage was found in the CONTEXT, which is incorrect as there are multiple relevant passages about customer service and its importance."
+      },
+      {
+        "query": "hexadecimal numbers to binary numbers",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not support the claim that no directly matching MSMARCO-XI passage was found."
+      },
+      {
+        "query": "how to find the surface area of a triangle",
+        "answer": "Find the height. Solution: In this example, we are given the area of a triangle and one dimension, and we are asked to work backwards to find the other dimension.",
+        "judge_reason": "The context does not provide information about finding the height of a triangle from its base and area"
+      },
+      {
+        "query": "what is the scorebridge app used for",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "The context does not contain information about MSMARCO-XI or any instructions to create an answer based on it."
+      }
+    ]
+  },
+  "correctness": {
+    "check": "correctness (reference-based, LLM-as-judge)",
+    "num_evaluated": 3,
+    "correct_rate": 0.3333,
+    "incorrect_examples": [
+      {
+        "query": "how to find the surface area of a triangle",
+        "reference_answer": "To find the area of a triangle, multiply the base by the height, and then divide by 2. The division by 2 comes from the fact that a parallelogram can be divided into 2 triangles.",
+        "answer": "Find the height. Solution: In this example, we are given the area of a triangle and one dimension, and we are asked to work backwards to find the other dimension.",
+        "judge_reason": "refers to finding height instead of surface area"
+      },
+      {
+        "query": "what is providing customer service",
+        "reference_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi",
+        "answer": "No directly matching MSMARCO-XI passage was found for this question, so SUNO will not invent an answer. Try a source-backed prompt or rephrase with indexed-corpus terms.",
+        "judge_reason": "ANSWER contradicts REFERENCE ANSWER by stating customer service is not answerable"
+      }
+    ]
+  },
+  "reliability": {
+    "check": "reliability / \"lying factor\" (answerable-vs-answered 2x2)",
+    "num_answerable_evaluated": 3,
+    "num_unanswerable_evaluated": 3,
+    "false_refusal_rate": 0.3333,
+    "false_refusal_examples": [
+      {
+        "query": "what is providing customer service",
+        "expected_answer": "Customer service is the act of taking care of the customer's needs by providing and delivering professional, helpful, high quality service and assistance before, during, and after the customer's requi"
+      }
+    ],
+    "false_confidence_rate": 0.0,
+    "false_confidence_examples": []
+  },
+  "latency": {
+    "check": "latency",
+    "num_evaluated": 6,
+    "embed": {
+      "avg_ms": 1.33,
+      "p50_ms": 1.24,
+      "p95_ms": 1.89,
+      "p99_ms": 2.32
+    },
+    "search": {
+      "avg_ms": 0.06,
+      "p50_ms": 0.06,
+      "p95_ms": 0.08,
+      "p99_ms": 0.1
+    },
+    "retrieval_total": {
+      "avg_ms": 1.49,
+      "p50_ms": 1.29,
+      "p95_ms": 2.26,
+      "p99_ms": 2.48
+    },
+    "generation": {
+      "avg_ms": 1.76,
+      "p50_ms": 0.9,
+      "p95_ms": 4.91,
+      "p99_ms": 5.59
+    },
+    "retrieval_latency_budget_ms": 50.0,
+    "retrieval_within_budget": true,
+    "generation_latency_target_ms": 1500.0,
+    "generation_within_target": true
+  }
+}

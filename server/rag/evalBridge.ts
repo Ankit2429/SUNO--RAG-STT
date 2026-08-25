@@ -1,9 +1,10 @@
 import type { Express } from "express";
 import type { EvidenceChunk } from "@shared/rag";
 import { DENSE_VECTOR_SIZE, embedText } from "./embedding";
-import { errorAnswer, inspectQuery } from "./guardrails";
+import { errorAnswer, inspectQuery, refused } from "./guardrails";
 import { generateEvidenceBoundAnswer } from "./generation";
 import { verifyAndSynthesize } from "./guardrails";
+import { rerankWithSemanticVerifier } from "./semanticVerifier";
 import { appendFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
@@ -19,7 +20,8 @@ function toEvidenceChunks(contexts: EvalContext[]): { chunks: EvidenceChunk[]; s
   const chunks: EvidenceChunk[] = [];
   const scores = new Map<string, number>();
   contexts.forEach((context, index) => {
-    const id = typeof context.id === "string" && context.id ? context.id : `eval-${index}`;
+    const baseId = typeof context.id === "string" && context.id ? context.id : "eval";
+    const id = `${baseId}-${index}`;
     const score = typeof context.score === "number" ? context.score : 0;
     chunks.push({
       id,
@@ -28,7 +30,7 @@ function toEvidenceChunks(contexts: EvalContext[]): { chunks: EvidenceChunk[]; s
       source: "ai4bharat/MSMARCO-XI",
       strategy: "fixed_window_fallback",
       parentId: `eval-parent-${index}`,
-      queryId: "",
+      queryId: typeof context.id === "string" ? context.id : "",
       queryType: "evaluation_bridge",
       ordinal: index,
       selected: false,
@@ -80,12 +82,23 @@ export function registerEvalBridge(app: Express) {
     if (!answer) {
       const { chunks, scores } = toEvidenceChunks(contexts);
       const gateStart = performance.now();
-      const baseline = verifyAndSynthesize(query, chunks, scores, "en-IN");
-      answer = await generateEvidenceBoundAnswer({ query, evidence: chunks, baseline });
+      const rerankedResult = await rerankWithSemanticVerifier(query, chunks, scores);
+      console.log("[evalBridge Debug]", {
+        query,
+        hasGroundedEvidence: rerankedResult.hasGroundedEvidence,
+        items: rerankedResult.items.map(it => ({ id: it.chunk.id, sup: it.semanticSupported, semScore: it.semanticScore, finalScore: it.finalScore })),
+      });
+      if (!rerankedResult.hasGroundedEvidence) {
+        answer = refused("Retrieved passages did not meet the evidence sufficiency threshold.");
+      } else {
+        const baseline = verifyAndSynthesize(query, rerankedResult.reranked, rerankedResult.scores, "en-IN");
+        console.log("[evalBridge Baseline]", baseline);
+        answer = await generateEvidenceBoundAnswer({ query, evidence: rerankedResult.reranked, baseline });
+      }
       log(
         `POST /api/eval/generate query=${JSON.stringify(query.slice(0, 60))} contexts=${contexts.length} ` +
         `status=${answer.status} evidence=${answer.evidenceIds.length} ` +
-        `gateMs=${(performance.now() - gateStart).toFixed(2)} totalDurMs=${(performance.now() - started).toFixed(2)}`
+        `semanticMs=${rerankedResult.totalLatencyMs.toFixed(2)} gateMs=${(performance.now() - gateStart).toFixed(2)} totalDurMs=${(performance.now() - started).toFixed(2)}`
       );
     } else {
       log(`POST /api/eval/generate query=${JSON.stringify(query.slice(0, 60))} status=REFUSED(gate) totalDurMs=${(performance.now() - started).toFixed(2)}`);

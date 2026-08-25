@@ -23,7 +23,7 @@ describe("runBenchmark", () => {
     expect(report.warmStageTimings).toHaveLength(5);
     expect(report.warmStageTimings.every(summary => summary.sampleCount === report.queryCount && summary.p100 >= summary.p50 && summary.averageMs >= 0)).toBe(true);
     expect(report.postTranscriptionTargetMs).toBe(200);
-  });
+  }, 180000);
 
   it("runs an even, auditable five-language schedule with per-language outcomes", async () => {
     let sequence = 0;

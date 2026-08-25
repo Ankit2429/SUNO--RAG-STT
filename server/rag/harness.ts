@@ -4,6 +4,7 @@ import { AUTO_DETECT_LANGUAGE, AUTO_DETECT_MIN_CONFIDENCE, isFocusedVoiceLanguag
 import { errorAnswer, inspectQuery, refused, verifyAndSynthesize } from "./guardrails";
 import { generateEvidenceBoundAnswer, generationMode } from "./generation";
 import { hybridRetrieve } from "./retrieval";
+import { rerankWithSemanticVerifier } from "./semanticVerifier";
 import { transcribeWithSarvam } from "./sarvam";
 
 function now() { return performance.now(); }
@@ -34,7 +35,7 @@ function inferLanguageFromScript(text: string): string | null {
   return null;
 }
 
-export async function runPostTranscriptionHarness(input: { transcript: string; languageCode: string; script: string; languageConfidence?: number | null }): Promise<RAGRun> {
+export async function runPostTranscriptionHarness(input: { transcript: string; languageCode: string; script: string; languageConfidence?: number | null; bypassSemanticVerifier?: boolean }): Promise<RAGRun> {
   const requestId = randomUUID();
   const totalStart = now();
   const events: HarnessEvent[] = [];
@@ -93,9 +94,17 @@ export async function runPostTranscriptionHarness(input: { transcript: string; l
   const fuseStart = now();
   trace(events, "fuse", fuseStart, "OK", "Reciprocal-rank fusion combined dense and lexical ranks.");
   const rerankStart = now();
-  trace(events, "rerank", rerankStart, "OK", "Parent-level deduplication and evidence-first reranking applied.");
+  const rerankedResult = input.bypassSemanticVerifier
+    ? { reranked: retrieval.evidence, scores: retrieval.scores, items: [], totalLatencyMs: 0 }
+    : await rerankWithSemanticVerifier(query, retrieval.evidence, retrieval.scores);
+  const rerankDetail = input.bypassSemanticVerifier
+    ? "Deterministic candidate ranking applied."
+    : rerankedResult.items.some(it => it.verifierUnavailable)
+      ? "Deterministic score fusion applied (local semantic verifier offline or timed out; fail-closed)."
+      : `Semantic evidence verifier (Qwen 2.5 3B local) reranked ${rerankedResult.items.length} candidates in ${rerankedResult.totalLatencyMs} ms.`;
+  trace(events, "rerank", rerankStart, "OK", rerankDetail);
   const evidenceStart = now();
-  const baseline = verifyAndSynthesize(query, retrieval.evidence, retrieval.scores, effectiveLanguage);
+  const baseline = verifyAndSynthesize(query, rerankedResult.reranked, rerankedResult.scores, effectiveLanguage);
   trace(events, "evidence_gate", evidenceStart, baseline.status === "GROUNDED" ? "OK" : "REFUSED", baseline.status === "GROUNDED" ? "Evidence sufficiency threshold passed." : baseline.refusalReason || "Evidence rejected.");
   const generationStart = now();
   const candidate = await generateEvidenceBoundAnswer({ query, evidence: retrieval.evidence, baseline });
